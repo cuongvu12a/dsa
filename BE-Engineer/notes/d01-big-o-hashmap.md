@@ -3,30 +3,33 @@
 ← [Tuần 1](../100-ngay/tuan-01.md) · Phạm vi: mục #1 đến #13 của D1 (bỏ #12, thuộc T3)
 
 > Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python.
+> Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần · 📎 = đọc thêm
 
 ---
 
 ## Mục lục
 
-1. [Big-O là gì](#1-big-o-là-gì)
-2. [Best / Average / Worst case](#2-best--average--worst-case)
-3. [Big-O vs Big-Θ vs Big-Ω](#3-big-o-vs-big-θ-vs-big-ω)
-4. [Các bậc phổ biến](#4-các-bậc-phổ-biến)
-5. [Quy tắc phân tích vòng lặp](#5-quy-tắc-phân-tích-vòng-lặp)
-6. [Chi phí ẩn của hàm thư viện](#6-chi-phí-ẩn-của-hàm-thư-viện)
-7. [Space complexity và call stack](#7-space-complexity-và-call-stack)
-8. [Cây đệ quy (recursion tree)](#8-cây-đệ-quy-recursion-tree)
-9. [Amortized (khấu hao)](#9-amortized-khấu-hao)
-10. [Độ phức tạp của các cấu trúc dữ liệu](#10-độ-phức-tạp-của-các-cấu-trúc-dữ-liệu)
-11. [Cấu trúc dữ liệu nằm trong bộ nhớ thế nào](#11-cấu-trúc-dữ-liệu-nằm-trong-bộ-nhớ-thế-nào)
-12. [HashMap bên trong](#12-hashmap-bên-trong)
-13. [Sharding: thêm server với hash](#13-sharding-thêm-server-với-hash)
-14. [Khung phân tích dùng cho mọi đoạn code](#14-khung-phân-tích-dùng-cho-mọi-đoạn-code)
-15. [Thẻ Anki T1 kèm đáp án](#15-thẻ-anki-t1-kèm-đáp-án)
+1. [Big-O là gì](#1-big-o-là-gì) · 🔴 T1
+2. [Best / Average / Worst case](#2-best--average--worst-case) · 🔴 T1
+3. [Big-O vs Big-Θ vs Big-Ω](#3-big-o-vs-big-θ-vs-big-ω) · 🟢 T3
+4. [Các bậc phổ biến](#4-các-bậc-phổ-biến) · 🔴 T1
+5. [Quy tắc phân tích vòng lặp](#5-quy-tắc-phân-tích-vòng-lặp) · 🔴 T1
+6. [Chi phí ẩn của hàm thư viện](#6-chi-phí-ẩn-của-hàm-thư-viện) · 🔴 T1
+7. [Space complexity và call stack](#7-space-complexity-và-call-stack) · 🔴 T1
+8. [Cây đệ quy (recursion tree)](#8-cây-đệ-quy-recursion-tree) · 🔴 T1
+9. [Amortized (khấu hao)](#9-amortized-khấu-hao) · 🔴 T1
+10. [Độ phức tạp của các cấu trúc dữ liệu](#10-độ-phức-tạp-của-các-cấu-trúc-dữ-liệu) · 🔴 T1
+11. [Cấu trúc dữ liệu nằm trong bộ nhớ thế nào](#11-cấu-trúc-dữ-liệu-nằm-trong-bộ-nhớ-thế-nào) · 🔴 T1 · nền tảng cho mục 10
+12. [HashMap bên trong](#12-hashmap-bên-trong) · 🔴 T1
+13. [Sharding: thêm server với hash](#13-sharding-thêm-server-với-hash) · 📎 Mở rộng (ngoài bảng roadmap)
+14. [Khung phân tích dùng cho mọi đoạn code](#14-khung-phân-tích-dùng-cho-mọi-đoạn-code) · 🔴 T1 · khung tổng hợp
+15. [Thẻ Anki T1 kèm đáp án](#15-thẻ-anki-t1-kèm-đáp-án) · 🔴 T1
 
 ---
 
 ## 1. Big-O là gì
+
+> 🔴 T1
 
 🇬🇧 **Big O describes how the running time (or memory) grows when the input size n grows.** It does not measure seconds.
 
@@ -46,6 +49,8 @@
 ---
 
 ## 2. Best / Average / Worst case
+
+> 🔴 T1
 
 🇬🇧 **The same algorithm can take different numbers of steps on different inputs of the same size.**
 
@@ -70,6 +75,8 @@ Cách tránh worst case của quicksort: random pivot, median-of-three, hoặc t
 
 ## 3. Big-O vs Big-Θ vs Big-Ω
 
+> 🟢 T3
+
 | Ký hiệu | Nghĩa | Giống dấu |
 |---|---|---|
 | O | cận trên: tăng **không nhanh hơn** | ≤ |
@@ -84,6 +91,8 @@ Cách tránh worst case của quicksort: random pivot, median-of-three, hoặc t
 ---
 
 ## 4. Các bậc phổ biến
+
+> 🔴 T1
 
 Giả định máy chạy ~10⁸ phép tính/giây:
 
@@ -102,6 +111,8 @@ Giả định máy chạy ~10⁸ phép tính/giây:
 ---
 
 ## 5. Quy tắc phân tích vòng lặp
+
+> 🔴 T1
 
 ### 5.1 Năm quy tắc
 
@@ -148,6 +159,8 @@ Mẫu câu trả lời: 🇬🇧 *"The outer loop runs ___ times. For each itera
 ---
 
 ## 6. Chi phí ẩn của hàm thư viện
+
+> 🔴 T1
 
 🇬🇧 **One line of code is not one step. Cost = how many elements the function has to touch, copy, or shift.**
 
@@ -199,6 +212,8 @@ s = "".join(words)       # O(n): biết tổng độ dài, cấp phát 1 lần, 
 
 ## 7. Space complexity và call stack
 
+> 🔴 T1
+
 - **Input space:** bộ nhớ của input, không tính.
 - **Auxiliary space:** bộ nhớ **phụ** bạn tạo thêm (biến, list mới, **call stack**). Phỏng vấn hỏi cái này.
 - **In-place** = bộ nhớ phụ O(1).
@@ -232,6 +247,8 @@ Mỗi lần gọi hàm tạo một **frame**, frame chỉ bị xóa khi hàm ret
 ---
 
 ## 8. Cây đệ quy (recursion tree)
+
+> 🔴 T1
 
 ### 8.1 Ba câu hỏi
 
@@ -274,6 +291,8 @@ Merge sort: Σ 2ᵏ × n/2ᵏ = n + n + … + n (log n số hạng) = **n log n*
 
 ## 9. Amortized (khấu hao)
 
+> 🔴 T1
+
 🇬🇧 **Amortized cost = total cost of a sequence of operations ÷ number of operations.**
 
 ### 9.1 Vì sao `append` vào dynamic array là O(1) amortized
@@ -304,6 +323,8 @@ Ví dụ khác: HashMap put, queue bằng 2 stack, two pointers / sliding window
 ---
 
 ## 10. Độ phức tạp của các cấu trúc dữ liệu
+
+> 🔴 T1
 
 | Cấu trúc | Access | Search | Insert | Delete | Lý do 1 dòng |
 |---|---|---|---|---|---|
@@ -342,6 +363,8 @@ Ví dụ khác: HashMap put, queue bằng 2 stack, two pointers / sliding window
 
 ## 11. Cấu trúc dữ liệu nằm trong bộ nhớ thế nào
 
+> 🔴 T1 · nền tảng cho mục 10
+
 **Nền tảng:** RAM là một mảng byte khổng lồ, mỗi byte có địa chỉ. Mọi cấu trúc ghép từ **2 viên gạch**:
 
 | Viên gạch | Ưu | Nhược |
@@ -373,6 +396,8 @@ Ví dụ khác: HashMap put, queue bằng 2 stack, two pointers / sliding window
 ---
 
 ## 12. HashMap bên trong
+
+> 🔴 T1
 
 ### 12.1 Luồng 5 bước
 
@@ -433,6 +458,8 @@ Checklist: `hash % capacity` · chaining / open addressing · load factor → re
 
 ## 13. Sharding: thêm server với hash
 
+> 📎 Mở rộng (ngoài bảng roadmap)
+
 **Vấn đề:** `server = hash(key) % N`. Đổi N = 4 → 5 thì chỉ ~20% key ở lại, **~80% phải di chuyển** (lý tưởng chỉ ~1/5). Hậu quả: copy gần hết dữ liệu, cache miss hàng loạt → cache stampede đè DB.
 
 ### 13.1 Consistent hashing
@@ -464,6 +491,8 @@ Checklist: `hash % capacity` · chaining / open addressing · load factor → re
 
 ## 14. Khung phân tích dùng cho mọi đoạn code
 
+> 🔴 T1 · khung tổng hợp
+
 **2 tài nguyên × 3 góc nhìn:**
 
 | | Time | Space |
@@ -489,6 +518,8 @@ Mẫu trả lời: 🇬🇧 *"Time is O(__) [worst / average / amortized], space
 ---
 
 ## 15. Thẻ Anki T1 kèm đáp án
+
+> 🔴 T1
 
 1. **Vì sao O(2n + 100) được viết là O(n)?**
    Big O đo tốc độ tăng khi n lớn. 100 là chi phí cố định, không tăng theo n. Hệ số 2 không đổi dạng tuyến tính.

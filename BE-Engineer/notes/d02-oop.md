@@ -1,27 +1,29 @@
 # D2: Bốn tính chất OOP (tổng hợp)
 
-← [Tuần 1](../100-ngay/tuan-01.md) · Phạm vi: mục #1 đến #7 của D2 (bỏ #8, #9, thuộc T3)
+← [Tuần 1](../100-ngay/tuan-01.md) · Phạm vi: mục #1 đến #7 của D2 (số theo roadmap; #8, #9 của roadmap là T3 nên không ghi). Mục 8, 9 trong file này là phần tổng hợp thêm
 
 > Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python.
-> 🚧 Đang soạn dần. Còn thiếu: mục #6 (chờ bảng T2 của bạn), khung phân tích, thẻ Anki.
+> Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần · 📎 = đọc thêm
 
 ---
 
 ## Mục lục
 
-1. [Class vs Object, state vs behavior](#1-class-vs-object-state-vs-behavior)
-2. [Encapsulation và invariant](#2-encapsulation-và-invariant)
-3. [Abstraction, và khác Encapsulation chỗ nào](#3-abstraction-và-khác-encapsulation-chỗ-nào)
-4. [Inheritance](#4-inheritance)
-5. [Polymorphism](#5-polymorphism)
-6. [Interface vs Abstract class](#6-interface-vs-abstract-class) (🚧 chờ bảng T2)
-7. [Tell, Don't Ask](#7-tell-dont-ask)
-8. [Khung nhớ nhanh cho 4 tính chất](#8-khung-nhớ-nhanh-cho-4-tính-chất) (🚧)
-9. [Thẻ Anki T1 kèm đáp án](#9-thẻ-anki-t1-kèm-đáp-án) (🚧)
+1. [Class vs Object, state vs behavior](#1-class-vs-object-state-vs-behavior) · 🔴 T1
+2. [Encapsulation và invariant](#2-encapsulation-và-invariant) · 🔴 T1
+3. [Abstraction, và khác Encapsulation chỗ nào](#3-abstraction-và-khác-encapsulation-chỗ-nào) · 🔴 T1
+4. [Inheritance](#4-inheritance) · 🔴 T1
+5. [Polymorphism](#5-polymorphism) · 🔴 T1
+6. [Interface vs Abstract class](#6-interface-vs-abstract-class) · 🟡 T2
+7. [Tell, Don't Ask](#7-tell-dont-ask) · 🔴 T1
+8. [Khung nhớ nhanh cho 4 tính chất](#8-khung-nhớ-nhanh-cho-4-tính-chất) · 🔴 T1 · khung tổng hợp
+9. [Thẻ Anki kèm đáp án](#9-thẻ-anki-kèm-đáp-án) · 🔴 T1
 
 ---
 
 ## 1. Class vs Object, state vs behavior
+
+> 🔴 T1
 
 🇬🇧 **A class is a blueprint. An object is one real thing built from it.** State is what an object *knows*. Behavior is what it *does*.
 
@@ -93,6 +95,8 @@ Python đọc `obj.items` thì tìm ở object trước, không có thì **đi l
 
 ## 2. Encapsulation và invariant
 
+> 🔴 T1
+
 🇬🇧 **Encapsulation means: hide the state, and only allow changes through methods that keep the object valid.**
 
 > An **invariant** is a condition that is always true for a valid object. Example: *an account balance is never negative.*
@@ -140,6 +144,8 @@ Luật được kiểm tra ở **mọi cổng vào**: constructor, `deposit`, `w
 ---
 
 ## 3. Abstraction, và khác Encapsulation chỗ nào
+
+> 🔴 T1
 
 🇬🇧 **Abstraction means: show what something does, hide how it does it.** The test of a good abstraction: you can replace the implementation and the caller does not change.
 
@@ -191,6 +197,8 @@ class CheckoutService:
 ---
 
 ## 4. Inheritance
+
+> 🔴 T1
 
 🇬🇧 **Inheritance lets a child class get everything from a parent class, then add or change parts.**
 
@@ -244,6 +252,8 @@ Con quyết định chi tiết, cha giữ khung chạy (Template Method, chỉ c
 
 ## 5. Polymorphism
 
+> 🔴 T1
+
 🇬🇧 **Polymorphism means: one call, many behaviors. The caller does not care which exact type it talks to.**
 
 | Loại | Chọn method khi nào | Trong Python |
@@ -289,17 +299,64 @@ for p in [CreditCardPayment(...), CodPayment(...), WalletPayment(...)]:
 
 ## 6. Interface vs Abstract class
 
-> 🚧 **Chờ bạn điền bảng T2** vào `tradeoff-cheatsheet.md` rồi gửi mình soát. Sau khi bảng chốt, mình sẽ ghi bản chuẩn vào đây.
+> 🟡 T2
 
-**Khung đã nắm (không phải đáp án bảng):**
+🇬🇧 **Both are tools for abstraction. The question is: do I only promise behavior (interface), or do I also share code (abstract class)?**
 
-- Trục so sánh: **mức ràng buộc** vs **tái sử dụng code**.
-- Python không có từ khoá `interface`. Hai cách mô phỏng: `ABC` chỉ chứa `@abstractmethod`, hoặc `typing.Protocol` (kiểu duck typing).
-- Câu review nên hỏi: *"Mình đang cam kết hành vi (interface) hay chia sẻ code (abstract class)?"*
+🇻🇳 Trục so sánh: **mức ràng buộc** vs **tái sử dụng code**. Bảng đầy đủ nằm ở [tradeoff-cheatsheet.md](tradeoff-cheatsheet.md). Đây là bản tóm tắt:
+
+| Tiêu chí | Interface | Abstract class |
+|---|---|---|
+| Use-case lý tưởng | Nhiều cài đặt cùng một cam kết, cần mock, ranh giới module/service (`PaymentGateway`) | Nhóm class cùng khung chạy, khác vài bước (`BasePayment`: validate → execute → mark PAID) |
+| Trade-off chính | Linh hoạt, coupling thấp; **không** chia sẻ code, thêm method thì mọi cài đặt vỡ | Tái dùng code; coupling cao (fragile base class), thường chỉ 1 cha |
+| Khi nào KHÔNG dùng | Chỉ có một cài đặt không đổi (thừa tầng); interface quá to | Chỉ muốn mượn code (dùng composition); đặt ở ranh giới module |
+| Chứa state/implementation? | Không (Java 8+: `default method`, không có state) | Có |
+| Implement/kế thừa mấy cái? | Nhiều | Một (Java, C#); Python cho nhiều nhưng nên tránh |
+
+**Python:** không có từ khoá `interface`. Hai cách mô phỏng: `ABC` chỉ chứa `@abstractmethod` (kế thừa), hoặc `typing.Protocol` (duck typing, không cần kế thừa).
+
+```python
+from abc import ABC, abstractmethod
+
+class Refundable(ABC):                    # "interface": chỉ cam kết
+    @abstractmethod
+    def refund(self, amount: int) -> None: ...
+
+class BasePayment(ABC):                   # abstract class: khung + state + code chung
+    def __init__(self, order_id: str, amount: int):
+        self.order_id, self.amount, self.status = order_id, amount, "PENDING"
+    def pay(self) -> None:
+        self._validate(); self._execute(); self.status = "PAID"
+    def _validate(self) -> None:
+        if self.amount <= 0: raise ValueError("amount must be positive")
+    @abstractmethod
+    def _execute(self) -> None: ...       # con bắt buộc tự viết
+
+class CardPayment(BasePayment, Refundable): ...   # một cha + một cam kết
+```
+
+### ⚠️ Bẫy
+
+| Hiểu nhầm | Thực tế |
+|---|---|
+| Cái nào "tốt hơn" | Không có. Đây là trade-off, mỗi cái hợp một bài toán |
+| Abstract class = interface có thêm method | Khác **vai trò**: cam kết thuần vs khung code dùng chung |
+| Dùng abstract class chỉ để mượn code | Quay lại bẫy kế thừa (#4). Chỉ mượn code thì dùng composition (D3) |
+| Đặt interface cho mọi class "cho chuẩn" | Thừa tầng (#3). Đáng có khi nhiều cài đặt hoặc cần mock |
+| Python không có interface nên khỏi dùng | Vẫn dùng ABC/Protocol, cưỡng chế yếu hơn nên kỷ luật nằm ở bạn |
+
+### 🏛️ Góc nhìn Solution Architect
+
+- **Interface đặt ở ranh giới module/service, abstract class đặt bên trong một module.** Ranh giới cần coupling thấp nhất. Lộ abstract class ra ngoài thì bên ngoài bị buộc vào ruột bạn.
+- **Interface công khai khó đổi:** thêm method làm vỡ mọi cài đặt, kể cả ở team khác. Giữ interface **nhỏ và hẹp** (nhiều interface nhỏ tốt hơn một interface to, sẽ gặp lại ở ISP, D4).
+- **Dễ test:** code phụ thuộc interface thì thay bằng bản giả. Phụ thuộc abstract class cụ thể thì kéo theo state và logic của cha.
+- **Cần cả hai:** tách interface cho cam kết, class cơ sở cho code dùng chung.
 
 ---
 
 ## 7. Tell, Don't Ask
+
+> 🔴 T1
 
 🇬🇧 **Tell the object what to do. Do not ask for its data and decide for it.**
 
@@ -349,8 +406,51 @@ class Order:
 
 ## 8. Khung nhớ nhanh cho 4 tính chất
 
-> 🚧 Sẽ viết khi học xong #6.
+> 🔴 T1 · khung tổng hợp
 
-## 9. Thẻ Anki T1 kèm đáp án
+| Tính chất | Câu hỏi nó trả lời | Giấu cái gì | Công cụ | Hỏng thì |
+|---|---|---|---|---|
+| **Encapsulation** | **Ai** được chạm vào dữ liệu? | Dữ liệu (state) | Method có kiểm soát, `_x`, không getter/setter "ngu" | Invariant bị phá, sai tiền |
+| **Abstraction** | Người dùng **cần biết gì**? | Cách làm | Contract, interface/ABC, tên theo nghiệp vụ | Caller dính chi tiết, đổi ruột là vỡ |
+| **Inheritance** | Cái gì **là một loại của** cái gì? | (chia sẻ) khung chung | `class Child(Parent)`, override, `super()` | Fragile base class, cây sâu, coupling chặt |
+| **Polymorphism** | Làm sao **một lời gọi, nhiều hành vi**? | Kiểu thật của object | Override + dynamic dispatch, duck typing | `if type ==` rải khắp nơi, thêm loại phải sửa nhiều chỗ |
 
-> 🚧 Sẽ viết khi học xong #6.
+**Chuỗi nối các ý:**
+Object gom **state + behavior** (#1) → **Encapsulation** giữ invariant bằng method (#2) → **Tell, Don't Ask** là cách viết code để luật ở lại trong object (#7) → **Abstraction** cho caller chỉ thấy contract (#3) → **Inheritance** và **Interface** là hai cách đưa nhiều cài đặt vào cùng một contract (#4, #6) → **Polymorphism** là lợi ích: thêm loại mới không sửa code cũ (#5).
+
+**5 phản xạ khi review code OOP:**
+
+1. Thấy `= []`, `= {}` ở **class level** → hỏi: có bị sửa lúc chạy không? (#1)
+2. Thấy `set_x()` hoặc ghi field từ ngoài → hỏi: **luật này do ai giữ?** (#2)
+3. Thấy tên lộ công nghệ (`..._via_stripe`) hoặc caller bắt lỗi riêng từng nhà cung cấp → **leaky abstraction** (#3)
+4. Thấy kế thừa chỉ để mượn code, hoặc cây sâu hơn 2 tầng → cân nhắc composition (#4, D3)
+5. Thấy chuỗi *đọc field → `if` → ghi field* trên cùng object, hoặc `if type ==` lặp ở nhiều nơi → chuyển luật vào object, dùng polymorphism (#5, #7)
+
+**Ba tầng bảo vệ (nối bài `withdraw`, `cancel`):** object giữ luật của mình → service điều phối nhiều object và I/O → DB bảo vệ khi đồng thời (transaction, `UPDATE ... WHERE`, optimistic lock).
+
+**Mẫu trả lời:** 🇬🇧 *"Encapsulation answers who can touch the data; abstraction answers what the user needs to know. Polymorphism lets me add a new type without changing the caller."*
+
+---
+
+## 9. Thẻ Anki kèm đáp án
+
+**🔴 T1** (4 thẻ theo roadmap)
+
+1. **Encapsulation khác Abstraction ở điểm nào? Cho một ví dụ có cả hai.**
+   Encapsulation trả lời "ai được chạm vào dữ liệu", bảo vệ state và invariant bên trong. Abstraction trả lời "người dùng cần biết gì", giao diện bên ngoài chỉ nói "làm gì". Ví dụ `PaymentGateway`: `charge(amount)` là abstraction, giấu `_api_key` và `_retry_count` là encapsulation.
+
+2. **"Invariant" là gì? Encapsulation bảo vệ invariant như thế nào?**
+   Invariant là điều luôn đúng với object hợp lệ (số dư không âm). Encapsulation giấu state và chỉ cho sửa qua method (`withdraw`) kiểm tra luật ở mọi cổng vào, nên không có đường nào đưa object vào trạng thái sai.
+
+3. **Runtime polymorphism giúp code mở rộng mà không phải sửa như thế nào?**
+   Code gọi chỉ biết contract (`payment.pay()`), Python chọn method theo kiểu thật của object lúc chạy. Thêm loại mới (`WalletPayment`) chỉ cần thêm class mới, code gọi không đổi. Nếu dùng `if type == ...` thì mọi hàm rẽ nhánh phải sửa, dễ sót.
+
+4. **Tell, Don't Ask nghĩa là gì?**
+   Bảo object làm việc và để nó tự quyết theo luật của nó (`order.cancel()`), thay vì lấy state ra, quyết định bên ngoài rồi sửa state. Luật nằm một chỗ, mọi nơi gọi theo cùng một luật.
+
+**🟡 T2** (1 thẻ)
+
+5. **Khi nào chọn Interface thay vì Abstract class?**
+   Chọn interface khi cần cam kết hành vi cho nhiều cài đặt khác nhau, nhất là ở ranh giới module/service hoặc cần mock: linh hoạt, coupling thấp, nhưng không chia sẻ code. Chọn abstract class khi các class cùng khung chạy và chỉ khác vài bước, cần tái dùng code, chấp nhận coupling cao. Chỉ muốn mượn code thì dùng composition.
+
+**❓ Câu hỏi cuối bài:** làm theo phần "Câu hỏi cuối bài" của D2 trong [tuan-01.md](../100-ngay/tuan-01.md) (5 câu, kể cả câu bổ sung về `OrderService` và `Triangle`). Tự trả lời bằng tiếng Anh trước khi mở đáp án.
