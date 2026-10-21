@@ -2,7 +2,7 @@
 
 ← [Tuần 1](../100-ngay/tuan-01.md) · Phạm vi: mục #1 đến #5 của D3 (#5 chỉ giới thiệu, thuộc T3)
 
-> Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python.
+> Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python; khác biệt của **TypeScript/JavaScript** nằm trong khối 🟦 cuối mỗi mục (đã biên dịch strict và chạy thử trên Node 20).
 > Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần
 > Phần lý thuyết đã đủ. 🚧 Còn lại là **bài tập bạn tự làm** (xem cuối file) và câu hỏi cuối bài.
 
@@ -116,6 +116,25 @@ notifier = RetryNotifier(LoggedNotifier(SmsNotifier()))
 - **Nối D2 #4:** phép thử "mọi chỗ dùng cha thay bằng con được" chính là mầm LSP (D4).
 
 > 🚧 Bài tập mục #1 (tự nghĩ 5 ví dụ phân loại is-a/has-a) **chưa nộp**. Làm bù khi tiện, ghi 5 ví dụ của bạn vào đây.
+
+### 🟦 TypeScript / JavaScript
+
+```ts
+// ❌ Chỉ muốn dùng lại code
+class OrderService extends EmailSender { /* ... */ }
+
+// ✅ has-a: chứa và uỷ quyền, truyền từ ngoài vào
+class OrderService {
+  constructor(private readonly sender: EmailSender) {}   // "parameter property": khai báo + gán trong một dòng
+}
+
+// ✅ Vai trò đổi theo thời gian
+class User { constructor(readonly id: string, private roles: Set<Role>) {} }
+```
+
+⚠️ **Structural typing không kiểm tra LSP.** TS chỉ so **hình dạng**: `ReadOnlyOrder extends Order` mà `addItem()` ném lỗi vẫn qua compile. Phép thử thay thế (test 2) vẫn là việc của bạn, không phải của compiler.
+
+🏛️ DI container (NestJS, Angular) lắp ráp object bằng **constructor injection**: đó là composition ở quy mô ứng dụng.
 
 ---
 
@@ -296,6 +315,69 @@ Tự kiểm: thêm `RocketFly` có sửa class cũ nào không (không)? `Duck` 
 - **Đừng trừu tượng sớm:** hôm nay chỉ một cách tính phí và không có kế hoạch đổi thì một hàm là đủ. Tách khi **cách thứ hai** xuất hiện (rule of three).
 - **Nối D2 #3, #5:** contract = abstraction; gọi behavior mà không biết loại cụ thể = polymorphism.
 
+### 🟦 TypeScript / JavaScript
+
+Cùng logic `Bag`/`CountingBag` ở trên, bản TS:
+
+```ts
+class Bag {
+  protected items: string[] = [];
+  add(x: string): void { this.items.push(x); }
+  addAll(xs: string[]): void { for (const x of xs) this.add(x); }   // self-use
+}
+class CountingBag extends Bag {
+  count = 0;
+  override add(x: string): void { this.count++; super.add(x); }
+  override addAll(xs: string[]): void { this.count += xs.length; super.addAll(xs); }
+}
+const b = new CountingBag(); b.addAll(["a", "b", "c"]);
+b.count;   // 6 ❌ (đo)
+```
+
+⭐ **Một fragile base class thật ngay trong thư viện chuẩn của JS:** constructor `Set`/`Map` gọi `this.add`/`this.set` đã bị override.
+
+```ts
+class CountingSet extends Set<number> {
+  count = 0;
+  override add(x: number): this { this.count++; return super.add(x); }
+}
+const s = new CountingSet([1, 2, 3]);
+s.size;    // 3
+s.count;   // 0 ❌ (đo)
+```
+
+Vì sao: `super(iterable)` chạy **trước** khi field của con (`count = 0`) được khởi tạo. Trong lúc đó `add` của con chạy với `this.count` là `undefined`, nên `undefined++` ra `NaN`; sau đó field initializer **ghi đè về 0**. Con vỡ vì phụ thuộc thứ tự bên trong của cha. (Tương tự `class MyDict(dict)` ở Python.) Sửa: **chứa** một `Set`, không `extends Set`.
+
+**Bùng nổ class** và cách composition bằng hàm bọc:
+
+```ts
+const withLogging = (n: Notifier): Notifier => ({
+  send: (u, m) => { console.log("sending to", u); n.send(u, m); },
+});
+const withRetry = (n: Notifier, times: number): Notifier => ({
+  send: (u, m) => { for (let i = 0; ; i++) { try { return n.send(u, m); } catch (e) { if (i >= times) throw e; } } },
+});
+const notifier = withRetry(withLogging(new SmsNotifier()), 3);   // ghép lúc chạy, không thêm class
+```
+
+### 🟦 TypeScript / JavaScript
+
+```ts
+interface ShippingFee { calculate(order: Order): number; }          // bước 2: contract
+class StandardFee implements ShippingFee { calculate() { return 20_000; } }   // bước 1
+class ExpressFee  implements ShippingFee { calculate() { return 50_000; } }
+
+class Order {
+  constructor(readonly items: string[], private fee: ShippingFee) {}   // bước 3: giữ + inject
+  shippingFee(): number { return this.fee.calculate(this); }          // delegation
+  upgradeShipping(fee: ShippingFee): void { this.fee = fee; }         // đổi lúc chạy
+}
+```
+
+- **Behavior chỉ có một method thì hàm là đủ:** `type FeeFn = (o: Order) => number` rồi `new Order(items, (o) => 0)`. Không cần `interface` và class cho mỗi biến thể. Dùng `interface` khi behavior có nhiều method hoặc cần state.
+- **Khung cho bài tập Duck bằng TS** (chỉ chữ ký, phần còn lại bạn tự viết): `interface FlyBehavior { fly(): void }`, `interface QuackBehavior { quack(): void }`, `class Duck { constructor(private flyBehavior: FlyBehavior, private quackBehavior: QuackBehavior) {} ... }`.
+- `constructor(private readonly x: X)` là cú pháp rút gọn: khai báo field **và** gán trong một dòng.
+
 ---
 
 ## 4. Favor composition over inheritance: khi nào vẫn nên kế thừa
@@ -378,6 +460,21 @@ X LÀ một loại của Y (4 phép thử đều qua)?
 - **Đo bằng chi phí thay đổi:** nếu bạn dự đoán gateway, kênh gửi, cách tính giá sẽ đổi thì composition; nếu thứ đó không bao giờ đổi và chỉ chia sẻ vòng đời thì inheritance rẻ hơn.
 - **Nối D2 #6:** *cam kết hành vi → interface/`Protocol`; chia sẻ code → ưu tiên composition, abstract class chỉ khi có khung chạy chung.* Bảng so sánh ở [tradeoff-cheatsheet.md](tradeoff-cheatsheet.md).
 
+### 🟦 TypeScript / JavaScript
+
+```ts
+// ✅ Kế thừa đúng chỗ: lỗi nghiệp vụ (cây nông, ổn định)
+class DomainError extends Error {
+  constructor(msg: string) { super(msg); this.name = new.target.name; }
+}
+class OutOfStock extends DomainError {}
+// instanceof hoạt động khi tsconfig target ≥ ES2015 (với ES5, phải setPrototypeOf)
+```
+
+- **React là ví dụ ngành đã chuyển hẳn sang composition:** thời `class X extends React.Component` đã nhường cho function component + hook. Tài liệu React chính thức nêu họ chưa thấy trường hợp nào đáng tạo cây kế thừa component, và khuyên dùng composition (`children`, props).
+- **Express/Koa middleware** (`app.use(logging, auth, handler)`) là chuỗi composition: mỗi lớp bọc lớp sau, thêm lớp không sửa lớp cũ.
+- **NestJS** dựng cả ứng dụng bằng DI (composition); kế thừa dùng ít, chủ yếu cho `Error` và lớp nền trong cùng module.
+
 ---
 
 ## 5. Mixin / Trait 🟢 T3
@@ -405,6 +502,26 @@ Ví dụ thật: `LoginRequiredMixin` (Django), `default method` (Java), `trait`
 ⚠️ Mixin vẫn là kế thừa nên mang lại **một phần** rủi ro ở mục #2. Nếu mixin cần gọi method của class đích thì đó là phụ thuộc ngầm, thường composition tốt hơn.
 
 🏛️ Với nhiều team: thư viện dùng mixin ở ranh giới module là coupling ngầm, cần ghi rõ "mixin này yêu cầu class đích có thuộc tính gì".
+
+### 🟦 TypeScript / JavaScript
+
+JS chỉ cho **một cha**, nên mixin là một **hàm nhận class và trả về class mở rộng**:
+
+```ts
+type Constructor<T = {}> = new (...args: any[]) => T;
+
+function Timestamped<TBase extends Constructor>(Base: TBase) {
+  return class extends Base {
+    updatedAt = new Date();
+    touch(): void { this.updatedAt = new Date(); }
+  };
+}
+
+class BaseEntity { id = 1; }
+class Order extends Timestamped(BaseEntity) {}      // có id, updatedAt, touch()
+```
+
+Kiểu của mixin khá nặng nề, nhiều chồng lớp làm thông báo lỗi khó đọc. Với phần lớn trường hợp, **composition** (chứa một `Timestamps`/`AuditInfo`) hoặc hàm tiện ích đơn giản hơn.
 
 ---
 
@@ -438,6 +555,11 @@ Kế thừa nhét các khả năng độc lập vào **một cây** nên số cl
 **Thẻ 3.** *Nêu 3 điều kiện để kế thừa vẫn là lựa chọn hợp lý.*
 (1) Quan hệ is-a **thật và ổn định**, không đổi theo vai trò/trạng thái; (2) con **không phá hợp đồng** của cha (LSP), thay cha ở mọi nơi vẫn đúng; (3) cây kế thừa **nông** (1–2 tầng). Thực tế thêm: cùng module hoặc cha được thiết kế để bị kế thừa.
 
+**🟦 Thẻ bổ sung cho TypeScript**
+
+- **`class CountingSet extends Set<number>` ghi đè `add` để đếm. `new CountingSet([1,2,3])` cho `size = 3` nhưng `count = 0`. Vì sao?**
+  Constructor `Set` gọi `this.add` (bản của con) **trước khi** field `count = 0` của con được khởi tạo, nên `undefined++` ra `NaN`, rồi field initializer ghi đè về 0. Đây là fragile base class thật trong thư viện chuẩn. Sửa: chứa một `Set` thay vì kế thừa.
+
 ---
 
 ## 8. Câu hỏi cuối bài
@@ -460,6 +582,20 @@ Kế thừa nhét các khả năng độc lập vào **một cây** nên số cl
 **4.** **Xấu.** `Stack` không thật sự "là" `Vector` về hành vi: kế thừa làm lộ `insertElementAt`, `remove(i)`... phá bất biến LIFO (phá encapsulation, vi phạm LSP). Python tương đương: `class Stack(list)` lộ `insert`, `sort`. Sửa: `Stack` **chứa** một list và chỉ mở `push`, `pop`, `peek`. Kế thừa vẫn đúng: custom exception (`OutOfStock(DomainError)`), Template Method trong cùng module (`Payment` → `CodPayment`), framework thiết kế để kế thừa (Django `View`, `unittest.TestCase`), điều kiện: is-a ổn định, không phá hợp đồng, cây nông.
 
 </details>
+
+### 8.1 🟦 Câu 4 bản TS
+
+```ts
+// ❌ class Stack<T> extends Array<T>: lộ unshift, splice, sort... phá LIFO
+// ✅ Composition: chỉ mở đúng thao tác của Stack
+class Stack<T> {
+  #items: T[] = [];
+  push(x: T): void { this.#items.push(x); }
+  pop(): T | undefined { return this.#items.pop(); }
+  peek(): T | undefined { return this.#items.at(-1); }
+  get size(): number { return this.#items.length; }
+}
+```
 
 ---
 

@@ -2,7 +2,7 @@
 
 ← [Tuần 1](../100-ngay/tuan-01.md) · Phạm vi: mục #1 đến #13 của D1 (bỏ #12, thuộc T3)
 
-> Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python.
+> Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python; các khác biệt của **TypeScript/JavaScript** nằm trong khối 🟦 cuối mục liên quan (6.4, 7.3, 9.3, 10.1, 12.8). Số đo trong khối 🟦 lấy từ Node 20.
 > Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần · 📎 = đọc thêm
 
 ---
@@ -208,6 +208,51 @@ s = "".join(words)       # O(n): biết tổng độ dài, cấp phát 1 lần, 
 
 🏗️ **Production:** ORM lazy load trong vòng lặp (N+1 query), `OFFSET` lớn, regex ReDoS, `json.dumps` object lớn trong vòng lặp.
 
+### 6.4 🟦 TypeScript / JavaScript
+
+> Đo trên Node 20 (V8). Con số chỉ để thấy **dạng tăng**, không phải cam kết. Kiểu của TS không đổi độ phức tạp, chỉ có runtime JS quyết định.
+
+**Nối chuỗi:** V8 tối ưu `s += w` (rope), nối 200 000 lần chỉ ~13 ms (`join` ~3 ms). Trong JS dùng `+=` hay template literal đều ổn. Nhưng nếu mỗi vòng lại đọc chuỗi (`s[i]`, regex) thì rope bị làm phẳng và có thể đắt lại. Ghép nhiều mảnh: `parts.push(x)` rồi `parts.join("")`.
+
+| Thao tác | Chi phí |
+|---|---|
+| `arr[i]`, `arr.length`, `push`, `pop` | O(1) |
+| `shift`, `unshift`, `splice(i, …)` | **O(n)**. Đo: rút cạn 10 000 phần tử bằng `shift` ≈ 1 ms, nhưng 100 000 phần tử ≈ 0,8 s (mảng nhỏ V8 có đường tắt, mảng lớn bùng nổ) |
+| `includes`, `indexOf`, `find`, `some`, `filter` | **O(n)** |
+| `slice(a, b)` | O(b − a) |
+| `[...arr]`, `concat`, `map` | O(n) |
+| `sort` | O(n log n). ⚠️ Mặc định so sánh **như chuỗi**: `[10, 9, 1].sort()` → `[1, 10, 9]`. Luôn truyền `(a, b) => a - b`. `sort` sửa tại chỗ; `toSorted()` trả bản mới |
+| `map.get/set/has/delete`, `set.has/add` | O(1) tb |
+| `map.size`, `set.size` | O(1) |
+| `Object.keys(o)`, `Object.values(o)`, `Object.entries(o)` | **O(n)**: tạo mảng mới. Đo: `Object.keys(o).length` ở 1 triệu key ≈ **140 ms mỗi lần gọi**, `map.size` ≈ tức thì |
+| `key in o`, `o[key]` | O(1) tb |
+| `[...map.keys()]`, `Array.from(set)`, `new Set(arr)` | O(n), chi phí **chuẩn bị** |
+| `JSON.stringify/parse`, `structuredClone` | O(kích thước dữ liệu) |
+
+**Tương ứng Python → JS:** `dict` ↔ `Map`, `set` ↔ `Set`, `len(d)` ↔ `map.size`. Cần đếm số key của `Object` liên tục thì đừng gọi `Object.keys(o).length` trong vòng lặp: giữ biến đếm hoặc dùng `Map`.
+
+**Các mẫu O(n²) ẩn thường gặp trong TS:**
+
+```ts
+// ❌ O(n²): mỗi vòng copy cả acc. Đo: 16 000 phần tử ≈ 29 giây, sửa tại chỗ ≈ 2 ms
+const byId = users.reduce((acc, u) => ({ ...acc, [u.id]: u }), {});
+// ✅ O(n)
+const byId = new Map(users.map(u => [u.id, u] as const));
+
+// ❌ O(n²): includes trên mảng trong vòng lặp (đo 30 000 phần tử: 95 ms vs 2 ms)
+if (!seen.includes(x)) seen.push(x);
+// ✅ O(n)
+const seen = new Set<number>(); if (!seen.has(x)) seen.add(x);
+
+// ❌ BFS với queue.shift(): O(n²) khi queue lớn
+// ✅ giữ chỉ số đầu thay vì dịch phần tử
+let head = 0; while (head < queue.length) { const x = queue[head++]; /* ... */ }
+
+// ❌ acc = [...acc, x] trong vòng lặp cũng O(n²)
+```
+
+🏗️ **Production (Node):** `for (const id of ids) await getUser(id)` là N+1 **tuần tự** (N round trip nối đuôi). Dùng `Promise.all` có giới hạn đồng thời (pool) hoặc gọi batch. Một vòng lặp đồng bộ nặng còn **chặn event loop**, làm mọi request khác đứng chờ.
+
 ---
 
 ## 7. Space complexity và call stack
@@ -243,6 +288,12 @@ Mỗi lần gọi hàm tạo một **frame**, frame chỉ bị xóa khi hàm ret
 - Dữ liệu có thể sâu thì chuyển sang **vòng lặp + stack tự quản lý**.
 
 🏗️ **Production:** bộ nhớ nhân theo số request đồng thời. Dùng streaming/generator thay vì `readlines()`, phân trang thay vì `SELECT *`, giới hạn kích thước cache (`lru_cache(maxsize=...)`).
+
+### 7.3 🟦 TypeScript / JavaScript
+
+- Giới hạn đệ quy: đo trên Node 20 khoảng **11 000 frame**, vượt thì `RangeError: Maximum call stack size exceeded` (tuỳ phiên bản và kích thước frame). **V8 không tối ưu tail call** (chuẩn ES2015 có, nhưng chỉ Safari làm). Dữ liệu có thể sâu thì chuyển sang vòng lặp + stack mảng (`stack.push/pop`).
+- ⚠️ Spread thành đối số cũng ăn stack: `Math.max(...arr)` với 300 000 phần tử **ném `RangeError`** (đo; 100 000 vẫn chạy). Dùng `arr.reduce((m, x) => x > m ? x : m)` hoặc vòng lặp.
+- Heap của Node có giới hạn mặc định (chỉnh bằng `--max-old-space-size`). Đọc file lớn thì dùng stream/`readline` thay vì `readFileSync` cả file.
 
 ---
 
@@ -320,6 +371,10 @@ Ví dụ khác: HashMap put, queue bằng 2 stack, two pointers / sliding window
 
 > 🇬🇧 *"Amortized analysis tells you the bill. It doesn't tell you when the bill arrives."*
 
+### 9.3 🟦 TypeScript / JavaScript
+
+`Array` của JS cũng là dynamic array: `push` O(1) amortized. V8 tăng capacity khoảng **1,5× + 16** (Python ~1,125×, Java 1,5×), cùng logic cấp số nhân ở 9.1. `new Array(n)` cấp phát trước nhưng tạo mảng "có lỗ" (holey) thường chậm hơn trong V8, nên thường để `push` amortized là đủ.
+
 ---
 
 ## 10. Độ phức tạp của các cấu trúc dữ liệu
@@ -358,6 +413,37 @@ Ví dụ khác: HashMap put, queue bằng 2 stack, two pointers / sliding window
 | Vào trước ra trước (BFS, job) | Queue (`deque`) |
 
 🏗️ **Production:** B-tree index (hỗ trợ `=`, khoảng, `ORDER BY`) vs hash index (chỉ `=`). Redis Sorted Set (skip list) cho leaderboard. LRU cache = HashMap + doubly linked list.
+
+### 10.1 🟦 TypeScript / JavaScript: thư viện chuẩn có gì
+
+| Cần | Python | JS / TS |
+|---|---|---|
+| dict / đếm | `dict`, `Counter` | `Map<K, V>`: `m.set(k, (m.get(k) ?? 0) + 1)` |
+| set | `set` | `Set<T>` |
+| queue hai đầu | `deque` | **không có sẵn**: mảng + chỉ số `head`, hoặc linked list tự viết |
+| heap | `heapq` | **không có sẵn**: tự viết hoặc dùng thư viện |
+| sorted / balanced BST | `sortedcontainers` | **không có sẵn** |
+| key phức hợp | `tuple` | không có tuple hashable: dùng chuỗi `${a},${b}` (xem 12.8) |
+| LRU | `OrderedDict` | `Map` **giữ thứ tự chèn**, xem bên dưới |
+
+```ts
+// LRU cache bằng Map: delete rồi set để đưa key lên "mới nhất"
+class LRU<K, V> {
+  private m = new Map<K, V>();
+  constructor(private readonly cap: number) {}
+  get(k: K): V | undefined {
+    if (!this.m.has(k)) return undefined;
+    const v = this.m.get(k)!; this.m.delete(k); this.m.set(k, v);
+    return v;
+  }
+  set(k: K, v: V): void {
+    this.m.delete(k); this.m.set(k, v);
+    if (this.m.size > this.cap) this.m.delete(this.m.keys().next().value!);  // key cũ nhất
+  }
+}
+```
+
+**Bộ nhớ (nối mục 11):** mảng toàn số thì V8 thường lưu **giá trị thật** (không phải con trỏ); trộn kiểu (số lẫn object) thì chuyển sang chứa con trỏ. Cần chắc chắn và tiết kiệm (giống NumPy): `Uint8Array`, `Float64Array`.
 
 ---
 
@@ -454,6 +540,53 @@ Hash chuỗi tốn O(k) (Python cache lại). Collision **chắc chắn** xảy 
 
 Checklist: `hash % capacity` · chaining / open addressing · load factor → resize ×2 + rehash → O(1) amortized · average O(1) vs worst O(n) · treeify O(log n) · *(điểm cộng)* key bất biến, hợp đồng hash/eq.
 
+### 12.8 🟦 TypeScript / JavaScript: `Map` vs `Object`
+
+| | `Map` | `Object` dùng như dict |
+|---|---|---|
+| Kiểu key | **bất kỳ** (số, object, ...) | chỉ `string` / `symbol`: `o[1]` ≡ `o["1"]` |
+| Đếm | `m.size` O(1) | `Object.keys(o).length` **O(n)** |
+| Thứ tự duyệt | thứ tự chèn | số nguyên tăng dần **trước**, rồi mới theo thứ tự chèn (đo: `{b, 2, a, 1}` → `["1","2","b","a"]`) |
+| Key có sẵn | không | có prototype: `"toString" in {}` là `true`. Dùng `Object.hasOwn(o, k)` |
+| Key từ input người dùng | an toàn | ⚠️ `o["__proto__"] = x` **đổi prototype** thay vì tạo key (đo) → *prototype pollution* |
+| Thêm/xoá liên tục | tối ưu cho việc này | không |
+
+**Chọn:** key động, thêm/xoá nhiều, cần `size`, key không phải string → `Map`. Bản ghi hình dạng cố định (DTO) → `object`/`interface`. Key đến từ bên ngoài (query, header, JSON) mà vẫn muốn dùng Object → `Object.create(null)` hoặc `Map`.
+
+**Key trong `Map` so sánh bằng "SameValueZero":** primitive theo **giá trị** (`NaN` khớp `NaN`, `0` khớp `-0`), object theo **tham chiếu**.
+
+```ts
+const m = new Map<number[], string>();
+m.set([1, 2], "x");
+m.get([1, 2]);      // undefined ❌ hai mảng khác tham chiếu. Python báo lỗi unhashable ngay,
+                    // JS thì im lặng sai. Đây là lỗi hay gặp với Map<object, ...>
+```
+
+**Không có hash/eq tuỳ biến**, nên key phức hợp phải tự **chuẩn hoá thành string/number**:
+
+```ts
+const key = `${userId}:${sku}`;               // chọn dấu ngăn không xuất hiện trong dữ liệu
+const anagramKey = [...word].sort().join(""); // Group Anagrams, cách 1: O(k log k)
+const counts = new Array(26).fill(0);         // cách 2: O(k)
+for (const ch of word) counts[ch.charCodeAt(0) - 97]++;
+const anagramKey2 = counts.join("#");         // ⚠️ cần dấu ngăn: [1,11] và [11,1] sẽ nhầm nếu nối liền
+```
+
+Vì object theo tham chiếu nên **không có** lỗi "key bị sửa → hash đổi, dữ liệu mồ côi" của mục 12.6 (đo: sửa `k.id` rồi `map.get(k)` vẫn tìm được). Đổi lại là không tra theo **nội dung** được.
+
+```ts
+// Two Sum (bài D3), bản TS: kiểm tra phần bù TRƯỚC, rồi mới thêm phần tử hiện tại
+function twoSum(nums: number[], target: number): [number, number] | null {
+  const seen = new Map<number, number>();           // value → index
+  for (let i = 0; i < nums.length; i++) {
+    const j = seen.get(target - nums[i]);
+    if (j !== undefined) return [j, i];
+    seen.set(nums[i], i);
+  }
+  return null;
+}
+```
+
 ---
 
 ## 13. Sharding: thêm server với hash
@@ -541,3 +674,9 @@ Mẫu trả lời: 🇬🇧 *"Time is O(__) [worst / average / amortized], space
 
 7. **HashMap xử lý collision thế nào? Load factor và resize ảnh hưởng gì?**
    Chaining (list/cây trong mỗi bucket) hoặc open addressing (dò ô khác, xóa dùng tombstone). Vượt load factor (Java 0.75) thì resize ×2 và rehash mọi key: một lần O(n), nhưng O(1) amortized. Load factor thấp giữ bucket ngắn nên trung bình O(1).
+
+8. **`Object.keys(o).length` độ phức tạp bao nhiêu trong JS? Đếm số key thì dùng gì?**
+   O(n): nó tạo cả mảng key rồi mới lấy `length` (đo: 1 triệu key ≈ 140 ms mỗi lần gọi). Dùng `Map` và `map.size` (O(1)), hoặc tự giữ biến đếm.
+
+9. **Vì sao `users.reduce((acc, u) => ({ ...acc, [u.id]: u }), {})` chậm?**
+   Mỗi vòng copy toàn bộ `acc`: 1 + 2 + … + n → O(n²). Sửa: `new Map(users.map(u => [u.id, u]))` hoặc gán trực tiếp vào một object duy nhất.

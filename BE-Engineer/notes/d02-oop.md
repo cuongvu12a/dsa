@@ -2,7 +2,7 @@
 
 ← [Tuần 1](../100-ngay/tuan-01.md) · Phạm vi: mục #1 đến #7 của D2 (số theo roadmap; #8, #9 của roadmap là T3 nên không ghi). Mục 8, 9 trong file này là phần tổng hợp thêm
 
-> Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python.
+> Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python; khác biệt của **TypeScript/JavaScript** nằm trong khối 🟦 cuối mỗi mục (đã biên dịch strict và chạy thử trên Node 20).
 > Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần · 📎 = đọc thêm
 
 ---
@@ -91,6 +91,33 @@ Python đọc `obj.items` thì tìm ở object trước, không có thì **đi l
 - Class-level mutable state là global ngầm: race condition khi nhiều request, test phụ thuộc nhau, mỗi server một giá trị, cache không hết hạn. Hậu quả điển hình: quyền đã thu hồi mà cache cũ vẫn cho vào.
 - **Nối D1:** `obj.attr` thực chất là tra dict của object, tức HashMap, O(1) trung bình.
 
+### 🟦 TypeScript / JavaScript
+
+| Khác Python | Chi tiết |
+|---|---|
+| Field trong thân class | `items: string[] = []` là **field riêng của mỗi object** (đo: `a.items.push(...)` không đổi `b.items`). Ngược Python, nơi `items = []` dưới `class` là một bản dùng chung. Muốn một bản cho cả class phải viết **`static`** |
+| `this` không tự gắn | `const pay = order.pay; pay()` → `this` là `undefined` → `TypeError` (đo). Truyền method làm callback thì dùng arrow field (`cancel = () => { ... }`) hoặc `.bind(this)` |
+| "Gán dời mũi tên" | Vẫn đúng: `const items = []` chỉ khoá **biến**, `items.push(1)` vẫn chạy. `readonly` (TS) chỉ chặn gán lúc compile; `Object.freeze` chặn lúc chạy nhưng **nông** |
+| Immutable vs mutable | primitive (`number`, `string`, `boolean`, `bigint`, `symbol`) bất biến; `object`, `array`, `Map`, `Set` theo tham chiếu (đây chính là bảng JS ↔ Python ở trên) |
+
+```ts
+class Order {
+  status: "PENDING" | "PAID" | "CANCELLED" = "PENDING";
+  items: string[] = [];                      // mỗi object một bản
+  static registry: Order[] = [];             // static = một bản cho cả class (global ngầm!)
+  constructor(readonly orderId: string) {}
+  pay(): void { this.status = "PAID"; }
+  cancel = (): void => { this.status = "CANCELLED"; };   // this luôn đúng khi truyền đi
+}
+
+// ⚠️ Bẫy liên quan: một object được nhân bản bằng tham chiếu
+const grid = Array(3).fill([]);              // 3 ô trỏ cùng MỘT mảng
+grid[0].push(1);                             // [[1],[1],[1]]
+const ok = Array.from({ length: 3 }, () => []);   // mỗi ô một mảng
+```
+
+🏛️ **Node:** process sống lâu, nên `const cache = new Map()` ở mức module hay singleton chính là state chung cả process (global ngầm, mục trên). Chạy nhiều worker/pod thì **mỗi nơi một bản**, cache lệch nhau. State cần chia sẻ phải nằm ở Redis/DB.
+
 ---
 
 ## 2. Encapsulation và invariant
@@ -140,6 +167,38 @@ Luật được kiểm tra ở **mọi cổng vào**: constructor, `deposit`, `w
 - Tiền, kho, trạng thái đơn là ba nơi bắt buộc đóng gói.
 - **Object chỉ bảo vệ trong bộ nhớ.** Hai request cùng đọc số dư 100 rồi cùng rút 80 trên hai server đều qua kiểm tra, kết quả -60. Lớp bảo vệ cuối phải ở DB: transaction, `UPDATE ... WHERE balance >= 80`, hoặc optimistic lock. **Cần cả hai tầng.**
 - Ranh giới module/service cũng là đóng gói: service A không ghi thẳng DB của service B.
+
+### 🟦 TypeScript / JavaScript
+
+| Cơ chế | Cưỡng chế lúc | Ghi chú |
+|---|---|---|
+| `private` (từ khoá TS) | **compile** | Lúc chạy vẫn là field bình thường: `obj["x"]` hay `as any` đọc được, và `JSON.stringify` **xuất ra** |
+| `#x` (ES2022) | **chạy** | private thật, bên ngoài không đọc được, không bị `JSON.stringify`/`Object.keys` thấy |
+| `readonly` | compile | chỉ chặn gán; không bảo vệ mảng/object bên trong |
+
+```ts
+class Account {
+  #balance: number;                                   // private thật
+  constructor(balance = 0) {
+    if (balance < 0) throw new Error("balance cannot be negative");
+    this.#balance = balance;
+  }
+  get balance(): number { return this.#balance; }     // chỉ đọc từ ngoài
+  withdraw(amount: number): void {
+    if (amount <= 0) throw new RangeError("amount must be positive");
+    if (amount > this.#balance) throw new InsufficientFunds();
+    this.#balance -= amount;
+  }
+}
+```
+
+⚠️ **Bẫy riêng của TS/JS:**
+
+- `class User { constructor(private passwordHash: string) {} }` rồi `res.json(user)` → **`passwordHash` bị gửi ra client** (đo: `JSON.stringify` in ra `"passwordHash":"secret"`). `private` của TS không phải bảo mật. Dùng `#x`, hoặc trả về **DTO** chọn đúng field.
+- Tiền: `number` là số thực 64-bit (`0.1 + 0.2 === 0.30000000000000004`). Lưu **số nguyên đơn vị nhỏ nhất** (đồng/cent), hoặc `bigint`/thư viện decimal.
+- Getter trả thẳng mảng nội bộ vẫn bị `push` từ ngoài. `readonly T[]` chỉ là kiểu, không chặn lúc chạy: trả `[...this.#items]`.
+
+🏛️ **Node chạy một thread nhưng vẫn có race:** giữa hai `await` request khác chen vào. `if (acc.balance >= x) { await audit(); acc.withdraw(x) }` vẫn là check-then-act không an toàn (đúng như phần "hai request cùng rút" ở trên). Tầng DB vẫn phải bảo vệ.
 
 ---
 
@@ -193,6 +252,24 @@ class CheckoutService:
 - **Contract gồm cả lỗi và hiệu năng.** Hai gateway cùng `charge()`, một cái 200ms, một cái 8 giây. Contract không nói thì caller đặt timeout sai.
 - Ranh giới service là abstraction ở quy mô hệ thống: API ổn định, ruột tự do.
 - **Nối D1:** abstraction giấu cả độ phức tạp thời gian. `find_user(id)` có thể là O(1) hay quét bảng O(n). Khi review hỏi *"bên dưới nó chạy O(?)"*.
+
+### 🟦 TypeScript / JavaScript
+
+```ts
+interface PaymentGateway {                               // contract: "làm gì"
+  charge(amountMinor: number, token: string): Promise<ChargeResult>;
+}
+type ChargeResult =
+  | { ok: true; txId: string }
+  | { ok: false; reason: "DECLINED" | "TIMEOUT" };       // lỗi chung, mỗi gateway tự dịch
+
+class StripeGateway implements PaymentGateway { /* ... */ }
+class CheckoutService { constructor(private readonly gateway: PaymentGateway) {} }
+```
+
+- **`interface` là structural:** chỉ cần cùng "hình dạng", không bắt buộc `implements` (đo: object literal có `charge()` gán được vào biến kiểu `PaymentGateway`). Đây là duck typing có type check. Rất tiện để mock khi test.
+- **Contract gồm cả bất đồng bộ và lỗi.** TS **không có checked exception**: chữ ký không nói hàm ném lỗi gì. Hoặc ghi vào tài liệu, hoặc đưa lỗi vào **kiểu trả về** (`Result` ở trên) để caller buộc phải xử lý.
+- **Kiểu bị xoá lúc chạy.** Dữ liệu từ API ngoài/JSON/DB không được TS kiểm tra. Contract ở ranh giới hệ thống cần **validate lúc chạy** (zod, ajv...) chứ không chỉ khai báo kiểu.
 
 ---
 
@@ -248,6 +325,38 @@ Con quyết định chi tiết, cha giữ khung chạy (Template Method, chỉ c
 - Ánh xạ cây kế thừa sang bảng DB có trade-off riêng và hay gây rắc rối migration.
 - **Nối D1:** Python tra method qua chuỗi class (MRO), mỗi bước là tra dict O(1). Cái đắt là chi phí **đọc hiểu**, không phải CPU.
 
+### 🟦 TypeScript / JavaScript
+
+```ts
+abstract class Payment {
+  status = "NEW";
+  constructor(protected readonly amount: number) {}
+  pay(): void { this.validate(); this.execute(); this.status = "PAID"; }   // khung chạy
+  protected validate(): void {
+    if (this.amount <= 0) throw new Error("amount must be positive");
+  }
+  protected abstract execute(): void;
+}
+
+class CodPayment extends Payment {
+  protected override execute(): void { /* ... */ }
+  protected override validate(): void {            // override + dùng lại cha
+    super.validate();
+    if (this.amount > 5_000_000) throw new Error("COD limit exceeded");
+  }
+}
+```
+
+| Điểm | TS/JS |
+|---|---|
+| Gõ sai tên method override | Bật **`noImplicitOverride`** và dùng `override`: gõ sai là **lỗi compile** (đo: `TS4113`). Python để lặng lẽ không override |
+| Constructor con | Phải gọi `super(...)` **trước khi** dùng `this` (và trước khi truy cập field của con) |
+| `abstract`, `protected` | Chỉ cưỡng chế lúc **compile** (đo: `new` class abstract bị chặn bởi trình biên dịch) |
+| Kế thừa `Error` | Đặt `this.name`; cần `target ≥ ES2015`, nếu không `instanceof` sai |
+| Đa kế thừa | JS **chỉ một cha**. Muốn ghép khả năng thì composition hoặc mixin (D3 #5) |
+
+🏛️ Bật `noImplicitOverride` trong `tsconfig` của dự án để bắt lỗi gõ sai tên override ngay lúc compile.
+
 ---
 
 ## 5. Polymorphism
@@ -294,6 +403,46 @@ for p in [CreditCardPayment(...), CodPayment(...), WalletPayment(...)]:
 - Hệ lớn dùng duck typing nên có `Protocol` + mypy/pyright trong CI để bắt lỗi sớm.
 - Ở quy mô service, nhiều service cùng cam kết một API thì gateway gọi đồng nhất: polymorphism ở mức mạng.
 - **Nối D1:** dynamic dispatch là tra tên method trong dict của class, O(1) trung bình. Giá CPU không đáng kể.
+
+### 🟦 TypeScript / JavaScript
+
+- **Duck typing = structural typing có type check.** Object có đủ method là thay thế được, không cần kế thừa.
+- **Overloading:** TS cho khai báo nhiều *chữ ký* nhưng **chỉ một phần cài đặt**; chọn nhánh bằng `typeof` lúc chạy. Đây là overloading về **kiểu**, không phải hai hàm riêng như Java.
+
+```ts
+function parse(x: string): number;
+function parse(x: number): string;
+function parse(x: string | number): number | string {
+  return typeof x === "string" ? Number(x) : String(x);
+}
+```
+
+- **Lựa chọn thứ ba: discriminated union + `switch` kiểm tra đầy đủ.**
+
+```ts
+type Pay =
+  | { kind: "card"; last4: string }
+  | { kind: "cod"; limit: number }
+  | { kind: "wallet"; walletId: string };
+
+function fee(p: Pay): number {
+  switch (p.kind) {
+    case "card":   return 2;
+    case "cod":    return 5;
+    case "wallet": return 0;
+    default: { const _x: never = p; return _x; }   // thêm loại mới mà quên case → LỖI COMPILE
+  }
+}
+```
+
+Dòng `never` giải quyết đúng điểm đau của `if type ==` ở trên: **compiler chỉ ra mọi chỗ quên**. Hai cách đánh đổi ngược nhau:
+
+| Thay đổi hay xảy ra | Chọn | Vì sao |
+|---|---|---|
+| Thêm **loại** mới (nhà cung cấp, kênh) | Polymorphism (class/interface) | thêm file, không sửa code cũ |
+| Thêm **thao tác** mới trên tập loại **cố định** | Union + `switch` | thêm một hàm, compiler soát hết các loại |
+
+Hai cách đối ngược nhau nên **chọn theo hướng thay đổi**. Union hợp với dữ liệu đã biết hết các biến thể (kết quả API, event, trạng thái). Kiểu bị xoá lúc chạy nên dữ liệu từ ngoài cần validate trước khi tin vào `kind`.
 
 ---
 
@@ -352,6 +501,19 @@ class CardPayment(BasePayment, Refundable): ...   # một cha + một cam kết
 - **Dễ test:** code phụ thuộc interface thì thay bằng bản giả. Phụ thuộc abstract class cụ thể thì kéo theo state và logic của cha.
 - **Cần cả hai:** tách interface cho cam kết, class cơ sở cho code dùng chung.
 
+### 🟦 TypeScript / JavaScript
+
+| | `interface` / `type` | `abstract class` |
+|---|---|---|
+| Tồn tại lúc chạy | **Không** (bị xoá). `x instanceof Iface` là lỗi compile (đo) | **Có** |
+| Chứa state/implementation | Không | Có |
+| Khớp kiểu | Structural (chỉ cần đúng hình dạng) | Cũng structural, trừ khi có member `private`/`#` thì thành "danh nghĩa" |
+| Một class dùng được mấy cái | `implements A, B, C` | `extends` **một** |
+
+⚠️ **Bẫy backend hay gặp (NestJS, Angular DI):** interface bị xoá lúc chạy nên **không dùng làm injection token** được. Hai cách: (1) dùng `abstract class` làm token (nó tồn tại lúc chạy), (2) token riêng (`Symbol`/string) kèm `interface` để định kiểu. Nên chọn (2) khi không muốn chia sẻ code, (1) khi muốn tiện mà chấp nhận class.
+
+**Phản xạ:** *cam kết hành vi → `interface`; chia sẻ code → ưu tiên composition, chỉ `abstract class` khi có khung chạy chung* (xem bảng ở [tradeoff-cheatsheet.md](tradeoff-cheatsheet.md)).
+
 ---
 
 ## 7. Tell, Don't Ask
@@ -402,6 +564,22 @@ class Order:
 - **Check-then-act không an toàn khi đồng thời.** `if status == PENDING: status = CANCELLED` ở bộ nhớ có thể thua race (nối bài `withdraw` ở #2). Tầng DB phải bảo vệ: `UPDATE orders SET status='CANCELLED' WHERE id=? AND status IN ('PENDING','PAID')` rồi kiểm tra số dòng bị ảnh hưởng.
 - Phân tầng gọn: **object giữ luật của mình, service điều phối nhiều object và I/O, DB bảo vệ khi đồng thời.**
 
+### 🟦 TypeScript / JavaScript
+
+```ts
+class Order {
+  #status: "PENDING" | "PAID" | "SHIPPED" | "DELIVERED" | "CANCELLED" = "PENDING";
+  cancel(): void {
+    if (this.#status === "SHIPPED" || this.#status === "DELIVERED") throw new CannotCancel(this.#status);
+    this.#status = "CANCELLED";                      // luật nằm đúng một chỗ
+  }
+}
+```
+
+- **Anemic model là phong cách mặc định của nhiều backend TS:** `interface Order { status: string }` cộng một `OrderService` đầy hàm sửa field. Chạy được, nhưng luật rải ra nhiều nơi (đúng điều Tell, Don't Ask cảnh báo). Nếu dùng kiểu này, ít nhất gom luật vào **một module** thay vì mỗi controller một bản.
+- Union literal (`"PENDING" | "PAID"`) chặn gán sai **lúc compile**, nhưng giá trị từ DB/JSON có thể sai lúc chạy: validate ở ranh giới.
+- Node vẫn có race giữa các `await`: `UPDATE ... WHERE status IN (...)` ở tầng DB vẫn cần.
+
 ---
 
 ## 8. Khung nhớ nhanh cho 4 tính chất
@@ -430,6 +608,15 @@ Object gom **state + behavior** (#1) → **Encapsulation** giữ invariant bằn
 
 **Mẫu trả lời:** 🇬🇧 *"Encapsulation answers who can touch the data; abstraction answers what the user needs to know. Polymorphism lets me add a new type without changing the caller."*
 
+### 8.1 🟦 TypeScript / JavaScript tương ứng
+
+| Tính chất | Công cụ trong TS |
+|---|---|
+| Encapsulation | `#x` (private thật), `readonly`, getter, trả bản sao/DTO. ⚠️ `private` của TS không chặn `JSON.stringify` |
+| Abstraction | `interface`/`type`, hàm tên theo nghiệp vụ, `Result` cho lỗi |
+| Inheritance | `extends` + `override` (bật `noImplicitOverride`) + `super`; chỉ một cha |
+| Polymorphism | override/`interface`, structural typing, hoặc union + `switch` kiểm tra đầy đủ (`never`) |
+
 ---
 
 ## 9. Thẻ Anki kèm đáp án
@@ -454,3 +641,14 @@ Object gom **state + behavior** (#1) → **Encapsulation** giữ invariant bằn
    Chọn interface khi cần cam kết hành vi cho nhiều cài đặt khác nhau, nhất là ở ranh giới module/service hoặc cần mock: linh hoạt, coupling thấp, nhưng không chia sẻ code. Chọn abstract class khi các class cùng khung chạy và chỉ khác vài bước, cần tái dùng code, chấp nhận coupling cao. Chỉ muốn mượn code thì dùng composition.
 
 **❓ Câu hỏi cuối bài:** làm theo phần "Câu hỏi cuối bài" của D2 trong [tuan-01.md](../100-ngay/tuan-01.md) (5 câu, kể cả câu bổ sung về `OrderService` và `Triangle`). Tự trả lời bằng tiếng Anh trước khi mở đáp án.
+
+**🟦 Thẻ bổ sung cho TypeScript**
+
+6. **Trong TS, `private` khác `#x` ở đâu?**
+   `private` chỉ được kiểm tra lúc compile; lúc chạy vẫn là field thường, đọc được bằng `obj["x"]` và bị `JSON.stringify` xuất ra (nguy cơ lộ `passwordHash` qua API). `#x` là private thật của JS (ES2022), bên ngoài không đọc được.
+
+7. **`items: string[] = []` trong thân class TS khác Python ở đâu? Muốn một bản dùng chung thì làm sao?**
+   Trong TS/JS, field trong thân class được khởi tạo **riêng cho mỗi object** (Python thì `items = []` dưới `class` là một bản chung). Muốn một bản chung phải khai báo `static`.
+
+8. **Thêm một loại mới vào union TS mà quên cập nhật một `switch`, làm sao compiler biết?**
+   Thêm nhánh `default: { const _x: never = p; return _x; }`. Khi union có loại chưa được xử lý, `p` không còn là `never` nên compile báo lỗi tại chính `switch` đó.
