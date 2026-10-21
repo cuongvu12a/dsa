@@ -1,4 +1,4 @@
-# Tuần 7 (09/11 – 15/11): Graph, Transaction, Isolation, Locking
+# Tuần 7 (30/11 – 06/12): Graph, Transaction, Isolation, Locking
 
 ← [Tuần 6](tuan-06.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 8 →](tuan-08.md)
 
@@ -30,7 +30,7 @@ Ngày nặng nhất là **D48 (Lab overselling)**: phần Lab đã được chia
 
 ---
 
-## D43 (T2, 09/11): ACID qua ví dụ chuyển tiền
+## D43 (T2, 30/11): ACID qua ví dụ chuyển tiền
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 45' + Bảng T2 DFS/BFS 10' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
@@ -154,7 +154,7 @@ Ngày nặng nhất là **D48 (Lab overselling)**: phần Lab đã được chia
 
 ---
 
-## D44 (T3, 10/11): Các lỗi đọc/ghi khi chạy đồng thời
+## D44 (T3, 01/12): Các lỗi đọc/ghi khi chạy đồng thời
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -246,7 +246,7 @@ Ngày nặng nhất là **D48 (Lab overselling)**: phần Lab đã được chia
 
 ---
 
-## D45 (T4, 11/11): Isolation levels
+## D45 (T4, 02/12): Isolation levels
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h10'**
 
@@ -363,7 +363,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 ---
 
-## D46 (T5, 12/11): MVCC và WAL
+## D46 (T5, 03/12): MVCC và WAL
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -480,7 +480,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 ---
 
-## D47 (T6, 13/11): Locking: pessimistic vs optimistic, deadlock
+## D47 (T6, 04/12): Locking: pessimistic vs optimistic, deadlock
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 50' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -624,7 +624,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 ---
 
-## D48 (T7, 14/11): Lab
+## D48 (T7, 05/12): Lab
 
 **⏱ Ước tính:** DSA 45' · Lab bắt buộc 2h40' · Ôn ⚠️ 30' · **Tổng 3h55'**
 
@@ -761,7 +761,7 @@ Kèm theo:
 
 ---
 
-## D49 (CN, 15/11): Chốt tuần 7
+## D49 (CN, 06/12): Chốt tuần 7
 
 **⏱ Ước tính:** DSA 25' · Chốt tuần 60' · Bảng T2 dời từ trong tuần 40' (Isolation levels 15' + Optimistic vs Pessimistic 15' + Kahn vs DFS 10') · Anki/cheat sheet 30' · **Tổng 2h35'**
 

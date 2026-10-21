@@ -1,4 +1,4 @@
-# Tuần 13 (21/12 – 27/12): Docker/K8s/CI-CD ở mức khái niệm + câu chuyện cá nhân
+# Tuần 13 (11/01 – 17/01): Docker/K8s/CI-CD ở mức khái niệm + câu chuyện cá nhân
 
 ← [Tuần 12](tuan-12.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 14 →](tuan-14.md)
 
@@ -30,7 +30,7 @@ Ngày nặng nhất là **D90 (4h00')**, chạm trần 4h của Thứ Bảy. Ba 
 
 ---
 
-## D85 (T2, 21/12): Docker
+## D85 (T2, 11/01): Docker
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 75' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h20'**
 
@@ -137,7 +137,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`. Điền xong m�
 
 ---
 
-## D86 (T3, 22/12): Kubernetes ở mức khái niệm
+## D86 (T3, 12/01): Kubernetes ở mức khái niệm
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
@@ -276,7 +276,7 @@ Nhóm: *Sharding/Scaling strategy*. Trục chính: **scale ngang (thêm Pod)** v
 
 ---
 
-## D87 (T4, 23/12): CI/CD, chiến lược deploy, migration DB không downtime
+## D87 (T4, 13/01): CI/CD, chiến lược deploy, migration DB không downtime
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 55' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h35'**
 
@@ -406,7 +406,7 @@ Nhóm: *Deployment/Infra strategy*. Trục chính của cuộc so sánh: **rủi
 
 ---
 
-## D88 (T5, 24/12): Behavioral – viết 5 câu chuyện STAR
+## D88 (T5, 14/01): Behavioral – viết 5 câu chuyện STAR
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 60' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 2h35'**
 
@@ -548,7 +548,7 @@ Dùng được cho các câu hỏi behavioral: (#... trong danh sách bên dư�
 
 ---
 
-## D89 (T6, 25/12): Giới thiệu bản thân 2 phút + trình bày dự án + viết lại CV
+## D89 (T6, 15/01): Giới thiệu bản thân 2 phút + trình bày dự án + viết lại CV
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 55' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h35'**
 
@@ -651,7 +651,7 @@ Dùng được cho các câu hỏi behavioral: (#... trong danh sách bên dư�
 
 ---
 
-## D90 (T7, 26/12): Mock coding + Lab
+## D90 (T7, 16/01): Mock coding + Lab
 
 **⏱ Ước tính:** Mock coding 60' · Lab 2h30' · Ôn ⚠️ 10' · Anki 20' · **Tổng 4h00'**
 
@@ -799,7 +799,7 @@ flowchart LR
 
 ---
 
-## D91 (CN, 27/12): Chốt tuần 13
+## D91 (CN, 17/01): Chốt tuần 13
 
 **⏱ Ước tính:** DSA 50' · Chốt tuần 60' · Việc dời từ D88–D90 30' · Anki 20' · **Tổng 2h40'**
 

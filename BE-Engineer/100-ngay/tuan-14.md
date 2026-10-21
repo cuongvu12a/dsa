@@ -1,4 +1,4 @@
-# Tuần 14 (28/12 – 03/01) + D99–D100 (04/01 – 05/01/2027): Tổng ôn, Mock, Sẵn sàng
+# Tuần 14 (18/01 – 24/01) + D99–D100 (25/01 – 26/01/2027): Tổng ôn, Mock, Sẵn sàng
 
 ← [Tuần 13](tuan-13.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md)
 
@@ -20,7 +20,7 @@
 | D93 (T3) Ôn chốt tuần 5–8 | 70' | 90' | 2h40' |
 | D94 (T4) Ôn chốt tuần 9–12 | 70' | 90' | 2h40' |
 | D95 (T5) Mock SD e-commerce | 65' | 80' | 2h25' |
-| D96 (T6, 01/01, nghỉ lễ) Mock đầy đủ | — | 2h45' | 2h45' |
+| D96 (T6, 22/01) Mock đầy đủ | — | 2h45' | 2h45' |
 | D97 (T7) Xem video mock + sửa | — | 4h00' | 4h00' |
 | D98 (CN) Ôn nhẹ + câu hỏi ngược | — | 2h10' | 2h10' |
 | **Tổng tuần 14** | | | **19h20'** |
@@ -68,7 +68,7 @@ Mỗi tối có 4 tuần × 5 câu = **20 câu**. Nếu mỗi câu điểm thấ
 
 ---
 
-## D92 (T2, 28/12): Ôn Giai đoạn 1 – chốt tuần 1–4
+## D92 (T2, 18/01): Ôn Giai đoạn 1 – chốt tuần 1–4
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 50' + Anki 20') · Tối 90' (Học 10' + Ghi chú/Anki 15' + Tự kiểm tra 65') · **Tổng 2h40'**
 
@@ -102,7 +102,7 @@ Thời lượng gợi ý: theo bảng "⚖️ Ngân sách thời gian" ở đầ
 
 ---
 
-## D93 (T3, 29/12): Ôn Giai đoạn 2 – chốt tuần 5–8
+## D93 (T3, 19/01): Ôn Giai đoạn 2 – chốt tuần 5–8
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 50' + Anki 20') · Tối 90' (Học 10' + Ghi chú/Anki 15' + Tự kiểm tra 65') · **Tổng 2h40'**
 
@@ -132,7 +132,7 @@ Thời lượng: theo bảng "⚖️ Ngân sách thời gian" ở đầu file. T
 
 ---
 
-## D94 (T4, 30/12): Ôn Giai đoạn 3 – chốt tuần 9–12
+## D94 (T4, 20/01): Ôn Giai đoạn 3 – chốt tuần 9–12
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 50' + Anki 20') · Tối 90' (Học 10' + Ghi chú/Anki 15' + Tự kiểm tra 65') · **Tổng 2h40'**
 
@@ -166,7 +166,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D95 (T5, 31/12): Mock System Design – thương mại điện tử
+## D95 (T5, 21/01): Mock System Design – thương mại điện tử
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 80' (Học 20' + Ghi chú/Anki 15' + Tự kiểm tra 45') · **Tổng 2h25'**
 
@@ -207,11 +207,11 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D96 (T6, 01/01): Mock đầy đủ – 45' coding + 45' SD + 15' behavioral
+## D96 (T6, 22/01): Mock đầy đủ – 45' coding + 45' SD + 15' behavioral
 
 **⏱ Ước tính:** Chuẩn bị 15' · Mock + feedback 2h10' · Anki 20' · **Tổng 2h45'**
 
-> Hôm nay là ngày nghỉ Tết Dương lịch, tận dụng để làm một buổi liền mạch ~2 tiếng. Nếu hôm nay không nhờ được ai, làm D96 và D97 đổi chỗ cho nhau không sao, miễn làm đủ.
+> Cần một buổi liền mạch ~2 tiếng và có người nghe (hoặc tự quay video), nên hãy chặn lịch từ sớm trong tuần. Nếu hôm nay không nhờ được ai, làm D96 và D97 đổi chỗ cho nhau không sao, miễn làm đủ.
 
 ### Chuẩn bị (trước giờ mock)
 
@@ -269,7 +269,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D97 (T7, 02/01): Xem lại video mock, sửa 3 điểm yếu
+## D97 (T7, 23/01): Xem lại video mock, sửa 3 điểm yếu
 
 **⏱ Ước tính:** DSA 45' · Xem video + chọn điểm yếu 1h15' · Sửa 1h30' · Ôn ⚠️ 15' · Anki 15' · **Tổng 4h00'**
 
@@ -313,7 +313,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D98 (CN, 03/01): Ôn nhẹ + chuẩn bị câu hỏi hỏi ngược nhà tuyển dụng
+## D98 (CN, 24/01): Ôn nhẹ + chuẩn bị câu hỏi hỏi ngược nhà tuyển dụng
 
 **⏱ Ước tính:** DSA 20' · Ôn nhẹ 45' · Câu hỏi hỏi ngược 45' · Chốt tuần 13 (tuỳ chọn) 10' · Checklist 10' · **Tổng 2h10'**
 
@@ -364,11 +364,11 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D99 – D100 (T2 04/01 – T3 05/01/2027): Sẵn sàng
+## D99 – D100 (T2 25/01 – T3 26/01/2027): Sẵn sàng
 
 **Việc theo lộ trình tổng:** Mock lần cuối (1 coding + 1 SD) và nộp CV vào các công ty ưu tiên.
 
-### D99 (T2, 04/01): Mock lần cuối
+### D99 (T2, 25/01): Mock lần cuối
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 65' (Mock SD 45' + So điểm/ghi chú 20') · **Tổng 2h10'**
 
@@ -379,7 +379,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
   - Kiểm lại điểm yếu #1 và #2 của D97: đã sửa được chưa?
 - **Nếu điểm vẫn dưới ngưỡng:** vẫn nộp CV theo kế hoạch. Phỏng vấn thật ở các công ty ít ưu tiên chính là buổi luyện tốt nhất; tiếp tục luyện song song trong lúc chờ lịch.
 
-### D100 (T3, 05/01): Nộp CV vào các công ty ưu tiên
+### D100 (T3, 26/01): Nộp CV vào các công ty ưu tiên
 
 **⏱ Ước tính:** Giờ làm 20' (Anki 20') · Tối 90' (Checklist CV/GitHub/LinkedIn 45' + Nộp CV + nhắn referral 30' + Bảng theo dõi ứng tuyển 15') · **Tổng 1h50'**
 

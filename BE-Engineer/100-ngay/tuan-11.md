@@ -1,4 +1,4 @@
-# Tuần 11 (07/12 – 13/12): DP 2D, Trie, Message Queue, CAP
+# Tuần 11 (28/12 – 03/01): DP 2D, Trie, Message Queue, CAP
 
 [← Tuần 10](tuan-10.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 12 →](tuan-12.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là **Lab D76**: bản gốc cần ~4h35', nên đã tách t
 
 ---
 
-## D71 (T2, 07/12): Message Queue
+## D71 (T2, 28/12): Message Queue
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 85' (Học 45' + Bảng T2 10' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h30'**
 
@@ -153,7 +153,7 @@ Nhóm: *messaging/streaming*. Trục chính: **tính tức thời của kết qu
 
 ---
 
-## D72 (T3, 08/12): Delivery guarantees + consumer idempotent
+## D72 (T3, 29/12): Delivery guarantees + consumer idempotent
 
 **⏱ Ước tính:** Giờ làm 75' (DSA 55' + Anki 20') · Tối 80' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
@@ -247,7 +247,7 @@ Nhóm: *messaging/streaming*. Trục chính: **tính tức thời của kết qu
 
 ---
 
-## D73 (T4, 09/12): Kafka vs RabbitMQ vs SQS
+## D73 (T4, 30/12): Kafka vs RabbitMQ vs SQS
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
@@ -365,7 +365,7 @@ Nhóm: *messaging/streaming*. Trục chính: **guarantee vs throughput**. Extens
 
 ---
 
-## D74 (T5, 10/12): CAP và các mô hình nhất quán
+## D74 (T5, 31/12): CAP và các mô hình nhất quán
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 85' (Học 45' + Bảng T2 10' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h30'**
 
@@ -485,7 +485,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 ---
 
-## D75 (T6, 11/12): Case study Notification System
+## D75 (T6, 01/01): Case study Notification System
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 75' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h20'**
 
@@ -601,7 +601,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 ---
 
-## D76 (T7, 12/12): Lab
+## D76 (T7, 02/01): Lab
 
 **⏱ Ước tính:** DSA 40' · Lab bắt buộc 2h55' (Bước 1 15' + Bước 2 40' + Bước 3 60' + Bước 4 40' + Bước 5a 20') · Ôn ⚠️ 20' · **Tổng 3h55'** (+ mở rộng 20': Bước 5b, dời sang CN nếu chưa kịp)
 
@@ -682,7 +682,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 ---
 
-## D77 (CN, 13/12): Chốt tuần 11
+## D77 (CN, 03/01): Chốt tuần 11
 
 **⏱ Ước tính:** DSA 65' (Error List 15' + làm lại 1143 và 518 50') · Chốt tuần 60' · Anki/cheat sheet 30' · Lab mở rộng dời từ D76 20' · **Tổng 2h55'**
 

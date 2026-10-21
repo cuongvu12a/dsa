@@ -1,4 +1,4 @@
-# Tuần 1 (28/09 – 04/10): Big-O, OOP, SOLID
+# Tuần 1 (19/10 – 25/10): Big-O, OOP, SOLID
 
 ← [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 2 →](tuan-02.md)
 
@@ -38,7 +38,7 @@ Ngày nặng nhất trong tuần là D5 (LSP/ISP/DIP + Top K bằng Heap/Bucket,
 
 ---
 
-## D1 (T2, 28/09): Big-O
+## D1 (T2, 19/10): Big-O
 
 **⏱ Ước tính:** Giờ làm 40' (DSA 30' + Anki 10') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h05'**
 
@@ -156,7 +156,7 @@ Ngày nặng nhất trong tuần là D5 (LSP/ISP/DIP + Top K bằng Heap/Bucket,
 
 ---
 
-## D2 (T3, 29/09): 4 tính chất OOP
+## D2 (T3, 20/10): 4 tính chất OOP
 
 **⏱ Ước tính:** Giờ làm 35' (DSA 25' + Anki 10') · Tối 80' (Học 35' + Bảng T2 15' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 1h55'**
 
@@ -237,7 +237,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D3 (T4, 30/09): Composition vs Inheritance
+## D3 (T4, 21/10): Composition vs Inheritance
 
 **⏱ Ước tính:** Giờ làm 35' (DSA 25' + Anki 10') · Tối 60' (Học 30' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 1h35'**
 
@@ -295,7 +295,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D4 (T5, 01/10): SOLID, phần S và O
+## D4 (T5, 22/10): SOLID, phần S và O
 
 **⏱ Ước tính:** Giờ làm 55' (DSA 45' + Anki 10') · Tối 70' (Học 40' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 2h05'**
 
@@ -356,7 +356,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D5 (T6, 02/10): SOLID, phần L, I, D
+## D5 (T6, 23/10): SOLID, phần L, I, D
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 50' + Anki 10') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -423,7 +423,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D6 (T7, 03/10): Lab
+## D6 (T7, 24/10): Lab
 
 **⏱ Ước tính:** DSA 45' · Lab 2h30' · Ôn ⚠️ 30' · **Tổng 3h45'**
 
@@ -472,7 +472,7 @@ class OrderService:
 
 ---
 
-## D7 (CN, 04/10): Chốt tuần 1
+## D7 (CN, 25/10): Chốt tuần 1
 
 **⏱ Ước tính:** DSA 40' (làm lại 49, 347) · Làm lại 3 bài Easy 30' · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 2h40'**
 

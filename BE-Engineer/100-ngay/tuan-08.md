@@ -1,4 +1,4 @@
-# Tuần 8 (16/11 – 22/11): Backtracking, Cache, Replication, Sharding, NoSQL
+# Tuần 8 (07/12 – 13/12): Backtracking, Cache, Replication, Sharding, NoSQL
 
 ← [Tuần 7](tuan-07.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 9 →](tuan-09.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là **D55 (Lab cache-aside)**: Lab đã được chia *bắt
 
 ---
 
-## D50 (T2, 16/11): Redis & cache cơ bản
+## D50 (T2, 07/12): Redis & cache cơ bản
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 40' + Bảng T2 LRU/LFU 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -162,7 +162,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D51 (T3, 17/11): Chiến lược cache
+## D51 (T3, 08/12): Chiến lược cache
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 35' + Bảng T2 chiến lược cache 15' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -276,7 +276,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D52 (T4, 18/11): Sự cố cache + kiểu dữ liệu Redis
+## D52 (T4, 09/12): Sự cố cache + kiểu dữ liệu Redis
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 90' (Học 40' + Bảng T2 kiểu dữ liệu Redis 15' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
@@ -391,7 +391,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D53 (T5, 19/11): Replication
+## D53 (T5, 10/12): Replication
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 40' + Bảng T2 sync/async 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -506,7 +506,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D54 (T6, 20/11): Sharding + connection pooling
+## D54 (T6, 11/12): Sharding + connection pooling
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 50' + Anki 15') · Tối 85' (Học 40' + Bảng T2 sharding 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
@@ -643,7 +643,7 @@ Nhóm: *quản lý connection*. Trục chính: **mức tái sử dụng connecti
 
 ---
 
-## D55 (T7, 21/11): Lab
+## D55 (T7, 12/12): Lab
 
 **⏱ Ước tính:** DSA 30' · Lab bắt buộc 3h00' · Ôn ⚠️ 30' · **Tổng 4h00'**
 
@@ -746,7 +746,7 @@ Nhóm: *Data storage/model*. Trục chính: **tính nhất quán và khả năng
 
 ---
 
-## D56 (CN, 22/11): Chốt tuần 8 + Chốt Giai đoạn 2
+## D56 (CN, 13/12): Chốt tuần 8 + Chốt Giai đoạn 2
 
 **⏱ Ước tính:** DSA (Error List) 20' · Bảng T2 dời (SQL vs NoSQL 40' + Pooling mode 10') 50' · Chốt tuần câu 1–4 30' · Tự mock 45' · Tổng kết Giai đoạn 2 15' · Anki/cheat sheet 15' · **Tổng 2h55'**
 

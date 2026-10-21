@@ -1,4 +1,4 @@
-# Tuần 3 (12/10 – 18/10): Stack, Binary Search, Behavioral/Structural Patterns, Repository
+# Tuần 3 (02/11 – 08/11): Stack, Binary Search, Behavioral/Structural Patterns, Repository
 
 [← Tuần 2](tuan-02.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 4 →](tuan-04.md)
 
@@ -30,7 +30,7 @@ Ngày nặng nhất là D20 (4h00'), vì lab đã được rút xuống 3h05'. B
 
 ---
 
-## D15 (T2, 12/10): Strategy
+## D15 (T2, 02/11): Strategy
 
 **⏱ Ước tính:** Giờ làm 39' (DSA 25' + Anki 14') · Tối 63' (Học 35' + Ghi chú/Anki 10' + Tự kiểm tra 18') · **Tổng 1h42'**
 
@@ -99,7 +99,7 @@ Ngày nặng nhất là D20 (4h00'), vì lab đã được rút xuống 3h05'. B
 
 ---
 
-## D16 (T3, 13/10): Observer / Pub-Sub
+## D16 (T3, 03/11): Observer / Pub-Sub
 
 **⏱ Ước tính:** Giờ làm 54' (DSA 40' + Anki 14') · Tối 83' (Học 40' + Bảng T2 15' + Ghi chú/Anki 10' + Tự kiểm tra 18') · **Tổng 2h17'**
 
@@ -190,7 +190,7 @@ Nhóm: *messaging/eventing*. Trục chính: **đơn giản, tức thời** vs **
 
 ---
 
-## D17 (T4, 14/10): Adapter & Decorator (+ middleware)
+## D17 (T4, 04/11): Adapter & Decorator (+ middleware)
 
 **⏱ Ước tính:** Giờ làm 59' (DSA 45' + Anki 14') · Tối 88' (Học 40' + Bảng T2 20' + Ghi chú/Anki 10' + Tự kiểm tra 18') · **Tổng 2h27'**
 
@@ -274,7 +274,7 @@ Nhóm: *structural pattern (các kiểu "bọc" object)*. Trục chính: **có �
 
 ---
 
-## D18 (T5, 15/10): Repository & Unit of Work
+## D18 (T5, 05/11): Repository & Unit of Work
 
 **⏱ Ước tính:** Giờ làm 39' (DSA 25' + Anki 14') · Tối 80' (Học 40' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 18') · **Tổng 1h59'**
 
@@ -359,7 +359,7 @@ Nhóm: *data access pattern*. Trục chính: **đơn giản, nhanh làm** vs **t
 
 ---
 
-## D19 (T6, 16/10): Kiến trúc phân lớp + CQRS cơ bản
+## D19 (T6, 06/11): Kiến trúc phân lớp + CQRS cơ bản
 
 **⏱ Ước tính:** Giờ làm 54' (DSA 40' + Anki 14') · Tối 87' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 2h21'**
 
@@ -473,7 +473,7 @@ Nhóm: *kiến trúc truy cập dữ liệu*. Trục chính: **tối ưu riêng 
 
 ---
 
-## D20 (T7, 17/10): Lab
+## D20 (T7, 07/11): Lab
 
 **⏱ Ước tính:** DSA 45' · Lab 3h05' · Ôn ⚠️ 10' · **Tổng 4h00'**
 
@@ -537,7 +537,7 @@ Nhóm: *kiến trúc truy cập dữ liệu*. Trục chính: **tối ưu riêng 
 
 ---
 
-## D21 (CN, 18/10): Chốt tuần 3
+## D21 (CN, 08/11): Chốt tuần 3
 
 **⏱ Ước tính:** DSA 50' · Làm lại 739, 875 40' · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 3h00'**
 

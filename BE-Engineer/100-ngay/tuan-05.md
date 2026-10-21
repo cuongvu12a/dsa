@@ -1,4 +1,4 @@
-# Tuần 5 (26/10 – 01/11): Tree, SQL, Index
+# Tuần 5 (16/11 – 22/11): Tree, SQL, Index
 
 ← [Tuần 4](tuan-04.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 6 →](tuan-06.md)
 
@@ -30,7 +30,7 @@ Ngày nặng nhất là **D34 (Lab 3h45', thêm tới 4h00' nếu làm phần m�
 
 ---
 
-## D29 (T2, 26/10): Ôn SQL
+## D29 (T2, 16/11): Ôn SQL
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -159,7 +159,7 @@ Nhóm: *cách diễn đạt truy vấn*. Trục chính của cuộc so sánh: **
 
 ---
 
-## D30 (T3, 27/10): Chuẩn hoá, phi chuẩn hoá, khoá & constraint
+## D30 (T3, 17/11): Chuẩn hoá, phi chuẩn hoá, khoá & constraint
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h04'**
 
@@ -296,7 +296,7 @@ Nhóm: *data storage/model: định danh bản ghi*. Trục chính của cuộc 
 
 ---
 
-## D31 (T4, 28/10): Index là gì, B-Tree hoạt động ra sao
+## D31 (T4, 18/11): Index là gì, B-Tree hoạt động ra sao
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -424,7 +424,7 @@ Nhóm: *cấu trúc index*. Trục chính của cuộc so sánh: **loại truy v
 
 ---
 
-## D32 (T5, 29/10): Composite index, thứ tự cột, covering index
+## D32 (T5, 19/11): Composite index, thứ tự cột, covering index
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -547,7 +547,7 @@ Nhóm: *chiến lược index*. Trục chính của cuộc so sánh: **tốc đ�
 
 ---
 
-## D33 (T6, 30/10): Cardinality, selectivity, khi nào index bị bỏ qua
+## D33 (T6, 20/11): Cardinality, selectivity, khi nào index bị bỏ qua
 
 **⏱ Ước tính:** Giờ làm 52' (DSA 40' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h17'**
 
@@ -674,7 +674,7 @@ Nhóm: *chiến lược index*. Trục chính của cuộc so sánh: **kích th�
 
 ---
 
-## D34 (T7, 31/10): Lab
+## D34 (T7, 21/11): Lab
 
 **⏱ Ước tính:** DSA 40' · Lab bắt buộc 2h35' · Ôn ⚠️ 30' · **Tổng 3h45'**
 
@@ -851,7 +851,7 @@ CREATE TABLE orders_noidx (LIKE orders INCLUDING IDENTITY);
 
 ---
 
-## D35 (CN, 01/11): Chốt tuần 5
+## D35 (CN, 22/11): Chốt tuần 5
 
 **⏱ Ước tính:** DSA 45' · Chốt tuần 60' · Bảng T2 dời từ D30 15' · Anki/cheat sheet 30' · **Tổng 2h30'**
 

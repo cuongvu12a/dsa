@@ -1,4 +1,4 @@
-# Tuần 10 (30/11 – 06/12): DP 1D, khung System Design, các case study đầu tiên
+# Tuần 10 (21/12 – 27/12): DP 1D, khung System Design, các case study đầu tiên
 
 [← Tuần 9](tuan-09.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 11 →](tuan-11.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài D
 
 ---
 
-## D64 (T2, 30/11): Khung phỏng vấn System Design 5 bước
+## D64 (T2, 21/12): Khung phỏng vấn System Design 5 bước
 
 **⏱ Ước tính:** Giờ làm 50' (DSA 30' + Anki 20') · Tối 75' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h05'**
 
@@ -151,7 +151,7 @@ Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài D
 
 ---
 
-## D65 (T3, 01/12): Ước lượng nhanh (back-of-the-envelope)
+## D65 (T3, 22/12): Ước lượng nhanh (back-of-the-envelope)
 
 **⏱ Ước tính:** Giờ làm 50' (DSA 30' + Anki 20') · Tối 80' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h10'**
 
@@ -271,7 +271,7 @@ Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài D
 
 ---
 
-## D66 (T4, 02/12): Case study URL Shortener
+## D66 (T4, 23/12): Case study URL Shortener
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 40' + Bảng T2 20' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
@@ -413,7 +413,7 @@ Nhóm: *protocol/API design*. Trục chính: **giảm tải (caching behavior)**
 
 ---
 
-## D67 (T5, 03/12): Case study Rate Limiter
+## D67 (T5, 24/12): Case study Rate Limiter
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
@@ -560,7 +560,7 @@ Nhóm: *deployment/infra strategy*. Trục chính: **mức độ kiểm soát** 
 
 ---
 
-## D68 (T6, 04/12): Case study Unique ID Generator
+## D68 (T6, 25/12): Case study Unique ID Generator
 
 **⏱ Ước tính:** Giờ làm 75' (DSA 55' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h45'**
 
@@ -686,7 +686,7 @@ Nhóm: *sinh định danh phân tán*, nhóm khác. Trục chính tự xác đ�
 
 ---
 
-## D69 (T7, 05/12): Lab
+## D69 (T7, 26/12): Lab
 
 **⏱ Ước tính:** DSA 45' · Lab bắt buộc 2h30' (Bước 1 60' + Bước 2 bắt buộc 1h30') · Bảng T2 dời từ D67 10' · Ôn ⚠️ 30' · **Tổng 3h55'** (+ mở rộng 30' nếu còn giờ)
 
@@ -772,7 +772,7 @@ Làm bằng ngôn ngữ/framework bạn đang dùng. Redis đã có sẵn trong 
 
 ---
 
-## D70 (CN, 06/12): Chốt tuần 10
+## D70 (CN, 27/12): Chốt tuần 10
 
 **⏱ Ước tính:** DSA 45' · Làm lại 198 + 322 30' (70 tuỳ chọn) · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 2h45'**
 

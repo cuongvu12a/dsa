@@ -1,4 +1,4 @@
-# Tuần 4 (19/10 – 25/10): Linked List, HTTP, REST API Design, Auth
+# Tuần 4 (09/11 – 15/11): Linked List, HTTP, REST API Design, Auth
 
 [← Tuần 3](tuan-03.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 5 →](tuan-05.md)
 
@@ -30,7 +30,7 @@ Ngày nặng nhất là **D27 (Lab 4h00', chạm trần Thứ Bảy)**; để c�
 
 ---
 
-## D22 (T2, 19/10): HTTP
+## D22 (T2, 09/11): HTTP
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -174,7 +174,7 @@ Nhóm: *protocol*. Trục chính: **hiệu năng trên một kết nối** vs **
 
 ---
 
-## D23 (T3, 20/10): Thiết kế REST & Pagination
+## D23 (T3, 10/11): Thiết kế REST & Pagination
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 75' (Học 40' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 1h57'**
 
@@ -284,7 +284,7 @@ Nhóm: *protocol/API design*. Trục chính: **tiện cho người dùng (nhảy
 
 ---
 
-## D24 (T4, 21/10): Idempotency & Versioning
+## D24 (T4, 11/11): Idempotency & Versioning
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h04'**
 
@@ -423,7 +423,7 @@ Nhóm: *protocol/API design*. Trục chính: **dễ thấy, dễ dùng** vs **UR
 
 ---
 
-## D25 (T5, 22/10): Auth
+## D25 (T5, 12/11): Auth
 
 **⏱ Ước tính:** Giờ làm 57' (DSA 45' + Anki 12') · Tối 87' (Học 50' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h24'**
 
@@ -565,7 +565,7 @@ Nhóm: *thuật toán băm mật khẩu*. Trục chính: **khả năng chống G
 
 ---
 
-## D26 (T6, 23/10): REST vs gRPC vs GraphQL + N+1 problem
+## D26 (T6, 13/11): REST vs gRPC vs GraphQL + N+1 problem
 
 **⏱ Ước tính:** Giờ làm 62' (DSA 50' + Anki 12') · Tối 85' (Học 45' + Bảng T2 15' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h27'**
 
@@ -694,7 +694,7 @@ Nhóm: *data access*. Trục chính: **số round-trip** vs **lượng dữ li�
 
 ---
 
-## D27 (T7, 24/10): Lab – Dự án
+## D27 (T7, 14/11): Lab – Dự án
 
 **⏱ Ước tính:** DSA 50' · Lab bắt buộc 2h40' · Ôn ⚠️ 30' · **Tổng 4h00'**
 
@@ -847,7 +847,7 @@ idempotency_keys(
 
 ---
 
-## D28 (CN, 25/10): Chốt tuần 4 + Chốt Giai đoạn 1
+## D28 (CN, 15/11): Chốt tuần 4 + Chốt Giai đoạn 1
 
 **⏱ Ước tính:** DSA 35' · Chốt tuần 60' · Bảng T2 dời từ D24–D25 20' · Lab Bước 7 (tài liệu) 25' · Tổng kết GĐ1 + Anki/cheat sheet 30' · **Tổng 2h50'**
 

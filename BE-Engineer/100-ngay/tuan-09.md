@@ -1,4 +1,4 @@
-# Tuần 9 (23/11 – 29/11): Intervals/Greedy, OS/Network, Scaling cơ bản
+# Tuần 9 (14/12 – 20/12): Intervals/Greedy, OS/Network, Scaling cơ bản
 
 ← [Tuần 8](tuan-08.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 10 →](tuan-10.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là **D62 (Lab 2 instance sau Nginx)**: Lab đã được ch
 
 ---
 
-## D57 (T2, 23/11): Process, Thread, Concurrency
+## D57 (T2, 14/12): Process, Thread, Concurrency
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -151,7 +151,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D58 (T3, 24/11): TCP/UDP, DNS, TLS
+## D58 (T3, 15/12): TCP/UDP, DNS, TLS
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -275,7 +275,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D59 (T4, 25/11): "Gõ URL vào trình duyệt"
+## D59 (T4, 16/12): "Gõ URL vào trình duyệt"
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -370,7 +370,7 @@ Hôm nay không học kiến thức mới. Bạn **ghép** kiến thức từ Tu
 
 ---
 
-## D60 (T5, 26/11): Scaling & Load balancer
+## D60 (T5, 17/12): Scaling & Load balancer
 
 **⏱ Ước tính:** Giờ làm 55' (DSA 40' + Anki 15') · Tối 85' (Học 30' + Bảng T2 L4/L7 + nơi lưu session 20' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -533,7 +533,7 @@ Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn 
 
 ---
 
-## D61 (T6, 27/11): Consistent hashing, CDN, reverse proxy, API Gateway
+## D61 (T6, 18/12): Consistent hashing, CDN, reverse proxy, API Gateway
 
 **⏱ Ước tính:** Giờ làm 55' (DSA 40' + Anki 15') · Tối 85' (Học 40' + Bảng T2 reverse proxy/LB/API Gateway 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -671,7 +671,7 @@ Nhóm: *infra / điểm vào của traffic*. Trục chính: **mỏng và nhanh**
 
 ---
 
-## D62 (T7, 28/11): Lab
+## D62 (T7, 19/12): Lab
 
 **⏱ Ước tính:** DSA 40' · Lab bắt buộc 2h50' · Ôn ⚠️ 30' · **Tổng 4h00'**
 
@@ -810,7 +810,7 @@ server {
 
 ---
 
-## D63 (CN, 29/11): Chốt tuần 9
+## D63 (CN, 20/12): Chốt tuần 9
 
 **⏱ Ước tính:** DSA 45' · Chốt tuần 60' · Bảng T2 dời từ trong tuần 35' (mô hình concurrency 15' + TCP vs UDP 10' + scale dọc vs ngang 10') · Anki/cheat sheet 20' · **Tổng 2h40'**
 
