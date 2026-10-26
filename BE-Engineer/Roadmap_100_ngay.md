@@ -7,6 +7,8 @@
 > **Lịch:** Ngày 1 = Thứ Hai 19/10/2026 → Ngày 100 = Thứ Ba 26/01/2027. Nếu bạn bắt đầu vào ngày khác, chỉ cần dịch toàn bộ lịch theo.
 >
 > 🔁 **Đã dời lịch +3 tuần ngày 21/10/2026** (lịch gốc: 28/09/2026 → 05/01/2027; thực tế bắt đầu trễ nên lấy đầu tuần 19/10 làm Ngày 1). Dời đúng bội số của 7 ngày nên các nhãn thứ (T2…CN) vẫn khớp. D96 không còn rơi vào ngày nghỉ lễ.
+>
+> 🔁 **Từ 26/10/2026: tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy (≤ 4h), Chủ Nhật là ngày trống để nghỉ hoặc học bù. Lịch ngày và số thứ tự D1–D100 giữ nguyên. Đã áp dụng: tuần 1. Các tuần 2–14 vẫn theo khung cũ (T7 Lab, CN Chốt tuần) cho tới khi được chuyển.
 
 ---
 
@@ -18,13 +20,13 @@
 
 | Ngày | Hôm nay | Bài | Trạng thái | Ghi chú |
 |---|---|---|---|---|
-| D1 (T2, 19/10) | | Big-O | 🔶 | Lý thuyết xong. Còn: câu hỏi cuối bài |
-| D2 (T3, 20/10) | | OOP | 🔶 | Lý thuyết xong. Còn: câu hỏi cuối bài, Anki |
-| D3 (T4, 21/10) | ◀ hôm nay | Composition vs Inheritance | 🔶 | Lý thuyết xong. Còn: 4 bài tập tự làm, câu hỏi cuối bài, DSA Two Sum (nếu chưa làm) |
-| D4 (T5, 22/10) | | SOLID: S, O | ⬜ | |
-| D5 (T6, 23/10) | | SOLID: L, I, D | ⬜ | |
-| D6 (T7, 24/10) | | Lab | ⬜ | Bài dài (3h45'), ngày cuối tuần |
-| D7 (CN, 25/10) | | Chốt tuần 1 | ⬜ | |
+| D1 (T2, 19/10) | | Big-O | ✅ | Lý thuyết xong, câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn) |
+| D2 (T3, 20/10) | | OOP | ✅ | Lý thuyết xong, câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Nhập Anki ở T7 |
+| D3 (T4, 21/10) | | Composition vs Inheritance | 🔶 | Lý thuyết xong; 4 bài tập và câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Còn: DSA 1 Two Sum (nếu chưa làm) |
+| D4 (T5, 22/10) | | SOLID: S, O | 🔶 | Lý thuyết + câu hỏi cuối bài xong. Còn: DSA 49 Group Anagrams (nếu chưa làm) |
+| D5 (T6, 23/10) | | SOLID: L, I, D | 🔶 | Lý thuyết, khung nhớ nhanh, 4 thẻ Anki xong; câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Còn: DSA 347 Top K (gửi để soát) |
+| D6 + D7 (T7, 24/10) | ◀ tiếp theo | Lab + Chốt tuần 1 | ⬜ | Gộp 1 buổi (3h55'). Học bù dần, không dời lịch |
+| CN (25/10) | | Ngày trống: nghỉ / học bù | — | |
 
 **Các tuần còn lại**
 
@@ -81,7 +83,7 @@ Mỗi ngày trong file tuần có một dòng **⏱ Ước tính** ngay dưới 
 
 | Tuần | Tổng tuần | Trung bình/ngày |
 |---|---|---|
-| Tuần 1 | 16h25' | 2h21' |
+| Tuần 1 | 13h55' (6 buổi) | 2h19' |
 | Tuần 2 | 18h15' | 2h36' |
 | Tuần 3 | 17h46' | 2h32' |
 | Tuần 4 | 17h49' | 2h33' |
@@ -101,7 +103,7 @@ Mỗi ngày trong file tuần có một dòng **⏱ Ước tính** ngay dưới 
 Các ước tính đều tuân theo 3 giới hạn:
 - tối ngày thường tối đa 90',
 - Thứ Bảy tối đa 4h,
-- Chủ Nhật tối đa 3h.
+- Chủ Nhật để trống (nghỉ / học bù), không xếp bài mới.
 
 Ngày nào vượt thì phần T2 hoặc phần "(tuỳ chọn)" đã được dời sang cuối tuần, và có ghi chú ⚖️ ở cả hai nơi.
 
@@ -123,8 +125,8 @@ Mỗi ngày có:
 | **Trong giờ làm** | 60–90' | **DSA: 1 bài (≤ 45')** + ôn Anki 10–15' + nếu còn giờ thì đọc trước bài tối |
 | **Buổi tối – Lập trình** | 60–75' | **Bài học lý thuyết của ngày**: đọc/xem (40') → ghi chú bằng lời của mình (10') → **trả lời câu hỏi cuối bài** (15') |
 | **Buổi tối – Tiếng Anh** | ≥ 60' | Giữ nguyên. Gợi ý: thỉnh thoảng dùng tài liệu kỹ thuật tiếng Anh (NeetCode, ByteByteGo) làm bài nghe/đọc để tận dụng hai lần. Không bắt buộc |
-| **Thứ Bảy** | 3–4h | 1 bài DSA mới + **Lab thực hành** (dự án xuyên suốt) + ôn lại các câu đánh dấu ⚠️ |
-| **Chủ Nhật** | 2–3h | 1 bài DSA hoặc làm lại bài cũ + **Chốt tuần** (tự kiểm tra) + tạo thẻ Anki |
+| **Thứ Bảy** | ≤ 4h | 1 bài DSA mới + **Lab thực hành** (phần bắt buộc) + **Chốt tuần** (tự kiểm tra) + Anki/cheat sheet |
+| **Chủ Nhật** | — | **Ngày trống:** nghỉ, hoặc học bù buổi bị lỡ trong tuần. Nếu còn sức: phần tuỳ chọn dời từ Thứ Bảy (làm lại DSA cũ, Lab mở rộng, ôn ⚠️) |
 
 **Khi quá tải**, ưu tiên theo thứ tự: câu hỏi cuối bài → bài DSA → đọc thêm. Nên bỏ phần đọc thêm trước, **không bỏ phần tự kiểm tra**.
 
@@ -192,8 +194,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D3 (T4) | 1 Two Sum | Composition vs Inheritance | refactoring.guru, *Head First Design Patterns* ch.1 (ví dụ Duck) | 1h35' |
 | D4 (T5) | 49 Group Anagrams | SOLID: **S**, **O** | refactoring.guru, tự tìm ví dụ trong code công ty | 2h05' |
 | D5 (T6) | 347 Top K Frequent Elements | SOLID: **L**, **I**, **D** | như trên | 2h20' |
-| D6 (T7) | 238 Product of Array Except Self | **Lab:** tạo repo, Anki deck, Error List. Refactor một đoạn code vi phạm SOLID, viết bản trước/sau | — | 3h45' |
-| D7 (CN) | Làm lại 1 bài sai trong tuần | **Chốt tuần 1** | — | 2h40' |
+| D6 + D7 (T7) | 238 Product of Array Except Self | **Lab:** Anki deck, Error List. Refactor một đoạn code vi phạm SOLID, viết bản trước/sau. **Chốt tuần 1** | — | 3h55' |
+| CN | *(tuỳ chọn)* làm lại 49, 347 | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 

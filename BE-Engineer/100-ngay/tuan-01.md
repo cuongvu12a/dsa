@@ -29,10 +29,12 @@
 | D3 (T4) | 35' | 60' | 1h35' |
 | D4 (T5) | 55' | 70' | 2h05' |
 | D5 (T6) | 60' | 80' | 2h20' |
-| D6 (T7) | — | 3h45' | 3h45' |
-| D7 (CN) | — | 2h40' | 2h40' |
+| D6 + D7 (T7) | — | 3h55' | 3h55' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 16h25'** (chưa tính 1h tiếng Anh mỗi ngày)
+**Tổng tuần: 13h55'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
+
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab (D6) và Chốt tuần (D7) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
 
 Ngày nặng nhất trong tuần là D5 (LSP/ISP/DIP + Top K bằng Heap/Bucket, 2h20'). Không buổi tối nào vượt 90', nên tuần này không phải dời việc sang Thứ Bảy.
 
@@ -423,25 +425,25 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D6 (T7, 24/10): Lab
+## D6 + D7 (T7, 24/10): Lab + Chốt tuần 1
 
-**⏱ Ước tính:** DSA 45' · Lab 2h30' · Ôn ⚠️ 30' · **Tổng 3h45'**
+**⏱ Ước tính:** DSA 40' · Lab 2h05' (chuẩn bị 20' + refactor 1h45') · Chốt tuần 50' · Anki/cheat sheet 20' · **Tổng 3h55'**
+
+> ⚖️ Gộp từ D6 (3h45') và D7 (2h40'). Đã chuyển sang Chủ Nhật (tuỳ chọn): giải lại 49 + 347, 3 bài Easy, ôn ⚠️ 30'.
 
 ### 🧩 DSA: [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
 
 - **Pattern (🔴 T1):** *Prefix / Suffix*. Kết quả tại vị trí i bằng (tích các phần tử bên trái i) × (tích các phần tử bên phải i).
 - **Mục tiêu:** O(n) thời gian, không dùng phép chia. Bộ nhớ phụ O(1) nếu không tính mảng output.
-- Sau đó làm lại 1 bài sai trong tuần (nếu có).
 
-### 🛠 Lab (3h)
+### 🛠 Lab (2h05')
 
-**Bước 1: Chuẩn bị (30')**
-- Tạo repo `interview-prep/` gồm `dsa/`, `notes/`, `project/`.
-- Tạo `notes/error-list.md`, `notes/tradeoff-cheatsheet.md`, `notes/snippets.md`.
-- Tạo Anki deck với 2 loại thẻ: **T1** (câu hỏi → giải thích) và **DSA-Pattern** (dấu hiệu đề bài → tên pattern + ý tưởng chính). Nhập các thẻ D1–D5.
+**Bước 1: Chuẩn bị (20')**
+- **Không** tạo repo mới: dùng luôn `BE-Engineer/notes/`. Tạo thêm `notes/error-list.md` và `notes/snippets.md` (`tradeoff-cheatsheet.md` đã có).
+- Tạo Anki deck với 2 loại thẻ: **T1** (câu hỏi → giải thích) và **DSA-Pattern** (dấu hiệu đề bài → tên pattern + ý chính). Nhập thẻ D1–D5 từ mục "Thẻ Anki" trong từng note.
 
-**Bước 2: Refactor theo SOLID (2h)**
-- Chọn một đoạn code thật ở công ty. Nếu không tiện, dùng đoạn mẫu dưới đây và viết lại bằng ngôn ngữ bạn dùng:
+**Bước 2: Refactor theo SOLID (1h45')**
+- Ưu tiên đoạn code thật ở công ty (ví dụ service gọi thẳng `@InjectConnection`, `ClientSession`, `$gte`, mã lỗi `11000`). Nếu không tiện, dùng đoạn mẫu dưới đây:
 
 ```python
 class OrderService:
@@ -463,20 +465,13 @@ class OrderService:
 ```
 
 - **Yêu cầu:**
-  1. Liệt kê các vi phạm (gợi ý: có ít nhất 4 vi phạm SRP/OCP/DIP).
-  2. Refactor: tách `PricingPolicy`, `PaymentMethod` (interface + 2 implementation), `OrderRepository`, `Notifier`; inject qua constructor.
+  1. Liệt kê các vi phạm (ít nhất 4 vi phạm SRP/OCP/DIP).
+  2. Refactor: tách `PricingPolicy`, `PaymentMethod` (interface + 2 implementation), `OrderRepository`, `Notifier`; port và token đặt trong domain, inject qua constructor, lắp ở composition root.
   3. Viết một unit test cho `place_order` dùng fake repository và fake payment.
-- Viết `notes/solid-refactor.md` theo 3 phần: **Trước → Vi phạm → Sau → Lợi ích**. Bạn sẽ dùng lại file này làm câu chuyện khi phỏng vấn.
+- Viết `notes/solid-refactor.md` theo khung **Trước → Vi phạm → Sau → Lợi ích**. Dùng lại file này làm câu chuyện khi phỏng vấn.
+- Dùng "Kiểm tra DIP 3 bước" và bảng "chỗ hay rò" ở [D5 #4](../notes/d05-solid-l-i-d.md#-làm-rõ-thêm-từ-hỏi-đáp).
 
-**Bước 3 (30'):** Ôn các câu đánh dấu ⚠️ trong tuần.
-
----
-
-## D7 (CN, 25/10): Chốt tuần 1
-
-**⏱ Ước tính:** DSA 40' (làm lại 49, 347) · Làm lại 3 bài Easy 30' · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 2h40'**
-
-**DSA:** Làm lại 1 bài sai, hoặc tự giải lại bài 49 và 347 trong ≤ 20' mỗi bài, không xem lời giải.
+### ✅ Chốt tuần 1 (50')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -497,10 +492,26 @@ class OrderService:
 
 </details>
 
+### Anki / cheat sheet (20')
+
+- Thêm bảng T2 **Heap vs Bucket sort (Top K)** vào `notes/tradeoff-cheatsheet.md`; kiểm tra bảng Interface vs Abstract class đã đủ.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
 - [ ] File `notes/solid-refactor.md` hoàn thành
-- [ ] Tự giải lại 5 bài DSA của tuần không xem lời giải
 - [ ] Anki: đã nhập đủ thẻ T1 của D1–D5 + thẻ pattern Hashing / Counting / Prefix-Suffix
-- [ ] Cheat sheet: đã điền bảng Interface vs Abstract class
+- [ ] Cheat sheet: đã có bảng Interface vs Abstract class và Heap vs Bucket sort
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 5 bài DSA của tuần không xem lời giải
+
+---
+
+## CN (25/10): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - Giải lại 49 Group Anagrams và 347 Top K, ≤ 20' mỗi bài, không xem lời giải.
+   - Làm lại 3 bài Easy trong tuần (217, 242, 1).
+   - Ôn các câu đánh dấu ⚠️ (30').
