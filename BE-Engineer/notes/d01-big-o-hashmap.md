@@ -24,6 +24,7 @@
 13. [Sharding: thêm server với hash](#13-sharding-thêm-server-với-hash) · 📎 Mở rộng (ngoài bảng roadmap)
 14. [Khung phân tích dùng cho mọi đoạn code](#14-khung-phân-tích-dùng-cho-mọi-đoạn-code) · 🔴 T1 · khung tổng hợp
 15. [Thẻ Anki T1 kèm đáp án](#15-thẻ-anki-t1-kèm-đáp-án) · 🔴 T1
+16. [Câu hỏi cuối bài](#16-câu-hỏi-cuối-bài) · đáp án mẫu
 
 ---
 
@@ -680,3 +681,63 @@ Mẫu trả lời: 🇬🇧 *"Time is O(__) [worst / average / amortized], space
 
 9. **Vì sao `users.reduce((acc, u) => ({ ...acc, [u.id]: u }), {})` chậm?**
    Mỗi vòng copy toàn bộ `acc`: 1 + 2 + … + n → O(n²). Sửa: `new Map(users.map(u => [u.id, u]))` hoặc gán trực tiếp vào một object duy nhất.
+
+---
+
+## 16. Câu hỏi cuối bài
+
+> Đáp án mẫu (Claude viết hộ, 26/10/2026). Khi ôn: che đáp án, tự trả lời bằng tiếng Anh trước rồi mới mở.
+
+1. Vì sao dùng HashSet cho bài 217 là O(n), còn hai vòng lặp lồng nhau là O(n²)? Đổi lại bạn tốn thêm gì?
+2. Binary search trên mảng 1 triệu phần tử cần tối đa khoảng bao nhiêu bước? Vì sao? (gợi ý: 2²⁰ ≈ 1 triệu)
+3. Cách "sort rồi so sánh hai phần tử kề nhau" có độ phức tạp bao nhiêu? Khi nào nó tốt hơn HashSet? (gợi ý: khi bộ nhớ bị giới hạn)
+
+*Câu bổ sung (kiểm tra ý chưa được hỏi):*
+
+4. Đoạn code sau chạy với n = 10⁵. Nó có xong trong khoảng 1 giây không? Vì sao? Sửa thế nào?
+   ```python
+   seen = []
+   for x in arr:
+       if x not in seen:
+           seen.append(x)
+   ```
+5. Vì sao `append` vào dynamic array là O(1) amortized dù thỉnh thoảng phải copy cả mảng? Nếu mỗi lần đầy chỉ tăng thêm 10 ô thay vì gấp đôi thì độ phức tạp thành bao nhiêu?
+
+<details><summary>Đáp án</summary>
+
+Các con số dưới đây đã chạy thật (Python 3.11, máy cá nhân), không ước lượng theo trí nhớ.
+
+**1.** Lần theo số thao tác:
+- **Hai vòng lồng nhau:** cặp (i, j) với j > i được so một lần → (n−1) + (n−2) + … + 1 = n(n−1)/2 lần so sánh. Với n = 10⁵ là ≈ 5·10⁹ → **O(n²)** ([mục 5](#5-quy-tắc-phân-tích-vòng-lặp)).
+- **HashSet:** duyệt mỗi phần tử **một lần**; mỗi lần làm `x in seen` + `seen.add(x)`, cả hai O(1) trung bình (hash → bucket, [mục 12](#12-hashmap-bên-trong)). n lần × O(1) = **O(n)**.
+- **Cái giá:** bộ nhớ phụ **O(n)** cho set (xấu nhất mọi phần tử khác nhau, set chứa đủ n key, mỗi entry còn tốn hash + con trỏ, nặng hơn nhiều so với số nguyên trong mảng). O(1) cũng chỉ là **trung bình**: hash tồi / hash flooding dồn key vào một bucket thì mỗi lần tra thành O(n).
+- Backend: kiểm tra "trong lô import 100k đơn có `order_code` trùng không" → dùng set, đừng lồng 2 vòng.
+
+**2.** Tối đa **20 bước**. Mỗi bước so với phần tử giữa rồi bỏ một nửa: 10⁶ → 5·10⁵ → … → 1. Số lần chia đôi tới khi còn 1 phần tử là k với 2ᵏ ≥ n → k = ⌈log₂(10⁶ + 1)⌉ = 20 (vì 2²⁰ = 1 048 576 ≥ 10⁶). Đã chạy: tìm phần tử đầu, cuối, không tồn tại → nhiều nhất 20 vòng lặp. Gấp đôi dữ liệu chỉ thêm **1** bước: đó là sức mạnh của O(log n), cũng là lý do index B-tree của DB tra cứu nhanh trên bảng hàng triệu dòng.
+
+**3.** Sort O(n log n) + một lần duyệt so `a[i] == a[i+1]` O(n) → **O(n log n)** thời gian. Bộ nhớ phụ: O(1) nếu sort tại chỗ kiểu heapsort; Python `list.sort()` (Timsort) dùng tới O(n) bộ nhớ tạm, JS `Array.prototype.sort` tuỳ engine. Tốt hơn HashSet khi:
+- **Bộ nhớ bị giới hạn** (không cho phép thêm một set cỡ n);
+- mảng **đã sort sẵn** (chỉ còn O(n), O(1) bộ nhớ), hoặc dữ liệu lấy từ DB đã `ORDER BY`;
+- sau đó còn cần dữ liệu **có thứ tự** (in danh sách trùng theo thứ tự, tìm khoảng);
+- dữ liệu quá lớn phải xử lý ngoài RAM (external sort).
+Nhược điểm: chậm hơn về bậc (n log n > n) và **làm thay đổi input** (sort tại chỗ) → copy trước nếu caller còn dùng mảng gốc.
+
+**4.** **Không kịp.** Lần theo từng dòng:
+- `for x in arr`: n = 10⁵ vòng.
+- `x not in seen`: `seen` là **list** → so lần lượt từng phần tử, O(len(seen)). Khi mọi phần tử khác nhau, `seen` dài dần 0, 1, 2, … → tổng ≈ n²/2 = 5·10⁹ phép so sánh → **O(n²)** ([mục 6](#6-chi-phí-ẩn-của-hàm-thư-viện): `in` trên list là chi phí ẩn).
+- Đo thật: n = 10⁴ mất 0.19 s; **n = 10⁵ mất ≈ 19 s** (gấp 10 lần n → gấp 100 lần thời gian, đúng dấu hiệu O(n²)).
+- Sửa: tra trong **set**, vẫn giữ list nếu cần thứ tự xuất hiện:
+  ```python
+  seen, result = set(), []
+  for x in arr:
+      if x not in seen:
+          seen.add(x)
+          result.append(x)
+  ```
+  Đo thật: n = 10⁵ còn **≈ 6 ms**. Ngắn hơn: `list(dict.fromkeys(arr))` (dict giữ thứ tự chèn, O(n)).
+
+**5.** **Gấp đôi:** resize xảy ra khi size = 1, 2, 4, 8, …; mỗi lần copy đúng số phần tử đang có. Tổng copy sau n lần append ≈ 1 + 2 + 4 + … + n/2 < n → cộng n lần ghi = dưới 2n–3n thao tác cho n lần append → chia đều **O(1) amortized** ([mục 9](#9-amortized-khấu-hao)). Đo thật: n = 10⁵ → 131 071 lần copy (< 2n).
+**Tăng cố định +10:** resize ở size 1, 11, 21, 31, … → khoảng n/10 lần resize, lần thứ k copy ≈ 10k phần tử → tổng ≈ 10·(1 + 2 + … + n/10) ≈ n²/20 → **O(n²)** tổng, **O(n) amortized mỗi lần append**. Đo thật: n = 10⁵ → 499 960 000 lần copy (≈ n²/20 = 5·10⁸).
+Ý chính: tăng theo **cấp số nhân** (×2, Python thực tế ≈ ×1.125, Java `ArrayList` ×1.5) thì số lần resize chỉ là log n và tổng chi phí là chuỗi hình học bị chặn bởi hằng × n; tăng theo **cấp số cộng** thì số lần resize tỉ lệ với n và tổng thành chuỗi số học ~n².
+
+</details>

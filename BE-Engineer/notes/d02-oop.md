@@ -18,6 +18,7 @@
 7. [Tell, Don't Ask](#7-tell-dont-ask) · 🔴 T1
 8. [Khung nhớ nhanh cho 4 tính chất](#8-khung-nhớ-nhanh-cho-4-tính-chất) · 🔴 T1 · khung tổng hợp
 9. [Thẻ Anki kèm đáp án](#9-thẻ-anki-kèm-đáp-án) · 🔴 T1
+10. [Câu hỏi cuối bài](#10-câu-hỏi-cuối-bài)
 
 ---
 
@@ -640,8 +641,6 @@ Object gom **state + behavior** (#1) → **Encapsulation** giữ invariant bằn
 5. **Khi nào chọn Interface thay vì Abstract class?**
    Chọn interface khi cần cam kết hành vi cho nhiều cài đặt khác nhau, nhất là ở ranh giới module/service hoặc cần mock: linh hoạt, coupling thấp, nhưng không chia sẻ code. Chọn abstract class khi các class cùng khung chạy và chỉ khác vài bước, cần tái dùng code, chấp nhận coupling cao. Chỉ muốn mượn code thì dùng composition.
 
-**❓ Câu hỏi cuối bài:** làm theo phần "Câu hỏi cuối bài" của D2 trong [tuan-01.md](../100-ngay/tuan-01.md) (5 câu, kể cả câu bổ sung về `OrderService` và `Triangle`). Tự trả lời bằng tiếng Anh trước khi mở đáp án.
-
 **🟦 Thẻ bổ sung cho TypeScript**
 
 6. **Trong TS, `private` khác `#x` ở đâu?**
@@ -652,3 +651,105 @@ Object gom **state + behavior** (#1) → **Encapsulation** giữ invariant bằn
 
 8. **Thêm một loại mới vào union TS mà quên cập nhật một `switch`, làm sao compiler biết?**
    Thêm nhánh `default: { const _x: never = p; return _x; }`. Khi union có loại chưa được xử lý, `p` không còn là `never` nên compile báo lỗi tại chính `switch` đó.
+
+---
+
+## 10. Câu hỏi cuối bài
+
+> Đáp án mẫu (Claude viết hộ, 26/10/2026). Khi ôn: che đáp án, tự trả lời bằng tiếng Anh trước rồi mới mở.
+
+1. Encapsulation khác Abstraction ở đâu? Cho ví dụ trong code bạn đang làm.
+2. Polymorphism lúc chạy (overriding) khác lúc biên dịch (overloading) thế nào?
+3. Vì sao để field `public` rồi ai cũng gán giá trị tuỳ ý là phá vỡ encapsulation?
+4. *(Câu bổ sung)* Trong `OrderService` có đoạn: `if order.status == "PAID" and order.shipped_at is None: order.status = "CANCELLED"; order.refund_amount = order.total`. Đoạn này vi phạm nguyên lý nào? Nếu có thêm 3 nơi khác cũng huỷ đơn thì rủi ro gì? Bạn sửa thế nào?
+5. *(Câu bổ sung)* Hệ thống đang tính tổng diện tích một danh sách `Circle`, `Square`. Cần thêm `Triangle`. Với runtime polymorphism, những file nào phải sửa, file nào không? Nếu code đang viết `if shape.type == "circle": ... elif ...` thì khác gì?
+
+<details><summary>Đáp án</summary>
+
+**1.** Hai khái niệm trả lời hai câu hỏi khác nhau ([mục 3](#3-abstraction-và-khác-encapsulation-chỗ-nào)):
+
+| | Encapsulation | Abstraction |
+|---|---|---|
+| Câu hỏi | **Ai được chạm** vào state? | **Người dùng cần biết gì**? |
+| Nhìn từ | bên trong class | bên ngoài, phía code gọi |
+| Công cụ | field private, chỉ sửa qua method có kiểm tra | interface / method đặt tên theo nghiệp vụ |
+| Bảo vệ | invariant (số dư không âm, status hợp lệ) | code gọi khỏi chi tiết cài đặt |
+
+Ví dụ backend có cả hai trong một class: `PaymentGateway.charge(order_id, amount) -> ChargeResult`. Code checkout chỉ biết "trừ tiền đơn này" (**abstraction**), không biết có ký HMAC, retry 3 lần, gọi HTTP tới Momo. Bên trong, `_api_key`, `_retry_count`, `_http_client` là private, không ai bên ngoài đọc hoặc gán được (**encapsulation**). Có thể có cái này mà thiếu cái kia: một class toàn field private nhưng method tên `send_post_request_v2(payload: dict)` là có encapsulation mà abstraction tệ.
+
+**2.** ([mục 5](#5-polymorphism))
+
+| | Overriding (runtime) | Overloading (compile time) |
+|---|---|---|
+| Là gì | lớp con viết lại method của lớp cha / cài method của interface | cùng tên method, khác danh sách tham số |
+| Chọn lúc nào, theo gì | **lúc chạy**, theo kiểu **thật** của object (dynamic dispatch) | **lúc biên dịch**, theo kiểu **khai báo** của tham số |
+| Giúp mở rộng không sửa code gọi | ✅ thêm `ZaloPayPayment` thì `checkout(payment)` không đổi | ❌ chỉ là tiện cú pháp cho người gọi |
+| Python | ✅ | ❌ định nghĩa trùng tên thì cái sau đè; thay bằng tham số mặc định, `singledispatch` |
+| TypeScript | ✅ | chỉ nhiều **chữ ký**, một thân hàm, tự rẽ nhánh bằng `typeof` lúc chạy |
+
+Chỉ overriding mới là thứ OCP và DIP dựa vào: `payment.pay(amount)` gọi đúng `MomoPayment.pay` hay `VnpayPayment.pay` tuỳ object truyền vào lúc chạy.
+
+**3.** ([mục 2](#2-encapsulation-và-invariant)) Field `public` ai cũng gán được thì:
+- **Không còn cổng kiểm tra invariant.** `account.balance = -500`, `order.status = "SHIPPED"` khi chưa thanh toán: object rơi vào trạng thái sai mà không ai chặn.
+- **Luật phải lặp ở mọi chỗ gán.** 10 nơi gán `status` là 10 nơi phải nhớ kiểm tra; một nơi quên là có bug dữ liệu, thường chỉ phát hiện khi đối soát.
+- **Không đổi được cách lưu bên trong.** Muốn đổi `balance: float` sang `balance_minor: int` (tránh lỗi làm tròn tiền) thì mọi nơi đọc/ghi field đều phải sửa. Có method `withdraw()`/`deposit()` thì chỉ sửa trong class.
+- **Không biết ai đã đổi state.** Debug "vì sao đơn bị CANCELLED" phải grep toàn codebase thay vì đặt breakpoint ở một method.
+
+**4.** Vi phạm **Tell, Don't Ask** và **encapsulation** ([mục 7](#7-tell-dont-ask)): service *hỏi* state của `Order`, *tự quyết* luật huỷ, rồi *gán* thẳng field. `Order` chỉ là túi dữ liệu (anemic model), luật huỷ đơn nằm ngoài object sở hữu nó.
+
+Có 4 nơi cùng huỷ đơn thì rủi ro là **lệch luật**: một nơi quên `refund_amount`, một nơi quên kiểm tra `shipped_at` (huỷ cả đơn đã giao), một nơi thêm luật mới "đơn COD không hoàn tiền" còn 3 nơi kia không. Lỗi kiểu này không làm app crash, chỉ lộ ra khi kế toán đối soát tiền.
+
+Sửa: đưa luật vào `Order.cancel()`, field không cho gán tự do (đã chạy, `mypy --strict` sạch):
+
+```python
+class OrderNotCancellable(Exception):
+    pass
+
+@dataclass
+class Order:
+    total: int
+    _status: str = "PAID"
+    _shipped_at: datetime | None = None
+    _refund_amount: int = 0
+
+    @property
+    def status(self) -> str:
+        return self._status
+
+    def cancel(self) -> None:
+        if self._status != "PAID" or self._shipped_at is not None:
+            raise OrderNotCancellable(self._status)
+        self._status = "CANCELLED"
+        self._refund_amount = self.total
+
+# 4 nơi gọi đều chỉ còn: order.cancel()
+# Huỷ lần 2 → OrderNotCancellable('CANCELLED'), không hoàn tiền 2 lần
+```
+
+Thêm luật COD sau này chỉ sửa đúng một method.
+
+**5.** Với runtime polymorphism (đã chạy, `mypy --strict` sạch):
+
+```python
+class Shape(Protocol):
+    def area(self) -> float: ...
+
+class Triangle:                        # file mới / class mới
+    def __init__(self, base: float, height: float) -> None:
+        self.base, self.height = base, height
+    def area(self) -> float:
+        return self.base * self.height / 2
+
+def total_area(shapes: list[Shape]) -> float:     # KHÔNG sửa
+    return sum(s.area() for s in shapes)
+```
+
+- **Thêm:** class `Triangle` có `area()`.
+- **Sửa:** chỉ nơi **tạo** object (composition root / factory đọc input) để có thể sinh ra `Triangle`.
+- **Không sửa:** `Circle`, `Square`, `total_area` và mọi hàm khác chỉ dùng `Shape`. Đây là OCP ([D4](d04-solid-s-o.md)).
+
+Với `if shape.type == "circle": ... elif ...`: **mọi hàm** rẽ nhánh theo loại (`total_area`, `perimeter`, `render`, `to_json`...) đều phải thêm nhánh `triangle`, nằm rải ở nhiều file. Quên một chỗ thì không có lỗi compile, chỉ rơi vào `else` (trả 0 hoặc ném lỗi) lúc chạy. Ngoài đời đây là `if payment_method == "momo" ... elif "vnpay"` lặp ở chỗ tính phí, chỗ gọi API, chỗ xử lý webhook.
+
+Ngoại lệ đáng nhớ: nếu tập loại **cố định** mà hay thêm **thao tác** mới, union + `switch` có kiểm tra `never` (TS) lại tiện hơn, vì compiler chỉ ra mọi chỗ quên (xem khối 🟦 [mục 5](#5-polymorphism)).
+
+</details>

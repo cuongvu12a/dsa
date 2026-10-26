@@ -4,7 +4,7 @@
 
 > Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python; khác biệt của **TypeScript/JavaScript** nằm trong khối 🟦 cuối mỗi mục (đã biên dịch strict và chạy thử trên Node 20).
 > Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần
-> Phần lý thuyết đã đủ. 🚧 Còn lại là **bài tập bạn tự làm** (xem cuối file) và câu hỏi cuối bài.
+> Phần lý thuyết đã đủ. Bài tập và câu hỏi cuối bài đã có **đáp án mẫu** (Claude viết hộ, 26/10/2026) trong các khối thu gọn: khi ôn, che đáp án, tự làm lại trước rồi mới mở.
 
 ---
 
@@ -14,11 +14,11 @@
 2. [Các vấn đề của kế thừa](#2-các-vấn-đề-của-kế-thừa) · 🔴 T1
 3. [Composition + delegation](#3-composition--delegation) · 🔴 T1
 4. [Favor composition over inheritance: khi nào vẫn nên kế thừa](#4-favor-composition-over-inheritance-khi-nào-vẫn-nên-kế-thừa) · 🔴 T1
-5. [Mixin / Trait](#5-mixin--trait) · 🟢 T3
+5. [Mixin / Trait](#5-mixin--trait--t3) · 🟢 T3
 6. [Khung nhớ nhanh](#6-khung-nhớ-nhanh)
 7. [Thẻ Anki T1 kèm đáp án](#7-thẻ-anki-t1-kèm-đáp-án) · 🔴 T1
-8. [Câu hỏi cuối bài](#8-câu-hỏi-cuối-bài) (🚧 chưa làm)
-9. [Bài tập còn nợ](#bài-tập-còn-nợ-làm-khi-có-thời-gian)
+8. [Câu hỏi cuối bài](#8-câu-hỏi-cuối-bài) · có đáp án mẫu
+9. [Bài tập còn nợ](#bài-tập-còn-nợ-làm-khi-có-thời-gian) · có đáp án mẫu
 
 ---
 
@@ -115,7 +115,23 @@ notifier = RetryNotifier(LoggedNotifier(SmsNotifier()))
 - **Nối D1:** `class Cache(dict)` fail test 4: lộ toàn bộ API dict (`clear()`, `update()`), mất khả năng giữ invariant (kích thước, TTL). Cache nên **chứa** một dict.
 - **Nối D2 #4:** phép thử "mọi chỗ dùng cha thay bằng con được" chính là mầm LSP (D4).
 
-> 🚧 Bài tập mục #1 (tự nghĩ 5 ví dụ phân loại is-a/has-a) **chưa nộp**. Làm bù khi tiện, ghi 5 ví dụ của bạn vào đây.
+> Đáp án mẫu (Claude viết hộ, 26/10/2026). Khi ôn: che đáp án, tự làm lại trước rồi mới mở.
+
+**Bài tập mục #1:** tự nghĩ 5 ví dụ phân loại is-a / has-a / uses-a (đủ 1 is-a thật, 1 bẫy, 1 vai trò đổi theo thời gian).
+
+<details><summary>Đáp án mẫu</summary>
+
+| # | Cặp | Phân loại | Lý do (qua phép thử thay thế hành vi) |
+|---|---|---|---|
+| 1 | `OutOfStockError` và `DomainError` | **is-a thật** | Mọi chỗ `except DomainError` bắt được nó và xử lý đúng (trả 4xx, log nghiệp vụ). Cây nông, ổn định, exception được thiết kế để kế thừa |
+| 2 | `RefundPayment` và `Payment` | **Bẫy: has-a** | Nghe như "refund là một loại payment", nhưng `Payment.capture()` vô nghĩa với refund; đưa refund vào chỗ đang xử lý `Payment` sẽ phá hợp đồng. Refund **tham chiếu tới** (has-a) payment gốc: `Refund(original: Payment, amount)` |
+| 3 | `Customer` thành `VipCustomer` | **Vai trò đổi theo thời gian → has-a** | Khách lên/xuống hạng lúc chạy; không đổi được class của một object đang sống một cách an toàn. Đúng: `Customer` có `tier: MembershipTier` (hoặc `PricingPolicy`) đổi được |
+| 4 | `OrderService` và `EmailSender` | **uses-a / has-a** (không phải is-a) | Chỉ muốn dùng lại hàm gửi mail. Kế thừa sẽ lộ `send_raw()`, `smtp_config` ra API của `OrderService`. Đúng: inject `Notifier` qua constructor |
+| 5 | `Invoice` và `Order` (cùng có `total`, `items`) | **Không quan hệ** (giống code ≠ giống khái niệm) | Invoice có vòng đời riêng (phát hành, huỷ, điều chỉnh thuế). Cần dùng chung thì tách `LineItems` / `Money` rồi **cả hai cùng chứa** |
+
+Mẹo nhanh: hỏi *"đặt con vào **mọi** chỗ đang dùng cha, có chỗ nào sai không?"* và *"quan hệ này có đổi lúc chạy không?"*. Sai ở một chỗ hoặc đổi được lúc chạy thì là has-a.
+
+</details>
 
 ### 🟦 TypeScript / JavaScript
 
@@ -244,7 +260,37 @@ Duck: 3 khả năng độc lập → 2³ = 8 class (mục #3 viết lại bằng
 - **Silent failure đắt hơn crash:** audit thủng, đếm sai, cache không xoá: không exception, không alert, chỉ lộ khi đối soát hoặc khách báo.
 - **Nối D2 #4:** mục "Rủi ro lớn nhất" ở D2 chính là vấn đề 1. **Nối D1:** `class MyDict(dict)` override `__setitem__` thì `dict.update()` **không** gọi nó (CPython đi đường tắt bằng C). Đây là fragile base class thật ngay trong thư viện chuẩn: dùng `collections.UserDict` hoặc composition.
 
-> 🚧 Bài tập mục #2 (3 ví dụ tự nghĩ của bạn) **chưa nộp**.
+> Đáp án mẫu (Claude viết hộ, 26/10/2026). Khi ôn: che đáp án, tự làm lại trước rồi mới mở.
+
+**Bài tập mục #2:** 3 ví dụ backend tự nghĩ cho 3 vấn đề của kế thừa.
+
+<details><summary>Đáp án mẫu</summary>
+
+**1. Fragile base class: quota SMS đếm về 0 (đã chạy thật).**
+
+```python
+class SmsSender:                                   # thư viện nội bộ, v1
+    def send(self, phone: str, text: str) -> None: ...
+    def send_bulk(self, phones: list[str], text: str) -> None:
+        for p in phones:
+            self.send(p, text)                     # v1 tự gọi send()
+
+class QuotaSmsSender(SmsSender):                   # team khác kế thừa để đếm quota
+    used = 0
+    def send(self, phone: str, text: str) -> None:
+        QuotaSmsSender.used += 1
+        super().send(phone, text)
+```
+
+Thư viện lên v2: `send_bulk` gọi thẳng bulk API của nhà mạng, **không qua `send()`** nữa (thay đổi hợp lệ, nhanh hơn). Gửi 3 số: v1 `quota used: 3`, v2 `quota used: 0`. Không exception, không alert: chỉ lộ khi hoá đơn nhà mạng vượt hạn mức. Sửa: `QuotaSmsSender` **chứa** một sender và đếm ở chính chỗ nó uỷ quyền (`send` và `send_bulk` đều đếm), không phụ thuộc cha gọi gì bên trong.
+
+**2. Coupling chặt với lớp cha: `BaseController` dùng chung.** 30 controller kế thừa `BaseController` của thư viện nội bộ và đọc `self._user.tenant_id`. Thư viện đổi `_user` thành `self.auth.principal` (refactor nội bộ). 30 controller gãy, và chỉ gãy **lúc chạy** ở đúng route đó vì Python không kiểm tra thuộc tính protected. Thư viện "đóng băng", không ai dám sửa. Sửa: controller nhận `CurrentUser` qua DI (FastAPI `Depends`, decorator `@CurrentUser()` của Nest), chỉ phụ thuộc hợp đồng công khai.
+
+**3. Bùng nổ class: thông báo đơn hàng.** Kênh (Email / SMS / Push) × có retry hay không × có log hay không = `3 × 2 × 2 = 12` class (`RetryingLoggedSmsNotifier`...). Thêm kênh Zalo: +4 class. Composition: 3 class kênh + `RetryingNotifier(inner)` + `LoggingNotifier(inner)` = 5 mảnh, ghép lúc chạy: `LoggingNotifier(RetryingNotifier(SmsNotifier()))`. Thêm Zalo: +1 class.
+
+*Vấn đề thứ 4, cây quá sâu:* `BaseEntity → AuditableEntity → SoftDeletableEntity → TenantEntity → Order`. Muốn biết `order.save()` thật sự làm gì phải đọc 5 file theo thứ tự `super()`.
+
+</details>
 
 ## 3. Composition + delegation
 
@@ -293,7 +339,69 @@ class Order:
 **Bài tập Duck (🔴 T1): viết lại bằng composition.** Năm bước: (1) tìm phần thay đổi (`fly`, `quack`); (2) `Protocol` `FlyBehavior`, `QuackBehavior`; (3) behavior cụ thể: `FlyWithWings`, `NoFly`, `Quack`, `Squeak`, `Silent`; (4) `Duck` nhận hai behavior qua constructor, `fly()`/`quack()` uỷ quyền; (5) ghép Mallard, Rubber, Wooden **không tạo subclass `Duck`**, rồi đổi behavior bay của Mallard sang `NoFly` lúc chạy.
 Tự kiểm: thêm `RocketFly` có sửa class cũ nào không (không)? `Duck` có `new` behavior cụ thể bên trong không (không)? còn `if type ==` không (không)? truyền `FlyBehavior` giả để test được không (được)?
 
-> 🚧 Bài tập Duck và Q1–Q3 của mục này **chưa nộp**. Viết xong thì dán code Duck của bạn vào đây.
+> Đáp án mẫu (Claude viết hộ, 26/10/2026). Khi ôn: che đáp án, tự làm lại trước rồi mới mở.
+
+<details><summary>Đáp án mẫu: Duck bằng composition (đã chạy, mypy --strict sạch)</summary>
+
+```python
+from typing import Protocol
+
+# Bước 2: contract
+class FlyBehavior(Protocol):
+    def fly(self) -> str: ...
+
+class QuackBehavior(Protocol):
+    def quack(self) -> str: ...
+
+# Bước 3: behavior cụ thể
+class FlyWithWings:
+    def fly(self) -> str: return "flapping wings"
+
+class NoFly:
+    def fly(self) -> str: return "cannot fly"
+
+class Quack:
+    def quack(self) -> str: return "Quack!"
+
+class Squeak:
+    def quack(self) -> str: return "Squeak!"
+
+class Silent:
+    def quack(self) -> str: return "..."
+
+# Bước 4: Duck giữ behavior, nhận qua constructor, uỷ quyền
+class Duck:
+    def __init__(self, name: str, fly: FlyBehavior, quack: QuackBehavior) -> None:
+        self.name = name
+        self._fly = fly
+        self._quack = quack
+
+    def fly(self) -> str:
+        return f"{self.name}: {self._fly.fly()}"
+
+    def quack(self) -> str:
+        return f"{self.name}: {self._quack.quack()}"
+
+    def set_fly(self, fly: FlyBehavior) -> None:   # đổi lúc chạy
+        self._fly = fly
+
+# Bước 5: ghép, không tạo subclass Duck
+mallard = Duck("Mallard", FlyWithWings(), Quack())
+rubber = Duck("Rubber", NoFly(), Squeak())
+wooden = Duck("Wooden", NoFly(), Silent())
+mallard.set_fly(NoFly())                           # bị thương, hết bay
+```
+
+Output: `Mallard: flapping wings | Mallard: Quack!` · `Rubber: cannot fly | Rubber: Squeak!` · `Wooden: cannot fly | Wooden: ...` · sau `set_fly`: `Mallard: cannot fly`.
+
+**Trả lời các câu tự kiểm:**
+
+1. *Thêm `RocketFly` có sửa class cũ nào không?* Không. Thêm một class có `fly()`, rồi `wooden.set_fly(RocketFly())` → `Wooden: rocket-powered`. `Duck`, `FlyWithWings`, `NoFly` giữ nguyên (cũng là OCP, D4).
+2. *`Duck` có `new` behavior cụ thể bên trong không?* Không. `Duck` chỉ biết `FlyBehavior`/`QuackBehavior`; việc chọn `FlyWithWings()` nằm ở chỗ lắp ráp (composition root, D4).
+3. *Còn `if type == ...` không?* Không. Khác biệt giữa các loại vịt nằm ở **object được truyền vào**, không nằm ở nhánh `if`.
+4. *Truyền `FlyBehavior` giả để test được không?* Được. `SpyFly` đếm số lần gọi: `Duck("Test", spy, Silent()).fly()` → `spy.calls == 1`.
+
+</details>
 
 ### ⚠️ Bẫy
 
@@ -564,14 +672,15 @@ Kế thừa nhét các khả năng độc lập vào **một cây** nên số cl
 
 ## 8. Câu hỏi cuối bài
 
-> Tự trả lời trước (bằng tiếng Anh), rồi mở đáp án để soát. 🚧 **Chưa làm.**
+> Tự trả lời trước (bằng tiếng Anh), rồi mở đáp án để soát.
+> Đáp án mẫu (Claude viết hộ, 26/10/2026). Khi ôn: che đáp án, tự làm lại trước rồi mới mở.
 
 1. 🇬🇧 Explain the difference between "is-a" and "has-a". 🇻🇳 Phân biệt "is-a" và "has-a".
 2. 🇬🇧 Describe one situation where inheritance causes trouble. 🇻🇳 Nêu một tình huống kế thừa gây rắc rối.
 3. 🇬🇧 Rewrite the `Duck` example (a flying duck / a wooden duck that cannot fly) with composition. 🇻🇳 Viết lại ví dụ `Duck` bằng composition.
 4. 🇬🇧 Java has `class Stack extends Vector`, so a `Stack` can still call `insertElementAt(x, 0)` and insert in the middle. Is this good or bad design? Why? Name one case where inheritance is still the right choice. 🇻🇳 `Stack extends Vector` có tốt không? Vì sao? Nêu một trường hợp kế thừa vẫn đúng.
 
-<details><summary>Ý chính cần có / Key points</summary>
+<details><summary>Đáp án mẫu / Key points</summary>
 
 **1.** is-a: con là một loại của cha, dùng được ở mọi nơi cha được dùng mà không phá hợp đồng (qua test thay thế). has-a: object **chứa/dùng** object khác. Mẹo: nếu chỉ muốn **dùng lại code** chứ không phải "là một loại" thì đó là has-a. Vai trò đổi theo thời gian cũng là has-a.
 
@@ -601,7 +710,9 @@ class Stack<T> {
 
 ## Bài tập còn nợ (làm khi có thời gian)
 
-- [ ] Mục #1: 5 ví dụ is-a / has-a / uses-a tự nghĩ (đủ 1 is-a thật, 1 bẫy, 1 vai trò đổi theo thời gian).
-- [ ] Mục #2: 3 ví dụ backend tự nghĩ cho 3 vấn đề của kế thừa.
-- [ ] Mục #3: viết lại `Duck` bằng composition (5 bước) và trả lời Q1–Q3.
-- [ ] Mục #8: tự trả lời 4 câu cuối bài rồi soát.
+> Cả 4 bài đã có đáp án mẫu (Claude viết hộ, 26/10/2026) ngay tại mục tương ứng. Đánh dấu ✔ khi **tự** làm lại được mà không mở đáp án.
+
+- [ ] Mục #1: 5 ví dụ is-a / has-a / uses-a tự nghĩ (đủ 1 is-a thật, 1 bẫy, 1 vai trò đổi theo thời gian). Đáp án mẫu: [mục #1](#1-is-a-vs-has-a-và-composition-là-gì)
+- [ ] Mục #2: 3 ví dụ backend tự nghĩ cho 3 vấn đề của kế thừa. Đáp án mẫu: [mục #2](#2-các-vấn-đề-của-kế-thừa)
+- [ ] Mục #3: viết lại `Duck` bằng composition (5 bước) và trả lời các câu tự kiểm. Đáp án mẫu: [mục #3](#3-composition--delegation)
+- [ ] Mục #8: tự trả lời 4 câu cuối bài rồi soát. Đáp án mẫu: [mục #8](#8-câu-hỏi-cuối-bài)

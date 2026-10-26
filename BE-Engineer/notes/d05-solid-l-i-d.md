@@ -4,7 +4,7 @@
 
 > Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python; khác biệt của **TypeScript/JavaScript** nằm trong khối 🟦 cuối mỗi mục (đã kiểm chứng bằng cách chạy thật, không ghi theo trí nhớ).
 > Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần
-> Cả 5 mục của D5 đều 🔴 T1. 🚧 = chưa học, sẽ điền khi học tới.
+> Cả 5 mục của D5 đều 🔴 T1.
 
 ---
 
@@ -14,10 +14,10 @@
 2. [Dấu hiệu vi phạm LSP](#2-dấu-hiệu-vi-phạm-lsp) · 🔴 T1
 3. [ISP: tách interface theo nhu cầu từng client](#3-isp-tách-interface-theo-nhu-cầu-từng-client) · 🔴 T1
 4. [DIP: đảo mũi tên phụ thuộc, module cấp cao sở hữu interface](#4-dip-đảo-mũi-tên-phụ-thuộc-module-cấp-cao-sở-hữu-interface) · 🔴 T1
-5. [DIP / DI / IoC](#5-dip--di--ioc) · 🔴 T1 · 🚧
-6. [Khung nhớ nhanh](#6-khung-nhớ-nhanh) · 🚧
-7. [Thẻ Anki T1 kèm đáp án](#7-thẻ-anki-t1-kèm-đáp-án) · 🔴 T1 · 🚧
-8. [Câu hỏi cuối bài](#8-câu-hỏi-cuối-bài) · 🚧
+5. [DIP / DI / IoC](#5-dip--di--ioc) · 🔴 T1
+6. [Khung nhớ nhanh](#6-khung-nhớ-nhanh)
+7. [Thẻ Anki T1 kèm đáp án](#7-thẻ-anki-t1-kèm-đáp-án) · 🔴 T1
+8. [Câu hỏi cuối bài](#8-câu-hỏi-cuối-bài) (đáp án mẫu)
 
 ---
 
@@ -801,6 +801,45 @@ Kiểm chứng:
 - Unit test luật `total <= 0` với `InMemoryOrderRepo` (5 dòng) pass, in `infrastructure loaded: False`: **test domain không nạp module hạ tầng nào**.
 - Việc dịch `Order` → `row` nằm hẳn trong adapter. Đổi DB = thêm adapter mới, `domain/` giữ nguyên.
 
+### 🔍 Làm rõ thêm (từ hỏi đáp)
+
+**Đọc lại 2 câu định nghĩa bằng từ thường:**
+
+| Thuật ngữ | Nghĩa thật | Không phải |
+|---|---|---|
+| high-level module | **policy**: hệ thống làm *gì*, theo luật nào | "tầng trên" |
+| low-level module | **detail**: làm *bằng cách nào* (Mongo, HTTP, SMTP, Redis) | "tầng dưới" |
+| depend on | trong **mã nguồn**, A nhắc tên B (import, kiểu tham số/trả về, mã lỗi) ⇒ B đổi thì A có thể phải sửa | "A gọi B lúc chạy" |
+| abstraction | port viết bằng **từ vựng policy**, nằm trong **package policy** | "cứ có interface" |
+
+- **Câu A** = luật nghiệp vụ không được nhắc tên công nghệ.
+- **Câu B** = bản thân hợp đồng không được chứa chi tiết công nghệ. Vi phạm B gần như luôn kéo theo A: chữ ký có `SMTPTransportOptions` thì service phải `import nodemailer` để gọi.
+- Hình ảnh: **cổng USB**. Laptop (policy) định nghĩa cổng, hãng chuột (detail) làm đầu cắm theo. Bên *dùng* định nghĩa cổng.
+
+**Chữ ký (signature)** = phần người gọi phải biết để gọi: tên method + kiểu tham số + kiểu trả về (+ lỗi ném ra, là một phần hợp đồng dù TS/Python không ghi). Không gồm thân hàm. "Chữ ký của interface" = chữ ký mọi method public. DIP soi **chữ ký**, không soi thân: thân adapter chứa đầy SQL là đúng chỗ; nhưng mỗi kiểu trong chữ ký thì người gọi buộc phải biết. Cấu hình công nghệ (DSN, SMTP options, API key) đi vào **constructor của adapter**, không qua chữ ký port.
+
+**DIP lật quy tắc phân tầng truyền thống.** Phân tầng: Controller → Service → Repository/DB, "tầng dưới không import tầng trên" ⇒ nghiệp vụ phụ thuộc DB. DIP: adapter DB ("tầng dưới") **import** domain. Clean Architecture viết lại: mũi tên không chỉ "xuống" mà chỉ "**vào trong**", về phía policy.
+
+**"Repository đã map `Document` → object thuần, đổi DB chỉ sửa repo. Vậy DIP thêm được gì?"** Phần *hình dạng* đã đúng. Cái còn thiếu là **ai giữ hợp đồng sạch**: chữ ký class repo do người đang nghĩ bằng Mongo sửa tuỳ ý. Rò thường gặp dù đã map `Document`:
+
+| Rò ở đâu | Dấu hiệu trong service | Bản domain |
+|---|---|---|
+| Transaction | `startSession()`, `{ session }` | port `UnitOfWork.run(work)`; adapter giữ session bằng `AsyncLocalStorage` |
+| Query | `find({ createdAt: { $gte } })` | method nói ý định: `findPaidSince(from)` |
+| Lỗi | `e.code === 11000` | adapter dịch sang `DuplicateOrderError` |
+| Định danh | `new Types.ObjectId(id)` | `OrderId` của domain |
+| Module khác | `conn.collection('users')` trong `OrderService` | port `BuyerDirectory.getActiveBuyer(id): Buyer` do **Order** sở hữu (ISP + DIP) |
+
+Lợi ích lớn nhất trong dự án nhiều module **không phải đổi DB** mà là: schema của module khác đổi (team User đổi `tier` → Order không gãy ngầm), tách module thành service riêng (adapter Mongo → HTTP, `placeOrder` không đổi), test luật nghiệp vụ không cần Mongo, CI chặn được `domain/` import `mongoose`. Áp vào code cũ: bật luật CI cho thư mục mới, bắt đầu ở chỗ đau nhất (đọc thẳng collection module khác), mỗi lần sửa kéo một đoạn query ra adapter.
+
+**Không đáng** khi: CRUD nhỏ, 1 DB, repo đã trả object thuần, không transaction xuyên repo, team 1-2 người.
+
+**"Đọc `placeOrder` phải nhảy qua `save`, `Order.place`, handler event?"** Tách 3 thứ hay bị gộp: gọi port thay vì `conn.collection` (**DIP**); đưa luật vào `Order.place()` (rich domain model, *không bắt buộc*); `orderCount++` qua event (event-driven, *không bắt buộc*, làm luồng khó thấy hơn). Chỉ áp DIP thì toàn bộ luật vẫn nằm trong `placeOrder`, chỉ mất `startSession`/`$inc`/`11000`. Không cần đọc `save` để hiểu nghiệp vụ; cần debug *cách lưu* thì Go to Implementation.
+
+**Kiểm tra DIP khi review, 3 bước:** (1) file này là policy hay detail? (2) policy có nhắc tên thư viện hạ tầng nào không (kể cả kiểu lỗi, `ObjectId`)? có ⇒ vi phạm A. (3) port có nằm trong package policy và chữ ký không chứa từ vựng hạ tầng không? sai ⇒ vi phạm B.
+
+> **Phản xạ:** với mỗi kiểu trong chữ ký port, hỏi ***"đổi nhà cung cấp thì kiểu này còn đúng không?"*** `OrderId`: còn. `SMTPTransportOptions`, `html`: không ⇒ xuống adapter.
+
 ### 🟦 TypeScript / JavaScript
 
 Đã chạy thật: `tsc 5.6.3`, `--module commonjs`.
@@ -847,22 +886,370 @@ Kiểm chứng:
 
 ## 5. DIP / DI / IoC
 
-🚧
+| English | Nghĩa |
+|---|---|
+| Dependency Injection (DI) | tiêm phụ thuộc: đưa dependency **từ ngoài vào** thay vì tự tạo bên trong |
+| constructor / setter injection | tiêm qua constructor / qua setter (property) |
+| DI container | bộ máy tự tạo object và tiêm dependency (NestJS, Angular, `dependency-injector`) |
+| Inversion of Control (IoC) | đảo quyền điều khiển: **framework gọi code của bạn**, thay vì bạn gọi thư viện |
+| composition root | nơi duy nhất lắp ráp các object (`main.py`, `@Module({ providers })`) |
+| service locator | object tự **hỏi** một registry toàn cục để lấy dependency (`Container.get(...)`) |
+
+### 🇬🇧 Theory
+
+- **DIP** is a **design principle**: source-code dependencies point toward policy, and policy owns the abstraction. It is about *which way the arrows point*.
+- **DI** is a **technique**: an object receives its dependencies from outside (constructor, setter, or a container) instead of creating them. It is about *who creates the dependency*.
+- **IoC** is a **broader idea**: the framework controls the flow and calls your code. *You call a library; a framework calls you.* A DI container is one form of IoC.
+
+You can have DI without DIP. You can have IoC without DI. A DI container does not create DIP for you.
+
+### 🇻🇳 Giải thích
+
+| | DIP | DI | IoC |
+|---|---|---|---|
+| Loại | **nguyên lý** thiết kế | **kỹ thuật** | **ý tưởng** kiến trúc, rộng nhất |
+| Câu hỏi kiểm tra | File policy có nhắc tên hạ tầng không? Ai sở hữu interface? | **Ai gọi constructor của dependency?** | **Ai nắm luồng chạy**: code của tôi hay framework? |
+| Đạt khi | mũi tên mã nguồn chỉ về policy | dependency được truyền từ ngoài vào | framework gọi code của tôi |
+| Ví dụ | port `OrderRepository` trong `domain` | `OrderService(repo)`, `@Inject(...)` | Nest container, FastAPI `Depends`, route handler, template method |
+
+```
+          IoC (framework gọi code của bạn)
+   ┌──────────────────────────────────────────────┐
+   │  template method · event loop · route handler │
+   │   ┌───────────────────────┐                   │
+   │   │ DI container (Nest,   │                   │       DI bằng tay
+   │   │ Angular, Depends)     │◀── DI ───────────────▶  (main.py tự new: KHÔNG phải IoC)
+   │   └───────────────────────┘                   │
+   └──────────────────────────────────────────────┘
+
+   DIP: một trục KHÁC. Hỏi "kiểu tham số là gì, nằm ở package nào",
+   áp cho cả DI bằng tay lẫn DI qua container, đạt hoặc không.
+```
+
+- **DI giúp DIP vận hành được**: domain chỉ biết interface thì *ai đó bên ngoài* phải tạo adapter và truyền vào. Nhưng **kiểu của tham số** mới quyết định có DIP hay không.
+- **DI bằng tay** là DI nhưng **không phải IoC**: code của bạn vẫn nắm việc lắp ráp.
+
+> **Phản xạ DI:** hỏi ***"ai gọi constructor của dependency?"*** Chính class gọi ⇒ không DI. Bên ngoài gọi rồi truyền vào ⇒ DI, **bất kể kiểu tham số**.
+> **Phản xạ DIP:** chỉ chấm **file policy**. Composition root import gì cũng được.
+> **Phản xạ IoC:** hỏi ***"ở đây ai gọi ai?"***
+
+### Ví dụ: 4 phiên bản `OrderService` (bài đã làm)
+
+```python
+# A: tự tạo bên trong
+from infrastructure.mysql_order_repo import MySQLOrderRepo
+class OrderService:
+    def __init__(self) -> None:
+        self.repo = MySQLOrderRepo("mysql://prod-db/shop")
+
+# B: truyền vào qua constructor, nhưng kiểu là class hạ tầng
+from infrastructure.mysql_order_repo import MySQLOrderRepo
+class OrderService:
+    def __init__(self, repo: MySQLOrderRepo) -> None:
+        self.repo = repo
+
+# C: truyền vào, kiểu là port domain sở hữu
+from domain.order_repository import OrderRepository
+class OrderService:
+    def __init__(self, repo: OrderRepository) -> None:
+        self.repo = repo
+
+# main.py (B và C): composition root
+service = OrderService(MySQLOrderRepo("mysql://prod-db/shop"))
+```
+
+D (NestJS) ở khối 🟦 bên dưới: `constructor(private repo: MongoOrderRepository)`, container tự tiêm.
+
+| | DI? | DIP? | Vì sao |
+|---|---|---|---|
+| A | ❌ | ❌ | class tự gọi `MySQLOrderRepo(...)`; domain import infra |
+| B | ✅ | ❌ | `main.py` tạo và truyền vào (DI), nhưng `order_service.py` vẫn import infra |
+| C | ✅ | ✅ | `order_service.py` chỉ import `domain.*`; `main.py` biết MySQL là đúng vai composition root |
+| D | ✅ | ❌ | container lo DI, nhưng `order.service.ts` import file Mongo |
+
+**B và C có DI y hệt nhau, chỉ khác 1 dòng import.** Đã chạy thật (Python 3.11, mypy `--strict`), test `OrderService(FakeRepo())`:
+
+| | B | C |
+|---|---|---|
+| Test chạy được | ✅ | ✅ |
+| `infrastructure.mysql_order_repo` bị nạp khi import `OrderService` | **True** (code thật kéo theo `pymysql`) | False |
+| `mypy --strict` | `error: Argument 1 to "OrderService" has incompatible type "FakeRepo"; expected "MySQLOrderRepo"` | Success |
+
+Test chạy được ở B là công của **DI** (truyền được đồ giả lúc chạy). Kiểu và import vẫn đóng đinh vào MySQL là hậu quả của **thiếu DIP**.
+
+Lỗi đã mắc khi tự chấm: B "không có DI" (tưởng DI cần interface/container); C "vi phạm DIP" (chấm cả `main.py`, hoặc lẫn với luồng điều khiển lúc chạy).
+
+### IoC không có DI: template method (đã chạy, `mypy --strict` sạch)
+
+```python
+class WebhookHandler:
+    def handle(self, payload: dict[str, str]) -> str:   # "framework" giữ luồng
+        if not self.verify(payload):
+            return "401"
+        self.process(payload)
+        return "200"
+
+    def verify(self, payload: dict[str, str]) -> bool: raise NotImplementedError
+    def process(self, payload: dict[str, str]) -> None: raise NotImplementedError
+
+class MomoWebhook(WebhookHandler):                       # bạn chỉ điền chỗ trống
+    def verify(self, payload: dict[str, str]) -> bool:
+        return payload.get("sig") == "ok"
+    def process(self, payload: dict[str, str]) -> None:
+        print("mark order", payload["order_id"], "paid")
+
+MomoWebhook().handle({"sig": "ok", "order_id": "42"})   # → "200"
+```
+
+Bạn không gọi `verify`, base class gọi: có IoC, không truyền dependency nào vào: không có DI.
+
+### Service locator: dependency "lấy lén" (đã chạy)
+
+```python
+class OrderService:
+    def __init__(self) -> None:                  # chữ ký nói "tôi không cần gì"
+        pass
+
+    def place_order(self, total: int) -> int:
+        repo = Container.get("order_repo")       # ...nhưng thật ra cần repo
+        result: int = repo.save(total)
+        return result
+
+svc = OrderService()        # tạo được, không lỗi
+svc.place_order(50)         # KeyError('order_repo'): chỉ nổ khi GỌI tới nhánh này
+```
+
+`mypy --strict`: **Success**. `Container.get` trả `Any` nên type checker mù. Anti-pattern vì: (1) dependency bị giấu, đọc constructor không biết class cần gì; (2) quên đăng ký chỉ lộ lúc chạy đúng nhánh đó, constructor injection thì lộ ngay lúc khởi động; (3) mọi class phụ thuộc `Container` toàn cục, test phải sửa state toàn cục. Học sâu ở D12.
+
+### 🟦 TypeScript / JavaScript
+
+Đã chạy thật: `tsc 5.6.3`, NestJS 10, `emitDecoratorMetadata`.
+
+- **Phiên bản B trong TS** được chấp nhận hay không tuỳ class có member private: `new ServiceB(fake)` **qua** nếu `MySQLOrderRepo` chỉ có member public (structural typing); **bị từ chối** khi class có `private dsn`: `Property 'dsn' is missing in type '{ save: ... }' but required in type 'MySQLOrderRepoPrivate'`. B "trông như ổn" cho tới ngày ai đó thêm field private.
+- **Inject interface không có token** thì Nest chết lúc khởi động: `Nest can't resolve dependencies of the OrderService (?). Please make sure that the argument Object at index [0] is available...`. Interface bị xoá khi compile nên metadata là `design:paramtypes [Object]` (nối [D2 #6](d02-oop.md#6-interface-vs-abstract-class)).
+- **Cách đúng:** `export const ORDER_REPOSITORY = Symbol(...)` **trong domain** cạnh interface (mục #4), `@Inject(ORDER_REPOSITORY)`, module đăng ký `{ provide: ORDER_REPOSITORY, useClass: MongoOrderRepo }`. Log chạy: Nest gọi `new MongoOrderRepo()` rồi `new OrderService(...)`: đó là IoC.
+- **Phiên bản D** (`constructor(private repo: MongoOrderRepository)`) chạy ngon vì class vừa là kiểu vừa là token. Container lo trọn DI, nhưng `OrderService` vẫn import file Mongo: **không có DIP**.
+- `app.get(...)` / `moduleRef.get(...)` **bên trong service** chính là service locator. Chỉ dùng ở `main.ts` hoặc trong test.
+
+### ⚠️ Bẫy / hiểu nhầm hay gặp
+
+- **"Dùng NestJS / `@Inject` là đã SOLID."** Container chỉ lo DI. DIP nằm ở kiểu tham số và vị trí interface, container không quan tâm.
+- **"DI phải có interface hoặc container."** `OrderService(repo: MySQLOrderRepo)` truyền tay vẫn là DI.
+- **"DI = IoC."** DI bằng tay không phải IoC; IoC còn nhiều dạng ngoài DI.
+- **"Test chạy được với fake là ổn."** B chạy nhưng mypy từ chối và vẫn nạp hạ tầng; TS thì ổn cho tới khi có member private.
+- **Service locator núp bóng DI:** inject `ModuleRef`/`Container` vào rồi `.get()` trong method. Trông như DI, thật ra lấy lén.
+
+### 🏛️ Góc nhìn Solution Architect
+
+- **DI container của NestJS/Angular là IoC:** khai báo, framework tạo và lắp. Đổi lại mất khả năng nhìn thấy luồng lắp ráp trong code thường, nên giữ module ít "phép thuật" (tránh `forwardRef` vòng tròn, scope request lồng nhau).
+- **Composition root là ranh giới duy nhất được "bẩn"** ([D4 #4](d04-solid-s-o.md#4-ocp-với-strategy-và-factory)): Nest là các `@Module({ providers })`, Python là `main.py` / `create_app()`. Ngoài đó không class nào `new` adapter hạ tầng hay `.get()` vào container.
+- **DI bằng tay hay container:** service Python nhỏ, tự lắp trong `create_app()` là đủ, dễ đọc, lỗi lộ ngay lúc khởi động. Container đáng khi đồ thị object lớn, cần lifecycle (singleton/request scope), interceptor/guard.
+- **DI container không tự tạo ra DIP.** Kiểm tra bằng máy: luật lint chặn `domain/` import hạ tầng (mục #4), thêm luật cấm `ModuleRef`/`app.get` ngoài `main.ts` và test.
+
+### ✅ Tự kiểm tra (trả lời bằng tiếng Anh)
+
+1. 🇬🇧 Define DIP, DI and IoC in one sentence each, using the question each one answers. 🇻🇳 Định nghĩa DIP, DI, IoC mỗi cái 1 câu, theo câu hỏi kiểm tra của nó.
+2. 🇬🇧 Give one example of IoC without DI, and one example of DI without IoC. 🇻🇳 Cho 1 ví dụ IoC không có DI, 1 ví dụ DI không có IoC.
+3. 🇬🇧 A teammate says: "We use NestJS, everything is injected, so we follow DIP." What one thing do you check? 🇻🇳 Đồng nghiệp nói "dùng NestJS, mọi thứ đều inject, nên đã theo DIP". Bạn kiểm tra đúng 1 thứ gì?
+4. 🇬🇧 Why is `Container.get("order_repo")` inside a method worse than constructor injection? Give two reasons. 🇻🇳 Vì sao `Container.get(...)` trong method tệ hơn constructor injection? Nêu 2 lý do.
+
+<details><summary>Đáp án / Key points</summary>
+
+**1.** DIP: do policy files avoid naming infrastructure, and does policy own the interface? DI: who calls the dependency's constructor? (someone outside → DI). IoC: who controls the flow? (the framework calls my code → IoC).
+
+**2.** IoC without DI: template method (`WebhookHandler.handle` calls your `verify`), an event loop, a route handler. DI without IoC: wiring by hand in `main.py` (`OrderService(MySQLOrderRepo(...))`).
+
+**3.** The **parameter types and imports of the service files**: does `order.service.ts` import anything from infrastructure (a Mongo repository class, `mongoose`, `ClientSession`)? Is the token/interface declared in the domain? Injection alone proves only DI.
+
+**4.** (a) Hidden dependency: the constructor doesn't show what the class needs. (b) A missing registration fails only when that code path runs, not at startup; the type checker sees `Any`. Plus: every class depends on the global container, tests must mutate global state.
+
+</details>
 
 ---
 
 ## 6. Khung nhớ nhanh
 
-🚧
+**Một câu:** *LSP hỏi "lớp con có giữ lời hứa của cha không?". ISP hỏi "client có bị ép biết method nó không dùng không?". DIP hỏi "file nghiệp vụ có nhắc tên công nghệ không, và ai sở hữu interface?". DI chỉ là cách truyền dependency vào; container không tự tạo ra DIP.*
+
+| | LSP | ISP | DIP |
+|---|---|---|---|
+| Câu hỏi kiểm tra | Thay cha bằng con, caller còn đúng **mà không cần biết kiểu thật**? | Client này gọi những method nào trong interface nó nhận? | File policy có import/nhắc tên hạ tầng không? Port nằm trong package nào, viết bằng từ vựng của ai? |
+| Vi phạm khi | Con đòi nhiều hơn, hứa ít hơn, ném lỗi mới, phá bất biến; caller phải `isinstance` | Implementation viết stub `NotImplementedError`; client phụ thuộc method không dùng, test phải mock cả interface to | Service import driver/ORM/SDK; chữ ký port có `ClientSession`, `Document`, `dict` row, mã lỗi `11000`; port hoặc token nằm trong infra |
+| Công cụ | Hợp đồng rõ (vào/ra/lỗi/bất biến); bộ test chung chạy cho mọi implementation; composition thay kế thừa | Bảng client × method, role interface nhỏ (`Refunder`), một class thoả nhiều role | Port trong domain + adapter trong infra + composition root; DI (constructor) để lắp; lint chặn import |
+| Rủi ro lạm dụng | Cấm mọi kế thừa; sợ thêm field vào response (thật ra hứa nhiều hơn là được) | Tách vụn mỗi method một interface; tách theo implementation thay vì theo client | Port cho cả `datetime`, `json`; interface 1-1 cho mọi class; dựng hexagonal cho CRUD nhỏ |
+| Ở mức hệ thống | API backward-compatible, contract testing (Pact) | BFF, GraphQL, API theo consumer | Hexagonal / Clean Architecture, Dependency Rule |
+
+**DIP / DI / IoC trong một bảng:**
+
+| | Hỏi gì | Có thể có cái này mà không có cái kia |
+|---|---|---|
+| DIP | Mũi tên mã nguồn chỉ về đâu? Ai sở hữu port? | DI mà không DIP: `OrderService(repo: MySQLOrderRepo)` |
+| DI | Ai gọi constructor của dependency? | DI mà không IoC: lắp tay trong `main.py` |
+| IoC | Ai nắm luồng chạy? | IoC mà không DI: template method, route handler |
+
+**Phản xạ LSP:** *Demand less, promise more.* Gặp `isinstance` trên object nhận qua kiểu cha thì đi tìm lớp con đang phá hợp đồng.
+**Phản xạ ISP:** đếm số method client thật sự gọi và số method test phải mock. Chênh lệch lớn thì tách theo client.
+**Phản xạ DIP:** với mỗi kiểu trong chữ ký port, hỏi *"đổi nhà cung cấp, kiểu này còn đúng không?"*; chỉ chấm file policy, composition root import gì cũng được.
+**Phản xạ DI:** *"ai gọi constructor của dependency?"*, bất kể kiểu tham số.
 
 ---
 
 ## 7. Thẻ Anki T1 kèm đáp án
 
-🚧
+**Thẻ 1.** *Vì sao Square kế thừa Rectangle lại vi phạm LSP?*
+Hợp đồng ngầm của `Rectangle.set_width(w)`: chỉ đổi chiều rộng, chiều cao giữ nguyên (w và h độc lập). `Square` buộc đổi cả hai để giữ bất biến của nó, nên code viết cho `Rectangle` (`r.set_width(5); r.set_height(4); assert r.area() == 20`) nhận `Square` thì ra 16. Cùng chữ ký nhưng **postcondition yếu hơn** và phá bất biến của cha. Square là hình chữ nhật trong toán, nhưng không thay được về **hành vi**. Nếu `Rectangle` immutable thì hết vi phạm, vì hợp đồng đổi state biến mất.
+
+**Thẻ 2.** *Kể 2 dấu hiệu vi phạm LSP trong code.*
+(1) Lớp con override method chỉ để `raise NotImplementedError` / "not supported", hoặc âm thầm `return`/`pass` không làm điều đã hứa (**nguyên nhân**, ở lớp con). (2) Caller phải kiểm tra kiểu thật (`isinstance`, `type(x) ==`, `hasattr`) trên object nhận qua kiểu cha (**triệu chứng**, ở caller). Ngoài ra: con chặn input mà cha cho phép, con ném loại lỗi mới không có trong hợp đồng.
+
+**Thẻ 3.** *ISP giúp gì cho các class implement interface?*
+Implementer chỉ phải cài những role nó làm được thật, nên **không còn stub ném lỗi** (gốc của vi phạm LSP). Đồng thời client chỉ phụ thuộc đúng method nó gọi: đổi method của nhóm khác không bắt nó sửa, test lại hay redeploy, test chỉ cần mock vài method. Tách theo **nhu cầu của client**, xác nhận bằng bảng implementation; một class vẫn có thể thoả nhiều role.
+
+**Thẻ 4.** *Phân biệt DIP, DI và IoC mỗi cái bằng một câu.*
+**DIP** là nguyên lý thiết kế: file nghiệp vụ không nhắc tên công nghệ, cả hai phụ thuộc port do phía nghiệp vụ sở hữu (mũi tên mã nguồn ngược chiều luồng gọi). **DI** là kỹ thuật: dependency được tạo bên ngoài rồi truyền vào (constructor/setter/container) thay vì class tự `new`. **IoC** là ý tưởng rộng hơn: framework nắm luồng và gọi code của bạn (container, route handler, template method). Có DI mà không DIP (inject class cụ thể), có IoC mà không DI (template method).
 
 ---
 
 ## 8. Câu hỏi cuối bài
 
-🚧
+> Đáp án mẫu (Claude viết hộ, 26/10/2026). Khi ôn: che đáp án, tự trả lời bằng tiếng Anh trước rồi mới mở.
+
+1. Ví dụ Rectangle–Square vi phạm LSP ở chỗ nào?
+2. DIP (nguyên lý) khác Dependency Injection (kỹ thuật) thế nào?
+3. Một interface quá lớn (fat interface) gây hại gì cho các class implement nó?
+4. *(Câu bổ sung)* `OrderService` (package `domain`) đang gọi thẳng `MySQLOrderRepo` (package `infrastructure`). Sau khi áp dụng DIP, interface `OrderRepository` nên nằm ở package nào? Mũi tên phụ thuộc đổi ra sao? Nếu đặt interface trong `infrastructure` thì mất gì?
+5. *(Câu bổ sung)* Class `Bird` có `fly()`. Bạn thêm `Penguin extends Bird` và override `fly()` để ném `UnsupportedOperationException`. Code gọi sẽ phải thay đổi thế nào? Đây là vi phạm gì, và bạn sửa thiết kế ra sao?
+
+<details><summary>Đáp án</summary>
+
+**1.** Ở **hợp đồng hành vi** của setter, không phải ở chữ ký. Lần theo state từng dòng với `r = Square(2)`:
+
+| Dòng | Rectangle thật | Square |
+|---|---|---|
+| `r.set_width(5)` | w=5, h=2 | w=5, h=5 |
+| `r.set_height(4)` | w=5, h=4 | w=4, h=4 |
+| `r.area()` | 20 | **16** |
+
+Caller viết theo lời hứa của `Rectangle` ("đổi width không đụng height") nên kết quả sai mà không có lỗi nào ném ra. Square **hứa ít hơn** cha (postcondition yếu hơn) và phá bất biến "w, h độc lập". Sửa ở gốc: không kế thừa. Dùng `Shape` có `area()`, `Rectangle` và `Square` là hai lớp ngang hàng, hoặc làm hình immutable. Cho `Square` override `area()` chỉ che triệu chứng ([mục #1](#1-lsp-lớp-con-thay-được-lớp-cha-và-hợp-đồng)).
+
+**2.** Khác **loại** và khác **câu hỏi**:
+- DIP là **nguyên lý thiết kế**, hỏi *mũi tên mã nguồn chỉ về đâu, ai sở hữu interface*: module nghiệp vụ không import hạ tầng, port nằm trong domain và nói bằng từ vựng domain.
+- DI là **kỹ thuật**, hỏi *ai tạo dependency*: dependency được truyền vào (constructor/setter/container) thay vì tự `new`.
+
+DI là phương tiện thường dùng để **vận hành** DIP (ai đó bên ngoài phải truyền adapter vào), nhưng không đảm bảo DIP: `OrderService(repo: MySQLOrderRepo)` có DI mà vẫn import infra. Ngược lại, DIP cũng không bắt buộc phải có container ([mục #5](#5-dip--di--ioc)).
+
+**3.** Hại cả hai phía ([mục #3](#3-isp-tách-interface-theo-nhu-cầu-từng-client)):
+- **Implementer** bị ép cài method không làm được, phải viết stub ném `NotImplementedError` hoặc no-op, tức vi phạm LSP (Momo không có subscription).
+- **Client** phụ thuộc method không dùng: method đó đổi chữ ký là mọi client và mọi implementation phải sửa, build và test lại; test phải mock cả interface 6-7 method; shared package bị nhiều team khoá lịch release của nhau.
+Sửa: tách role interface theo nhu cầu client (`Charger`, `Refunder`, `SubscriptionProvider`), một class vẫn có thể thoả nhiều role.
+
+**4.** `OrderRepository` nằm trong **`domain`**, cạnh `OrderService`, viết bằng từ vựng domain (`save(order: Order) -> OrderId`, không phải `insert_order_row(row: dict)`).
+- Mũi tên mã nguồn: trước `domain → infrastructure`, sau `infrastructure → domain` (adapter `MySQLOrderRepo` import `Order` để dịch sang row). Luồng gọi lúc chạy **không đổi**: `OrderService` vẫn gọi MySQL.
+- `main.py` / `@Module` (composition root) là nơi duy nhất biết cả hai.
+- Đặt interface trong `infrastructure` thì `domain` vẫn phải import `infrastructure` để lấy interface: chỉ có DI, **không có gì bị đảo**. Mất: test domain vẫn nạp module hạ tầng, đổi DB hoặc đổi team hạ tầng sửa interface là kéo domain sửa theo, CI không chặn được mũi tên ngược ([mục #4](#4-dip-đảo-mũi-tên-phụ-thuộc-module-cấp-cao-sở-hữu-interface)). NestJS: token `ORDER_REPOSITORY` cũng phải nằm trong domain.
+
+**5.** Code gọi phải né kiểu thật:
+
+```python
+for b in birds:
+    if isinstance(b, Penguin):   # triệu chứng LSP
+        continue
+    b.fly()
+```
+
+hoặc bọc `try/except`. Mỗi loài không bay mới (đà điểu, kiwi) lại thêm một nhánh: OCP vỡ theo. Đây là **vi phạm LSP** (refused bequest: con hứa ít hơn cha, ném lỗi mới), gốc là **interface quá to** ở `Bird` (ISP).
+
+Sửa: `fly()` không thuộc hợp đồng chung của `Bird`. Tách khả năng bay thành role riêng, chỉ loài bay được mới thoả (đã chạy, Python 3.11):
+
+```python
+class Bird:
+    def __init__(self, name: str) -> None:
+        self.name = name
+    def eat(self) -> str:
+        return f"{self.name} eats"
+
+class Flyable(Protocol):
+    def fly(self) -> str: ...
+
+class Sparrow(Bird):
+    def fly(self) -> str:
+        return f"{self.name} flies"
+
+class Penguin(Bird):
+    def swim(self) -> str:
+        return f"{self.name} swims"
+
+def migrate(flock: list[Flyable]) -> list[str]:
+    return [b.fly() for b in flock]
+
+migrate([Penguin("penguin")])
+# mypy --strict: List item 0 has incompatible type "Penguin"; expected "Flyable"
+```
+
+Lỗi chuyển từ **lúc chạy** (`'Penguin' object has no attribute 'fly'`) sang **lúc type-check**, trước khi lên production. `feed(birds: list[Bird])` vẫn nhận cả hai vì `eat()` là hợp đồng mà mọi loài giữ được.
+
+</details>
+
+### 🏋️ Bài tự luyện (tổng hợp L + I + D)
+
+```python
+# domain/report_service.py
+from infrastructure.s3 import S3Client                 # (a)
+from botocore.exceptions import ClientError            # (b)
+
+class Exporter:                                        # dùng cho CSV, PDF, Excel
+    def export(self, rows: list[dict[str, str]]) -> bytes: ...
+    def set_password(self, pw: str) -> None: ...       # chỉ PDF và Excel hỗ trợ
+    def add_chart(self, kind: str) -> None: ...        # chỉ Excel hỗ trợ
+
+class CsvExporter(Exporter):
+    def set_password(self, pw: str) -> None:
+        raise NotImplementedError("csv has no password")
+    def add_chart(self, kind: str) -> None:
+        pass                                           # (c)
+
+class ReportService:
+    def __init__(self, exporter: Exporter, s3: S3Client) -> None:
+        self.exporter, self.s3 = exporter, s3
+
+    def monthly(self, rows: list[dict[str, str]], pw: str | None) -> str:
+        if pw and not isinstance(self.exporter, CsvExporter):   # (d)
+            self.exporter.set_password(pw)
+        data = self.exporter.export(rows)
+        try:
+            return self.s3.put_object("reports", data)
+        except ClientError as e:                               # (e)
+            raise RuntimeError("upload failed") from e
+```
+
+🇬🇧 Label each of (a)–(e) as LSP, ISP or DIP (one can have two labels), then sketch the fixed design: which interfaces, in which package, and what `ReportService.__init__` receives. 🇻🇳 Gắn nhãn LSP / ISP / DIP cho (a)–(e), rồi phác thiết kế đã sửa: interface nào, nằm package nào, `__init__` nhận gì.
+
+<details><summary>Đáp án mẫu</summary>
+
+| | Nhãn | Vì sao |
+|---|---|---|
+| (a) | DIP | File domain import client S3 của hạ tầng: policy nhắc tên công nghệ (vi phạm câu A) |
+| (b) | DIP | Kiểu lỗi của SDK lọt vào domain; lỗi là một phần hợp đồng. Adapter phải dịch sang lỗi domain (`ReportStorageError`) |
+| (c) | LSP | No-op im lặng: hứa "thêm chart" mà không làm, caller không biết (postcondition yếu hơn, silent failure) |
+| (d) | LSP (triệu chứng) + ISP (gốc) | Caller `isinstance` để né `set_password` của CSV. Gốc: `Exporter` béo, ép CSV cài thứ nó không làm được |
+| `set_password` ném lỗi | LSP | Refused bequest (đi cặp với (d)) |
+
+Thiết kế đã sửa:
+
+```
+domain/
+  report_ports.py   ← Exporter { export(rows) -> bytes }            (role tối thiểu, mọi định dạng giữ được)
+                       PasswordProtectable { set_password(pw) }      (chỉ PDF, Excel thoả)
+                       ReportStorage { save(name, data) -> ReportUrl }  + ReportStorageError
+  report_service.py ← ReportService(exporter: Exporter, storage: ReportStorage)
+infrastructure/
+  csv_exporter.py, pdf_exporter.py, excel_exporter.py
+  s3_report_storage.py  ← import boto3, dịch ClientError → ReportStorageError
+main.py             ← chọn exporter + S3ReportStorage
+```
+
+- Báo cáo cần mật khẩu thì `ReportService` nhận kiểu gộp `ProtectedExporter(Exporter, PasswordProtectable, Protocol)`: mypy chặn ngay việc truyền CSV vào luồng có mật khẩu, không cần `isinstance`.
+- `add_chart` chỉ Excel dùng: đưa vào `ExcelExporter` hoặc một role `ChartCapable` khi có client cần (YAGNI).
+- `ReportStorage` nói "lưu báo cáo", không nói "bucket", "put_object": đổi sang GCS hay lưu đĩa không chạm domain.
+
+</details>
