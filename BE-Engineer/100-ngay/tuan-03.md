@@ -21,12 +21,14 @@
 | D17 (T4) | 59' | 88' | 2h27' |
 | D18 (T5) | 39' | 80' | 1h59' |
 | D19 (T6) | 54' | 87' | 2h21' |
-| D20 (T7) | — | 4h00' | 4h00' |
-| D21 (CN) | — | 3h00' | 3h00' |
+| D20 + D21 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 17h46'** (chưa tính 1h tiếng Anh mỗi ngày)
+**Tổng tuần: 14h46'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
 
-Ngày nặng nhất là D20 (4h00'), vì lab đã được rút xuống 3h05'. Bảng *Layered vs Hexagonal* chuyển thành tuỳ chọn để tối D19 không vượt 90'.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là D20 + D21 (4h00'): lab rút còn 2h20' để có chỗ cho Chốt tuần. Bảng *Layered vs Hexagonal* chuyển thành tuỳ chọn để tối D19 không vượt 90'.
 
 ---
 
@@ -473,11 +475,11 @@ Nhóm: *kiến trúc truy cập dữ liệu*. Trục chính: **tối ưu riêng 
 
 ---
 
-## D20 (T7, 07/11): Lab
+## D20 + D21 (T7, 07/11): Lab + Chốt tuần 3
 
-**⏱ Ước tính:** DSA 45' · Lab 3h05' · Ôn ⚠️ 10' · **Tổng 4h00'**
+**⏱ Ước tính:** DSA 40' · Lab 2h20' · Chốt tuần 45' · Anki/cheat sheet 15' · **Tổng 4h00'**
 
-> ⚖️ **Cân tải:** lab đã rút xuống 3h05' (Bước 3 còn 35', Bước 6 còn 25', Bước 7 còn 25') để cả ngày nằm trong 4h. Ôn ⚠️ hôm nay chỉ 10'. Bảng **Layered vs Hexagonal / Clean** chuyển thành **(tuỳ chọn)**, điền khi còn giờ ở tuần 4 hoặc tuần 12 (khi học microservices). Phỏng vấn Mid hiếm khi hỏi sâu phần này.
+> ⚖️ Gộp từ D20 (4h00') và D21 (3h00'). Lab rút còn 2h20' (bớt phút từng bước, giữ đủ các bước và 6 test). Đã chuyển sang Chủ Nhật (tuỳ chọn): DSA 33, làm lại 739 + 875, ôn ⚠️. Bảng **Layered vs Hexagonal / Clean** vẫn là **(tuỳ chọn)**, điền khi còn giờ ở tuần 4 hoặc tuần 12 (khi học microservices). Phỏng vấn Mid hiếm khi hỏi sâu phần này.
 
 ### 🧩 DSA: [875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
 
@@ -489,35 +491,34 @@ Nhóm: *kiến trúc truy cập dữ liệu*. Trục chính: **tối ưu riêng 
 - **Lỗi hay gặp:**
   - `ceil` bằng số thực dễ sai; dùng `(p + k − 1) / k` với số nguyên.
   - Chọn cận trên sai (ví dụ `sum(piles)` vẫn đúng nhưng chậm hơn; `max(piles)` là đủ vì khi đó mỗi đống mất đúng 1 giờ).
-- Sau đó làm lại 1 bài sai trong tuần (nếu có).
 
-### 🛠 Lab (3h05'): module tính phí ship nhiều hãng bằng Strategy + Adapter + Decorator
+### 🛠 Lab (2h20'): module tính phí ship nhiều hãng bằng Strategy + Adapter + Decorator
 
 > Các công thức tính phí dưới đây là **giả định để luyện thiết kế**, không phải bảng giá thật của các hãng.
 
-**Bước 1: Chuẩn bị (15')**
-- Tạo `project/shipping/`. Nhập thẻ Anki D15–D19.
+**Bước 1: Chuẩn bị (5')**
+- Tạo `project/shipping/`. (Nhập thẻ Anki làm ở mục Anki cuối buổi.)
 
-**Bước 2: Model và interface (20')**
+**Bước 2: Model và interface (15')**
 - `Parcel`: `weightGrams`, `lengthCm`, `widthCm`, `heightCm`, `fromProvince`, `toProvince`, `codAmount`.
 - `Quote`: `carrier`, `fee` (số nguyên, đơn vị VND), `estimatedDays`.
 - Interface `ShippingFeeStrategy.quote(parcel) → Quote`.
 
-**Bước 3: 3 Strategy (35')**. Công thức giả định, mỗi hãng khác nhau một chút:
+**Bước 3: 3 Strategy (25')**. Công thức giả định, mỗi hãng khác nhau một chút:
 - Khối lượng tính phí = `max(cân nặng thật, D × R × C / 6000 kg)`.
 - `GhnStrategy`: phí cơ bản cho 500g đầu + phí mỗi 500g tiếp theo; khác tỉnh cộng phụ phí.
 - `GhtkStrategy`: bảng bậc theo khối lượng; COD > 0 thì cộng phí thu hộ theo %.
 - `ViettelPostStrategy`: **gọi qua Adapter** (bước 4).
 
-**Bước 4: Adapter (25')**
+**Bước 4: Adapter (20')**
 - Viết một "SDK giả" `FakeViettelPostClient` có interface **khác hẳn**: ví dụ `getPrice(request)` nhận khối lượng theo **kg** (số thực), trả `{ total_vnd, service_code, days }`, và ném lỗi riêng của SDK.
 - `ViettelPostAdapter` implement `ShippingFeeStrategy`: đổi gram → kg, map kết quả sang `Quote`, đổi lỗi SDK thành lỗi của hệ thống bạn (`CarrierUnavailable`).
 
-**Bước 5: Chọn strategy + so sánh giá (20')**
+**Bước 5: Chọn strategy + so sánh giá (15')**
 - Registry `carrier → strategy` ở composition root.
 - `ShippingService.quote(carrier, parcel)` và `ShippingService.cheapest(parcel)`: hỏi mọi hãng, bỏ qua hãng lỗi, trả hãng rẻ nhất.
 
-**Bước 6: Decorator (25')**
+**Bước 6: Decorator (20')**
 - `LoggingFeeStrategy`: log input, output, thời gian chạy.
 - `CachingFeeStrategy`: cache trong bộ nhớ theo key từ các field của `Parcel`, có TTL.
 - Bọc: `Logging(Caching(GhnStrategy))`. Ghi vào notes: đổi thứ tự bọc thì log khác gì.
@@ -530,26 +531,12 @@ Nhóm: *kiến trúc truy cập dữ liệu*. Trục chính: **tối ưu riêng 
 5. `CachingFeeStrategy`: gọi 2 lần cùng input → strategy bên trong chỉ bị gọi **1 lần** (dùng spy).
 6. Thêm hãng thứ 4 (`JntStrategy`) mà **không sửa** `ShippingService`; test vẫn xanh.
 
-**Bước 8: Ghi chú (20')**
+**Bước 8: Ghi chú (15')**
 - Viết `notes/patterns-in-practice.md`: với mỗi pattern (Strategy, Adapter, Decorator, Factory/registry), ghi 3 dòng **Vấn đề → Pattern → Kết quả**. Thêm một đoạn liên hệ với code thật ở công ty (nếu có). File này là nguyên liệu cho câu 5 của Chốt tuần.
 
 **Deliverable:** `project/shipping/` có test chạy xanh + `notes/patterns-in-practice.md`.
 
----
-
-## D21 (CN, 08/11): Chốt tuần 3
-
-**⏱ Ước tính:** DSA 50' · Làm lại 739, 875 40' · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 3h00'**
-
-### 🧩 DSA: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
-
-- **Pattern (🔴 T1):** *Binary Search với "một nửa luôn đã sort"*. Ở mỗi bước, ít nhất một trong hai nửa `[l, mid]` hoặc `[mid, r]` là đoạn tăng dần.
-- **Cách giải:**
-  - Nếu `nums[l] <= nums[mid]`: nửa trái đã sort. Target nằm trong `[nums[l], nums[mid])` thì đi trái, ngược lại đi phải.
-  - Ngược lại: nửa phải đã sort, xét tương tự với `(nums[mid], nums[r]]`.
-  - → O(log n).
-- **Lỗi hay gặp:** dùng `<` thay vì `<=` ở `nums[l] <= nums[mid]`, sai khi `l == mid` (đoạn còn 2 phần tử).
-- **Cách khác:** tìm điểm xoay (phần tử nhỏ nhất, bài 153) trước, rồi binary search trên nửa phù hợp. Cũng O(log n) nhưng hai lần tìm.
+### ✅ Chốt tuần 3 (45')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -571,11 +558,38 @@ Nhóm: *kiến trúc truy cập dữ liệu*. Trục chính: **tối ưu riêng 
 
 </details>
 
+### Anki / cheat sheet (15')
+
+- Nhập thẻ Anki D15–D19: thêm D15–D19 vào `DAYS` trong `tools/anki_export.py`, chạy script, import (xem [hướng dẫn Anki](../anki/README.md)). Viết thẻ DSA-Pattern Stack / Monotonic Stack / Binary Search vào `anki/dsa-patterns.md`.
+- Kiểm tra các bảng T2 của tuần đã điền.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
 - [ ] Module `project/shipping/` có test chạy xanh + `notes/patterns-in-practice.md`
-- [ ] Tự giải lại 739, 875, 33 không xem lời giải (mỗi bài ≤ 25')
 - [ ] Anki: đã nhập đủ thẻ T1 của D15–D19 + thẻ pattern Stack / Monotonic Stack / Binary Search (index và không gian đáp án)
 - [ ] Cheat sheet: đã điền các bảng Observer vs Pub/Sub, Adapter vs Decorator vs Proxy vs Facade, Active Record vs Repository, Layered vs Hexagonal, CQRS vs một model chung
 - [ ] Error List: đã làm lại các bài đến hạn (bài sai từ Tuần 2)
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 739, 875, 33 không xem lời giải (mỗi bài ≤ 25')
+
+---
+
+## CN (08/11): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - DSA 33 (50', mô tả bên dưới).
+   - Tự giải lại 739 và 875, ≤ 25' mỗi bài, không xem lời giải.
+   - Ôn các câu đánh dấu ⚠️ trong tuần (30').
+
+### 🧩 *(tuỳ chọn)* DSA: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+
+- **Pattern (🔴 T1):** *Binary Search với "một nửa luôn đã sort"*. Ở mỗi bước, ít nhất một trong hai nửa `[l, mid]` hoặc `[mid, r]` là đoạn tăng dần.
+- **Cách giải:**
+  - Nếu `nums[l] <= nums[mid]`: nửa trái đã sort. Target nằm trong `[nums[l], nums[mid])` thì đi trái, ngược lại đi phải.
+  - Ngược lại: nửa phải đã sort, xét tương tự với `(nums[mid], nums[r]]`.
+  - → O(log n).
+- **Lỗi hay gặp:** dùng `<` thay vì `<=` ở `nums[l] <= nums[mid]`, sai khi `l == mid` (đoạn còn 2 phần tử).
+- **Cách khác:** tìm điểm xoay (phần tử nhỏ nhất, bài 153) trước, rồi binary search trên nửa phù hợp. Cũng O(log n) nhưng hai lần tìm.

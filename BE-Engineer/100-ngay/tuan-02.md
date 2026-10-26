@@ -21,12 +21,14 @@
 | D10 (T4) | 67' | 83' | 2h30' |
 | D11 (T5) | 57' | 88' | 2h25' |
 | D12 (T6) | 37' | 87' | 2h04' |
-| D13 (T7) | — | 4h00' | 4h00' |
-| D14 (CN) | — | 3h00' | 3h00' |
+| D13 + D14 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 18h15'** (chưa tính 1h tiếng Anh mỗi ngày)
+**Tổng tuần: 15h15'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
 
-Ngày nặng nhất là D13 (4h00'), vì lab đã được rút xuống 3h05' để nằm trong khung 4h. Trong tuần, D9 là buổi tối duy nhất sẽ vượt 90' nếu điền cả hai bảng T2, nên bảng HashMap vs Two Pointers được dời lên giờ làm, ngay sau khi giải bài 167.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là D13 + D14 (4h00'): lab rút còn 2h20' để có chỗ cho Chốt tuần. Trong tuần, D9 là buổi tối duy nhất sẽ vượt 90' nếu điền cả hai bảng T2, nên bảng HashMap vs Two Pointers được dời lên giờ làm, ngay sau khi giải bài 167.
 
 ---
 
@@ -506,11 +508,11 @@ Nhóm: *kỹ thuật truyền phụ thuộc*. Trục chính: **tính bắt buộ
 
 ---
 
-## D13 (T7, 31/10): Lab
+## D13 + D14 (T7, 31/10): Lab + Chốt tuần 2
 
-**⏱ Ước tính:** DSA 45' · Lab 3h05' · Ôn ⚠️ 10' · **Tổng 4h00'**
+**⏱ Ước tính:** DSA 40' · Lab 2h20' · Chốt tuần 45' · Anki/cheat sheet 15' · **Tổng 4h00'**
 
-> ⚖️ **Cân tải:** lab đã rút xuống 3h05' (Bước 2 còn 35', Bước 6 còn 30' với 6 test bắt buộc; test thêm là mở rộng) để cả ngày nằm trong 4h. Ôn ⚠️ hôm nay chỉ 10' cho câu quan trọng nhất. Các câu ⚠️ còn lại ôn vào D14, trong phần "Làm lại".
+> ⚖️ Gộp từ D13 (4h00') và D14 (3h00'). Lab rút còn 2h20' (bỏ bớt phút từng bước, Bước 7 chỉ giữ sơ đồ + câu "thêm kênh Zalo"). Đã chuyển sang Chủ Nhật (tuỳ chọn): DSA 424, làm lại 15 + 3, ôn ⚠️, phần "mỗi pattern dùng ở đâu" của `notes/notification-design.md`.
 
 ### 🧩 DSA: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
@@ -520,34 +522,32 @@ Nhóm: *kỹ thuật truyền phụ thuộc*. Trục chính: **tính bắt buộ
   2. Sliding window + HashSet: khi gặp ký tự lặp, xoá `s[l]` và tăng `l` cho tới khi hết lặp → O(n), vì mỗi ký tự vào và ra khỏi set tối đa một lần.
   3. Sliding window + HashMap `ký tự → vị trí gần nhất`: nhảy thẳng `l = max(l, last[c] + 1)` → O(n).
 - **Lỗi hay gặp ở cách 3:** quên `max`. Vị trí cũ của ký tự có thể nằm **ngoài** cửa sổ hiện tại; nếu gán thẳng, `l` bị lùi lại. Ví dụ: `"abba"`.
-- Sau đó làm lại 1 bài sai trong tuần (nếu có).
 
-### 🛠 Lab (3h05'): module `Notification` dùng Factory + DI + Builder
+### 🛠 Lab (2h20'): module `Notification` dùng Factory + DI + Builder
 
-**Bước 1: Chuẩn bị (15')**
-- Tạo `project/notification/` trong repo `interview-prep/`. Dùng ngôn ngữ và test framework bạn đang dùng hằng ngày.
-- Nhập thẻ Anki D8–D12 (T1 + thẻ DSA-Pattern Two Pointers / Sliding Window).
+**Bước 1: Chuẩn bị (5')**
+- Tạo `project/notification/`. Dùng ngôn ngữ và test framework bạn đang dùng hằng ngày. (Nhập thẻ Anki làm ở mục Anki cuối buổi.)
 
-**Bước 2: Interface và các implementation (35')**
+**Bước 2: Interface và các implementation (30')**
 - Interface `NotificationSender` với một method: `send(message) → SendResult`.
 - 3 implementation: `EmailSender`, `SmsSender`, `PushSender`. **Không gọi nhà cung cấp thật.** Mỗi sender nhận một "client" qua constructor (ví dụ `SmtpClient`, `SmsGatewayClient`), bản thật chỉ cần in log ra console.
 - `SendResult` gồm: `success`, `providerMessageId` (hoặc `error`).
 
-**Bước 3: Builder cho `Message` (30')**
+**Bước 3: Builder cho `Message` (25')**
 - Các trường: `channel`, `recipient`, `subject` (tuỳ chọn), `body`, `metadata` (tuỳ chọn).
 - `build()` kiểm tra: thiếu `recipient` hoặc `body` → lỗi; `channel = email` mà thiếu `subject` → lỗi; `channel = sms` mà `body` dài hơn 160 ký tự → lỗi.
 - Object `Message` sau khi build là bất biến.
 
-**Bước 4: Factory dạng registry (25')**
+**Bước 4: Factory dạng registry (20')**
 - `SenderFactory` nhận một map `channel → sender` qua constructor; method `get(channel)` trả sender, kênh không tồn tại → lỗi rõ ràng (`UnsupportedChannel`).
 - Việc đăng ký 3 sender thực hiện ở **composition root** (`main` hoặc file cấu hình DI), không nằm trong factory.
 
-**Bước 5: `NotificationService` + DI (30')**
+**Bước 5: `NotificationService` + DI (25')**
 - `NotificationService(factory, logger)` inject qua constructor.
 - Method `notify(message)`: lấy sender từ factory, gửi, ghi log kết quả.
 - **Yêu cầu thêm:** nếu gửi `push` thất bại thì tự động gửi lại qua `email` (fallback), với điều kiện `message.metadata` có email dự phòng.
 
-**Bước 6: Unit test (30')**. Tối thiểu 6 test, tất cả chạy xanh, không đụng mạng:
+**Bước 6: Unit test (25')**. Tối thiểu 6 test, tất cả chạy xanh, không đụng mạng:
 1. `build()` báo lỗi khi email thiếu `subject`.
 2. `build()` báo lỗi khi SMS dài quá 160 ký tự.
 3. Factory trả đúng sender theo kênh; kênh lạ thì báo lỗi.
@@ -555,30 +555,15 @@ Nhóm: *kỹ thuật truyền phụ thuộc*. Trục chính: **tính bắt buộ
 5. Push thất bại → email sender được gọi (fallback).
 6. Push thành công → email sender **không** được gọi.
 
-**Bước 7: Ghi chú (20')**
+**Bước 7: Ghi chú (10')**
 - Viết `notes/notification-design.md` gồm:
   - Sơ đồ phụ thuộc (mũi tên từ `NotificationService` → `SenderFactory` → `NotificationSender` ← các implementation).
-  - Mỗi pattern dùng ở đâu, giải quyết vấn đề gì.
   - Trả lời: *"Thêm kênh Zalo thì phải sửa/thêm những file nào?"* Kết quả mong đợi: thêm 1 class + 1 dòng đăng ký, không sửa `NotificationService`.
+  - Phần "mỗi pattern dùng ở đâu, giải quyết vấn đề gì" bổ sung ở CN (tuỳ chọn).
 
-**Bước 8 (còn lại):** Ôn các câu đánh dấu ⚠️ trong tuần.
+**Deliverable:** `project/notification/` có test chạy xanh + `notes/notification-design.md` (sơ đồ + câu Zalo).
 
-**Deliverable:** `project/notification/` có test chạy xanh + `notes/notification-design.md`.
-
----
-
-## D14 (CN, 01/11): Chốt tuần 2
-
-**⏱ Ước tính:** DSA 50' · Làm lại 15, 3 + ôn ⚠️ còn lại 40' · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 3h00'**
-
-### 🧩 DSA: [424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
-
-- **Pattern (🔴 T1):** *Sliding Window kích thước thay đổi với điều kiện đếm*. Cửa sổ hợp lệ khi `độ dài cửa sổ − số lần xuất hiện của ký tự nhiều nhất ≤ k` (số ký tự cần thay ≤ k).
-- **Các cách:**
-  1. Với mỗi cửa sổ, đếm lại từ đầu → O(n²) hoặc tệ hơn.
-  2. Sliding window + mảng đếm 26 ký tự, mỗi bước tính `max(count)` → O(26 · n) = O(n).
-  3. Giữ biến `maxFreq` và **không giảm** nó khi thu hẹp cửa sổ → O(n).
-- **Key insight của cách 3 (khó, phỏng vấn hay hỏi):** đáp án chỉ tăng khi tìm được `maxFreq` lớn hơn. Một `maxFreq` "cũ" (lớn hơn thực tế) chỉ khiến cửa sổ không bị thu hẹp thêm, chứ không làm đáp án sai. Nếu chưa hiểu, nộp cách 2 là đủ.
+### ✅ Chốt tuần 2 (45')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -600,11 +585,38 @@ Nhóm: *kỹ thuật truyền phụ thuộc*. Trục chính: **tính bắt buộ
 
 </details>
 
+### Anki / cheat sheet (15')
+
+- Nhập thẻ Anki D8–D12: thêm D8–D12 vào `DAYS` trong `tools/anki_export.py`, chạy script, import (xem [hướng dẫn Anki](../anki/README.md)). Viết thẻ DSA-Pattern Two Pointers / Sliding Window vào `anki/dsa-patterns.md`.
+- Kiểm tra các bảng T2 của tuần đã điền.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
 - [ ] Module `project/notification/` có test chạy xanh + `notes/notification-design.md`
-- [ ] Tự giải lại 15, 3 không xem lời giải (mỗi bài ≤ 20'). Bài 125 là Easy, làm lại ở giờ làm tuần sau nếu cần
 - [ ] Anki: đã nhập đủ thẻ T1 của D8–D12 + thẻ pattern Two Pointers / Sliding Window (cố định và thay đổi)
 - [ ] Cheat sheet: đã điền các bảng HashMap vs Two Pointers, Singleton pattern vs DI singleton scope, 3 loại Factory, Factory vs Builder, Builder vs named params, Constructor vs Setter injection
 - [ ] Error List: đã ghi các bài sai trong tuần và lên lịch làm lại (sau 3 ngày và 7 ngày)
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 15, 3 không xem lời giải (mỗi bài ≤ 20'). Bài 125 là Easy, làm lại ở giờ làm tuần sau nếu cần
+
+---
+
+## CN (01/11): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - DSA 424 (50', mô tả bên dưới).
+   - Tự giải lại 15 và 3, ≤ 20' mỗi bài, không xem lời giải.
+   - Ôn các câu đánh dấu ⚠️ trong tuần (30').
+   - Bổ sung phần "mỗi pattern dùng ở đâu, giải quyết vấn đề gì" vào `notes/notification-design.md`.
+
+### 🧩 *(tuỳ chọn)* DSA: [424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
+
+- **Pattern (🔴 T1):** *Sliding Window kích thước thay đổi với điều kiện đếm*. Cửa sổ hợp lệ khi `độ dài cửa sổ − số lần xuất hiện của ký tự nhiều nhất ≤ k` (số ký tự cần thay ≤ k).
+- **Các cách:**
+  1. Với mỗi cửa sổ, đếm lại từ đầu → O(n²) hoặc tệ hơn.
+  2. Sliding window + mảng đếm 26 ký tự, mỗi bước tính `max(count)` → O(26 · n) = O(n).
+  3. Giữ biến `maxFreq` và **không giảm** nó khi thu hẹp cửa sổ → O(n).
+- **Key insight của cách 3 (khó, phỏng vấn hay hỏi):** đáp án chỉ tăng khi tìm được `maxFreq` lớn hơn. Một `maxFreq` "cũ" (lớn hơn thực tế) chỉ khiến cửa sổ không bị thu hẹp thêm, chứ không làm đáp án sai. Nếu chưa hiểu, nộp cách 2 là đủ.

@@ -23,12 +23,14 @@
 | D59 (T4) | 60' | 80' | 2h20' |
 | D60 (T5) | 55' | 85' | 2h20' |
 | D61 (T6) | 55' | 85' | 2h20' |
-| D62 (T7) | — | 4h00' | 4h00' |
-| D63 (CN) | — | 2h40' | 2h40' |
+| D62 + D63 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 18h20'** (chưa tính 1h tiếng Anh mỗi ngày)
+**Tổng tuần: 15h40'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
 
-Ngày nặng nhất là **D62 (Lab 2 instance sau Nginx)**: Lab đã được chia *bắt buộc* / *mở rộng* để giữ ≤ 4h; tuần này có 9 bảng T2 nên 4 bảng (mô hình concurrency, TCP vs UDP, scale dọc vs ngang, thuật toán LB) được dời sang cuối tuần để buổi tối D57, D58, D60 không vượt 90'.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab (D62) và Chốt tuần (D63) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **Thứ Bảy (D62 + D63)**: Lab 2 instance sau Nginx (phần bắt buộc) + chốt tuần, vừa đủ 4h. Tuần này có 9 bảng T2; 4 bảng (mô hình concurrency, TCP vs UDP, scale dọc vs ngang, thuật toán LB) chuyển sang Chủ Nhật (tuỳ chọn) để buổi tối D57, D58, D60 không vượt 90'.
 
 ---
 
@@ -36,7 +38,7 @@ Ngày nặng nhất là **D62 (Lab 2 instance sau Nginx)**: Lab đã được ch
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *Mô hình concurrency* (15') dời sang **D63**. Tối nay vẫn học mục 7 đủ để trả lời câu hỏi cuối bài số 3.
+> ⏱ Bảng T2 *Mô hình concurrency* (15') dời sang **CN 20/12, tuỳ chọn**. Tối nay vẫn học mục 7 đủ để trả lời câu hỏi cuối bài số 3.
 
 ### 🧩 DSA: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 
@@ -62,7 +64,7 @@ Ngày nặng nhất là **D62 (Lab 2 instance sau Nginx)**: Lab đã được ch
 | 4 | **Race condition**: kết quả phụ thuộc vào thứ tự xen kẽ của các luồng | 🔴 T1 | Cho được 2 ví dụ: `count++` (đọc–sửa–ghi) và *check-then-act* | `race condition example read modify write` |
 | 5 | **Critical section, mutex/lock, thao tác atomic** | 🔴 T1 | Biết 3 cách tránh race: khoá, thao tác atomic, không chia sẻ state (immutable / message passing) | `mutex critical section atomic operation` |
 | 6 | Deadlock: ôn lại từ Tuần 7, áp dụng cho lock trong code | 🔴 T1 | Kể được **4 điều kiện cần** (Coffman): loại trừ lẫn nhau, giữ và chờ, không thể giành lại, chờ vòng tròn. Phá một điều kiện là tránh được: lấy lock theo thứ tự cố định (phá chờ vòng tròn), `tryLock` có timeout (phá giữ và chờ) | `deadlock conditions prevention`, `coffman conditions` |
-| 7 | **Mô hình concurrency** của runtime | 🟡 T2 | Biết ngôn ngữ bạn dùng thuộc mô hình nào; điền bảng bên dưới ở D63 | `event loop vs thread pool`, `goroutines vs threads` |
+| 7 | **Mô hình concurrency** của runtime | 🟡 T2 | Biết ngôn ngữ bạn dùng thuộc mô hình nào; điền bảng bên dưới ở CN (tuỳ chọn) | `event loop vs thread pool`, `goroutines vs threads` |
 | 8 | I/O-bound vs CPU-bound | 🔴 T1 | Biết vì sao event loop hợp I/O-bound, và vì sao một đoạn code CPU nặng làm "đứng" event loop | `io bound vs cpu bound` |
 | 9 | Semaphore, condition variable, read-write lock | 🟢 T3 | Biết tên và mục đích một câu | `mutex vs semaphore` |
 | 10 | Chi tiết riêng của ngôn ngữ: GIL của Python, `synchronized`/virtual thread của Java, `sync.Mutex` của Go, `worker_threads` của Node | 🟢 T3 | Tra khi cần | docs ngôn ngữ |
@@ -80,7 +82,7 @@ Ngày nặng nhất là **D62 (Lab 2 instance sau Nginx)**: Lab đã được ch
   - Bài overselling (Tuần 7) chính là một race condition ở tầng DB.
 - **Điểm quan trọng khi chạy nhiều instance (chuẩn bị cho D60–D62):** mutex trong bộ nhớ của app chỉ có tác dụng **trong một process**. Chạy 2 instance sau load balancer thì lock trong RAM vô dụng. Phải dùng lock ở nơi dùng chung: DB (`FOR UPDATE`, unique constraint) hoặc Redis.
 
-**🟡 Bảng so sánh T2: Mô hình concurrency** *(⏱ điền ở D63)*
+**🟡 Bảng so sánh T2: Mô hình concurrency** *(⏱ điền ở CN 20/12, tuỳ chọn)*
 
 Nhóm: *compute / concurrency model*. Trục chính: **hiệu quả với tải I/O nhiều kết nối** vs **dễ lập trình và an toàn khi có việc CPU nặng**.
 
@@ -155,7 +157,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *TCP vs UDP* (10') dời sang **D63**.
+> ⏱ Bảng T2 *TCP vs UDP* (10') dời sang **CN 20/12, tuỳ chọn**.
 
 ### 🧩 DSA: [57. Insert Interval](https://leetcode.com/problems/insert-interval/)
 
@@ -175,7 +177,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 | # | Mục | Tier | Cần nắm tới mức nào | Từ khoá research |
 |---|---|---|---|---|
 | 1 | Mô hình tầng rút gọn: Application (HTTP, DNS) → Transport (TCP, UDP) → Network (IP) → Link | 🔴 T1 | Biết mỗi giao thức hay gặp nằm ở tầng nào (cần cho L4 vs L7 ở D60) | `tcp ip model layers` |
-| 2 | **TCP vs UDP** | 🟡 T2 | Nắm ý chính để trả lời câu hỏi cuối bài số 1; điền bảng bên dưới ở D63 | `tcp vs udp` |
+| 2 | **TCP vs UDP** | 🟡 T2 | Nắm ý chính để trả lời câu hỏi cuối bài số 1; điền bảng bên dưới ở CN (tuỳ chọn) | `tcp vs udp` |
 | 3 | TCP đảm bảo tin cậy bằng gì: sequence number, ACK, gửi lại, flow control, congestion control | 🔴 T1 | Kể được tên cơ chế, không cần chi tiết thuật toán | `how tcp guarantees reliability` |
 | 4 | **Bắt tay 3 bước** (SYN → SYN-ACK → ACK) | 🔴 T1 | Vẽ được; giải thích được vì sao cần 3 bước và tốn 1 RTT trước khi gửi dữ liệu, từ đó nối lại lý do dùng keep-alive / connection pool (Tuần 4, Tuần 8) | `tcp three way handshake why three` |
 | 5 | Đóng kết nối 4 bước (FIN/ACK), `TIME_WAIT` | 🟢 T3 | Biết tồn tại. `TIME_WAIT` nhiều là dấu hiệu mở/đóng connection liên tục → nên dùng keep-alive, pool | `tcp time_wait` |
@@ -205,7 +207,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
   - Kích thước và thời điểm của traffic.
   - Lỗ hổng ở ứng dụng (SQL injection, XSS), server bị chiếm quyền, hoặc máy người dùng bị cài certificate giả.
 
-**🟡 Bảng so sánh T2: TCP vs UDP** *(⏱ điền ở D63)*
+**🟡 Bảng so sánh T2: TCP vs UDP** *(⏱ điền ở CN 20/12, tuỳ chọn)*
 
 Nhóm: *Protocol (tầng transport)*. Trục chính: **độ tin cậy** vs **độ trễ**.
 
@@ -374,7 +376,7 @@ Hôm nay không học kiến thức mới. Bạn **ghép** kiến thức từ Tu
 
 **⏱ Ước tính:** Giờ làm 55' (DSA 40' + Anki 15') · Tối 85' (Học 30' + Bảng T2 L4/L7 + nơi lưu session 20' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *Scale dọc vs ngang* dời sang **D63**; bảng *Thuật toán load balancing* làm ở phần mở rộng của Lab D62 (cùng lúc thử `least_conn`), chưa làm kịp thì điền ở D63. Tối nay vẫn đọc phần chi tiết của mục 7 để trả lời câu hỏi cuối bài số 3.
+> ⏱ Bảng T2 *Scale dọc vs ngang* dời sang **CN 20/12, tuỳ chọn**; bảng *Thuật toán load balancing* làm ở phần mở rộng của Lab D62 (cùng lúc thử `least_conn`), cũng ở Chủ Nhật (tuỳ chọn). Tối nay vẫn đọc phần chi tiết của mục 7 để trả lời câu hỏi cuối bài số 3.
 
 ### 🧩 DSA: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 
@@ -392,13 +394,13 @@ Hôm nay không học kiến thức mới. Bạn **ghép** kiến thức từ Tu
 
 | # | Mục | Tier | Cần nắm tới mức nào | Từ khoá research |
 |---|---|---|---|---|
-| 1 | **Scale dọc vs scale ngang** | 🟡 T2 | Điền bảng bên dưới (dời sang D63) | `vertical vs horizontal scaling` |
+| 1 | **Scale dọc vs scale ngang** | 🟡 T2 | Điền bảng bên dưới (dời sang CN, tuỳ chọn) | `vertical vs horizontal scaling` |
 | 2 | **Service stateless**: không giữ state của user trong RAM/đĩa của instance | 🔴 T1 | Giải thích được vì sao đây là điều kiện để scale ngang; liệt kê được các loại state hay "lọt" vào instance | `stateless service horizontal scaling` |
 | 3 | **Nơi lưu session**: sticky session vs session store dùng chung (Redis) vs token stateless (JWT) | 🟡 T2 | Điền bảng bên dưới | `sticky session vs centralized session store` |
 | 4 | **Load balancer** làm gì: phân phối tải, health check, loại instance chết ra khỏi pool, là điểm vào duy nhất | 🔴 T1 | Kể được 4 vai trò | `what does a load balancer do` |
 | 5 | Health check: active (LB chủ động gọi `/health`) vs passive (đếm lỗi của request thật) | 🔴 T1 | Biết endpoint `/health` nên kiểm tra gì. Phân biệt *liveness* (process còn sống, không treo) với *readiness* (sẵn sàng nhận traffic: đã kết nối được DB, đã warm-up). Biết bẫy: health check phụ thuộc cứng vào DB → DB chậm một lúc là LB loại **mọi** instance, cả hệ thống sập theo | `load balancer health check active passive` |
 | 6 | **L4 vs L7 load balancer** | 🟡 T2 | Điền bảng bên dưới | `layer 4 vs layer 7 load balancer` |
-| 7 | **Thuật toán load balancing** | 🟡 T2 | Đọc phần chi tiết; điền bảng bên dưới ở Lab D62 (mở rộng) hoặc D63 | `load balancing algorithms round robin least connections` |
+| 7 | **Thuật toán load balancing** | 🟡 T2 | Đọc phần chi tiết; điền bảng bên dưới ở Lab mở rộng (CN, tuỳ chọn) | `load balancing algorithms round robin least connections` |
 | 8 | LB cũng có thể là điểm chết duy nhất (SPOF) → chạy cặp active–passive với IP ảo, hoặc dùng LB managed | 🔴 T1 | Trả lời được "LB chết thì sao?" | `load balancer single point of failure` |
 | 9 | Config Nginx `upstream`, HAProxy; tên sản phẩm AWS ALB (L7) / NLB (L4) | 🟢 T3 | Tra khi làm lab D62 | nginx.org docs – *ngx_http_upstream_module* |
 | 10 | **Connection draining / graceful shutdown**: khi tắt hoặc deploy một instance, LB ngừng gửi request mới tới nó, instance xử lý nốt request đang chạy rồi mới tắt | 🔴 T1 ở mức một câu | Trả lời được "deploy bản mới mà không rớt request thế nào?"; liên hệ Bước 5 Lab D62 (tắt app1 giữa chừng) | `connection draining graceful shutdown load balancer` |
@@ -422,7 +424,7 @@ Hôm nay không học kiến thức mới. Bạn **ghép** kiến thức từ Tu
   - *Least connections:* gửi tới server đang có ít kết nối nhất. Hợp khi thời gian xử lý request chênh nhau nhiều (có request 10ms, có request 5s), hoặc kết nối lâu (WebSocket).
   - *IP hash / consistent hashing:* cùng client (hoặc cùng key) luôn vào cùng server. Hợp khi server giữ cache theo key. Consistent hashing học kỹ ở D61.
 
-**🟡 Bảng so sánh T2: Scale dọc vs Scale ngang** *(⏱ điền ở D63)*
+**🟡 Bảng so sánh T2: Scale dọc vs Scale ngang** *(⏱ điền ở CN 20/12, tuỳ chọn)*
 
 Nhóm: *Sharding/Scaling strategy*. Trục chính: **đơn giản** vs **khả năng tăng trưởng và chịu lỗi**.
 
@@ -463,7 +465,7 @@ Nhóm: *Protocol / định tuyến traffic*. Trục chính: **hiệu năng** vs 
 | Ext: Hiệu năng / overhead | | |
 | Ext: TLS termination và tính năng HTTP (retry, rewrite, nén) | | |
 
-**🟡 Bảng so sánh T2: Thuật toán load balancing** *(⏱ điền ở Lab D62 phần mở rộng, hoặc D63)*
+**🟡 Bảng so sánh T2: Thuật toán load balancing** *(⏱ điền ở Lab mở rộng, CN 20/12, tuỳ chọn)*
 
 Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn giản, không cần trạng thái** vs **thích ứng với tải thực tế / giữ affinity**.
 
@@ -537,7 +539,7 @@ Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn 
 
 **⏱ Ước tính:** Giờ làm 55' (DSA 40' + Anki 15') · Tối 85' (Học 40' + Bảng T2 reverse proxy/LB/API Gateway 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *CDN push vs pull* là *(tuỳ chọn)*: ít được hỏi, làm ở D63 nếu còn giờ.
+> ⏱ Bảng T2 *CDN push vs pull* là *(tuỳ chọn)*: ít được hỏi, làm ở Chủ Nhật 20/12 nếu còn sức.
 
 ### 🧩 DSA: [55. Jump Game](https://leetcode.com/problems/jump-game/)
 
@@ -561,7 +563,7 @@ Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn 
 | 4 | Consistent hashing được dùng ở đâu | 🔴 T1 | Kể được 3 nơi: phân mảnh dữ liệu (Cassandra, DynamoDB), client cache phân tán (Memcached), load balancing theo key | `consistent hashing use cases` |
 | 5 | **CDN là gì**: mạng máy chủ biên (edge) đặt gần người dùng, cache nội dung | 🔴 T1 | Nói được CDN giảm latency và giảm tải cho origin như thế nào | `how cdn works` |
 | 6 | CDN cache những gì, invalidate thế nào | 🔴 T1 | Trả lời được câu hỏi cuối bài số 2 (xem chi tiết) | `what can cdn cache`, `cdn cache invalidation versioned filenames` |
-| 7 | CDN **push vs pull** *(tuỳ chọn)* | 🟡 T2 | Điền bảng bên dưới (ngắn), ở D63 nếu còn giờ | `push cdn vs pull cdn` |
+| 7 | CDN **push vs pull** *(tuỳ chọn)* | 🟡 T2 | Điền bảng bên dưới (ngắn), ở CN nếu còn sức | `push cdn vs pull cdn` |
 | 8 | **Reverse proxy vs Load balancer vs API Gateway** (vai trò và khi nào cần cái nào) | 🟡 T2 | Điền bảng bên dưới. Theo Roadmap gốc: biết vai trò là T3, còn "khi nào cần cái nào" là T2 | `reverse proxy vs load balancer vs api gateway` |
 | 9 | Forward proxy vs reverse proxy | 🟢 T3 | Một câu: forward proxy đại diện cho **client**, reverse proxy đại diện cho **server** | `forward proxy vs reverse proxy` |
 | 10 | Header `Cache-Control` (`max-age`, `s-maxage`, `no-store`, `private`), sản phẩm cụ thể (Cloudflare, CloudFront, Kong, AWS API Gateway) | 🟢 T3 | Tra khi cần | MDN – *HTTP caching* |
@@ -586,7 +588,7 @@ Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn 
   - *API Gateway:* điểm vào cho **nhiều** service (thường là microservices), lo các việc xuyên suốt (cross-cutting): xác thực, rate limit, định tuyến theo path tới từng service, gom/biến đổi request, log, metric.
   - Ba thứ này chồng lấn nhau. Nginx có thể đóng cả ba vai ở quy mô nhỏ. Điều cần nói được là **vai trò**, không phải tên sản phẩm.
 
-**🟡 Bảng so sánh T2: CDN push vs pull** *(tuỳ chọn, ⏱ D63 nếu còn giờ)*
+**🟡 Bảng so sánh T2: CDN push vs pull** *(tuỳ chọn, ⏱ CN 20/12 nếu còn sức)*
 
 Nhóm: *deployment / infra strategy (phân phối nội dung)*. Trục chính: **kiểm soát** vs **công vận hành**.
 
@@ -671,11 +673,11 @@ Nhóm: *infra / điểm vào của traffic*. Trục chính: **mỏng và nhanh**
 
 ---
 
-## D62 (T7, 19/12): Lab
+## D62 + D63 (T7, 19/12): Lab + Chốt tuần 9
 
-**⏱ Ước tính:** DSA 40' · Lab bắt buộc 2h50' · Ôn ⚠️ 30' · **Tổng 4h00'**
+**⏱ Ước tính:** DSA 25' · Lab bắt buộc 2h40' · Chốt tuần 45' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
-> ⏱ Lab *bắt buộc (2h50')*: Bước 1 (rút còn 20'), Bước 2 (50', dùng thư viện session-store có sẵn), Bước 3 (45'), Bước 4 phần round-robin (10'), Bước 5 mục 1–3 (30'), Bước 6 (15'). *Mở rộng (làm nếu còn giờ, ~35')*: Bước 4 phần `least_conn` + điền bảng thuật toán LB (20'), Bước 5 mục 4 so sánh throughput 1 vs 2 instance (15'). "Làm lại 1 bài sai" dời sang D63 nếu hết giờ.
+> ⚖️ Gộp từ D62 (4h00') và D63 (2h40'). Lab *bắt buộc (2h40')*: Bước 1 (20'), Bước 2 (45'), Bước 3 (40'), Bước 4 phần round-robin (10'), Bước 5 mục 1–3 (30'), Bước 6 (15'). Đã chuyển sang Chủ Nhật (tuỳ chọn): DSA 134 Gas Station, Lab mở rộng (`least_conn` + bảng thuật toán LB, so sánh throughput 1 vs 2 instance), 3 bảng T2 dời từ trong tuần (mô hình concurrency, TCP vs UDP, scale dọc vs ngang), bảng CDN push vs pull, ôn ⚠️ 30'.
 
 ### 🧩 DSA: [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/)
 
@@ -683,24 +685,23 @@ Nhóm: *infra / điểm vào của traffic*. Trục chính: **mỏng và nhanh**
 - **Cách làm:** giữ `curEnd` (biên của tầng hiện tại) và `farthest`. Duyệt `i` từ 0 tới **n − 2**: cập nhật `farthest`; khi `i == curEnd` thì `jumps++`, `curEnd = farthest`.
 - **Độ phức tạp:** O(n) thời gian, O(1) bộ nhớ. DP thông thường là O(n²).
 - **Lỗi hay gặp:** duyệt tới `n − 1` → đếm thừa một bước khi `curEnd` rơi đúng vào ô cuối.
-- Sau đó làm lại 1 bài sai trong tuần (nếu có, *nếu còn giờ*).
 
-### 🛠 Lab (3–4h): 2 instance *Mini Order Service* sau Nginx, state ra Redis
+### 🛠 Lab (2h40'): 2 instance *Mini Order Service* sau Nginx, state ra Redis
 
-**Bước 1: Tìm mọi state đang nằm trong instance (30')**
+**Bước 1: Tìm mọi state đang nằm trong instance (20')**
 
 - Rà code theo danh sách ở D60: session trong RAM, cache in-process, lock/bộ đếm/rate limit trong RAM, bảng idempotency key (Tuần 4) trong RAM, file upload trên đĩa local, cron job.
 - Ghi danh sách vào `notes/scale-out-lab.md`, mỗi mục ghi rõ: *đang ở đâu → chuyển đi đâu*.
 - Nếu dự án đang dùng JWT thuần (không có session), state cần chuyển ra Redis có thể là: danh sách JWT bị thu hồi / refresh token, idempotency key, giỏ hàng tạm. **Phải có ít nhất một loại state thật sự nằm trong Redis** để bài test ở Bước 5 có ý nghĩa. Nếu chưa có, làm một endpoint session đơn giản (ví dụ `POST /login` tạo session lưu ở Redis, `GET /me` đọc session).
 
-**Bước 2: Chuyển state ra Redis (1h)**
+**Bước 2: Chuyển state ra Redis (45', dùng thư viện session-store có sẵn)**
 
 - Session: key `session:{id}`, value JSON, TTL = thời hạn phiên. Dùng thư viện session-store Redis của framework bạn dùng (🟢 T3, chỉ lưu link).
 - Idempotency key: `idem:{key}` với `SET ... NX EX 86400`. `NX` đảm bảo chỉ một instance "giành" được key, đúng bài race condition D57.
 - Thêm biến môi trường `INSTANCE_ID` và trả header `X-Instance-Id` trong mọi response để biết request rơi vào instance nào.
 - Kiểm tra lại: `pool_size × 2 instance ≤ max_connections` của Postgres (D54 Tuần 8).
 
-**Bước 3: docker compose + Nginx (45')**
+**Bước 3: docker compose + Nginx (40')**
 
 ```yaml
 # 🟢 T3 snippet – docker-compose.yml (phác thảo, chỉnh theo stack của bạn)
@@ -771,19 +772,19 @@ server {
 - Nginx bản open-source chỉ có **passive health check** (`max_fails`, `fail_timeout`). Active health check là tính năng của NGINX Plus. Ghi nhận điều này vào notes, nó trả lời trực tiếp câu hỏi D60.
 - ⚠️ `proxy_next_upstream` sẽ **gửi lại** request sang instance khác. Với `POST /orders` điều này chỉ an toàn nhờ Idempotency-Key (Tuần 4). Mặc định Nginx không retry các method không idempotent như POST khi request đã được gửi tới upstream (trừ khi thêm `non_idempotent`). Đừng thêm `non_idempotent` nếu chưa có idempotency key.
 
-**Bước 4: Kiểm tra phân phối tải (20')**
+**Bước 4: Kiểm tra phân phối tải (10', phần round-robin)**
 
 - `docker compose up -d --build`, gọi `curl -i localhost:8080/products/1` 10 lần → header `X-Instance-Id` luân phiên `app1`, `app2`.
-- *(Mở rộng)* Bật `least_conn`, reload Nginx (`docker compose exec nginx nginx -s reload`), thử lại với một endpoint cố tình chậm ở một instance. Ghi nhận khác biệt.
+- *(Mở rộng, CN tuỳ chọn)* Bật `least_conn`, reload Nginx (`docker compose exec nginx nginx -s reload`), thử lại với một endpoint cố tình chậm ở một instance. Ghi nhận khác biệt.
 
-**Bước 5: Kiểm tra stateless và chịu lỗi (40')**
+**Bước 5: Kiểm tra stateless và chịu lỗi (30', mục 1–3)**
 
 1. **Session dùng chung:** đăng nhập (request rơi vào `app1`), gọi `GET /me` nhiều lần, có lần rơi vào `app2` → vẫn được xác thực.
 2. **Một instance chết:** chạy load test (`hey`/`k6`/`wrk`) 60 giây, giữa chừng `docker compose stop app1`. Ghi lại: có bao nhiêu request lỗi, lỗi trong bao lâu, sau đó mọi request có dồn sang `app2` không. Rồi `docker compose start app1` và xem nó được nhận lại vào pool.
 3. **Idempotency qua 2 instance:** gửi cùng một `POST /orders` với cùng `Idempotency-Key` hai lần liên tiếp (có thể rơi vào 2 instance khác nhau) → chỉ tạo **một** đơn.
-4. *(Mở rộng)* **So sánh throughput:** 1 instance vs 2 instance. ⚠️ Trên một laptop, 2 instance chia chung CPU và cùng một Postgres, nên throughput có thể **không** tăng gấp đôi. Ghi lại con số thật và giải thích nút thắt ở đâu (CPU máy, DB, Redis). Đây là câu trả lời hay khi phỏng vấn.
+4. *(Mở rộng, CN tuỳ chọn)* **So sánh throughput:** 1 instance vs 2 instance. ⚠️ Trên một laptop, 2 instance chia chung CPU và cùng một Postgres, nên throughput có thể **không** tăng gấp đôi. Ghi lại con số thật và giải thích nút thắt ở đâu (CPU máy, DB, Redis). Đây là câu trả lời hay khi phỏng vấn.
 
-**Bước 6: Ghi kết quả (20')**
+**Bước 6: Ghi kết quả (15')**
 
 - Viết `notes/scale-out-lab.md`:
   - Sơ đồ: Client → Nginx → app1/app2 → Postgres + Redis.
@@ -806,24 +807,7 @@ server {
 - [ ] Cùng Idempotency-Key gửi 2 lần qua 2 instance chỉ tạo 1 đơn
 - [ ] `notes/scale-out-lab.md` có sơ đồ, danh sách state, bảng số liệu và giải thích nút thắt
 
-**Bước 7 (30'):** Ôn các câu đánh dấu ⚠️ trong tuần.
-
----
-
-## D63 (CN, 20/12): Chốt tuần 9
-
-**⏱ Ước tính:** DSA 45' · Chốt tuần 60' · Bảng T2 dời từ trong tuần 35' (mô hình concurrency 15' + TCP vs UDP 10' + scale dọc vs ngang 10') · Anki/cheat sheet 20' · **Tổng 2h40'**
-
-> ⏱ Còn tối đa 20' trong trần 3h: dùng cho bảng *thuật toán LB* nếu D62 chưa làm, rồi mới tới bảng *(tuỳ chọn)* CDN push vs pull.
-
-### 🧩 DSA: [134. Gas Station](https://leetcode.com/problems/gas-station/)
-
-- **Pattern (🔴 T1):** *Greedy + điều kiện toàn cục*.
-- **Hai nhận xét:**
-  1. Nếu `sum(gas) < sum(cost)` → chắc chắn không có đáp án, trả −1. Ngược lại luôn có đúng một đáp án (đề đảm bảo duy nhất).
-  2. Đi từ trạm `start`, nếu bình xăng âm tại trạm `i` thì **mọi trạm từ `start` tới `i`** đều không thể là điểm xuất phát (xuất phát ở giữa còn có ít xăng hơn khi tới `i`). Đặt `start = i + 1`, reset bình về 0.
-- **Độ phức tạp:** O(n) thời gian, O(1) bộ nhớ. Brute force thử mọi điểm xuất phát là O(n²).
-- **Mục tiêu:** nói được lập luận ở nhận xét 2. Đây là kiểu "vì sao greedy đúng" mà câu chốt tuần số 4 hỏi.
+### ✅ Chốt tuần 9 (45')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -834,7 +818,7 @@ server {
 3. Vì sao service phải stateless thì mới scale ngang được?
    - *Dùng chính kết quả lab D62 làm ví dụ.*
 4. Bài intervals: vì sao thường sort theo điểm bắt đầu trước? Greedy đúng khi nào?
-   - *Gợi ý: merge sort theo start; chọn nhiều khoảng nhất sort theo end. Greedy đúng khi chứng minh được "lựa chọn tốt nhất cục bộ luôn nằm trong một lời giải tối ưu" (lập luận đổi chỗ ở bài 435, lập luận loại trạm ở bài 134).*
+   - *Gợi ý: merge sort theo start; chọn nhiều khoảng nhất sort theo end. Greedy đúng khi chứng minh được "lựa chọn tốt nhất cục bộ luôn nằm trong một lời giải tối ưu" (lập luận đổi chỗ ở bài 435, lập luận loại trạm ở bài 134, xem CN nếu chưa làm).*
 5. Một race condition bạn từng gặp, hoặc có thể xảy ra, trong dự án.
    - *Kể theo khung: tình huống → vì sao xảy ra (xen kẽ thế nào) → cách sửa (atomic / lock / unique constraint) → vì sao lock trong RAM không đủ khi chạy nhiều instance.*
 
@@ -865,11 +849,39 @@ server {
 
 </details>
 
+### Anki / cheat sheet (10')
+
+- Nhập thẻ T1 của D57–D61 và thẻ pattern Intervals / Greedy / Kadane.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
 - [ ] `notes/type-url.md` hoàn thành và đã nói thử ≥ 2 lần trong 5 phút
 - [ ] 2 instance chạy sau Nginx + `notes/scale-out-lab.md` có số liệu
-- [ ] Tự giải lại 7 bài intervals/greedy của tuần không xem lời giải
 - [ ] Anki: đã nhập đủ thẻ T1 của D57–D61 + thẻ pattern Intervals / Greedy / Kadane
-- [ ] Cheat sheet: đã điền mô hình concurrency, TCP vs UDP, scale dọc vs ngang, nơi lưu session, L4 vs L7, thuật toán LB, CDN push vs pull, reverse proxy vs LB vs API Gateway
+- [ ] Cheat sheet: đã điền nơi lưu session, L4 vs L7, reverse proxy vs LB vs API Gateway
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 7 bài intervals/greedy của tuần không xem lời giải
+- [ ] *(tuỳ chọn, CN)* Cheat sheet: mô hình concurrency, TCP vs UDP, scale dọc vs ngang, thuật toán LB, CDN push vs pull
+
+---
+
+## CN (20/12): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - **DSA 134 Gas Station (45'):** xem mục bên dưới.
+   - **Lab mở rộng (~35'):** Bước 4 phần `least_conn` + điền bảng [thuật toán load balancing](#d60-t5-1712-scaling--load-balancer) (20'); Bước 5 mục 4 so sánh throughput 1 vs 2 instance (15').
+   - **Bảng T2 dời từ trong tuần (35'):** [mô hình concurrency](#d57-t2-1412-process-thread-concurrency) (15'), [TCP vs UDP](#d58-t3-1512-tcpudp-dns-tls) (10'), [scale dọc vs ngang](#d60-t5-1712-scaling--load-balancer) (10').
+   - **Bảng T2 CDN push vs pull** (ở [D61](#d61-t6-1812-consistent-hashing-cdn-reverse-proxy-api-gateway)), nếu còn sức.
+   - **Ôn ⚠️ (30'):** ôn các câu đánh dấu ⚠️ trong tuần.
+
+### 🧩 DSA: [134. Gas Station](https://leetcode.com/problems/gas-station/)
+
+- **Pattern (🔴 T1):** *Greedy + điều kiện toàn cục*.
+- **Hai nhận xét:**
+  1. Nếu `sum(gas) < sum(cost)` → chắc chắn không có đáp án, trả −1. Ngược lại luôn có đúng một đáp án (đề đảm bảo duy nhất).
+  2. Đi từ trạm `start`, nếu bình xăng âm tại trạm `i` thì **mọi trạm từ `start` tới `i`** đều không thể là điểm xuất phát (xuất phát ở giữa còn có ít xăng hơn khi tới `i`). Đặt `start = i + 1`, reset bình về 0.
+- **Độ phức tạp:** O(n) thời gian, O(1) bộ nhớ. Brute force thử mọi điểm xuất phát là O(n²).
+- **Mục tiêu:** nói được lập luận ở nhận xét 2. Đây là kiểu "vì sao greedy đúng" mà câu chốt tuần số 4 hỏi.

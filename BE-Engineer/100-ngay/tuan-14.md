@@ -21,16 +21,18 @@
 | D94 (T4) Ôn chốt tuần 9–12 | 70' | 90' | 2h40' |
 | D95 (T5) Mock SD e-commerce | 65' | 80' | 2h25' |
 | D96 (T6, 22/01) Mock đầy đủ | — | 2h45' | 2h45' |
-| D97 (T7) Xem video mock + sửa | — | 4h00' | 4h00' |
-| D98 (CN) Ôn nhẹ + câu hỏi ngược | — | 2h10' | 2h10' |
-| **Tổng tuần 14** | | | **19h20'** |
+| D97 + D98 (T7) Xem video mock + sửa + ôn nhẹ + câu hỏi ngược | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
+| **Tổng tuần 14** | | | **17h10'** |
 | D99 (T2) Mock lần cuối | 65' | 65' | 2h10' |
 | D100 (T3) Nộp CV | 20' | 90' | 1h50' |
 | **Tổng D99–D100** | | | **4h00'** |
 
-**Tổng tuần: 19h20'** (D92–D98) + **4h00'** (D99–D100) = **23h20'**, chưa tính 1h tiếng Anh mỗi ngày.
+**Tổng tuần: 17h10'** trong 6 buổi (D92–D98) + **4h00'** (D99–D100) = **21h10'**, chưa tính 1h tiếng Anh mỗi ngày.
 
-Ngày nặng nhất là **D97 (4h00')**, chạm trần Thứ Bảy. Ba buổi tối ôn D92–D94 đều chạm trần 90' nên đã cân đối lại (xem "⚖️ Ngân sách thời gian" ngay bên dưới).
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Xem lại mock (D97) và Ôn nhẹ + câu hỏi hỏi ngược (D98) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **Thứ Bảy (D97 + D98, 4h00')**, chạm trần 4h. Ba buổi tối ôn D92–D94 đều chạm trần 90' nên đã cân đối lại (xem "⚖️ Ngân sách thời gian" ngay bên dưới).
 
 ## Cách chấm điểm khi ôn chốt tuần (D92–D94)
 
@@ -50,7 +52,7 @@ Ngày nặng nhất là **D97 (4h00')**, chạm trần Thứ Bảy. Ba buổi t�
   1. Ghi vào `notes/weak-spots.md` theo mẫu: `| Ngày | Tuần | Câu | Điểm | Thiếu ý gì | Đã ôn lại chưa |`.
   2. Mở file tuần tương ứng, đọc lại đúng mục đó **tối đa 15'**. Không đọc lan sang mục khác.
   3. Sửa hoặc viết lại thẻ Anki của mục đó (thẻ cũ nhiều khả năng quá dài hoặc hỏi sai trọng tâm).
-  4. Trả lời lại vào **cuối buổi hôm đó** và lần nữa vào **D98**. Vẫn 0–1 thì đưa vào danh sách ôn buổi sáng D99.
+  4. Trả lời lại vào **cuối buổi hôm đó** và lần nữa vào **Thứ Bảy (D97 + D98)**. Vẫn 0–1 thì đưa vào danh sách ôn buổi sáng D99.
 - **Tổng tuần < 8/10:** không dừng lịch. Dùng khung giờ DSA của D93/D94 để ôn thêm thay vì làm Error List.
 
 ### ⚖️ Ngân sách thời gian cho mỗi buổi tối D92–D94 (trần 90')
@@ -64,7 +66,7 @@ Mỗi tối có 4 tuần × 5 câu = **20 câu**. Nếu mỗi câu điểm thấ
 | **Đọc lại** (Học) | 10' | Chỉ đọc lại **2 câu điểm thấp nhất** (~5'/câu), rồi trả lời lại ngay |
 
 - **Thứ tự làm:** mở `notes/weak-spots.md` và danh sách ⚠️ trước. Làm **trước** các câu từng có ⚠️ hoặc từng chưa đạt ở chốt tuần gốc, sau đó mới tới các câu khác. Hết 65' mà còn câu chưa làm → câu nào ở chốt tuần gốc đã đạt 2 điểm và thẻ Anki đang ổn thì chỉ nói **một câu tóm tắt** (30 giây) rồi chấm.
-- Câu 0–1 điểm còn lại (ngoài 2 câu đã đọc lại): bước 2 "đọc lại tối đa 15'" dời sang **phần giờ làm còn dư** của hôm sau (sau bài DSA) hoặc Bước 4 của D97. Lần trả lời lại thứ hai vẫn ở D98.
+- Câu 0–1 điểm còn lại (ngoài 2 câu đã đọc lại): bước 2 "đọc lại tối đa 15'" dời sang **phần giờ làm còn dư** của hôm sau (sau bài DSA) hoặc Chủ Nhật 24/01 (tuỳ chọn). Lần trả lời lại thứ hai vẫn ở buổi Thứ Bảy (D97 + D98).
 
 ---
 
@@ -153,7 +155,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 | 11 | [tuan-11.md](tuan-11.md) | DP 2D, Trie, Message Queue, CAP | (1) vì sao exactly-once khó, thực tế giải thế nào · (2) Kafka hay RabbitMQ cho 2 tình huống · (3) CAP trong 2' · (4) ⏱ Notification System 25' → rút gọn 5' (khung + sơ đồ) · (5) Big-O tìm theo tiền tố trên Trie | Luồng event có consumer idempotent + DLQ |
 | 12 | [tuan-12.md](tuan-12.md) | Microservices, Resilience, Observability | (1) ⏱ SD flash sale 45' → tối nay chỉ nói 1' 4 điểm đi sâu (khoá tồn kho, queue, rate limit, idempotency); bản đầy đủ tính bằng mock D95 · (2) Saga + Outbox · (3) Circuit Breaker · (4) SLI / SLO / SLA · (5) trade-off microservices | — |
 
-- **Chốt tuần 13:** tối nay **không** làm (đã chạm trần 90'). Câu 1–3 và câu 5 (commit → production, Pod/Deployment/Service, Canary vs Blue-Green, trình bày dự án 5') dời sang D98 (tuỳ chọn, 10'). Câu 4 (STAR) được luyện trong phần behavioral của mock D96.
+- **Chốt tuần 13:** tối nay **không** làm (đã chạm trần 90'). Câu 1–3 và câu 5 (commit → production, Pod/Deployment/Service, Canary vs Blue-Green, trình bày dự án 5') dời sang Chủ Nhật 24/01 (tuỳ chọn, 10'). Câu 4 (STAR) được luyện trong phần behavioral của mock D96.
 
 **Kết quả hôm nay**
 
@@ -231,7 +233,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 | 0:48 – 0:53 | Nghỉ | Uống nước. Không xem lại bài |
 | 0:53 – 1:38 | **SD 45'** | Theo khung 5 bước (như D95). Người phỏng vấn nên cắt ngang 1–2 lần để hỏi đào sâu: *"Nếu DB chính sập thì sao?"*, *"Traffic tăng 10 lần thì cái gì vỡ trước?"* |
 | 1:38 – 1:53 | **Behavioral 15'** | 3 câu × ~4' (2' kể + 2' hỏi đào sâu) |
-| 1:53 – 1:58 | Hỏi ngược | Bạn hỏi người phỏng vấn 1–2 câu (chuẩn bị ở D98, hôm nay dùng bản nháp) |
+| 1:53 – 1:58 | Hỏi ngược | Bạn hỏi người phỏng vấn 1–2 câu (chuẩn bị ở Thứ Bảy D97 + D98, hôm nay dùng bản nháp) |
 | 1:58 – 2:10 | Feedback | Người phỏng vấn chấm rubric, nói 2 điểm tốt + 3 điểm cần sửa. **Bạn chỉ nghe và ghi, không tranh luận** |
 
 ### Rubric chấm điểm (thang 1–4 mỗi tiêu chí)
@@ -269,18 +271,18 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D97 (T7, 23/01): Xem lại video mock, sửa 3 điểm yếu
+## D97 + D98 (T7, 23/01): Xem lại video mock, sửa 3 điểm yếu + Ôn nhẹ + câu hỏi hỏi ngược
 
-**⏱ Ước tính:** DSA 45' · Xem video + chọn điểm yếu 1h15' · Sửa 1h30' · Ôn ⚠️ 15' · Anki 15' · **Tổng 4h00'**
+**⏱ Ước tính:** DSA 25' · Xem video 60' + chọn điểm yếu 15' · Sửa 1h15' · Ôn nhẹ 30' · Câu hỏi hỏi ngược 30' · Checklist 5' · **Tổng 4h00'**
 
-> ⚖️ Nếu làm đủ mọi thứ như viết (DSA 2–3 bài + buổi 3–4h) thì hôm nay lên gần 5h. Đã cân đối: DSA giới hạn 45' (bài mock ≤ 25' + 1 bài cùng pattern ~20'); bài chưa qua ở D92 dời sang D98 hoặc giai đoạn duy trì sau D100; Bước 3 giữ mức thấp 1,5h; Anki chỉ ôn thẻ đến hạn.
+> ⚖️ Gộp từ D97 (4h00') và D98 (2h10'). Đã chuyển sang Chủ Nhật (tuỳ chọn): bài cùng pattern (~20'), bài chưa qua ở D92, ôn ⚠️ + câu 0–1 điểm (Bước 4 cũ, 15'), chốt tuần 13 câu 1–3 và 5 (10'), đọc lại cheat sheet / `stories.md` / bài giới thiệu, bài dễ giữ nhịp. Giữ bắt buộc: sửa 3 điểm yếu (rút còn ~25'/điểm), trả lời lại lần 2 câu 0–1 điểm, câu hỏi hỏi ngược.
 
 ### 🧩 DSA: Làm lại bài sai trong buổi mock
 
-- Làm lại bài coding của buổi mock từ đầu, ≤ 25', không nhìn code cũ. Làm thêm 1 bài cùng pattern trong kho đề.
-- Làm lại các bài chưa qua ở D92 (nếu có) → nếu hôm nay hết giờ, dời sang D98.
+- Làm lại bài coding của buổi mock từ đầu, ≤ 25', không nhìn code cũ. *(Tuỳ chọn, Chủ Nhật: làm thêm 1 bài cùng pattern trong kho đề.)*
+- *(Tuỳ chọn, Chủ Nhật)* Làm lại các bài chưa qua ở D92 (nếu có).
 
-### 📘 Buổi tối (3–4h): Xem lại video, liệt kê 3 điểm yếu và sửa
+### 📘 Xem lại video, liệt kê 3 điểm yếu và sửa (2h30')
 
 **Bước 1: Xem lại video (60')**, video coding + SD + behavioral dài ~105', nên xem tốc độ 1,5–1,75× và bỏ qua phần nghỉ/feedback (1,25× sẽ mất ~85'), ghi lại **mốc thời gian** mỗi khi gặp các dấu hiệu sau:
 
@@ -304,29 +306,17 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 - Ví dụ một dòng: *"SD không đi sâu được phần thanh toán"* · *mốc 1:21:30, Deep-dive 2/4* · *chưa nắm luồng webhook + idempotency* · *đọc lại mục Outbox Tuần 12 + tự vẽ lại luồng thanh toán 3 lần, mỗi lần 10'* · *D99*.
 - "Hành động sửa" phải **làm được và kiểm tra được**. "Ôn thêm SD" là không đạt; "tự trình bày lại phần deep-dive thanh toán trong 10', ghi âm, nghe lại" là đạt.
 
-**Bước 3: Sửa (1,5h; ~30' cho mỗi điểm yếu)**
+**Bước 3: Sửa (1h15'; ~25' cho mỗi điểm yếu)**
 
 - Mỗi điểm yếu: làm hành động sửa, rồi **thử lại ngay** một lần (ghi âm).
 - Cập nhật thẻ Anki / cheat sheet / `notes/stories.md` nếu điểm yếu nằm ở đó.
 
-**Bước 4 (15'):** Ôn các câu ⚠️ và các câu 0–1 điểm trong `notes/weak-spots.md` từ D92–D94.
+### Ôn nhẹ (30')
 
----
+- Anki: chỉ ôn thẻ đến hạn. Không thêm thẻ mới. (15')
+- Trả lời lại lần 2 các câu 0–1 điểm trong `notes/weak-spots.md` (theo quy trình ở đầu file). (15')
 
-## D98 (CN, 24/01): Ôn nhẹ + chuẩn bị câu hỏi hỏi ngược nhà tuyển dụng
-
-**⏱ Ước tính:** DSA 20' · Ôn nhẹ 45' · Câu hỏi hỏi ngược 45' · Chốt tuần 13 (tuỳ chọn) 10' · Checklist 10' · **Tổng 2h10'**
-
-**DSA:** Nghỉ, hoặc làm lại 1 bài dễ để giữ nhịp. Không làm bài mới. Nếu D97 còn bài chưa qua ở D92, làm bài đó ở đây thay cho bài dễ (≤ 20').
-
-**Chốt tuần 13 (tuỳ chọn, 10'):** trả lời nhanh [chốt tuần 13](tuan-13.md) câu 1–3 và câu 5 (dời từ D94).
-
-**Ôn nhẹ (45'):**
-- Anki: chỉ ôn thẻ đến hạn. Không thêm thẻ mới.
-- Trả lời lại lần 2 các câu 0–1 điểm trong `notes/weak-spots.md` (theo quy trình ở đầu file).
-- Đọc lại một lượt `notes/tradeoff-cheatsheet.md`, `notes/stories.md` và bài giới thiệu bản thân.
-
-**Chuẩn bị 3–5 câu hỏi để hỏi ngược nhà tuyển dụng (45')**
+### 🙋 Chuẩn bị 3–5 câu hỏi để hỏi ngược nhà tuyển dụng (30', bắt buộc)
 
 - **Nguyên tắc:** câu hỏi cho thấy bạn quan tâm tới **công việc thật** và **cách team làm việc**. Chọn theo người phỏng vấn: kỹ sư thì hỏi về kỹ thuật/quy trình, quản lý thì hỏi về kỳ vọng/phát triển, HR thì hỏi về quy trình tuyển và chế độ.
 - **Ví dụ câu hỏi tốt** (chọn và sửa thành 3–5 câu của riêng bạn, viết vào `notes/questions-to-ask.md`):
@@ -361,6 +351,19 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 - [ ] `notes/mock-review.md` có 3 điểm yếu + hành động sửa đã làm ít nhất 1 lần
 - [ ] `notes/questions-to-ask.md` có 3–5 câu hỏi
 - [ ] Error List: mọi bài đã được làm lại ít nhất 1 lần
+
+---
+
+## CN (24/01): Ngày trống
+
+Không xếp bài mới. Hôm sau là D99 (mock lần cuối), nên **ưu tiên nghỉ**. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên mock D96 và phần sửa điểm yếu).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - **DSA (≤ 20'):** Nghỉ, hoặc làm lại 1 bài dễ để giữ nhịp. Không làm bài mới. Nếu D97 còn bài chưa qua ở D92, làm bài đó ở đây thay cho bài dễ (≤ 20'). Hoặc 1 bài cùng pattern với bài mock.
+   - **Chốt tuần 13 (10'):** trả lời nhanh [chốt tuần 13](tuan-13.md) câu 1–3 và câu 5 (dời từ D94).
+   - **Ôn ⚠️ (15'):** các câu ⚠️ và các câu 0–1 điểm trong `notes/weak-spots.md` từ D92–D94.
+   - Đọc lại một lượt `notes/tradeoff-cheatsheet.md`, `notes/stories.md` và bài giới thiệu bản thân.
 
 ---
 

@@ -23,12 +23,14 @@ Không tính 1h tiếng Anh mỗi ngày (giữ riêng). Anki tuần này ~20'/ng
 | D66 (T4) | 65' | 90' | 2h35' |
 | D67 (T5) | 65' | 90' | 2h35' |
 | D68 (T6) | 75' | 90' | 2h45' |
-| D69 (T7) | — | 3h55' | 3h55' |
-| D70 (CN) | — | 2h45' | 2h45' |
+| D69 + D70 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 18h50'**
+**Tổng tuần: 16h10'** trong 6 buổi
 
-Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài DP 55' + bảng T2 4 cột), còn D66–D68 đều chạm trần 90' buổi tối. Vì vậy bảng *vị trí đặt rate limiter* của D67 đã được dời sang Lab D69.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab (D69) và Chốt tuần (D70) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài DP 55' + bảng T2 4 cột), còn D66–D68 đều chạm trần 90' buổi tối. Vì vậy bảng *vị trí đặt rate limiter* của D67 đã được dời sang Chủ Nhật (tuỳ chọn).
 
 ---
 
@@ -417,7 +419,7 @@ Nhóm: *protocol/API design*. Trục chính: **giảm tải (caching behavior)**
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
-> Tối nay chỉ điền bảng *5 thuật toán rate limiting*. Bảng *vị trí đặt rate limiter* **dời sang Lab D69** (10'), lúc bạn đang tự đặt middleware nên điền sẽ dễ hơn. *Khung tự giải 45'* dùng để luyện cho câu 1 Chốt tuần (D70).
+> Tối nay chỉ điền bảng *5 thuật toán rate limiting*. Bảng *vị trí đặt rate limiter* **dời sang Chủ Nhật 27/12 (tuỳ chọn)** (10'), sau khi đã tự đặt middleware ở Lab nên điền sẽ dễ hơn. *Khung tự giải 45'* dùng để luyện cho câu 1 Chốt tuần (Thứ Bảy, D69 + D70).
 
 ### 🧩 DSA: [213. House Robber II](https://leetcode.com/problems/house-robber-ii/)
 
@@ -469,7 +471,7 @@ Nhóm: *thuật toán kiểm soát lưu lượng (traffic shaping)*, nhóm khác
 | Ext: Độ chính xác tại biên cửa sổ | | | | | |
 | Ext: Bộ nhớ mỗi key | | | | | |
 
-**🟡 Bảng so sánh T2: vị trí đặt rate limiter** *(điền ở Lab D69, Bước 3)*
+**🟡 Bảng so sánh T2: vị trí đặt rate limiter** *(điền ở CN 27/12, tuỳ chọn)*
 
 Nhóm: *deployment/infra strategy*. Trục chính: **mức độ kiểm soát** vs **độ phức tạp vận hành**.
 
@@ -564,7 +566,7 @@ Nhóm: *deployment/infra strategy*. Trục chính: **mức độ kiểm soát** 
 
 **⏱ Ước tính:** Giờ làm 75' (DSA 55' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h45'**
 
-> Ngày nặng nhất tuần. Nếu hết giờ, *Khung tự giải 45'* bên dưới để dành cho Chủ Nhật; không cắt phần tự kiểm tra.
+> Ngày nặng nhất tuần. Nếu hết giờ, *Khung tự giải 45'* bên dưới để dành cho Chủ Nhật (ngày trống, tuỳ chọn); không cắt phần tự kiểm tra.
 
 ### 🧩 DSA: [322. Coin Change](https://leetcode.com/problems/coin-change/)
 
@@ -686,9 +688,11 @@ Nhóm: *sinh định danh phân tán*, nhóm khác. Trục chính tự xác đ�
 
 ---
 
-## D69 (T7, 26/12): Lab
+## D69 + D70 (T7, 26/12): Lab + Chốt tuần 10
 
-**⏱ Ước tính:** DSA 45' · Lab bắt buộc 2h30' (Bước 1 60' + Bước 2 bắt buộc 1h30') · Bảng T2 dời từ D67 10' · Ôn ⚠️ 30' · **Tổng 3h55'** (+ mở rộng 30' nếu còn giờ)
+**⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h30' (Bước 1 60' + Bước 2 bắt buộc 1h30') · Chốt tuần 50' · Anki/cheat sheet 10' · **Tổng 4h00'**
+
+> ⚖️ Gộp từ D69 (3h55') và D70 (2h45'). Đã chuyển sang Chủ Nhật (tuỳ chọn): DSA 139 Word Break, làm lại 198 + 322 (70), Lab mở rộng 30', bảng T2 vị trí đặt rate limiter (dời từ D67, 10'), ôn ⚠️ 30'.
 
 ### 🧩 DSA: [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 
@@ -699,21 +703,20 @@ Nhóm: *sinh định danh phân tán*, nhóm khác. Trục chính tự xác đ�
   - **Base case:** mọi `dp[i] = 1`.
   - Đáp án: `max(dp)`, **không phải** `dp[n-1]`.
 - **Các cách:** DP O(n²) thời gian, O(n) bộ nhớ (phải tự làm được). Cách O(n log n) dùng mảng `tails` + binary search: 🟢 T3, biết tồn tại và nói được ý tưởng một câu là đủ.
-- Sau đó làm lại 1 bài sai trong tuần (nếu có). *(Thuộc phần mở rộng: chỉ làm nếu còn giờ sau Bước 3.)*
 
-### 🛠 Lab (3–4h)
+### 🛠 Lab (2h30')
 
 **Bước 1: Tự giải URL Shortener trên giấy (60')**
 - Đặt đồng hồ **45'**, không mở sách. Đi theo *Khung tự giải 45'* ở D66, viết/vẽ lên giấy A4.
 - Sau 45': mở Alex Xu chương 8, so sánh từng bước. Ghi vào `notes/sd-url-shortener.md` 3 mục: **Mình làm được → Mình thiếu → Sách làm khác và vì sao**.
 - Chụp ảnh bản vẽ lưu vào `notes/img/`.
 
-**Bước 2: Rate limiter token bucket bằng Redis cho Mini Order Service (bắt buộc 1h30' + mở rộng 30')**
+**Bước 2: Rate limiter token bucket bằng Redis cho Mini Order Service (bắt buộc 1h30'; mở rộng 30' ở CN, tuỳ chọn)**
 
 Làm bằng ngôn ngữ/framework bạn đang dùng. Redis đã có sẵn trong `docker compose` từ Tuần 8–9.
 
 - **Bắt buộc (1h30'):** mục 1–6 dưới đây, chỉ với luật của `POST /orders`, dùng `now` truyền từ app, chỉ cần header `Retry-After`.
-- **Mở rộng (làm nếu còn giờ, 30'):** luật riêng cho các API đọc; thử biến thể `redis.call('TIME')` và ghi so sánh; thêm header báo số lượt còn lại; làm lại bài DSA sai trong tuần.
+- **Mở rộng (CN, tuỳ chọn, 30'):** luật riêng cho các API đọc; thử biến thể `redis.call('TIME')` và ghi so sánh; thêm header báo số lượt còn lại.
 
 1. **Thiết kế luật:** `POST /orders` giới hạn theo **user ID** (lấy từ JWT, Tuần 4): `capacity = 5`, `refill_rate = 1 token/giây`. Các API đọc giới hạn lỏng hơn (ví dụ `capacity = 20`, `rate = 10/giây`). Luật để trong file config.
 2. **Lưu state:** mỗi key `ratelimit:{route}:{userId}` là một Redis hash gồm `tokens` và `ts` (thời điểm nạp gần nhất, ms).
@@ -768,24 +771,7 @@ Làm bằng ngôn ngữ/framework bạn đang dùng. Redis đã có sẵn trong 
 - [ ] Key trong Redis có TTL (kiểm tra bằng `TTL`/`PTTL`), không tồn tại key "mồ côi" không hết hạn.
 - [ ] Giải thích được bằng lời vì sao cách `GET` rồi `SET` từ app bị sai.
 
-**Bước 3 (40'):** Điền bảng T2 *vị trí đặt rate limiter* (dời từ D67, 10'), rồi ôn các câu đánh dấu ⚠️ trong tuần (30').
-
----
-
-## D70 (CN, 27/12): Chốt tuần 10
-
-**⏱ Ước tính:** DSA 45' · Làm lại 198 + 322 30' (70 tuỳ chọn) · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 2h45'**
-
-### 🧩 DSA: [139. Word Break](https://leetcode.com/problems/word-break/)
-
-- **Pattern (🔴 T1):** *DP trên tiền tố của chuỗi (prefix DP)*.
-- **Gợi ý DP:**
-  - **State:** `dp[i]` = `true` nếu tiền tố `s[0..i)` (i ký tự đầu) tách được thành các từ trong từ điển.
-  - **Công thức chuyển:** `dp[i] = true` nếu tồn tại `j < i` sao cho `dp[j] = true` và `s[j..i)` nằm trong từ điển.
-  - **Base case:** `dp[0] = true` (chuỗi rỗng).
-  - Đáp án: `dp[n]`.
-- **Độ phức tạp:** O(n² · L) nếu so sánh substring (L là chi phí cắt/hash chuỗi); tối ưu bằng cách chỉ thử `j` sao cho độ dài `i - j` ≤ độ dài từ dài nhất. Bỏ từ điển vào HashSet.
-- **Lỗi hay gặp:** đệ quy không memo → O(2ⁿ) với input như `"aaaa…ab"`.
+### ✅ Chốt tuần 10 (50')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -827,11 +813,41 @@ Làm bằng ngôn ngữ/framework bạn đang dùng. Redis đã có sẵn trong 
 
 </details>
 
+### Anki / cheat sheet (10')
+
+- Nhập thẻ T1 của D64–D68 và thẻ pattern DP.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
 - [ ] Rate limiter token bucket trên Redis chạy được, qua test song song trên 2 instance
 - [ ] Bản vẽ URL Shortener + `notes/sd-url-shortener.md` (so sánh với sách)
-- [ ] Tự giải lại 198, 322 (70 tuỳ chọn) không xem lời giải; nói được state/transition/base case của cả 7 bài DP trong tuần
 - [ ] Anki: đã nhập thẻ T1 của D64–D68 + thẻ pattern DP: Fibonacci-style / take-skip / unbounded knapsack / LIS / prefix DP
-- [ ] Cheat sheet: đã điền bảng Hash vs Base62, 301 vs 302, 5 thuật toán rate limiting, vị trí đặt rate limiter, 4 cách sinh ID
+- [ ] Cheat sheet: đã điền bảng Hash vs Base62, 301 vs 302, 5 thuật toán rate limiting, 4 cách sinh ID
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 198, 322 (70 tuỳ chọn) không xem lời giải; nói được state/transition/base case của cả 7 bài DP trong tuần
+- [ ] *(tuỳ chọn, CN)* Cheat sheet: vị trí đặt rate limiter
+
+---
+
+## CN (27/12): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - **DSA 139 Word Break (45'):** xem mục bên dưới.
+   - **Làm lại 198 + 322 (30', 70 tuỳ chọn)** không xem lời giải.
+   - **Lab mở rộng (30'):** luật riêng cho các API đọc; thử biến thể `redis.call('TIME')` và ghi so sánh; thêm header báo số lượt còn lại (xem Bước 2 của Lab).
+   - **Bảng T2 vị trí đặt rate limiter (10'):** điền bảng ở [D67](#d67-t5-2412-case-study-rate-limiter).
+   - **Ôn ⚠️ (30'):** ôn các câu đánh dấu ⚠️ trong tuần.
+
+### 🧩 DSA: [139. Word Break](https://leetcode.com/problems/word-break/)
+
+- **Pattern (🔴 T1):** *DP trên tiền tố của chuỗi (prefix DP)*.
+- **Gợi ý DP:**
+  - **State:** `dp[i]` = `true` nếu tiền tố `s[0..i)` (i ký tự đầu) tách được thành các từ trong từ điển.
+  - **Công thức chuyển:** `dp[i] = true` nếu tồn tại `j < i` sao cho `dp[j] = true` và `s[j..i)` nằm trong từ điển.
+  - **Base case:** `dp[0] = true` (chuỗi rỗng).
+  - Đáp án: `dp[n]`.
+- **Độ phức tạp:** O(n² · L) nếu so sánh substring (L là chi phí cắt/hash chuỗi); tối ưu bằng cách chỉ thử `j` sao cho độ dài `i - j` ≤ độ dài từ dài nhất. Bỏ từ điển vào HashSet.
+- **Lỗi hay gặp:** đệ quy không memo → O(2ⁿ) với input như `"aaaa…ab"`.

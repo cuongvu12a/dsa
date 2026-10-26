@@ -2,7 +2,7 @@
 
 [← Tuần 11](tuan-11.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 13 →](tuan-13.md)
 
-**Mục tiêu tuần:** Nắm trade-off của microservices, Saga + Outbox, Circuit Breaker, SLO. Tự giải một bài SD tổng hợp. Chủ Nhật là **chốt Giai đoạn 3**.
+**Mục tiêu tuần:** Nắm trade-off của microservices, Saga + Outbox, Circuit Breaker, SLO. Tự giải một bài SD tổng hợp. Thứ Bảy (D83 + D84) là **chốt Giai đoạn 3**.
 
 **DSA tuần này:** làm lại các bài cũ có bấm giờ (**≤ 25'/bài**) để luyện tốc độ. Mỗi bài: nói to hướng giải trong 3' đầu, code, tự test với 2–3 case biên, nói độ phức tạp. Quá 25' hoặc sai → ghi lại vào Error List.
 
@@ -25,12 +25,14 @@ Không tính 1h tiếng Anh mỗi ngày (giữ riêng). DSA tuần này là làm
 | D80 (T4) | 45' | 90' | 2h15' |
 | D81 (T5) | 45' | 85' | 2h10' |
 | D82 (T6) | 45' | 85' | 2h10' |
-| D83 (T7) | — | 3h35' | 3h35' |
-| D84 (CN) | — | 2h35' | 2h35' |
+| D83 + D84 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 17h00'**
+**Tổng tuần: 14h50'** trong 6 buổi
 
-Buổi tối nặng nhất là **D80** (Saga + Outbox, bản gốc có 2 bảng T2 ≈ 105'), nên bảng *Choreography vs Orchestration* đã dời sang Chủ Nhật D84. Thứ Bảy D83 (mock coding + case Chat) là buổi dài nhất tuần.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Mock + case Chat (D83) và Chốt tuần + Chốt Giai đoạn 3 (D84) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Buổi tối nặng nhất là **D80** (Saga + Outbox, bản gốc có 2 bảng T2 ≈ 105'), nên bảng *Choreography vs Orchestration* đã dời sang Chủ Nhật (tuỳ chọn). Thứ Bảy (D83 + D84: mock coding + case Chat + chốt tuần + chốt Giai đoạn 3) là buổi dài nhất tuần, chạm trần 4h.
 
 ---
 
@@ -246,7 +248,7 @@ Nhóm: *kiến trúc hệ thống (architecture style)*, nhóm khác, gần vớ
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h15'**
 
-> Tối nay chỉ điền bảng *2PC vs Saga*. Bảng *Choreography vs Orchestration* **dời sang Chủ Nhật D84** (10'); tối nay chỉ cần hiểu hai cách qua phần *Chi tiết cần hiểu* để trả lời câu 2.
+> Tối nay chỉ điền bảng *2PC vs Saga*. Bảng *Choreography vs Orchestration* **dời sang Chủ Nhật** (ngày trống, tuỳ chọn, 10'); tối nay chỉ cần hiểu hai cách qua phần *Chi tiết cần hiểu* để trả lời câu 2.
 
 ### 🧩 DSA (bấm giờ ≤ 25'): Làm lại [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 
@@ -311,7 +313,7 @@ Nhóm: *distributed transaction pattern*. Trục chính: **tính đúng đắn (
 | Ext: Latency overhead (lock, số lượt round-trip) | | |
 | Ext: Độ phức tạp rollback | | |
 
-**🟡 Bảng so sánh T2: Choreography vs Orchestration** *(điền ở Chủ Nhật D84)*
+**🟡 Bảng so sánh T2: Choreography vs Orchestration** *(tuỳ chọn: điền ở Chủ Nhật)*
 
 Nhóm: *distributed transaction pattern (cách điều phối)*. Trục chính: **mức coupling** vs **khả năng quan sát/kiểm soát luồng**.
 
@@ -620,9 +622,11 @@ Nhóm: *phân phối dữ liệu (đọc vs ghi)*, nhóm khác. Trục chính t�
 
 ---
 
-## D83 (T7, 09/01): Mock coding + Case Chat System
+## D83 + D84 (T7, 09/01): Mock coding + Case Chat System + Chốt tuần 12 + Chốt Giai đoạn 3
 
-**⏱ Ước tính:** Mock coding 70' (60' + tự chấm 10') · Chat bắt buộc 1h55' (tự giải 45' + đọc ch.12 40' + ghi `sd-chat.md` 15' + bảng WebSocket vs Long polling 15') · Ôn ⚠️ 30' · **Tổng 3h35'** (+ mở rộng 10': bảng KV vs RDBMS, dời sang CN nếu chưa kịp)
+**⏱ Ước tính:** Mock coding 65' (60' + tự chấm 5') · Chat 1h30' (tự giải 45' + đọc ch.12 30' + ghi `sd-chat.md` + câu hỏi cuối bài 15') · Chốt tuần 65' (Flash Sale 45' + câu 2–5 20') · Tổng kết GĐ3 + Anki 20' · **Tổng 4h00'**
+
+> ⚖️ Gộp từ D83 (3h35') và D84 (2h35'). Đã chuyển sang Chủ Nhật (tuỳ chọn): làm lại 322 bấm giờ (25'), 3 bảng T2 (WebSocket vs Long polling 15', KV vs RDBMS 10', Choreography vs Orchestration 10' dời từ D80), ôn ⚠️ (30'). Bảng T2 bỏ trước theo thứ tự ưu tiên của lộ trình; câu hỏi cuối bài case Chat vẫn làm.
 
 ### 🧩 DSA: Mock coding, 2 bài mới trong 60'
 
@@ -637,7 +641,7 @@ Nhóm: *phân phối dữ liệu (đọc vs ghi)*, nhóm khác. Trục chính t�
   4. Có tự test bằng tay và nói độ phức tạp không?
 - Bài nào không xong → Error List, làm lại sau 3 ngày và 7 ngày.
 
-### 📘 Bài học buổi tối: Case Chat System (tự làm 45' trước, sau đó mới đọc Alex Xu ch.12)
+### 📘 Case Chat System (1h30': tự làm 45' → đọc ch.12 30' → ghi `sd-chat.md` + câu hỏi cuối bài 15')
 
 **Quy trình:** đặt đồng hồ 45', đi theo *Khung tự giải* bên dưới, vẽ ra giấy. **Sau đó** mới đọc chương 12 và so sánh, ghi vào `notes/sd-chat.md` theo 3 mục như Lab tuần 10: **Mình làm được → Mình thiếu → Sách làm khác và vì sao**.
 
@@ -655,7 +659,7 @@ Nhóm: *phân phối dữ liệu (đọc vs ghi)*, nhóm khác. Trục chính t�
 | 8 | **Presence** (online/offline) bằng **heartbeat**: client gửi nhịp định kỳ; quá X giây không có nhịp → offline | 🔴 T1 | Giải thích được vì sao không đổi offline ngay khi mất kết nối (mạng chập chờn làm trạng thái nhấp nháy) | `online presence heartbeat chat` |
 | 9 | Đồng bộ nhiều thiết bị bằng `cur_max_message_id` của từng thiết bị | 🟢 T3 | Chỉ cần biết ý tưởng | — |
 
-**🟡 Bảng so sánh T2: WebSocket vs Long polling (vs Polling)**
+**🟡 Bảng so sánh T2: WebSocket vs Long polling (vs Polling)** *(tuỳ chọn: điền ở Chủ Nhật)*
 
 Nhóm: *protocol/API design*. Trục chính: **độ trễ đẩy tin** vs **chi phí tài nguyên và độ tương thích hạ tầng**.
 
@@ -668,7 +672,7 @@ Nhóm: *protocol/API design*. Trục chính: **độ trễ đẩy tin** vs **chi
 | Ext: Tài nguyên server (kết nối, request rỗng) | | | |
 | Ext: Tương thích proxy/LB, cách scale | | | |
 
-**🟡 Bảng so sánh T2: Lưu tin nhắn ở KV/wide-column vs RDBMS** *(mở rộng: làm nếu còn giờ, nếu không thì điền ở CN D84)*
+**🟡 Bảng so sánh T2: Lưu tin nhắn ở KV/wide-column vs RDBMS** *(tuỳ chọn: điền ở Chủ Nhật)*
 
 Nhóm: *data storage/model*. Extension theo bảng tra: Consistency model · Schema flexibility · Query capability.
 
@@ -759,24 +763,7 @@ Nhóm: *data storage/model*. Extension theo bảng tra: Consistency model · Sch
 
 </details>
 
-**Sau đó (30'):** Ôn các câu đánh dấu ⚠️ trong tuần.
-
----
-
-## D84 (CN, 10/01): Chốt tuần 12 + Chốt Giai đoạn 3
-
-**⏱ Ước tính:** DSA 25' · Chốt tuần 70' (Flash Sale 45' + câu 2–5 25') · Tổng kết GĐ3 30' (bảng tự chấm + rút 10 thẻ) · Anki/cheat sheet 30' (gồm bảng Choreography vs Orchestration dời từ D80, bảng KV vs RDBMS nếu D83 chưa làm) · **Tổng 2h35'**
-
-### 🧩 DSA (bấm giờ ≤ 25'): Làm lại [322. Coin Change](https://leetcode.com/problems/coin-change/)
-
-- **Pattern (🔴 T1):** *Unbounded knapsack, dạng min* (Tuần 10).
-- **Kiểm tra:**
-  - [ ] Nói state / công thức chuyển / base case **trước** khi code.
-  - [ ] Đưa ra được phản ví dụ cho greedy (`[1, 3, 4]`, `amount = 6`).
-  - [ ] Xử lý `amount = 0` (trả 0) và trường hợp không tạo được (trả −1).
-  - [ ] So sánh nhanh với 518: đổi `min` thành `+=` và đổi base case thì ra bài đếm số cách.
-
-### ✅ Câu hỏi chốt tuần 12 — Tổng kết Giai đoạn 3
+### ✅ Câu hỏi chốt tuần 12 — Tổng kết Giai đoạn 3 (65': Flash Sale 45' + câu 2–5 20')
 
 Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -841,7 +828,7 @@ Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
 </details>
 
-### 📊 Tổng kết Giai đoạn 3 (Tuần 9–12)
+### 📊 Tổng kết Giai đoạn 3 (Tuần 9–12) + Anki (20')
 
 **Tự chấm các case study đã làm** (mỗi bài nói lại được trong ≤ 25', đủ 5 bước):
 
@@ -871,12 +858,32 @@ Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần 12 (câu 1 phải làm đủ 45' trên giấy)
 - [ ] `notes/sd-chat.md` và bản vẽ Flash Sale đã lưu vào `notes/`
-- [ ] Làm lại đủ 6 bài bấm giờ (238, 3, 33, 146, 207, 322); bài nào quá 25' đã vào Error List
+- [ ] Làm lại đủ 5 bài bấm giờ trong tuần (238, 3, 33, 146, 207); bài nào quá 25' đã vào Error List
 - [ ] `notes/mock-log.md` có kết quả mock coding D83
 - [ ] Anki: đã nhập thẻ T1 của D78–D83; rút thẻ ngẫu nhiên Tuần 9–12 đạt ≥ 8/10
-- [ ] Cheat sheet: đã điền bảng Monolith vs Microservices, 2PC vs Saga, Choreography vs Orchestration, Fan-out write vs read, WebSocket vs Long polling, KV vs RDBMS cho chat
+- [ ] Cheat sheet: đã điền bảng Monolith vs Microservices, 2PC vs Saga, Fan-out write vs read
 - [ ] Bảng tự chấm case study ở trên đã điền, mọi ô "Điểm còn yếu" có kế hoạch ôn trong Tuần 14 (D94)
 - [ ] Mini Order Service: rate limiter (Tuần 10) + luồng event idempotent có DLQ (Tuần 11) vẫn chạy được; README ghi rõ nếu áp dụng Outbox thì sửa luồng publish ở chỗ nào
 - [ ] Đạt chốt Giai đoạn 3
+- [ ] *(tuỳ chọn, CN)* Làm lại 322 bấm giờ ≤ 25'
+- [ ] *(tuỳ chọn, CN)* Cheat sheet: Choreography vs Orchestration, WebSocket vs Long polling, KV vs RDBMS cho chat
 
 > 💡 **Từ tuần 12, nên bắt đầu nộp CV** vào 2–3 công ty bạn *ít ưu tiên* để lấy kinh nghiệm phỏng vấn thật.
+
+---
+
+## CN (10/01): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - **DSA (bấm giờ ≤ 25'): Làm lại [322. Coin Change](https://leetcode.com/problems/coin-change/)**
+     - **Pattern (🔴 T1):** *Unbounded knapsack, dạng min* (Tuần 10).
+     - **Kiểm tra:**
+       - [ ] Nói state / công thức chuyển / base case **trước** khi code.
+       - [ ] Đưa ra được phản ví dụ cho greedy (`[1, 3, 4]`, `amount = 6`).
+       - [ ] Xử lý `amount = 0` (trả 0) và trường hợp không tạo được (trả −1).
+       - [ ] So sánh nhanh với 518: đổi `min` thành `+=` và đổi base case thì ra bài đếm số cách.
+   - **Bảng T2 (35'):** *WebSocket vs Long polling* (15') và *KV/wide-column vs RDBMS* (10') ở phần case Chat của buổi Thứ Bảy; *Choreography vs Orchestration* (10') ở D80.
+   - **Ôn ⚠️ (30'):** các câu đánh dấu ⚠️ trong tuần.

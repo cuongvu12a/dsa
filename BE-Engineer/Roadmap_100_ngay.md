@@ -8,7 +8,7 @@
 >
 > 🔁 **Đã dời lịch +3 tuần ngày 21/10/2026** (lịch gốc: 28/09/2026 → 05/01/2027; thực tế bắt đầu trễ nên lấy đầu tuần 19/10 làm Ngày 1). Dời đúng bội số của 7 ngày nên các nhãn thứ (T2…CN) vẫn khớp. D96 không còn rơi vào ngày nghỉ lễ.
 >
-> 🔁 **Từ 26/10/2026: tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy (≤ 4h), Chủ Nhật là ngày trống để nghỉ hoặc học bù. Lịch ngày và số thứ tự D1–D100 giữ nguyên. Đã áp dụng: tuần 1. Các tuần 2–14 vẫn theo khung cũ (T7 Lab, CN Chốt tuần) cho tới khi được chuyển.
+> 🔁 **Từ 26/10/2026: tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy (≤ 4h), Chủ Nhật là ngày trống để nghỉ hoặc học bù. Lịch ngày và số thứ tự D1–D100 giữ nguyên. Đã áp dụng cho cả 14 tuần. Bài DSA mới của Chủ Nhật cũ (ở các tuần 2, 3, 5, 6, 7, 9, 10) nay là tuỳ chọn. Danh sách DSA và Lab bị cắt để làm khi rảnh: [bu-tuy-chon.md](100-ngay/bu-tuy-chon.md).
 
 ---
 
@@ -25,8 +25,20 @@
 | D3 (T4, 21/10) | | Composition vs Inheritance | 🔶 | Lý thuyết xong; 4 bài tập và câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Còn: DSA 1 Two Sum (nếu chưa làm) |
 | D4 (T5, 22/10) | | SOLID: S, O | 🔶 | Lý thuyết + câu hỏi cuối bài xong. Còn: DSA 49 Group Anagrams (nếu chưa làm) |
 | D5 (T6, 23/10) | | SOLID: L, I, D | 🔶 | Lý thuyết, khung nhớ nhanh, 4 thẻ Anki xong; câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Còn: DSA 347 Top K (gửi để soát) |
-| D6 + D7 (T7, 24/10) | ◀ tiếp theo | Lab + Chốt tuần 1 | ⬜ | Gộp 1 buổi (3h55'). Học bù dần, không dời lịch |
+| D6 + D7 (T7, 24/10) | | Lab + Chốt tuần 1 | ⬜ | Gộp 1 buổi (3h55'). **Học bù CN 01/11** (ngày trống tuần 2) |
 | CN (25/10) | | Ngày trống: nghỉ / học bù | — | |
+
+**Tuần 2 (26/10 – 01/11): chi tiết từng ngày**
+
+| Ngày | Hôm nay | Bài | Trạng thái | Ghi chú |
+|---|---|---|---|---|
+| D8 (T2, 26/10) | ◀ hôm nay | Coupling & Cohesion | ⬜ | |
+| D9 (T3, 27/10) | | Tổng quan Design Pattern + Singleton | ⬜ | |
+| D10 (T4, 28/10) | | Factory Method | ⬜ | |
+| D11 (T5, 29/10) | | Builder | ⬜ | |
+| D12 (T6, 30/10) | | Dependency Injection & IoC container | ⬜ | Nhắc lại DIP / DI / IoC của D5 #5 |
+| D13 + D14 (T7, 31/10) | | Lab + Chốt tuần 2 | ⬜ | |
+| CN (01/11) | | Ngày trống → **học bù D6 + D7 tuần 1** | — | |
 
 **Các tuần còn lại**
 
@@ -81,24 +93,24 @@ File này là **bản tổng quan**. Hằng ngày, bạn mở file tuần tươn
 
 Mỗi ngày trong file tuần có một dòng **⏱ Ước tính** ngay dưới tiêu đề ngày, chia rõ **Giờ làm** và **Tối** (hoặc tổng buổi vào cuối tuần). Mỗi tối, bạn mở file tuần xem dòng này của ngày mai để biết cần dành ra bao nhiêu thời gian.
 
-| Tuần | Tổng tuần | Trung bình/ngày |
+| Tuần | Tổng tuần | Trung bình/buổi |
 |---|---|---|
 | Tuần 1 | 13h55' (6 buổi) | 2h19' |
-| Tuần 2 | 18h15' | 2h36' |
-| Tuần 3 | 17h46' | 2h32' |
-| Tuần 4 | 17h49' | 2h33' |
-| Tuần 5 | 16h57' | 2h25' |
-| Tuần 6 | 17h56' | 2h34' |
-| Tuần 7 | 18h20' | 2h37' |
-| Tuần 8 | 19h10' | 2h44' |
-| Tuần 9 | 18h20' | 2h37' |
-| Tuần 10 | 18h50' | 2h41' |
-| Tuần 11 | 19h20' | 2h46' |
-| Tuần 12 | 17h00' | 2h26' |
-| Tuần 13 | 19h15' | 2h45' |
-| Tuần 14 | 19h20' | 2h46' |
+| Tuần 2 | 15h15' (6 buổi) | 2h32' |
+| Tuần 3 | 14h46' (6 buổi) | 2h28' |
+| Tuần 4 | 14h59' (6 buổi) | 2h30' |
+| Tuần 5 | 14h42' (6 buổi) | 2h27' |
+| Tuần 6 | 15h21' (6 buổi) | 2h34' |
+| Tuần 7 | 15h50' (6 buổi) | 2h38' |
+| Tuần 8 | 16h15' (6 buổi) | 2h42' |
+| Tuần 9 | 15h40' (6 buổi) | 2h37' |
+| Tuần 10 | 16h10' (6 buổi) | 2h42' |
+| Tuần 11 | 16h30' (6 buổi) | 2h45' |
+| Tuần 12 | 14h50' (6 buổi) | 2h28' |
+| Tuần 13 | 16h35' (6 buổi) | 2h46' |
+| Tuần 14 | 17h10' (6 buổi) | 2h52' |
 | D99–D100 | 4h00' | — |
-| **Cả lộ trình** | **258h43'** | **~2h35'** |
+| **Cả lộ trình** | **221h58'** | **~2h36'** / buổi |
 
 Các ước tính đều tuân theo 3 giới hạn:
 - tối ngày thường tối đa 90',
@@ -107,7 +119,7 @@ Các ước tính đều tuân theo 3 giới hạn:
 
 Ngày nào vượt thì phần T2 hoặc phần "(tuỳ chọn)" đã được dời sang cuối tuần, và có ghi chú ⚖️ ở cả hai nơi.
 
-> ⚠️ **Lịch đang sát trần quỹ thời gian** (17–19h/tuần, gần như không có ngày dự phòng). Khi có tuần bận hoặc OT, bỏ theo thứ tự: mục **(tuỳ chọn)** → phần **mở rộng** của lab → bảng T2 (chỉ đọc lướt, chưa cần điền). **Không bỏ** câu hỏi cuối bài và bài DSA.
+> ⚠️ **Lịch vẫn sát trần quỹ thời gian** (14–17h/tuần trong 6 buổi; Chủ Nhật là ngày dự phòng duy nhất). Khi có tuần bận hoặc OT, dùng Chủ Nhật để bù trước, sau đó mới bỏ theo thứ tự: mục **(tuỳ chọn)** → phần **mở rộng** của lab → bảng T2 (chỉ đọc lướt, chưa cần điền). **Không bỏ** câu hỏi cuối bài và bài DSA.
 
 ### Cách tự kiểm tra trong file tuần
 
@@ -248,8 +260,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D10 (T4) | 15 3Sum | **Factory Method** | refactoring.guru | 2h30' |
 | D11 (T5) | 11 Container With Most Water | **Builder** | refactoring.guru | 2h25' |
 | D12 (T6) | 121 Best Time to Buy and Sell Stock | Dependency Injection & IoC container trong framework của bạn | Docs framework bạn dùng | 2h04' |
-| D13 (T7) | 3 Longest Substring Without Repeating | **Lab:** module `Notification` (email/SMS/push) dùng Factory + DI, có unit test mock sender | — | 4h00' |
-| D14 (CN) | 424 Longest Repeating Character Replacement | **Chốt tuần 2** | — | 3h00' |
+| D13 + D14 (T7) | 3 Longest Substring Without Repeating | **Lab:** module `Notification` (email/SMS/push) dùng Factory + DI, có unit test mock sender + **Chốt tuần 2** | — | 4h00' |
+| CN | *(tuỳ chọn)* 424 Longest Repeating Character Replacement | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -302,8 +314,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D17 (T4) | 739 Daily Temperatures | **Adapter** & **Decorator** (+ middleware) | refactoring.guru | 2h27' |
 | D18 (T5) | 704 Binary Search | **Repository** & **Unit of Work** | Martin Fowler – P of EAA (bài online) | 1h59' |
 | D19 (T6) | 74 Search a 2D Matrix | Kiến trúc phân lớp (Controller – Service – Repository) + CQRS cơ bản | roadmap.sh | 2h21' |
-| D20 (T7) | 875 Koko Eating Bananas | **Lab:** module tính phí ship nhiều hãng bằng Strategy, thêm Decorator cho logging/cache | — | 4h00' |
-| D21 (CN) | 33 Search in Rotated Sorted Array | **Chốt tuần 3** | — | 3h00' |
+| D20 + D21 (T7) | 875 Koko Eating Bananas | **Lab:** module tính phí ship nhiều hãng bằng Strategy, thêm Decorator cho logging/cache + **Chốt tuần 3** | — | 4h00' |
+| CN | *(tuỳ chọn)* 33 Search in Rotated Sorted Array | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -356,8 +368,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D24 (T4) | 141 Linked List Cycle | **Idempotency** & **versioning** | Stripe docs – Idempotent requests | 2h04' |
 | D25 (T5) | 19 Remove Nth Node From End | **Auth:** session vs JWT, OAuth2 tổng quan, hash mật khẩu (bcrypt) | Hussein Nasser, OWASP cheat sheet | 2h24' |
 | D26 (T6) | 143 Reorder List | **REST vs gRPC vs GraphQL** (bảng so sánh Tier 2) + **N+1 problem** | ByteByteGo | 2h27' |
-| D27 (T7) | 146 LRU Cache | **Lab – Dự án:** CRUD product/order, JWT, cursor pagination, Idempotency-Key cho `POST /orders`, kiến trúc phân lớp, Postgres chạy bằng Docker | — | 4h00' |
-| D28 (CN) | Làm lại bài trong Error List | **Chốt tuần 4 + Chốt Giai đoạn 1** | — | 2h50' |
+| D27 + D28 (T7) | 146 LRU Cache | **Lab – Dự án:** CRUD product/order, JWT, cursor pagination, Idempotency-Key cho `POST /orders`, kiến trúc phân lớp, Postgres chạy bằng Docker + **Chốt tuần 4 + Chốt Giai đoạn 1** | — | 4h00' |
+| CN | *(tuỳ chọn)* Làm lại bài trong Error List | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -412,8 +424,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D31 (T4) | 100 Same Tree | **Index là gì, B-Tree hoạt động ra sao** | use-the-index-luke ch.1 | 2h07' |
 | D32 (T5) | 572 Subtree of Another Tree | **Composite index & thứ tự cột** (leftmost prefix), covering index | use-the-index-luke ch.2 | 2h07' |
 | D33 (T6) | 235 LCA of a BST | **Cardinality, selectivity**, các trường hợp index bị bỏ qua, partial index, expression index | use-the-index-luke ch.2–3 | 2h17' |
-| D34 (T7) | 102 Binary Tree Level Order Traversal | **Lab:** sinh 2–5 triệu dòng `orders` bằng `generate_series`, đo query trước/sau khi thêm index, so sánh composite index đúng và sai thứ tự | — | 3h45' |
-| D35 (CN) | 98 Validate BST | **Chốt tuần 5** | — | 2h30' |
+| D34 + D35 (T7) | 102 Binary Tree Level Order Traversal | **Lab:** sinh 2–5 triệu dòng `orders` bằng `generate_series`, đo query trước/sau khi thêm index, so sánh composite index đúng và sai thứ tự + **Chốt tuần 5** | — | 4h00' |
+| CN | *(tuỳ chọn)* 98 Validate BST | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -466,8 +478,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D38 (T4) | 703 Kth Largest Element in a Stream | Thuật toán join: Nested Loop / Hash Join / Merge Join | use-the-index-luke ch.4 | 2h09' |
 | D39 (T5) | 1046 Last Stone Weight | N+1 trong ORM thực tế, slow query log, keyset pagination | Docs ORM bạn dùng | 1h59' |
 | D40 (T6) | 973 K Closest Points to Origin | Checklist "API chậm" + tìm một query chậm trong code công ty | — | 2h39' |
-| D41 (T7) | 215 Kth Largest Element in an Array | **Lab – Dự án:** API danh sách đơn có filter + sort; EXPLAIN ANALYZE → sửa N+1 → thêm index; ghi lại trước/sau | — | 4h00' |
-| D42 (CN) | 621 Task Scheduler | **Chốt tuần 6** | — | 2h35' |
+| D41 + D42 (T7) | 215 Kth Largest Element in an Array | **Lab – Dự án:** API danh sách đơn có filter + sort; EXPLAIN ANALYZE → sửa N+1 → thêm index; ghi lại trước/sau + **Chốt tuần 6** | — | 4h00' |
+| CN | *(tuỳ chọn)* 621 Task Scheduler | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -520,8 +532,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D45 (T4) | 695 Max Area of Island | **Isolation levels** + mức mặc định của Postgres và MySQL | PostgreSQL docs – *Transaction Isolation* | 2h10' |
 | D46 (T5) | 994 Rotting Oranges | Nguyên lý **MVCC** và **WAL** | Hussein Nasser, PostgreSQL docs | 2h25' |
 | D47 (T6) | 417 Pacific Atlantic Water Flow | **Locking:** pessimistic (`SELECT … FOR UPDATE`) vs optimistic (version), deadlock | — | 2h25' |
-| D48 (T7) | 207 Course Schedule | **Lab – Dự án:** API đặt hàng trừ tồn kho. Viết script bắn 50 request đồng thời vào sản phẩm còn 10 cái → chứng minh lỗi overselling → sửa bằng 2 cách | — | 3h55' |
-| D49 (CN) | 210 Course Schedule II | **Chốt tuần 7** | — | 2h35' |
+| D48 + D49 (T7) | 207 Course Schedule | **Lab – Dự án:** API đặt hàng trừ tồn kho. Viết script bắn 50 request đồng thời vào sản phẩm còn 10 cái → chứng minh lỗi overselling → sửa bằng 2 cách + **Chốt tuần 7** | — | 4h00' |
+| CN | *(tuỳ chọn)* 210 Course Schedule II | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -574,8 +586,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D52 (T4) | 46 Permutations | Sự cố cache: stampede, penetration, avalanche + kiểu dữ liệu Redis dùng vào việc gì | ByteByteGo | 2h30' |
 | D53 (T5) | 90 Subsets II | **Replication:** primary–replica, sync vs async, replication lag | DDIA ch.5 (đọc lướt) | 2h25' |
 | D54 (T6) | 79 Word Search | **Sharding** (range/hash/directory) + connection pooling | ByteByteGo, DDIA ch.6 (đọc lướt) | 2h30' |
-| D55 (T7) | 17 Letter Combinations of a Phone Number | **Lab – Dự án:** Redis cache-aside cho `GET /products/:id`, đo latency trước/sau, invalidate khi update. Làm **bảng so sánh SQL vs NoSQL** (Document/KV/Wide-column/Graph) | — | 4h00' |
-| D56 (CN) | Làm lại bài trong Error List | **Chốt tuần 8 + Chốt Giai đoạn 2** | — | 2h55' |
+| D55 + D56 (T7) | 17 Letter Combinations of a Phone Number | **Lab – Dự án:** Redis cache-aside cho `GET /products/:id`, đo latency trước/sau, invalidate khi update. Làm **bảng so sánh SQL vs NoSQL** (Document/KV/Wide-column/Graph) + **Chốt tuần 8 + Chốt Giai đoạn 2** | — | 4h00' |
+| CN | *(tuỳ chọn)* Làm lại bài trong Error List | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -630,8 +642,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D59 (T4) | 435 Non-overlapping Intervals | **"Gõ URL vào trình duyệt"**: tự viết câu trả lời đầy đủ | github.com/alex/what-happens-when | 2h20' |
 | D60 (T5) | 53 Maximum Subarray | Scale dọc vs scale ngang, service stateless, **Load balancer** (L4/L7, các thuật toán) | Alex Xu ch.1 | 2h20' |
 | D61 (T6) | 55 Jump Game | **Consistent hashing**, CDN, reverse proxy, API Gateway | Alex Xu ch.5 | 2h20' |
-| D62 (T7) | 45 Jump Game II | **Lab – Dự án:** `docker compose` chạy 2 instance sau Nginx, đưa session/state ra Redis | — | 4h00' |
-| D63 (CN) | 134 Gas Station | **Chốt tuần 9** | — | 2h40' |
+| D62 + D63 (T7) | 45 Jump Game II | **Lab – Dự án:** `docker compose` chạy 2 instance sau Nginx, đưa session/state ra Redis + **Chốt tuần 9** | — | 4h00' |
+| CN | *(tuỳ chọn)* 134 Gas Station | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -682,8 +694,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D66 (T4) | 198 House Robber | **Case: URL Shortener** | Alex Xu ch.8 | 2h35' |
 | D67 (T5) | 213 House Robber II | **Case: Rate Limiter** | Alex Xu ch.4 | 2h35' |
 | D68 (T6) | 322 Coin Change | **Case: Unique ID Generator** (Snowflake) | Alex Xu ch.7 | 2h45' |
-| D69 (T7) | 300 Longest Increasing Subsequence | **Lab:** tự giải URL Shortener trên giấy trong 45' (không nhìn sách) rồi so với sách. **Dự án:** rate limiter token bucket bằng Redis | — | 3h55' |
-| D70 (CN) | 139 Word Break | **Chốt tuần 10** | — | 2h45' |
+| D69 + D70 (T7) | 300 Longest Increasing Subsequence | **Lab:** tự giải URL Shortener trên giấy trong 45' (không nhìn sách) rồi so với sách. **Dự án:** rate limiter token bucket bằng Redis + **Chốt tuần 10** | — | 4h00' |
+| CN | *(tuỳ chọn)* 139 Word Break | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -736,8 +748,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D73 (T4) | 208 Implement Trie | **Kafka vs RabbitMQ vs SQS** (bảng Tier 2): thứ tự, partition, consumer group | ByteByteGo | 2h35' |
 | D74 (T5) | 211 Design Add and Search Words | **CAP**, các mô hình nhất quán (strong / eventual / read-your-writes) | ByteByteGo, DDIA ch.9 (đọc lướt) | 2h30' |
 | D75 (T6) | 5 Longest Palindromic Substring | **Case: Notification System** | Alex Xu ch.10 | 2h20' |
-| D76 (T7) | 518 Coin Change II | **Lab – Dự án:** tạo đơn → publish event (RabbitMQ) → consumer gửi "email" giả; consumer idempotent + retry + DLQ | — | 3h55' |
-| D77 (CN) | Làm lại bài trong Error List | **Chốt tuần 11** | — | 2h55' |
+| D76 + D77 (T7) | 518 Coin Change II | **Lab – Dự án:** tạo đơn → publish event (RabbitMQ) → consumer gửi "email" giả; consumer idempotent + retry + DLQ + **Chốt tuần 11** | — | 4h00' |
+| CN | *(tuỳ chọn)* Làm lại bài trong Error List | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -791,8 +803,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D80 (T4) | Làm lại 33 | **2PC vs Saga** (choreography / orchestration), **Outbox pattern** | microservices.io | 2h15' |
 | D81 (T5) | Làm lại 146 | **Observability:** log / metric / trace, correlation ID, SLI / SLO / SLA | Google SRE book ch.4 (đọc lướt) | 2h10' |
 | D82 (T6) | Làm lại 207 | **Case: News Feed** | Alex Xu ch.11 | 2h10' |
-| D83 (T7) | **Mock coding:** 2 bài mới trong 60' | **Case: Chat System**: tự làm 45' trên giấy trước, sau đó mới đọc Alex Xu ch.12 | — | 3h35' |
-| D84 (CN) | Làm lại 322 | **Chốt tuần 12 + Chốt Giai đoạn 3** | — | 2h35' |
+| D83 + D84 (T7) | **Mock coding:** 2 bài mới trong 60' | **Case: Chat System**: tự làm 45' trên giấy trước, sau đó mới đọc Alex Xu ch.12 + **Chốt tuần 12 + Chốt Giai đoạn 3** | — | 4h00' |
+| CN | *(tuỳ chọn)* Làm lại 322 | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -852,8 +864,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D87 (T4) | 150 Evaluate Reverse Polish Notation | **CI/CD** + Blue-Green / Canary / Rolling + migration DB không downtime (expand–contract) | ByteByteGo | 2h35' |
 | D88 (T5) | 236 LCA of a Binary Tree | **Behavioral – STAR:** viết 5 câu chuyện | — | 2h35' |
 | D89 (T6) | 131 Palindrome Partitioning | **Giới thiệu bản thân 2 phút** + trình bày dự án xuyên suốt + viết lại CV có số liệu | — | 2h35' |
-| D90 (T7) | **Mock coding:** 2 bài trong 60' | **Lab – Dự án:** Dockerfile, GitHub Actions (lint, test, build), README có sơ đồ kiến trúc | — | 4h00' |
-| D91 (CN) | Làm lại bài trong Error List | **Chốt tuần 13** | — | 2h40' |
+| D90 + D91 (T7) | **Mock coding:** 2 bài trong 60' | **Lab – Dự án:** Dockerfile, GitHub Actions (lint, test, build), README có sơ đồ kiến trúc + **Chốt tuần 13** | — | 4h00' |
+| CN | *(tuỳ chọn)* Làm lại bài trong Error List | Ngày trống: nghỉ / học bù | — | — |
 
 **Câu hỏi cuối bài**
 
@@ -905,8 +917,8 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D94 (T4) | Error List | **Ôn Giai đoạn 3:** trả lời lại chốt tuần 9–12 | 2h40' |
 | D95 (T5) | 1 bài Medium mới, 45' | **Mock SD 45':** *"Thiết kế hệ thống thương mại điện tử: sản phẩm – giỏ hàng – đặt hàng – thanh toán"* | 2h25' |
 | D96 (T6 – 22/01) | — | **Mock đầy đủ:** 45' coding + 45' SD + 15' behavioral. Nhờ bạn bè hoặc tự quay video | 2h45' |
-| D97 (T7) | Làm lại bài sai trong buổi mock | Xem lại video mock, liệt kê 3 điểm yếu và sửa | 4h00' |
-| D98 (CN) | — | Ôn nhẹ Anki. Chuẩn bị 3–5 câu hỏi để hỏi ngược nhà tuyển dụng | 2h10' |
+| D97 + D98 (T7) | Làm lại bài sai trong buổi mock | Xem lại video mock, liệt kê 3 điểm yếu và sửa + Ôn nhẹ Anki. Chuẩn bị 3–5 câu hỏi để hỏi ngược nhà tuyển dụng | 4h00' |
+| CN | — | Ngày trống: ưu tiên nghỉ trước D99 | — |
 
 ## D99 – D100 (25/01 – 26/01/2027): Sẵn sàng
 

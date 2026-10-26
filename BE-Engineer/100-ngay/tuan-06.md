@@ -21,12 +21,14 @@
 | D38 (T4) – Thuật toán join | 47' | 82' | 2h09' |
 | D39 (T5) – N+1, keyset | 42' | 77' | 1h59' |
 | D40 (T6) – Checklist "API chậm" | 77' | 82' | 2h39' |
-| D41 (T7) – Lab tối ưu API | — | 4h00' | 4h00' |
-| D42 (CN) – Chốt tuần 6 | — | 2h35' | 2h35' |
+| D41 + D42 (T7) – Lab tối ưu API + Chốt tuần 6 | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 17h56'**
+**Tổng tuần: 15h21'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
 
-Ngày nặng nhất là **D41 (Lab 4h00', chạm trần Thứ Bảy)**; để D40 không vượt 90' buổi tối, bài tập `pg_stat_statements` trên DB công ty chuyển vào giờ làm D40, bảng T2 *Heap vs Sort vs Quickselect* dời sang phần DSA của D41, và bản nháp STAR của lab dời sang D42.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **T7 (D41 + D42: Lab tối ưu API + Chốt tuần, 4h00', chạm trần Thứ Bảy)**; để D40 không vượt 90' buổi tối, bài tập `pg_stat_statements` trên DB công ty chuyển vào giờ làm D40, bảng T2 *Heap vs Sort vs Quickselect* dời sang T7 (điền cùng câu 5 chốt tuần), và bản nháp STAR viết hoàn chỉnh dời sang CN (tuỳ chọn).
 
 ---
 
@@ -529,7 +531,7 @@ Nhóm: *chiến lược tải dữ liệu liên quan (data loading)*. Trục ch�
 
 **⏱ Ước tính:** Giờ làm 77' (DSA 45' + Anki 12' + Bài tập `pg_stat_statements` ở công ty 20') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h39'**
 
-> **Cân lại thời gian:** bài tập "Tìm query chậm trong code công ty" cần quyền truy cập DB/APM công ty nên làm **trong giờ làm** (sau DSA). Bảng T2 *Heap vs Sort vs Quickselect* ở phần DSA bên dưới **dời sang D41 (T7)**, điền trước khi giải bài 215. Buổi tối chỉ điền bảng *Tối ưu query/index vs Thêm cache*.
+> **Cân lại thời gian:** bài tập "Tìm query chậm trong code công ty" cần quyền truy cập DB/APM công ty nên làm **trong giờ làm** (sau DSA). Bảng T2 *Heap vs Sort vs Quickselect* ở phần DSA bên dưới **dời sang buổi T7 (D41 + D42)**, điền cùng câu 5 chốt tuần. Buổi tối chỉ điền bảng *Tối ưu query/index vs Thêm cache*.
 
 ### 🧩 DSA: [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
 
@@ -539,7 +541,7 @@ Nhóm: *chiến lược tải dữ liệu liên quan (data loading)*. Trục ch�
   2. Max-heap kích thước k → O(n log k) thời gian, O(k) bộ nhớ.
   3. Quickselect → O(n) trung bình, O(n²) xấu nhất.
 - **Lưu ý:** so sánh bằng `x² + y²`, không cần căn bậc hai (vừa chậm vừa sai số số thực).
-- **🟡 Bảng so sánh T2: Heap vs Sort vs Quickselect cho Top-K** *(điền ở D41 – T7, trước khi giải bài 215)*. Nhóm: *thuật toán chọn Top-K*. Trục chính: **tốc độ** vs **bộ nhớ và khả năng xử lý stream**.
+- **🟡 Bảng so sánh T2: Heap vs Sort vs Quickselect cho Top-K** *(điền ở T7 28/11, cùng câu 5 chốt tuần)*. Nhóm: *thuật toán chọn Top-K*. Trục chính: **tốc độ** vs **bộ nhớ và khả năng xử lý stream**.
 
   | Tiêu chí | Sort | Heap kích thước k | Quickselect |
   |---|---|---|---|
@@ -659,28 +661,29 @@ Nhóm: *chiến lược tăng hiệu năng đọc*. Trục chính của cuộc s
 
 ---
 
-## D41 (T7, 28/11): Lab
+## D41 + D42 (T7, 28/11): Lab + Chốt tuần 6
 
-**⏱ Ước tính:** DSA 50' (bảng T2 Top-K 10' + bài 215 40') · Lab bắt buộc 2h40' · Ôn ⚠️ 30' · **Tổng 4h00'**
+**⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h40' · Chốt tuần 40' (gồm bảng T2 Top-K) · Anki/cheat sheet 10' · **Tổng 4h00'**
+
+> ⚖️ Gộp từ D41 (4h00') và D42 (2h35'). Đã chuyển sang Chủ Nhật (tuỳ chọn): DSA 621 Task Scheduler, bản nháp STAR viết hoàn chỉnh (20'), Lab mở rộng Bước 4f, ôn ⚠️ 30', tự giải lại các bài trong tuần. Bảng T2 *Heap vs Sort vs Quickselect* điền cùng câu 5 chốt tuần.
 
 ### 🧩 DSA: [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 
-- **Pattern (🔴 T1):** *Top-K*: **điền bảng T2 Heap vs Sort vs Quickselect ở D40 trước (10')**, rồi dùng nó để chọn cách giải.
+- **Pattern (🔴 T1):** *Top-K*: nghĩ nhanh 3 cách (sort / heap / quickselect) trước khi code; bảng T2 *Heap vs Sort vs Quickselect* (khung ở D40) điền cùng câu 5 chốt tuần.
 - **Các cách:**
   1. Sort → O(n log n).
   2. Min-heap kích thước k → O(n log k).
   3. Quickselect với pivot ngẫu nhiên → O(n) trung bình, O(n²) xấu nhất (vì vậy phải chọn pivot ngẫu nhiên).
   4. Counting sort nếu miền giá trị nhỏ (đề cho -10⁴ ≤ x ≤ 10⁴) → O(n + miền giá trị).
 - **Mục tiêu:** code được cách 2 trong ≤ 15', nói được ý tưởng cách 3 (phân hoạch như Quicksort nhưng chỉ đệ quy vào **một** phía).
-- Sau đó làm lại 1 bài sai trong tuần (nếu có).
 
 ### 🛠 Lab – Dự án (bắt buộc 2h40' + mở rộng 15'): Tối ưu API danh sách đơn
 
 > **Chia phần để không vượt 4h:**
 > - **Bắt buộc (2h40'):** Bước 1 (20', chạy lệnh sinh 9 triệu `order_items` rồi làm Bước 2 trong lúc chờ) → Bước 2 (40') → Bước 3 (25') → Bước 4a–4e (55') → Bước 5 phần **bảng số liệu + plan trước/sau** (20').
-> - **Mở rộng (làm nếu còn giờ):** Bước 4f – chỉ SELECT cột cần (15').
-> - **Bản nháp STAR của Bước 5 dời sang D42 (CN, 20')**, vì câu 3 chốt tuần dùng đúng bản nháp này.
-> - Bước 6 (ôn ⚠️, 30') là bắt buộc.
+> - **Mở rộng (làm nếu còn giờ, nếu không thì CN tuỳ chọn):** Bước 4f – chỉ SELECT cột cần (15').
+> - **Bản nháp STAR viết hoàn chỉnh dời sang CN (tuỳ chọn, 20').** Ở câu 3 chốt tuần, kể STAR bằng miệng dựa trên bảng số liệu Bước 5.
+> - Ôn ⚠️ (30') chuyển sang CN (tuỳ chọn).
 
 Làm trên *Mini Order Service*, ngôn ngữ và framework của bạn, Postgres chạy bằng Docker. Dùng dữ liệu lớn từ lab Tuần 5 (import sang DB của dự án, hoặc trỏ dự án sang database `order_lab`).
 
@@ -759,33 +762,18 @@ ANALYZE;
 | Sau 4e (keyset) | | | | | |
 
 - Dán plan **trước** và **sau** của query chính (dạng text).
-- *(Làm ở D42 – CN)* Viết bản nháp câu chuyện **STAR** (Situation – Task – Action – Result) "Tôi đã tối ưu một API chậm", nói trong ≤ 2 phút, có số liệu cụ thể lấy từ bảng trên.
+- *(CN, tuỳ chọn)* Viết bản nháp câu chuyện **STAR** (Situation – Task – Action – Result) "Tôi đã tối ưu một API chậm", nói trong ≤ 2 phút, có số liệu cụ thể lấy từ bảng trên.
 
 **Tiêu chí đạt:**
 - [ ] Số query mỗi request giảm từ 1 + N (+ M) xuống hằng số.
 - [ ] p95 giảm, có số liệu trước/sau.
 - [ ] Có plan trước/sau và giải thích được từng node thay đổi thế nào.
 - [ ] Trang sâu dùng keyset có thời gian gần bằng trang đầu; trang sâu dùng OFFSET thì chậm hơn rõ rệt.
-- [ ] Có bản nháp STAR (hoàn thành ở D42).
+- [ ] *(tuỳ chọn, CN)* Có bản nháp STAR viết ra.
 
-**Bước 6 (30'):** Ôn các câu đánh dấu ⚠️ trong tuần.
+### ✅ Chốt tuần 6 (40')
 
----
-
-## D42 (CN, 29/11): Chốt tuần 6
-
-**⏱ Ước tính:** DSA 45' · Bản nháp STAR (dời từ D41) 20' · Chốt tuần 60' · Anki/cheat sheet 30' · **Tổng 2h35'**
-
-> Viết bản nháp STAR **trước** khi làm câu hỏi chốt tuần, vì câu 3 yêu cầu kể lại nó.
-
-### 🧩 DSA: [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/)
-
-- **Pattern (🔴 T1):** *Greedy theo tần suất*, có thể mô phỏng bằng *max-heap + hàng đợi cooldown*.
-- **Các cách:**
-  1. Max-heap theo số lần còn lại + queue chứa task đang chờ hết cooldown. Mỗi đơn vị thời gian: lấy task nhiều nhất ra chạy, đưa vào queue; task hết cooldown thì trả lại heap → O(tổng thời gian · log 26).
-  2. Công thức: gọi `maxFreq` là tần suất lớn nhất, `countMax` là số task có tần suất đó → đáp án = `max(len(tasks), (maxFreq − 1) · (n + 1) + countMax)` → O(len(tasks)).
-- **Mục tiêu:** giải thích được công thức bằng hình "khung" `maxFreq − 1` nhóm, mỗi nhóm dài `n + 1`. Và vì sao phải lấy `max` với `len(tasks)` (khi có quá nhiều loại task thì không cần thời gian nghỉ).
-- **Liên hệ backend:** giống bài toán lập lịch job có giới hạn tần suất gọi (rate limit theo từng loại).
+> Câu 3: kể STAR bằng miệng dựa trên bảng số liệu Bước 5 (bản viết hoàn chỉnh để CN, tuỳ chọn). Câu 5: điền luôn bảng T2 *Heap vs Sort vs Quickselect* (khung ở D40) khi trả lời.
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -824,12 +812,41 @@ ANALYZE;
 
 </details>
 
+### Anki / cheat sheet (10')
+
+- Nhập thẻ T1 của D36–D40 và thẻ DSA-Pattern của tuần (xem [hướng dẫn Anki](../anki/README.md)); kiểm tra các bảng T2 đã điền trong tuần.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
-- [ ] File `notes/query-optimization-lab.md` có bảng trước/sau + plan + bản nháp STAR
+- [ ] File `notes/query-optimization-lab.md` có bảng trước/sau + plan (bản nháp STAR: tuỳ chọn, CN)
 - [ ] API danh sách đơn đã tối ưu (hết N+1, có index, keyset pagination)
 - [ ] File `notes/slow-query-company.md` có ít nhất 1 query chậm thật đã phân tích
-- [ ] Tự giải lại 199, 230, 703, 1046, 973, 215 không xem lời giải
 - [ ] Anki: đã nhập đủ thẻ T1 của D36–D40 + thẻ pattern Heap / Top-K / BFS theo tầng / Inorder BST
 - [ ] Cheat sheet: đã điền 5 bảng T2 (các kiểu scan, 3 thuật toán join, Eager JOIN vs batch IN, Tối ưu query vs cache, Heap vs Sort vs Quickselect)
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 199, 230, 703, 1046, 973, 215, 621 không xem lời giải
+
+---
+
+## CN (29/11): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy bên dưới.
+
+**Phần tuỳ chọn (dời từ Thứ Bảy):**
+
+- Viết bản nháp **STAR** "Tôi đã tối ưu một API chậm" (20') vào `notes/query-optimization-lab.md`, nói trong ≤ 2 phút, có số liệu từ bảng Bước 5.
+- Lab Bước 4f: chỉ SELECT cột cần (15').
+- Ôn các câu đánh dấu ⚠️ trong tuần (30').
+- Tự giải lại 199, 230, 703, 1046, 973, 215 không xem lời giải.
+
+### 🧩 DSA (tuỳ chọn): [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/)
+
+- **Pattern (🔴 T1):** *Greedy theo tần suất*, có thể mô phỏng bằng *max-heap + hàng đợi cooldown*.
+- **Các cách:**
+  1. Max-heap theo số lần còn lại + queue chứa task đang chờ hết cooldown. Mỗi đơn vị thời gian: lấy task nhiều nhất ra chạy, đưa vào queue; task hết cooldown thì trả lại heap → O(tổng thời gian · log 26).
+  2. Công thức: gọi `maxFreq` là tần suất lớn nhất, `countMax` là số task có tần suất đó → đáp án = `max(len(tasks), (maxFreq − 1) · (n + 1) + countMax)` → O(len(tasks)).
+- **Mục tiêu:** giải thích được công thức bằng hình "khung" `maxFreq − 1` nhóm, mỗi nhóm dài `n + 1`. Và vì sao phải lấy `max` với `len(tasks)` (khi có quá nhiều loại task thì không cần thời gian nghỉ).
+- **Liên hệ backend:** giống bài toán lập lịch job có giới hạn tần suất gọi (rate limit theo từng loại).

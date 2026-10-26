@@ -21,12 +21,14 @@
 | D31 (T4) – Index & B-Tree | 42' | 85' | 2h07' |
 | D32 (T5) – Composite index | 42' | 85' | 2h07' |
 | D33 (T6) – Cardinality, partial/expression index | 52' | 85' | 2h17' |
-| D34 (T7) – Lab index | — | 3h45' | 3h45' |
-| D35 (CN) – Chốt tuần 5 | — | 2h30' | 2h30' |
+| D34 + D35 (T7) – Lab index + Chốt tuần 5 | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 16h57'**
+**Tổng tuần: 14h42'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
 
-Ngày nặng nhất là **D34 (Lab 3h45', thêm tới 4h00' nếu làm phần mở rộng)**; bảng T2 *Chuẩn hoá vs Phi chuẩn hoá* của D30 đã dời sang D35 để buổi tối D30 không vượt 90'.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **T7 (D34 + D35: Lab index + Chốt tuần, 4h00')**; bảng T2 *Chuẩn hoá vs Phi chuẩn hoá* của D30 dời sang **CN (tuỳ chọn)** để buổi tối D30 không vượt 90'.
 
 ---
 
@@ -163,7 +165,7 @@ Nhóm: *cách diễn đạt truy vấn*. Trục chính của cuộc so sánh: **
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h04'**
 
-> Tối nay chỉ điền bảng *UUID vs Auto-increment*. Bảng *Chuẩn hoá vs Phi chuẩn hoá* **dời sang D35 (CN)**; phần "Chi tiết cần hiểu" bên dưới đã đủ để trả lời câu 2.
+> Tối nay chỉ điền bảng *UUID vs Auto-increment*. Bảng *Chuẩn hoá vs Phi chuẩn hoá* **dời sang CN 22/11 (tuỳ chọn)**; phần "Chi tiết cần hiểu" bên dưới đã đủ để trả lời câu 2.
 
 ### 🧩 DSA: [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
 
@@ -214,7 +216,7 @@ Nhóm: *cách diễn đạt truy vấn*. Trục chính của cuộc so sánh: **
 - **Constraint và race condition (mục 8):** code kiểm tra "email đã tồn tại chưa" rồi mới INSERT sẽ lọt khi hai request chạy đồng thời. Chỉ `UNIQUE` constraint ở DB mới chặn được chắc chắn. Tương tự `CHECK (stock >= 0)` là lưới an toàn cho bài toán tồn kho ở Tuần 7.
 - **UUID và B-Tree (mục 10):** UUIDv4 ngẫu nhiên nên mỗi lần INSERT rơi vào một vị trí bất kỳ trong index → nhiều page split, cache kém. Auto-increment và UUIDv7 (có tiền tố thời gian) luôn chèn vào cuối index. Postgres 13+ có sẵn `gen_random_uuid()` (v4), Postgres 18 có thêm `uuidv7()`. Câu này sẽ được hỏi lại ở Tuần 10 (Unique ID Generator).
 
-**🟡 Bảng so sánh T2: Chuẩn hoá vs Phi chuẩn hoá** *(điền ở D35 – CN)*
+**🟡 Bảng so sánh T2: Chuẩn hoá vs Phi chuẩn hoá** *(điền ở CN 22/11, tuỳ chọn)*
 
 Nhóm: *data storage/model*. Trục chính của cuộc so sánh: **toàn vẹn dữ liệu và chi phí ghi** vs **tốc độ đọc**.
 
@@ -674,20 +676,21 @@ Nhóm: *chiến lược index*. Trục chính của cuộc so sánh: **kích th�
 
 ---
 
-## D34 (T7, 21/11): Lab
+## D34 + D35 (T7, 21/11): Lab + Chốt tuần 5
 
-**⏱ Ước tính:** DSA 40' · Lab bắt buộc 2h35' · Ôn ⚠️ 30' · **Tổng 3h45'**
+**⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h35' · Chốt tuần 40' · Anki/cheat sheet 15' · **Tổng 4h00'**
+
+> ⚖️ Gộp từ D34 (3h45') và D35 (2h30'). Đã chuyển sang Chủ Nhật (tuỳ chọn): DSA 98 Validate BST, Lab Bước 7 (đo chi phí ghi), bảng T2 *Chuẩn hoá vs Phi chuẩn hoá*, ôn ⚠️ 30', tự giải lại các bài trong tuần.
 
 ### 🧩 DSA: [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
 - **Pattern (🔴 T1):** *BFS theo tầng*. Dùng queue; ở đầu mỗi vòng, lưu `size = queue.length`, rồi lấy ra đúng `size` node. Đó chính là một tầng.
 - **Độ phức tạp:** O(n) thời gian, O(w) bộ nhớ (w là độ rộng lớn nhất, có thể tới n/2).
 - **Khung này dùng lại cho:** 199 Right Side View (Tuần 6), 994 Rotting Oranges (Tuần 7), mọi bài "khoảng cách ngắn nhất trên đồ thị không trọng số".
-- Sau đó làm lại 1 bài sai trong tuần (nếu có).
 
 ### 🛠 Lab (bắt buộc 2h35' + mở rộng 15'): Đo tác dụng của index trên vài triệu dòng
 
-> **Chia phần để không vượt 4h:** **bắt buộc** là Bước 1–6 (~2h35' khi đã gộp thời gian chờ sinh dữ liệu vào việc đọc trước Bước 3). **Mở rộng (làm nếu còn giờ, nếu không thì làm ở D35):** Bước 7 đo chi phí ghi (15') và làm lại bài DSA sai trong tuần. Bước 8 (ôn ⚠️, 30') là bắt buộc.
+> **Chia phần để không vượt 4h:** **bắt buộc** là Bước 1–6 (~2h35' khi đã gộp thời gian chờ sinh dữ liệu vào việc đọc trước Bước 3). **Mở rộng (làm nếu còn giờ, nếu không thì làm ở CN, tuỳ chọn):** Bước 7 đo chi phí ghi (15'). Ôn ⚠️ (30') chuyển sang CN (tuỳ chọn).
 
 Dùng Postgres chạy bằng Docker từ dự án *Mini Order Service* (Tuần 4). Nếu schema của bạn khác, đổi tên cột cho khớp. Nên dùng một database riêng, ví dụ `order_lab`, để không làm bẩn dữ liệu dev.
 
@@ -815,7 +818,7 @@ VACUUM orders;
 -- chạy Q1 lại: Heap Fetches thay đổi thế nào? Vì sao? (visibility map)
 ```
 
-**Bước 7: Đo chi phí ghi (15') – mở rộng, làm ở D35 nếu hết giờ**
+**Bước 7: Đo chi phí ghi (15') – mở rộng, làm ở CN (tuỳ chọn) nếu hết giờ**
 
 ```sql
 -- Bảng orders lúc này có nhiều index. Đo thời gian chèn 100.000 dòng:
@@ -845,26 +848,9 @@ CREATE TABLE orders_noidx (LIKE orders INCLUDING IDENTITY);
 - [ ] Q1 nhanh hơn ít nhất 10 lần khi có index đúng thứ tự so với không có index.
 - [ ] Giải thích được bằng lời vì sao `(created_at, user_id)` kém hơn `(user_id, created_at)` cho Q1.
 - [ ] Có số liệu kích thước của partial index so với index đầy đủ.
-- [ ] Có một câu kết luận về chi phí ghi của index.
+- [ ] Có một câu kết luận về chi phí ghi của index (nếu đã làm Bước 7).
 
-**Bước 8 (30'):** Ôn các câu đánh dấu ⚠️ trong tuần.
-
----
-
-## D35 (CN, 22/11): Chốt tuần 5
-
-**⏱ Ước tính:** DSA 45' · Chốt tuần 60' · Bảng T2 dời từ D30 15' · Anki/cheat sheet 30' · **Tổng 2h30'**
-
-> **Việc dời sang hôm nay:** bảng *Chuẩn hoá vs Phi chuẩn hoá* (D30). Nếu D34 chưa làm Bước 7 (đo chi phí ghi, 15') thì làm hôm nay → tổng 2h45'.
-
-### 🧩 DSA: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
-
-- **Pattern (🔴 T1):** *DFS truyền cận (low, high) xuống*. Mỗi node phải nằm trong khoảng `(low, high)` do các tổ tiên quy định, không chỉ so với con trực tiếp.
-- **Các cách:**
-  1. DFS với cận: đi sang trái thì `high = node.val`, đi sang phải thì `low = node.val` → O(n), O(h).
-  2. Duyệt inorder: dãy thu được phải **tăng nghiêm ngặt**; chỉ cần nhớ giá trị trước đó → O(n), O(h).
-- **Bẫy kinh điển:** chỉ kiểm tra `left.val < node.val < right.val` là **sai**. Ví dụ: gốc 5, con phải 6, con trái của 6 là 3 → mỗi cặp cha–con đều đúng nhưng 3 < 5 nằm ở cây con phải.
-- **Lưu ý:** giá trị node có thể bằng giới hạn của kiểu int; dùng `null` hoặc kiểu số lớn hơn làm cận ban đầu.
+### ✅ Chốt tuần 5 (40')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -904,10 +890,40 @@ CREATE TABLE orders_noidx (LIKE orders INCLUDING IDENTITY);
 
 </details>
 
+### Anki / cheat sheet (15')
+
+- Nhập thẻ T1 của D29–D33 và thẻ DSA-Pattern của tuần (xem [hướng dẫn Anki](../anki/README.md)); kiểm tra các bảng T2 đã điền trong tuần.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
-- [ ] File `notes/index-lab.md` có đủ số liệu đo (kể cả Bước 7 chi phí ghi)
-- [ ] Tự giải lại 226, 104, 572, 235, 102, 98 không xem lời giải (bài Easy ≤ 20')
+- [ ] File `notes/index-lab.md` có đủ số liệu đo (Bước 7 chi phí ghi: tuỳ chọn, CN)
 - [ ] Anki: đã nhập đủ thẻ T1 của D29–D33 + thẻ pattern DFS bottom-up / top-down, BFS theo tầng, BST (đi một nhánh, truyền cận)
-- [ ] Cheat sheet: đã điền 6 bảng T2 (EXISTS/IN vs JOIN, Chuẩn hoá vs Phi chuẩn hoá, UUID vs auto-increment, B-Tree vs Hash, Composite vs nhiều index đơn, Partial vs đầy đủ)
+- [ ] Cheat sheet: đã điền 5 bảng T2 (EXISTS/IN vs JOIN, UUID vs auto-increment, B-Tree vs Hash, Composite vs nhiều index đơn, Partial vs đầy đủ)
+- [ ] *(tuỳ chọn, CN)* Bảng T2 Chuẩn hoá vs Phi chuẩn hoá
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 226, 104, 572, 235, 102, 98 không xem lời giải (bài Easy ≤ 20')
+
+---
+
+## CN (22/11): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy bên dưới.
+
+**Phần tuỳ chọn (dời từ Thứ Bảy):**
+
+- Bảng T2 *Chuẩn hoá vs Phi chuẩn hoá* (15'), khung bảng ở D30.
+- Lab Bước 7: đo chi phí ghi (15'), ghi vào `notes/index-lab.md`.
+- Ôn các câu đánh dấu ⚠️ trong tuần (30').
+- Tự giải lại 226, 104, 572, 235, 102 không xem lời giải.
+
+### 🧩 DSA (tuỳ chọn): [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+
+- **Pattern (🔴 T1):** *DFS truyền cận (low, high) xuống*. Mỗi node phải nằm trong khoảng `(low, high)` do các tổ tiên quy định, không chỉ so với con trực tiếp.
+- **Các cách:**
+  1. DFS với cận: đi sang trái thì `high = node.val`, đi sang phải thì `low = node.val` → O(n), O(h).
+  2. Duyệt inorder: dãy thu được phải **tăng nghiêm ngặt**; chỉ cần nhớ giá trị trước đó → O(n), O(h).
+- **Bẫy kinh điển:** chỉ kiểm tra `left.val < node.val < right.val` là **sai**. Ví dụ: gốc 5, con phải 6, con trái của 6 là 3 → mỗi cặp cha–con đều đúng nhưng 3 < 5 nằm ở cây con phải.
+- **Lưu ý:** giá trị node có thể bằng giới hạn của kiểu int; dùng `null` hoặc kiểu số lớn hơn làm cận ban đầu.

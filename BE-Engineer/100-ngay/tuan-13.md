@@ -21,12 +21,14 @@
 | D87 (T4) CI/CD + migration | 65' | 90' | 2h35' |
 | D88 (T5) 5 câu chuyện STAR | 65' | 90' | 2h35' |
 | D89 (T6) Giới thiệu + dự án + CV | 65' | 90' | 2h35' |
-| D90 (T7) Mock coding + Lab | — | 4h00' | 4h00' |
-| D91 (CN) Chốt tuần 13 | — | 2h40' | 2h40' |
+| D90 + D91 (T7) Mock coding + Lab + Chốt tuần 13 | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 19h15'** (chưa tính 1h tiếng Anh mỗi ngày).
+**Tổng tuần: 16h35'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày).
 
-Ngày nặng nhất là **D90 (4h00')**, chạm trần 4h của Thứ Bảy. Ba buổi tối D87–D89 cũng chạm trần 90', nên đã cân đối lại: phần ghi âm các chuyện STAR còn lại dời sang D91, các mục README "Số liệu" và "Nếu có thêm thời gian" dời sang D91.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Mock + Lab (D90) và Chốt tuần (D91) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **Thứ Bảy (D90 + D91, 4h00')**, chạm trần 4h. Ba buổi tối D87–D89 cũng chạm trần 90', nên đã cân đối lại: phần ghi âm các chuyện STAR còn lại, các mục README "Số liệu" và "Nếu có thêm thời gian" dời sang Chủ Nhật (tuỳ chọn).
 
 ---
 
@@ -410,7 +412,7 @@ Nhóm: *Deployment/Infra strategy*. Trục chính của cuộc so sánh: **rủi
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 60' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 2h35'**
 
-> ⚖️ Viết 5 phiếu (~12'/phiếu) đã chiếm 60'. Tối nay chỉ ghi âm + chấm rubric **2 chuyện mạnh nhất** (Tự kiểm tra 20'). 3 chuyện còn lại ghi âm và chấm ở D91. Nếu còn giờ làm sau DSA, gạch trước chất liệu (ticket, số liệu) cho các phiếu.
+> ⚖️ Viết 5 phiếu (~12'/phiếu) đã chiếm 60'. Tối nay chỉ ghi âm + chấm rubric **2 chuyện mạnh nhất** (Tự kiểm tra 20'). 3 chuyện còn lại ghi âm và chấm ở Chủ Nhật 17/01 (tuỳ chọn) hoặc Tuần 14. Nếu còn giờ làm sau DSA, gạch trước chất liệu (ticket, số liệu) cho các phiếu.
 
 ### 🧩 DSA: [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 
@@ -552,7 +554,7 @@ Dùng được cho các câu hỏi behavioral: (#... trong danh sách bên dư�
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 55' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h35'**
 
-> ⚖️ Học 55' = viết bài giới thiệu 15' + khung trình bày dự án 20' + viết lại CV 20'. CV chỉ cần sửa **3–5 bullet mạnh nhất** tối nay; phần còn lại làm nốt ở D91 nếu thiếu giờ.
+> ⚖️ Học 55' = viết bài giới thiệu 15' + khung trình bày dự án 20' + viết lại CV 20'. CV chỉ cần sửa **3–5 bullet mạnh nhất** tối nay; phần còn lại làm nốt ở Chủ Nhật 17/01 (tuỳ chọn) nếu thiếu giờ.
 
 ### 🧩 DSA: [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
 
@@ -651,11 +653,11 @@ Dùng được cho các câu hỏi behavioral: (#... trong danh sách bên dư�
 
 ---
 
-## D90 (T7, 16/01): Mock coding + Lab
+## D90 + D91 (T7, 16/01): Mock coding + Lab + Chốt tuần 13
 
-**⏱ Ước tính:** Mock coding 60' · Lab 2h30' · Ôn ⚠️ 10' · Anki 20' · **Tổng 4h00'**
+**⏱ Ước tính:** Mock coding 60' · Lab 2h05' (Bước 1 50' + Bước 2 50' + Bước 3 25') · Chốt tuần 45' · Anki 10' · **Tổng 4h00'**
 
-> ⚖️ Lab gốc 2h45' (60' + 60' + 45') cộng mock và Anki sẽ thành 4h15', quá trần 4h. Đã rút Bước 3 (README) xuống 30': làm sơ đồ + mô tả + cách chạy + endpoint + "Quyết định kỹ thuật"; hai mục "Số liệu" và "Nếu có thêm thời gian" dời sang D91. Bước 4 còn 10'.
+> ⚖️ Gộp từ D90 (4h00') và D91 (2h40'). Đã chuyển sang Chủ Nhật (tuỳ chọn): Error List bấm giờ (50'), việc dời từ D88–D90 (30': ghi âm + chấm 3 chuyện STAR, README "Số liệu" và "Nếu có thêm thời gian", bullet CV còn lại), ôn ⚠️ (10'). Bước 3 (README) chỉ làm sơ đồ + mô tả + cách chạy + endpoint + "Quyết định kỹ thuật".
 
 ### 🧩 DSA: Mock coding, 2 bài trong 60'
 
@@ -670,13 +672,13 @@ Dùng được cho các câu hỏi behavioral: (#... trong danh sách bên dư�
   - DP: [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
   - Greedy / Intervals: [763. Partition Labels](https://leetcode.com/problems/partition-labels/)
 - **Quy trình mỗi bài (~30'):** đọc đề + hỏi làm rõ (3') → nêu brute force + độ phức tạp (3') → tìm cách tốt hơn (7') → code (12') → tự chạy tay 1 ví dụ + edge case (5').
-- Sai hoặc quá giờ → ghi vào Error List, làm lại ở D91 hoặc Tuần 14.
+- Sai hoặc quá giờ → ghi vào Error List, làm lại ở Chủ Nhật (tuỳ chọn) hoặc Tuần 14.
 
-### 🛠 Lab (3h): Docker hoá + GitHub Actions CI + README có sơ đồ kiến trúc
+### 🛠 Lab (2h05'): Docker hoá + GitHub Actions CI + README có sơ đồ kiến trúc
 
 > Toàn bộ cú pháp dưới đây là 🟢 **T3**: copy, sửa theo stack của bạn, lưu vào `notes/snippets.md`. Thứ cần hiểu là **vì sao** mỗi bước ở đó (đã học ở D85, D87).
 
-**Bước 1: Dockerfile multi-stage cho app (60')**
+**Bước 1: Dockerfile multi-stage cho app (50')**
 
 Khung dưới đây dùng Node.js làm ví dụ. Nếu bạn dùng ngôn ngữ khác, giữ nguyên **cấu trúc 2 stage**, chỉ đổi base image và lệnh build (Go: build ra binary rồi copy sang image tối giản; Java: build jar bằng Maven/Gradle rồi copy sang image JRE; Python: cài dependency vào thư mục riêng rồi copy sang).
 
@@ -708,7 +710,7 @@ CMD ["node", "dist/main.js"]              # dạng exec → app là PID 1, nhậ
   - [ ] Thêm service `app` vào `docker-compose.yml` đã có (Postgres, Redis, RabbitMQ, Nginx từ các tuần trước). Cấu hình qua biến môi trường, **không** hard-code trong image.
   - [ ] App bắt `SIGTERM` để tắt gọn gàng (đóng kết nối DB, dừng consumer). Thử `docker stop` và xem log.
 
-**Bước 2: GitHub Actions: lint → test → build (60')**
+**Bước 2: GitHub Actions: lint → test → build (50')**
 
 Tạo `.github/workflows/ci.yml`. Khung (đổi bước setup/lint/test theo stack của bạn):
 
@@ -766,7 +768,7 @@ jobs:
   - [ ] Cố tình làm fail 1 test trên một nhánh, mở PR → CI đỏ → sửa → xanh. Chụp màn hình cho README.
   - [ ] (Tuỳ chọn) Bật *branch protection* cho `main`: bắt buộc CI xanh mới được merge.
 
-**Bước 3: README có sơ đồ kiến trúc (30', xem ⚖️ ở đầu ngày)**
+**Bước 3: README có sơ đồ kiến trúc (25', xem ⚖️ ở đầu buổi)**
 
 GitHub hiển thị được sơ đồ Mermaid ngay trong Markdown. Khung sơ đồ (sửa theo dự án thật):
 
@@ -792,20 +794,10 @@ flowchart LR
 - [ ] Cách chạy: `docker compose up` + biến môi trường cần thiết (có file `.env.example`, **không** commit `.env`)
 - [ ] Danh sách endpoint chính (hoặc link tới OpenAPI/Swagger)
 - [ ] Mục **"Quyết định kỹ thuật"**: 3 quyết định + phương án đã cân nhắc + trade-off (dùng lại nội dung D89)
-- [ ] Mục **"Số liệu"**: index trước/sau (Tuần 5–6), cache (Tuần 8), test đồng thời (Tuần 7), kích thước image (hôm nay)
-- [ ] Mục **"Nếu có thêm thời gian"**: 2–3 việc sẽ làm tiếp (cho thấy bạn biết giới hạn của dự án)
+- [ ] *(Chủ Nhật, tuỳ chọn)* Mục **"Số liệu"**: index trước/sau (Tuần 5–6), cache (Tuần 8), test đồng thời (Tuần 7), kích thước image (hôm nay)
+- [ ] *(Chủ Nhật, tuỳ chọn)* Mục **"Nếu có thêm thời gian"**: 2–3 việc sẽ làm tiếp (cho thấy bạn biết giới hạn của dự án)
 
-**Bước 4 (10'):** Ôn các câu đánh dấu ⚠️ trong tuần.
-
----
-
-## D91 (CN, 17/01): Chốt tuần 13
-
-**⏱ Ước tính:** DSA 50' · Chốt tuần 60' · Việc dời từ D88–D90 30' · Anki 20' · **Tổng 2h40'**
-
-**DSA:** Làm lại bài trong Error List (ưu tiên bài sai ở mock D90), bấm giờ ≤ 25'/bài.
-
-**Việc dời từ D88–D90 (30'):** ghi âm + chấm rubric 3 chuyện STAR chưa chấm (~15'), README mục "Số liệu" và "Nếu có thêm thời gian" (~10'), bullet CV còn lại nếu D89 chưa xong (~5').
+### ✅ Chốt tuần 13 (45')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -827,12 +819,31 @@ flowchart LR
 
 **Sản phẩm:** Dự án có README, sơ đồ, CI chạy xanh.
 
+**Sản phẩm:** Dự án có README, sơ đồ, CI chạy xanh.
+
+### Anki (10')
+
+- Nhập thẻ T1 của D85–D89 và thẻ pattern của tuần.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
-- [ ] Dự án có Dockerfile multi-stage, GitHub Actions chạy xanh, README có sơ đồ kiến trúc + quyết định kỹ thuật + số liệu
-- [ ] `notes/stories.md` có đủ 5 câu chuyện, mỗi chuyện ≥ 10/12 theo rubric
+- [ ] Dự án có Dockerfile multi-stage, GitHub Actions chạy xanh, README có sơ đồ kiến trúc + quyết định kỹ thuật
+- [ ] `notes/stories.md` có đủ 5 câu chuyện; 2 chuyện mạnh nhất ≥ 10/12 theo rubric
 - [ ] Bài giới thiệu bản thân 2 phút đã ghi âm ít nhất 1 lần và nghe lại
 - [ ] CV đã viết lại với bullet có số liệu
 - [ ] Anki: đã nhập thẻ T1 của D85–D89 + thẻ pattern Sliding Window cố định / Stack biểu thức / DFS hậu thứ tự / Backtracking phân hoạch
 - [ ] Cheat sheet: đã điền bảng Docker Compose vs K8s, Service LoadBalancer vs Ingress, HPA vs VPA, Blue-Green vs Canary vs Rolling
+- [ ] *(tuỳ chọn, CN)* 3 chuyện STAR còn lại đã ghi âm + chấm ≥ 10/12; README có mục "Số liệu" và "Nếu có thêm thời gian"
+
+---
+
+## CN (17/01): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - **DSA (50'):** Làm lại bài trong Error List (ưu tiên bài sai ở mock D90), bấm giờ ≤ 25'/bài.
+   - **Việc dời từ D88–D90 (30'):** ghi âm + chấm rubric 3 chuyện STAR chưa chấm (~15'), README mục "Số liệu" và "Nếu có thêm thời gian" (~10'), bullet CV còn lại nếu D89 chưa xong (~5'). Nên làm phần STAR trước Tuần 14 vì mock D96 có behavioral.
+   - **Ôn ⚠️ (10'):** các câu đánh dấu ⚠️ trong tuần.

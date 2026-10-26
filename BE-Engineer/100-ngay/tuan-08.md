@@ -6,7 +6,7 @@
 
 > 📌 **Cách học theo Tier** (🔴 T1 → Anki, 🟡 T2 → cheat sheet, 🟢 T3 → chỉ tra cứu): xem lại bảng ở [Tuần 1 – Cách học theo Tier](tuan-01.md#cách-học-theo-tier-áp-dụng-cho-mọi-bài). Research theo cột *Từ khoá research*, dừng lại theo cột *Cần nắm tới mức nào*.
 
-> ⚠️ Tuần này kết thúc **Giai đoạn 2 (Database)**. Chủ Nhật có phần chốt tổng hợp tuần 5–8 và một buổi tự mock 45'.
+> ⚠️ Tuần này kết thúc **Giai đoạn 2 (Database)**. Buổi Thứ Bảy (gộp D55 + D56) có phần chốt tổng hợp tuần 5–8 và một buổi tự mock 45'.
 
 ## Tổng kết Tier của tuần
 
@@ -23,12 +23,14 @@
 | D52 (T4) | 60' | 90' | 2h30' |
 | D53 (T5) | 60' | 85' | 2h25' |
 | D54 (T6) | 65' | 85' | 2h30' |
-| D55 (T7) | — | 4h00' | 4h00' |
-| D56 (CN) | — | 2h55' | 2h55' |
+| D55 + D56 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 19h10'** (chưa tính 1h tiếng Anh mỗi ngày)
+**Tổng tuần: 16h15'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
 
-Ngày nặng nhất là **D55 (Lab cache-aside)**: Lab đã được chia *bắt buộc* / *mở rộng*, Bước 6 (bảng SQL vs NoSQL) dời sang đầu buổi D56; bảng pooling mode của D54 cũng dời sang D56 để buổi tối D54 không vượt 90'.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab (D55) và Chốt tuần (D56) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **Thứ Bảy (D55 + D56)**: Lab cache-aside phần bắt buộc + chốt tuần + tự mock 45' + tổng kết Giai đoạn 2, vừa đủ 4h. Bảng SQL vs NoSQL (Bước 6 của Lab) và bảng pooling mode của D54 chuyển sang Chủ Nhật (tuỳ chọn) để buổi tối D54 không vượt 90'.
 
 ---
 
@@ -510,7 +512,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 50' + Anki 15') · Tối 85' (Học 40' + Bảng T2 sharding 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
-> ⏱ Bảng T2 *Pooling mode* (10') dời sang **D56**.
+> ⏱ Bảng T2 *Pooling mode* (10') dời sang **Chủ Nhật 13/12 (tuỳ chọn)**.
 
 ### 🧩 DSA: [79. Word Search](https://leetcode.com/problems/word-search/)
 
@@ -537,7 +539,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 | 6 | Cái giá của sharding: query/JOIN xuyên shard (scatter-gather), transaction xuyên shard, ID duy nhất toàn cục, resharding | 🔴 T1 | Kể được 4 cái giá | `sharding challenges cross shard join` |
 | 7 | Resharding: vì sao `hash mod N` phải di chuyển gần hết dữ liệu khi đổi N | 🔴 T1 | Chỉ cần nêu vấn đề. Lời giải (consistent hashing) học ở D61, Tuần 9 | `hash mod n resharding problem` |
 | 8 | **Vì sao cần connection pool**, và vì sao pool quá lớn lại chậm | 🔴 T1 | Trả lời được câu hỏi cuối bài số 3 (xem chi tiết) | `why connection pooling`, `connection pool size too large` |
-| 9 | **Pooling mode của PgBouncer: session / transaction / statement** | 🟡 T2 | Điền bảng bên dưới (dời sang D56) | `pgbouncer pool modes` |
+| 9 | **Pooling mode của PgBouncer: session / transaction / statement** | 🟡 T2 | Điền bảng bên dưới (dời sang CN, tuỳ chọn) | `pgbouncer pool modes` |
 | 10 | Config PgBouncer, công thức pool size tham khảo (bài *About Pool Sizing* trong wiki HikariCP) | 🟢 T3 | Tra khi cần | `hikaricp about pool sizing` |
 | 11 | Vitess, Citus, MongoDB sharding | 🟢 T3 | Biết tên công cụ | — |
 
@@ -575,7 +577,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 **Thẻ Anki T2:** *"Khi nào chọn range sharding thay vì hash sharding?"*
 
-**🟡 Bảng so sánh T2: Pooling mode** *(⏱ điền ở D56)*
+**🟡 Bảng so sánh T2: Pooling mode** *(⏱ điền ở CN 13/12, tuỳ chọn)*
 
 Nhóm: *quản lý connection*. Trục chính: **mức tái sử dụng connection** vs **tính năng session còn dùng được**.
 
@@ -643,11 +645,11 @@ Nhóm: *quản lý connection*. Trục chính: **mức tái sử dụng connecti
 
 ---
 
-## D55 (T7, 12/12): Lab
+## D55 + D56 (T7, 12/12): Lab + Chốt tuần 8 + Chốt Giai đoạn 2
 
-**⏱ Ước tính:** DSA 30' · Lab bắt buộc 3h00' · Ôn ⚠️ 30' · **Tổng 4h00'**
+**⏱ Ước tính:** DSA 20' · Lab bắt buộc 2h10' (Bước 1–5) · Chốt tuần câu 1–4 25' · Tự mock 45' · Tổng kết Giai đoạn 2 10' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
-> ⏱ Lab *bắt buộc* = Bước 1–5 (3h00'). *Mở rộng (làm nếu còn giờ)*: thử stampede ở Bước 4 (+30'). **Bước 6 (bảng SQL vs NoSQL, 45')** dời sang đầu buổi D56 nếu Thứ Bảy hết giờ. "Làm lại 1 bài sai" dời sang phần Error List của D56.
+> ⚖️ Gộp từ D55 (4h00') và D56 (2h55'). Lab bắt buộc rút từ 3h00' còn 2h10' (giữ đủ nội dung Bước 1–5, làm gọn). Đã chuyển sang Chủ Nhật (tuỳ chọn): làm lại bài trong Error List, thử stampede (Lab mở rộng), bảng T2 SQL vs NoSQL (Bước 6) và Pooling mode (dời từ D54), ôn ⚠️ 30'. Tự mock 45' **giữ lại** vì là câu 5 của phần chốt Giai đoạn 2.
 
 ### 🧩 DSA: [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
 
@@ -655,11 +657,10 @@ Nhóm: *quản lý connection*. Trục chính: **mức tái sử dụng connecti
 - **Không cần `start` hay `used`:** mỗi tầng chọn từ một tập riêng, không có chuyện dùng lại phần tử.
 - **Độ phức tạp:** O(4ⁿ · n) (chữ số 7 và 9 có 4 chữ cái), n ≤ 4.
 - **Lỗi hay gặp:** input rỗng `""` phải trả `[]`, không phải `[""]`.
-- Sau đó làm lại 1 bài sai trong tuần (nếu có, *nếu còn giờ*; nếu không thì làm ở D56).
 
-### 🛠 Lab (3–4h): Redis cache-aside cho *Mini Order Service* + bảng SQL vs NoSQL
+### 🛠 Lab (2h10'): Redis cache-aside cho *Mini Order Service*
 
-**Bước 1: Thêm Redis vào hạ tầng (20')**
+**Bước 1: Thêm Redis vào hạ tầng (15')**
 
 - Thêm service Redis vào `docker-compose.yml` của dự án. Giới hạn RAM và chọn eviction policy để luyện đúng bài D50:
 
@@ -674,14 +675,14 @@ services:
 
 - Kiểm tra: `docker compose exec redis redis-cli ping` trả `PONG`.
 
-**Bước 2: Đo baseline (30')**
+**Bước 2: Đo baseline (20')**
 
 - Chọn công cụ bắn tải: `hey`, `wrk`, `k6` hoặc `autocannon` (tuỳ bạn quen).
 - Bắn vào `GET /products/:id` **khi chưa có cache**, ví dụ 30 giây, 50 kết nối đồng thời, xoay vòng trong ~1.000 ID khác nhau.
 - Ghi lại: **p50, p95, p99 latency**, requests/giây, số query DB (bật log query hoặc đếm bằng `pg_stat_statements`).
 - ⚠️ Lưu ý trung thực: nếu `GET /products/:id` chỉ là tra theo primary key thì DB đã rất nhanh (dưới 1–2 ms) và cache gần như không cải thiện gì. Để thấy rõ khác biệt, cho endpoint trả thêm dữ liệu tốn kém hơn (ví dụ tồn kho tổng hợp, số lượt bán, điểm đánh giá trung bình tính bằng JOIN/aggregate). **Ghi nhận xét này vào kết quả lab.** Đây là một ý rất tốt để kể khi phỏng vấn ("cache không phải lúc nào cũng có lợi").
 
-**Bước 3: Cài cache-aside (1h)**
+**Bước 3: Cài cache-aside (50')**
 
 - Cài theo **Decorator** (Tuần 3): `CachedProductRepository` bọc `ProductRepository`, cùng interface. Service không biết có cache.
 - Quy ước:
@@ -692,16 +693,18 @@ services:
   - Redis lỗi hoặc timeout → **bỏ qua cache, đọc thẳng DB** và ghi log. Cache chết không được làm API chết.
 - Thêm header `X-Cache: HIT` / `MISS` vào response để dễ kiểm tra bằng tay.
 
-**Bước 4: Invalidation (40')**
+**Bước 4: Invalidation (25')**
+
+> ⚠️ Cần có `PATCH` và `DELETE /products/:id`. Hai endpoint này nằm ở Lab mở rộng tuần 4 (đã thành tuỳ chọn khi chuyển sang 6 buổi/tuần). Nếu chưa làm, làm trước buổi này (~20', xem [bu-tuy-chon.md](bu-tuy-chon.md#c-lab-bị-cắt)).
 
 - Ở `PUT/PATCH /products/:id` và `DELETE /products/:id`: cập nhật DB → **sau khi commit** → `DEL product:{id}:v1`.
 - Viết test (integration hoặc thủ công bằng curl):
   1. `GET` hai lần → lần 2 là `HIT`.
   2. `PATCH` đổi giá.
   3. `GET` → `MISS` và thấy **giá mới**.
-- *(Tuỳ chọn, +30')* Thử stampede: xoá key, bắn 200 request đồng thời vào cùng một ID, đếm số query DB. Sau đó thêm mutex bằng `SET lock:product:{id} ... NX PX 3000` và đếm lại.
+- *(Tuỳ chọn, CN)* Thử stampede: xem mục Chủ Nhật.
 
-**Bước 5: Đo lại và ghi kết quả (30')**
+**Bước 5: Đo lại và ghi kết quả (20')**
 
 - Chạy lại đúng kịch bản ở Bước 2. Lấy hit ratio từ `redis-cli INFO stats` (`keyspace_hits / (keyspace_hits + keyspace_misses)`).
 - Viết `notes/cache-lab.md`:
@@ -714,52 +717,23 @@ services:
 
 - Thêm một đoạn ngắn: TTL chọn bao nhiêu và vì sao; dữ liệu nào **không** cache (tồn kho lúc đặt hàng vẫn đọc DB trong transaction, Tuần 7).
 
-**Bước 6: Bảng SQL vs NoSQL (45') — làm ở D56 nếu Thứ Bảy hết giờ**
-
-- Research và điền vào `notes/tradeoff-cheatsheet.md` bảng dưới đây.
-
-**🟡 Bảng so sánh T2: SQL vs NoSQL**
-
-Nhóm: *Data storage/model*. Trục chính: **tính nhất quán và khả năng query** vs **linh hoạt schema và khả năng scale ngang**.
-
-| Tiêu chí | Relational (PostgreSQL, MySQL) | Document (MongoDB) | Key-Value (Redis, DynamoDB) | Wide-column (Cassandra) | Graph (Neo4j) |
-|---|---|---|---|---|---|
-| Core: Use-case lý tưởng | | | | | |
-| Core: Trade-off chính | | | | | |
-| Core: Khi nào KHÔNG dùng | | | | | |
-| Ext: Consistency model | | | | | |
-| Ext: Schema flexibility | | | | | |
-| Ext: Query capability (JOIN, query phức tạp) | | | | | |
-
-- Gợi ý research: `sql vs nosql when to use`, `document vs key value vs wide column vs graph database`, ByteByteGo (tìm `bytebytego sql vs nosql`).
-- **Thẻ Anki T2:** *"Khi nào chọn NoSQL thay vì SQL?"*. Câu trả lời tốt thường bắt đầu từ **kiểu truy cập dữ liệu** (access pattern), không bắt đầu từ "NoSQL nhanh hơn".
-
 **Sản phẩm và tiêu chí nghiệm thu**
 
 - [ ] `GET /products/:id` có cache-aside, header `X-Cache` hoạt động
 - [ ] Update/delete product xoá cache **sau khi commit**; test "đổi giá xong đọc thấy giá mới" chạy đúng
 - [ ] Tắt Redis (`docker compose stop redis`) → API vẫn trả dữ liệu (chậm hơn), không trả 500
 - [ ] `notes/cache-lab.md` có bảng số liệu trước/sau + hit ratio + nhận xét
-- [ ] Bảng SQL vs NoSQL đã điền
+- [ ] *(tuỳ chọn, CN)* Bảng SQL vs NoSQL đã điền
 
-**Bước 7 (30'):** Ôn các câu đánh dấu ⚠️ trong tuần.
 
----
-
-## D56 (CN, 13/12): Chốt tuần 8 + Chốt Giai đoạn 2
-
-**⏱ Ước tính:** DSA (Error List) 20' · Bảng T2 dời (SQL vs NoSQL 40' + Pooling mode 10') 50' · Chốt tuần câu 1–4 30' · Tự mock 45' · Tổng kết Giai đoạn 2 15' · Anki/cheat sheet 15' · **Tổng 2h55'**
-
-> ⏱ Làm bảng SQL vs NoSQL **trước** câu chốt 2. DSA buổi sáng rút còn 20' vì buổi tự mock đã có một bài Medium.
-
-**DSA:** Làm lại bài trong Error List. Nếu Error List trống, tự giải lại 46 và 90 trong ≤ 20' mỗi bài, rồi viết khung backtracking ra giấy từ trí nhớ.
+### ✅ Chốt tuần 8 + Chốt Giai đoạn 2 (1h10')
 
 **✅ Câu hỏi chốt tuần — Tổng kết Giai đoạn 2.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
 1. Hệ thống đọc nhiều ghi ít, DB quá tải. Trình bày các bước scale **theo thứ tự**: index → cache → read replica → sharding.
    - *Gợi ý khung trả lời: trước mỗi bước phải **đo** (slow query log, EXPLAIN, metric CPU/IO) để biết nghẽn ở đâu. Với mỗi bước nói rõ: giải quyết được gì, cái giá là gì (index làm chậm ghi; cache gây dữ liệu cũ; replica gây replication lag; sharding mất JOIN/transaction xuyên shard). Có thể chen thêm connection pooling, scale dọc và partition bảng trước khi sharding.*
 2. Chọn loại DB cho: giỏ hàng, log sự kiện, quan hệ bạn bè trên mạng xã hội, đơn hàng thanh toán.
-   - *Dựa trên bảng SQL vs NoSQL ở Lab. Mỗi lựa chọn phải kèm lý do theo access pattern và yêu cầu nhất quán.*
+   - *Mỗi lựa chọn phải kèm lý do theo access pattern và yêu cầu nhất quán. Nếu đã điền bảng SQL vs NoSQL (CN, tuỳ chọn) thì dựa vào bảng.*
 3. Cache-aside và các vấn đề về tính nhất quán dữ liệu.
 4. Khung code backtracking (chọn → đệ quy → bỏ chọn). Độ phức tạp của bài Subsets?
 5. **Tự mock 45':** 2 câu hỏi về DB + 1 bài DSA Medium.
@@ -805,12 +779,51 @@ Tự kiểm tra: với mỗi dòng, bạn nói được trong 1 phút mà không
 | 7 | Transaction, Isolation, Locking | ACID, 6 lỗi đọc/ghi, isolation level & mức mặc định Postgres/InnoDB, MVCC, WAL, pessimistic/optimistic, deadlock, bài overselling | Chọn isolation level (RC / RR / Serializable), optimistic vs pessimistic lock, 3 cách chống overselling (kèm DFS vs BFS trên lưới, Kahn vs DFS) |
 | 8 | Cache, Replication, Sharding, NoSQL | Cache-aside & invalidation, 3 sự cố cache + hot key, replication lag & failover, shard key & hot partition, connection pool | LRU vs LFU, chiến lược cache, kiểu dữ liệu Redis, sync vs async replication, sharding strategies, pooling mode, SQL vs NoSQL |
 
+### Anki / cheat sheet (10')
+
+- Nhập thẻ T1 của D50–D54 và thẻ pattern Backtracking.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
 - [ ] Hoàn thành buổi tự mock 45' và ghi lại điểm yếu vào `notes/error-list.md`
 - [ ] Cache-aside chạy được + `notes/cache-lab.md` có số liệu đo
-- [ ] Tự giải lại 6 bài backtracking của tuần không xem lời giải
 - [ ] Anki: đã nhập đủ thẻ T1 của D50–D54 + thẻ pattern Backtracking (subset / combination / permutation / grid)
-- [ ] Cheat sheet: đã điền LRU vs LFU, các chiến lược cache, kiểu dữ liệu Redis, sync vs async replication, sharding strategies, pooling mode, SQL vs NoSQL
+- [ ] Cheat sheet: đã điền LRU vs LFU, các chiến lược cache, kiểu dữ liệu Redis, sync vs async replication, sharding strategies
 - [ ] Đạt chốt Giai đoạn 2
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 6 bài backtracking của tuần không xem lời giải
+- [ ] *(tuỳ chọn, CN)* Cheat sheet: pooling mode, SQL vs NoSQL
+
+---
+
+## CN (13/12): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - **DSA (20'):** làm lại bài trong Error List. Nếu Error List trống, tự giải lại 46 và 90 trong ≤ 20' mỗi bài, rồi viết khung backtracking ra giấy từ trí nhớ.
+   - **Lab mở rộng (30'): thử stampede.** Xoá key, bắn 200 request đồng thời vào cùng một ID, đếm số query DB. Sau đó thêm mutex bằng `SET lock:product:{id} ... NX PX 3000` và đếm lại. Ghi thêm dòng "Stampede không lock / có lock" vào bảng trong `notes/cache-lab.md`.
+   - **Bảng T2 SQL vs NoSQL (40', Bước 6 của Lab):** xem mục bên dưới.
+   - **Bảng T2 Pooling mode (10'):** điền bảng ở [D54](#d54-t6-1112-sharding--connection-pooling).
+   - **Ôn ⚠️ (30'):** ôn các câu đánh dấu ⚠️ trong tuần.
+
+### Bảng T2 SQL vs NoSQL (tuỳ chọn, 40')
+
+- Research và điền vào `notes/tradeoff-cheatsheet.md` bảng dưới đây.
+
+**🟡 Bảng so sánh T2: SQL vs NoSQL**
+
+Nhóm: *Data storage/model*. Trục chính: **tính nhất quán và khả năng query** vs **linh hoạt schema và khả năng scale ngang**.
+
+| Tiêu chí | Relational (PostgreSQL, MySQL) | Document (MongoDB) | Key-Value (Redis, DynamoDB) | Wide-column (Cassandra) | Graph (Neo4j) |
+|---|---|---|---|---|---|
+| Core: Use-case lý tưởng | | | | | |
+| Core: Trade-off chính | | | | | |
+| Core: Khi nào KHÔNG dùng | | | | | |
+| Ext: Consistency model | | | | | |
+| Ext: Schema flexibility | | | | | |
+| Ext: Query capability (JOIN, query phức tạp) | | | | | |
+
+- Gợi ý research: `sql vs nosql when to use`, `document vs key value vs wide column vs graph database`, ByteByteGo (tìm `bytebytego sql vs nosql`).
+- **Thẻ Anki T2:** *"Khi nào chọn NoSQL thay vì SQL?"*. Câu trả lời tốt thường bắt đầu từ **kiểu truy cập dữ liệu** (access pattern), không bắt đầu từ "NoSQL nhanh hơn".

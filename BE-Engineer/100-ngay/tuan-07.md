@@ -21,12 +21,14 @@
 | D45 (T4) | 45' | 85' | 2h10' |
 | D46 (T5) | 60' | 85' | 2h25' |
 | D47 (T6) | 65' | 80' | 2h25' |
-| D48 (T7) | — | 3h55' | 3h55' |
-| D49 (CN) | — | 2h35' | 2h35' |
+| D48 + D49 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 18h20'** (chưa tính 1h tiếng Anh mỗi ngày)
+**Tổng tuần: 15h50'** trong 6 buổi (chưa tính 1h tiếng Anh mỗi ngày)
 
-Ngày nặng nhất là **D48 (Lab overselling)**: phần Lab đã được chia *bắt buộc* / *mở rộng* để giữ ≤ 4h; các bảng T2 của D45, D47, D48 được dời sang D49 để buổi tối trong tuần không vượt 90'.
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **T7 (D48 + D49: Lab overselling + Chốt tuần, 4h00')**: phần Lab đã được chia *bắt buộc* / *mở rộng* để giữ ≤ 4h; các bảng T2 của D45, D47, D48 dời sang **CN (tuỳ chọn)** để buổi tối trong tuần không vượt 90'.
 
 ---
 
@@ -250,7 +252,7 @@ Ngày nặng nhất là **D48 (Lab overselling)**: phần Lab đã được chia
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h10'**
 
-> ⏱ Bảng T2 *Read Committed vs Repeatable Read vs Serializable* (15') dời sang **D49**; phần thực hành hai cửa sổ `psql` là *(tuỳ chọn)*, đã có ở Lab D48 Bước 4.
+> ⏱ Bảng T2 *Read Committed vs Repeatable Read vs Serializable* (15') dời sang **CN 06/12 (tuỳ chọn)**; phần thực hành hai cửa sổ `psql` là *(tuỳ chọn)*, đã có ở Lab D48 Bước 4.
 
 ### 🧩 DSA: [695. Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
 
@@ -271,7 +273,7 @@ Ngày nặng nhất là **D48 (Lab overselling)**: phần Lab đã được chia
 | 4 | Repeatable Read ở Postgres là **Snapshot Isolation**: cả transaction dùng một snapshot; không có phantom; ghi đè dòng đã bị transaction khác sửa → lỗi `could not serialize access due to concurrent update` | 🔴 T1 | Biết nó chặn lost update bằng cách **báo lỗi**, nhưng **vẫn để lọt write skew** | `postgres repeatable read snapshot isolation` |
 | 5 | Serializable ở Postgres (SSI): theo dõi phụ thuộc đọc–ghi, huỷ một transaction khi phát hiện nguy cơ | 🔴 T1 phần "có thể bị huỷ, app phải retry", 🟢 T3 phần thuật toán | Biết lỗi SQLSTATE `40001` (serialization_failure) và app phải retry toàn bộ transaction | `postgres serializable snapshot isolation retry 40001` |
 | 6 | Repeatable Read ở InnoDB: SELECT thường đọc snapshot, nhưng UPDATE / `SELECT … FOR UPDATE` đọc bản **mới nhất** (current read) và dùng next-key lock (khoá dòng + khoá "khe" giữa các dòng) | 🔴 T1 phần "InnoDB RR **không** tự báo lỗi lost update như Postgres" và "locking read khoá cả khe nên chặn được INSERT phantom, đổi lại dễ chặn INSERT của người khác và dễ deadlock hơn", 🟢 T3 phần chi tiết từng loại khoá | Biết cùng tên "Repeatable Read" nhưng hai DB cư xử khác nhau: Postgres dựa vào snapshot + báo lỗi, InnoDB dựa vào khoá | `innodb repeatable read lost update`, `innodb next-key lock gap lock phantom` |
-| 7 | **Chọn isolation level** | 🟡 T2 | Điền bảng so sánh bên dưới (dời sang D49) | `choosing transaction isolation level` |
+| 7 | **Chọn isolation level** | 🟡 T2 | Điền bảng so sánh bên dưới (dời sang CN, tuỳ chọn) | `choosing transaction isolation level` |
 | 8 | Vì sao không phải lúc nào cũng dùng Serializable | 🔴 T1 | Kể được 3 lý do (xem chi tiết) | `serializable isolation performance cost` |
 | 9 | Cú pháp `BEGIN ISOLATION LEVEL …`, `SET TRANSACTION`, `default_transaction_isolation`, cách đặt trong ORM | 🟢 T3 | Tra khi cần | PostgreSQL docs – *SET TRANSACTION* |
 
@@ -294,7 +296,7 @@ Ngày nặng nhất là **D48 (Lab overselling)**: phần Lab đã được chia
   4. Phần lớn bài toán đã giải quyết được ở Read Committed bằng UPDATE nguyên tử, `FOR UPDATE` hoặc constraint.
 - **(Tuỳ chọn) Thực hành nhanh bằng hai cửa sổ `psql`:** mở session A và B, thử lại timeline non-repeatable read ở Read Committed, rồi thử lại ở Repeatable Read để thấy lần đọc thứ hai không đổi. Sau đó thử cùng UPDATE một dòng ở Repeatable Read để nhìn thấy lỗi serialization.
 
-**🟡 Bảng so sánh T2: Read Committed vs Repeatable Read vs Serializable (Postgres)** *(⏱ điền ở D49)*
+**🟡 Bảng so sánh T2: Read Committed vs Repeatable Read vs Serializable (Postgres)** *(⏱ điền ở CN 06/12, tuỳ chọn)*
 
 Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục chính của cuộc so sánh: **mức đúng đắn** vs **throughput và độ phức tạp ở tầng app**.
 
@@ -484,7 +486,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 50' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
-> ⏱ Bảng T2 *Optimistic vs Pessimistic* (15') dời sang **D49**, điền bằng số liệu retry thật từ Lab D48.
+> ⏱ Bảng T2 *Optimistic vs Pessimistic* (15') dời sang **CN 06/12 (tuỳ chọn)**, điền bằng số liệu retry thật từ Lab D48.
 
 ### 🧩 DSA: [417. Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
 
@@ -504,7 +506,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 | 2 | **Optimistic lock**: không khoá; khi ghi thì kiểm tra `version` còn như lúc đọc không; không khớp → 0 dòng bị ảnh hưởng → retry hoặc báo lỗi | 🔴 T1 | Viết được câu UPDATE có `WHERE version = ?` và xử lý khi 0 dòng | `optimistic locking version column` |
 | 3 | **UPDATE có điều kiện nguyên tử**: `UPDATE … SET stock = stock - ? WHERE id = ? AND stock >= ?`, kiểm tra số dòng bị ảnh hưởng | 🔴 T1 | Giải thích được vì sao an toàn (ôn lại D45 mục 3) | `atomic update prevent overselling` |
 | 4 | **3 cách chống overselling** | 🟡 T2 | Điền bảng so sánh ở Lab D48 | `prevent overselling inventory database` |
-| 5 | **Optimistic vs Pessimistic** | 🟡 T2 | Điền bảng so sánh bên dưới (dời sang D49) | `optimistic vs pessimistic locking when to use` |
+| 5 | **Optimistic vs Pessimistic** | 🟡 T2 | Điền bảng so sánh bên dưới (dời sang CN, tuỳ chọn) | `optimistic vs pessimistic locking when to use` |
 | 6 | `CHECK (stock >= 0)` làm lưới an toàn cuối cùng | 🔴 T1 | Biết vì sao vẫn nên có dù đã khoá đúng ở tầng app | `check constraint stock non negative` |
 | 7 | **Deadlock**: hai transaction chờ khoá của nhau theo vòng tròn | 🔴 T1 | Vẽ được timeline 2 transaction, 2 sản phẩm | `database deadlock example` |
 | 8 | Postgres phát hiện deadlock: sau `deadlock_timeout` (mặc định 1 giây) kiểm tra đồ thị chờ, huỷ một transaction với lỗi `40P01 deadlock_detected` | 🔴 T1 phần "DB tự phát hiện và huỷ một bên", 🟢 T3 phần tham số | Liên hệ được với bài phát hiện chu trình trong đồ thị (Course Schedule ngày mai) | `postgres deadlock detection` |
@@ -555,7 +557,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
   Sửa: luôn khoá/cập nhật các sản phẩm theo thứ tự `id` tăng dần. Khi đó T2 sẽ phải chờ ở dòng 1 trước khi kịp khoá dòng 2, không tạo được vòng tròn.
 - **Phát hiện deadlock trong thực tế (Chốt tuần câu 5):** log của Postgres ghi `ERROR: deadlock detected` kèm chi tiết hai câu lệnh; app nhận lỗi `40P01`; theo dõi số deadlock trong thống kê của database; khi đang bị chặn thì xem `pg_stat_activity` và `pg_blocking_pids()` (T3).
 
-**🟡 Bảng so sánh T2: Optimistic vs Pessimistic lock** *(⏱ điền ở D49)*
+**🟡 Bảng so sánh T2: Optimistic vs Pessimistic lock** *(⏱ điền ở CN 06/12, tuỳ chọn)*
 
 Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục chính của cuộc so sánh: **mức độ tranh chấp (tần suất xung đột)** vs **throughput / độ trễ**.
 
@@ -624,11 +626,13 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 ---
 
-## D48 (T7, 05/12): Lab
+## D48 + D49 (T7, 05/12): Lab + Chốt tuần 7
 
-**⏱ Ước tính:** DSA 45' · Lab bắt buộc 2h40' · Ôn ⚠️ 30' · **Tổng 3h55'**
+**⏱ Ước tính:** DSA 35' · Lab bắt buộc 2h40' · Chốt tuần 35' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
-> ⏱ Bảng T2 *Kahn vs DFS* (10') dời sang **D49**. Phần Lab *mở rộng* (Bước 4, làm cả hai cách ở Bước 5, thử deadlock ở Bước 7, khoảng 50') chỉ làm nếu còn giờ.
+> ⚖️ Gộp từ D48 (3h55') và D49 (2h35'). Đã chuyển sang Chủ Nhật (tuỳ chọn): DSA 210 Course Schedule II, 3 bảng T2 dời trong tuần (Isolation levels 15', Optimistic vs Pessimistic 15', Kahn vs DFS 10'), Lab mở rộng (~50'), ôn ⚠️ 30', tự giải lại các bài trong tuần.
+
+> ⏱ Bảng T2 *Kahn vs DFS* (10') dời sang **CN (tuỳ chọn)**. Phần Lab *mở rộng* (Bước 4, làm cả hai cách ở Bước 5, thử deadlock ở Bước 7, khoảng 50') chỉ làm nếu còn giờ, nếu không thì CN (tuỳ chọn).
 
 ### 🧩 DSA: [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
 
@@ -638,7 +642,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
   2. **DFS 3 màu:** trắng (chưa thăm), xám (đang nằm trên đường đệ quy), đen (xong). Gặp lại node **xám** → có chu trình → O(V + E).
 - **Bẫy:** `[a, b]` nghĩa là muốn học `a` phải học `b` trước → cạnh `b → a`. Dùng một tập `visited` thông thường (2 màu) cho DFS sẽ báo chu trình sai.
 - **Liên hệ backend:** chạy migration / job có phụ thuộc, thứ tự build module, và phát hiện deadlock (chu trình trong đồ thị "ai chờ ai").
-- **🟡 Bảng so sánh T2: Kahn vs DFS** *(⏱ điền ở D49)*. Nhóm: *thuật toán topological sort*. Trục chính: **dễ hiểu, không đệ quy** vs **gọn khi code**.
+- **🟡 Bảng so sánh T2: Kahn vs DFS** *(⏱ điền ở CN 06/12, tuỳ chọn)*. Nhóm: *thuật toán topological sort*. Trục chính: **dễ hiểu, không đệ quy** vs **gọn khi code**.
 
   | Tiêu chí | Kahn (BFS) | DFS 3 màu |
   |---|---|---|
@@ -757,22 +761,7 @@ Kèm theo:
 - [ ] Script test được commit vào `project/scripts/`, chạy được bằng một lệnh.
 - [ ] Bảng T2 "3 cách chống overselling" có số liệu thật từ lab.
 
-**Bước 8 (30'):** Ôn các câu đánh dấu ⚠️ trong tuần.
-
----
-
-## D49 (CN, 06/12): Chốt tuần 7
-
-**⏱ Ước tính:** DSA 25' · Chốt tuần 60' · Bảng T2 dời từ trong tuần 40' (Isolation levels 15' + Optimistic vs Pessimistic 15' + Kahn vs DFS 10') · Anki/cheat sheet 30' · **Tổng 2h35'**
-
-### 🧩 DSA: [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
-
-- **Pattern (🔴 T1):** *Topological sort trả về thứ tự*. Mở rộng trực tiếp của bài 207.
-- **Các cách:**
-  1. Kahn: thứ tự các node được lấy ra khỏi queue chính là đáp án; nếu số node < `n` → có chu trình → trả `[]`.
-  2. DFS 3 màu: thêm node vào danh sách khi nó chuyển sang **đen** (post-order), cuối cùng **đảo ngược** danh sách.
-- **Độ phức tạp:** O(V + E) thời gian và bộ nhớ.
-- **Mục tiêu:** ≤ 20', vì chỉ thêm một mảng kết quả vào bài 207.
+### ✅ Chốt tuần 7 (35')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -809,10 +798,40 @@ Kèm theo:
 
 </details>
 
+### Anki / cheat sheet (10')
+
+- Nhập thẻ T1 của D43–D47 và thẻ DSA-Pattern của tuần (xem [hướng dẫn Anki](../anki/README.md)); kiểm tra các bảng T2 đã điền trong tuần.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
 - [ ] Script test đồng thời + 2 cách sửa, có kết quả chạy trong `notes/overselling-lab.md`
-- [ ] Tự giải lại 200, 133, 695, 994, 417, 207, 210 không xem lời giải
 - [ ] Anki: đã nhập đủ thẻ T1 của D43–D47 + thẻ pattern Flood fill / BFS nhiều nguồn / Tìm ngược từ biên / Topological sort
-- [ ] Cheat sheet: đã điền 5 bảng T2 (DFS vs BFS trên lưới, Isolation levels, Optimistic vs Pessimistic, 3 cách chống overselling, Kahn vs DFS)
+- [ ] Cheat sheet: đã điền 2 bảng T2 (DFS vs BFS trên lưới, 3 cách chống overselling)
+- [ ] *(tuỳ chọn, CN)* 3 bảng T2 dời: Isolation levels, Optimistic vs Pessimistic, Kahn vs DFS
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 200, 133, 695, 994, 417, 207, 210 không xem lời giải
+
+---
+
+## CN (06/12): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy bên dưới.
+
+**Phần tuỳ chọn (dời từ Thứ Bảy):**
+
+- 3 bảng T2 (40'): *Read Committed vs Repeatable Read vs Serializable* (khung ở D45, 15'), *Optimistic vs Pessimistic* (khung ở D47, điền bằng số liệu retry thật từ lab, 15'), *Kahn vs DFS* (khung ở phần DSA của T7, 10').
+- Lab mở rộng (~50'): Bước 4 (quan sát khoá bằng hai cửa sổ `psql`), làm cả hai cách ở Bước 5, thử deadlock ở Bước 7.
+- Ôn các câu đánh dấu ⚠️ trong tuần (30').
+- Tự giải lại 200, 133, 695, 994, 417, 207 không xem lời giải.
+
+### 🧩 DSA (tuỳ chọn): [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
+
+- **Pattern (🔴 T1):** *Topological sort trả về thứ tự*. Mở rộng trực tiếp của bài 207.
+- **Các cách:**
+  1. Kahn: thứ tự các node được lấy ra khỏi queue chính là đáp án; nếu số node < `n` → có chu trình → trả `[]`.
+  2. DFS 3 màu: thêm node vào danh sách khi nó chuyển sang **đen** (post-order), cuối cùng **đảo ngược** danh sách.
+- **Độ phức tạp:** O(V + E) thời gian và bộ nhớ.
+- **Mục tiêu:** ≤ 20', vì chỉ thêm một mảng kết quả vào bài 207.

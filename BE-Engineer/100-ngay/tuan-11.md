@@ -23,12 +23,14 @@ Không tính 1h tiếng Anh mỗi ngày (giữ riêng). Anki tuần này ~20'/ng
 | D73 (T4) | 65' | 90' | 2h35' |
 | D74 (T5) | 65' | 85' | 2h30' |
 | D75 (T6) | 65' | 75' | 2h20' |
-| D76 (T7) | — | 3h55' | 3h55' |
-| D77 (CN) | — | 2h55' | 2h55' |
+| D76 + D77 (T7) | — | 4h00' | 4h00' |
+| CN | — | Ngày trống: nghỉ hoặc học bù | — |
 
-**Tổng tuần: 19h20'**
+**Tổng tuần: 16h30'** trong 6 buổi
 
-Ngày nặng nhất là **Lab D76**: bản gốc cần ~4h35', nên đã tách thành phần *bắt buộc* (3h55') và *mở rộng* (20', dời sang CN D77 nếu chưa kịp). D72 và D73 là hai buổi tối dày nhất (DP hai chuỗi 55' và bảng Kafka/RabbitMQ/SQS 3 cột).
+> 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab (D76) và Chốt tuần (D77) gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
+
+Ngày nặng nhất là **Thứ Bảy (D76 + D77, 4h00')**: Lab bắt buộc + Chốt tuần. Error List, làm lại 1143/518, Lab mở rộng (Bước 5b) và ôn ⚠️ chuyển sang Chủ Nhật (tuỳ chọn). D72 và D73 là hai buổi tối dày nhất (DP hai chuỗi 55' và bảng Kafka/RabbitMQ/SQS 3 cột).
 
 ---
 
@@ -251,7 +253,7 @@ Nhóm: *messaging/streaming*. Trục chính: **tính tức thời của kết qu
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
-> Mục 5 (SQS Standard vs FIFO) và mục 7 (push vs pull) không có bảng riêng: chỉ ghi 1–2 dòng vào cheat sheet. Nếu hết giờ, hai mục này là **(tuỳ chọn)**, ôn lại ở Chủ Nhật.
+> Mục 5 (SQS Standard vs FIFO) và mục 7 (push vs pull) không có bảng riêng: chỉ ghi 1–2 dòng vào cheat sheet. Nếu hết giờ, hai mục này là **(tuỳ chọn)**, ôn lại ở Chủ Nhật (ngày trống, tuỳ chọn).
 
 ### 🧩 DSA: [208. Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
 
@@ -489,7 +491,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 75' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h20'**
 
-> Tối nay chỉ đọc chương 10 và trả lời câu hỏi. *Khung tự giải 45'* bên dưới dùng để luyện cho câu 4 Chốt tuần (D77).
+> Tối nay chỉ đọc chương 10 và trả lời câu hỏi. *Khung tự giải 45'* bên dưới dùng để luyện cho câu 4 Chốt tuần (Thứ Bảy, D76 + D77).
 
 ### 🧩 DSA: [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
 
@@ -601,11 +603,11 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 ---
 
-## D76 (T7, 02/01): Lab
+## D76 + D77 (T7, 02/01): Lab + Chốt tuần 11
 
-**⏱ Ước tính:** DSA 40' · Lab bắt buộc 2h55' (Bước 1 15' + Bước 2 40' + Bước 3 60' + Bước 4 40' + Bước 5a 20') · Ôn ⚠️ 20' · **Tổng 3h55'** (+ mở rộng 20': Bước 5b, dời sang CN nếu chưa kịp)
+**⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h30' (Bước 1 15' + Bước 2 30' + Bước 3 50' + Bước 4 35' + Bước 5a 20') · Chốt tuần 45' · Anki/cheat sheet 15' · **Tổng 4h00'**
 
-> Bản gốc của lab cần ~4h35'. Để giữ Thứ Bảy ≤ 4h: phần ôn ⚠️ rút còn 20' (Chủ Nhật đã có Error List), "làm lại bài sai" chuyển thành tuỳ chọn, và Bước 5 tách thành *bắt buộc* (5a) và *mở rộng* (5b).
+> ⚖️ Gộp từ D76 (3h55') và D77 (2h55'). Đã chuyển sang Chủ Nhật (tuỳ chọn): Error List + tự giải lại 1143 và 518 (65'), Lab Bước 5b (20'), ôn ⚠️ (20'), làm lại 1 bài sai trong tuần.
 
 ### 🧩 DSA: [518. Coin Change II](https://leetcode.com/problems/coin-change-ii/)
 
@@ -616,9 +618,8 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
   - **Base case:** `dp[0] = 1` (một cách: không lấy đồng nào).
 - **Key insight quan trọng nhất:** vòng ngoài là **đồng xu**, vòng trong là **tổng** → đếm tổ hợp (`1+2` và `2+1` là một). Đảo hai vòng → đếm **hoán vị** (đó là bài 377 *Combination Sum IV*). Tự chạy tay với `coins = [1, 2], amount = 3` theo hai thứ tự để thấy 2 cách vs 3 cách.
 - **Độ phức tạp:** O(amount × số loại xu) thời gian, O(amount) bộ nhớ.
-- Sau đó làm lại 1 bài sai trong tuần (nếu có). *(Tuỳ chọn: chỉ làm nếu còn giờ, nếu không thì để Error List của Chủ Nhật.)*
 
-### 🛠 Lab (3–4h): Luồng event cho Mini Order Service
+### 🛠 Lab bắt buộc (2h30'): Luồng event cho Mini Order Service
 
 **Mục tiêu:** tạo đơn → publish `OrderCreated` lên RabbitMQ → consumer gửi "email" giả. Consumer phải **idempotent**, có **retry** và **DLQ**. Làm bằng ngôn ngữ/framework bạn đang dùng.
 
@@ -633,13 +634,13 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
   | Queue retry | `notification.order-created.retry` | không có consumer; argument `x-message-ttl` (ví dụ 5000 ms) + `x-dead-letter-exchange = orders` + `x-dead-letter-routing-key = order.created` → hết TTL thì message tự quay lại queue chính. Thiếu `x-dead-letter-routing-key` thì message giữ routing key cũ (tên queue retry) và **không** khớp binding nào |
   | Exchange DLX + DLQ | `orders.dlx` (type `fanout`) → `notification.order-created.dlq` | nơi chứa message hỏng hẳn |
 
-**Bước 2: Producer (40')**
+**Bước 2: Producer (30')**
 - Sau khi transaction tạo đơn **commit thành công**, publish message **persistent**:
   `{ "event_id": "<UUID>", "event_type": "OrderCreated", "order_id": ..., "user_id": ..., "total": ..., "occurred_at": ... }`
 - Bật **publisher confirms**; không nhận được confirm thì log lỗi + retry có giới hạn.
 - **Ghi vào README như một hạn chế đã biết:** nếu DB commit xong mà publish thất bại (app chết đúng lúc đó) thì event bị mất. Đây là bài toán *dual write*; Tuần 12 (D80) sẽ giải bằng **Outbox pattern**. Tuần này chưa cần làm.
 
-**Bước 3: Consumer idempotent (60')**
+**Bước 3: Consumer idempotent (50')**
 - Manual ack, `prefetch` khoảng 10.
 - Bảng `processed_events(event_id PRIMARY KEY, processed_at)` và bảng `sent_emails(id, order_id, to_email, subject, created_at)` (đây là "email giả": ghi một dòng thay vì gửi thật).
 - Xử lý một message trong **một transaction DB**:
@@ -648,7 +649,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
   3. Commit → **ack**.
 - Vì "email" nằm trong cùng DB nên đây là idempotent thật sự. Ghi chú trong README: nếu gửi email thật qua API bên ngoài thì không gói chung transaction được, phải dùng idempotency key của nhà cung cấp hoặc chấp nhận rủi ro trùng rất nhỏ.
 
-**Bước 4: Retry + DLQ (40')**
+**Bước 4: Retry + DLQ (35')**
 - Giả lập lỗi bằng biến môi trường hoặc dữ liệu đặc biệt, ví dụ:
   - Email chứa `transient` → lỗi ở 2 lần đầu, lần 3 thành công.
   - Email chứa `poison` → luôn lỗi.
@@ -657,14 +658,14 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
   - Đủ 3 lần → chuyển vào DLQ (publish sang `orders.dlx` hoặc `nack` với `requeue=false` để RabbitMQ tự dead-letter), log lỗi mức ERROR.
 - **Không** dùng `nack` với `requeue=true` cho mọi lỗi: poison message sẽ quay vòng vô hạn.
 
-**Bước 5: Kiểm chứng (40' = 5a bắt buộc 20' + 5b mở rộng 20')**
+**Bước 5: Kiểm chứng (5a bắt buộc 20' · 5b mở rộng 20' ở Chủ Nhật, tuỳ chọn)**
 
 *5a. Bắt buộc:*
 - Test trùng: publish **cùng một** `event_id` hai lần (bằng tay qua management UI hoặc script) → `sent_emails` chỉ có 1 dòng.
 - Test crash: đặt breakpoint/`sleep` sau khi commit nhưng trước khi ack, kill consumer → khởi động lại → message được giao lại nhưng không sinh email thứ hai.
 - Test DLQ: đơn có email `poison` → sau 3 lần nằm trong DLQ, không có email nào.
 
-*5b. Mở rộng (làm nếu còn giờ, nếu không thì dời sang Chủ Nhật D77):*
+*5b. Mở rộng (tuỳ chọn, làm ở Chủ Nhật 03/01):*
 - Test retry: đơn có email `transient` → cuối cùng có đúng 1 email, log thấy 2 lần retry.
 - Chạy 2 instance consumer cùng lúc → mỗi message chỉ được một instance xử lý thành công.
 
@@ -675,18 +676,10 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 **Tiêu chí đạt**
 - [ ] Tạo đơn thì trong ≤ vài giây có đúng 1 dòng `sent_emails`.
 - [ ] Publish trùng `event_id` và kill consumer trước ack đều **không** sinh email trùng.
-- [ ] Message `transient` thành công sau retry; message `poison` vào DLQ sau đúng 3 lần.
+- [ ] Message `poison` vào DLQ sau đúng 3 lần. *(Tuỳ chọn, 5b: message `transient` thành công sau retry.)*
 - [ ] Giải thích được bằng lời: consumer của bạn đang là at-least-once hay exactly-once? Vì sao?
 
-**Bước 6 (20'):** Ôn các câu đánh dấu ⚠️ trong tuần.
-
----
-
-## D77 (CN, 03/01): Chốt tuần 11
-
-**⏱ Ước tính:** DSA 65' (Error List 15' + làm lại 1143 và 518 50') · Chốt tuần 60' · Anki/cheat sheet 30' · Lab mở rộng dời từ D76 20' · **Tổng 2h55'**
-
-**DSA:** Làm lại bài trong Error List (ưu tiên các bài có "ngày làm lại" rơi vào hôm nay; giới hạn 15', bài đến hạn còn lại chuyển sang ngày làm lại kế tiếp). Sau đó tự giải lại 1143 và 518 trong ≤ 25' mỗi bài, không xem lời giải. Với 518, nói to vì sao thứ tự hai vòng lặp quan trọng.
+### ✅ Chốt tuần 11 (45')
 
 **✅ Câu hỏi chốt tuần.** Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
@@ -727,11 +720,29 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 </details>
 
+### Anki / cheat sheet (15')
+
+- Nhập thẻ T1 của D71–D75 và thẻ pattern của tuần; kiểm tra các bảng cheat sheet của tuần đã điền.
+
 **Checklist cuối tuần**
 
 - [ ] Đạt ≥ 4/5 câu chốt tuần
-- [ ] Luồng event chạy được: consumer idempotent, có retry, có DLQ, qua đủ 5 bài test ở Bước 5
+- [ ] Luồng event chạy được: consumer idempotent, có retry, có DLQ, qua đủ 3 bài test bắt buộc ở Bước 5a
 - [ ] README có mục "Event flow" + ghi rõ hạn chế dual write
-- [ ] Tự giải lại 62, 1143, 208 không xem lời giải; nói được state/transition/base case của 62, 1143, 518
 - [ ] Anki: đã nhập thẻ T1 của D71–D75 + thẻ pattern DP lưới / DP hai chuỗi / Trie / expand-around-center / đếm tổ hợp vs hoán vị
 - [ ] Cheat sheet: đã điền bảng Đồng bộ vs Bất đồng bộ, Kafka vs RabbitMQ vs SQS, CP vs AP
+- [ ] *(tuỳ chọn, CN)* Tự giải lại 62, 1143, 208 không xem lời giải; nói được state/transition/base case của 62, 1143, 518
+- [ ] *(tuỳ chọn, CN)* Lab Bước 5b: test retry `transient` + chạy 2 instance consumer
+
+---
+
+## CN (03/01): Ngày trống
+
+Không xếp bài mới. Chọn một trong hai:
+
+1. **Học bù:** trong tuần có buổi bị lỡ thì làm buổi đó (ưu tiên câu hỏi cuối bài và bài DSA).
+2. **Nghỉ.** Nếu còn sức, làm phần tuỳ chọn dời từ Thứ Bảy:
+   - **DSA (65'):** Làm lại bài trong Error List (ưu tiên các bài có "ngày làm lại" rơi vào hôm nay; giới hạn 15', bài đến hạn còn lại chuyển sang ngày làm lại kế tiếp). Sau đó tự giải lại 1143 và 518 trong ≤ 25' mỗi bài, không xem lời giải. Với 518, nói to vì sao thứ tự hai vòng lặp quan trọng.
+   - **Lab Bước 5b (20'):** test retry `transient` và chạy 2 instance consumer (xem Bước 5 ở buổi Thứ Bảy).
+   - **Ôn ⚠️ (20'):** các câu đánh dấu ⚠️ trong tuần.
+   - Làm lại 1 bài sai trong tuần (nếu có).
