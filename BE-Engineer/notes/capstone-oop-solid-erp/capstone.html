@@ -1,0 +1,939 @@
+<title>Capstone OOP SOLID ERP</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: sổ tay kiến trúc — header dính + tab theo phần, nội dung 1 cột rộng, bảng cuộn ngang trong khung riêng */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --fg: #1b2230;
+  --muted: #5b6577;
+  --line: #d9dee7;
+  --accent: #b5651d;
+  --accent-soft: #f6e8d9;
+  --ok: #2f7d4f;
+  --ok-soft: #e1f1e7;
+  --warn: #9a6b00;
+  --warn-soft: #fbf0d3;
+  --bad: #b33a3a;
+  --bad-soft: #f7e1e1;
+  --code-bg: #eef1f6;
+  --font-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161d; --surface: #1a2029; --fg: #e4e8ef; --muted: #9aa4b5; --line: #2c3442;
+    --accent: #e39a55; --accent-soft: #3a2a1a; --ok: #6cc28f; --ok-soft: #1c3326;
+    --warn: #e0b54a; --warn-soft: #3a3016; --bad: #e57d7d; --bad-soft: #3d2121; --code-bg: #232a35;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161d; --surface: #1a2029; --fg: #e4e8ef; --muted: #9aa4b5; --line: #2c3442;
+  --accent: #e39a55; --accent-soft: #3a2a1a; --ok: #6cc28f; --ok-soft: #1c3326;
+  --warn: #e0b54a; --warn-soft: #3a3016; --bad: #e57d7d; --bad-soft: #3d2121; --code-bg: #232a35;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.6; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; padding-block: 12px; }
+.brand { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
+.brand small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+nav.tabs button {
+  font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line);
+  background: transparent; color: var(--fg); cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+nav.tabs button[aria-selected="true"] { background: var(--fg); color: var(--surface); border-color: var(--fg); }
+nav.tabs button:focus-visible, .choice:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.dot.done { background: var(--ok); } .dot.wait { background: var(--warn); }
+main { padding-block: 28px 64px; }
+section.part { display: grid; gap: 22px; }
+h1 { font-size: 26px; line-height: 1.25; margin: 0; text-wrap: balance; letter-spacing: -0.015em; }
+h2 { font-size: 19px; margin: 0; text-wrap: balance; }
+h3 { font-size: 15px; margin: 0; }
+.eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; }
+p { margin: 0; max-width: 72ch; }
+.lead { color: var(--muted); }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 820px; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+.note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 14px; border-radius: 0 6px 6px 0; }
+.note.warn { border-color: var(--warn); background: var(--warn-soft); }
+.diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; overflow-x: auto; }
+pre.mermaid { margin: 0; background: transparent; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.card.pick { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.card header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.rec { background: var(--accent); color: var(--surface); }
+.pill.alt { background: var(--warn-soft); color: var(--warn); }
+.pill.hard { background: var(--bad-soft); color: var(--bad); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { background: var(--bg); border-radius: 6px; padding: 8px 10px; }
+.stat b { display: block; font-size: 18px; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 11px; color: var(--muted); }
+ul.ev { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13.5px; }
+ul.ev li::marker { color: var(--muted); }
+.tag { font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag.good { color: var(--ok); } .tag.smell { color: var(--bad); } .tag.learn { color: var(--accent); }
+.fit { font-size: 13px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 10px; }
+.placeholder { border: 1px dashed var(--line); border-radius: 8px; padding: 28px; color: var(--muted); text-align: center; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+nav.tabs a { font-size: 13px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); color: var(--fg); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+nav.tabs a.active { background: var(--fg); color: var(--surface); border-color: var(--fg); }
+nav.tabs a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+main > section.part { scroll-margin-top: 110px; padding-bottom: 48px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+details.code { scroll-margin-top: 110px; }
+ul.list, ol.list { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 80ch; }
+a.flink { color: var(--accent); }
+.toc { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; }
+.toc a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+.abbr { font-size: 12.5px; color: var(--muted); }
+.sub { display: grid; gap: 12px; scroll-margin-top: 110px; }
+td.loc { font-family: var(--font-mono); font-size: 12px; white-space: nowrap; color: var(--muted); }
+td.principle { white-space: normal; min-width: 150px; }
+.verdict { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+details.code { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); min-width: 0; }
+details.code > summary { cursor: pointer; padding: 9px 14px; font-size: 13px; color: var(--fg); list-style-position: inside; }
+details.code > summary:focus-visible, .toggle-code:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.code[open] > summary { border-bottom: 1px solid var(--line); }
+pre.code { margin: 0; padding: 14px; overflow-x: auto; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.55; background: var(--code-bg); color: var(--fg); tab-size: 2; }
+details.code pre.code { border-radius: 0 0 8px 8px; }
+pre.tree { border: 1px solid var(--line); border-radius: 8px; }
+.compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+.compare > div { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.toggle-code { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.big { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--bad); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Capstone OOP + SOLID trên ERP<small>D2–D5 áp vào <span class="mono">erp/backend/src/modules</span> · chỉ khung, không logic</small></div>
+    <nav class="tabs" aria-label="Các phần">
+      <a href="#p1"><i class="dot done"></i>1 · Tổng kết</a>
+      <a href="#p2"><i class="dot done"></i>2 · Chọn module</a>
+      <a href="#p3"><i class="dot done"></i>3 · Hiện trạng</a>
+      <a href="#hexb"><i class="dot wait"></i>Hexagonal cơ bản</a>
+      <a href="#hex"><i class="dot wait"></i>NestJS</a>
+      <a href="#p4"><i class="dot wait"></i>4 · Thiết kế lại</a>
+      <a href="#qa"><i class="dot"></i>Câu hỏi SD</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+<!-- ===================== PHẦN 1 ===================== -->
+<section class="part" id="p1">
+  <div>
+    <div class="eyebrow">Phần 1 · xong</div>
+    <h1>Bảng tổng kết OOP + SOLID</h1>
+  </div>
+  <p class="lead">Lấy từ mục "Khung nhớ nhanh" của d02–d05. Mỗi dòng là một phép kiểm dùng khi đọc code ERP ở Phần 3.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Nguyên lý</th><th>Câu hỏi kiểm tra</th><th>Dấu hiệu vi phạm</th><th>Công cụ sửa</th></tr></thead>
+      <tbody>
+        <tr><td>Encapsulation / invariant</td><td>Ai được chạm vào dữ liệu? Luật này do ai giữ?</td><td>Field bị ghi từ ngoài, <code>setX()</code> "ngu"; invariant bị phá qua đường vòng</td><td>Method có kiểm soát, field private, không getter/setter thừa</td></tr>
+        <tr><td>Tell, Don't Ask</td><td>Caller có đang đọc state rồi tự quyết thay object?</td><td><code>if (x.status === A) x.y = Z</code> lặp ở nhiều nơi gọi</td><td>Đẩy quyết định và luật vào method của object giữ state</td></tr>
+        <tr><td>Composition &gt; Inheritance</td><td>is-a qua đủ 4 phép thử (Sentence, Substitution, Forever, Reuse-only)?</td><td><code>extends</code> chỉ để dùng lại code; cây sâu; tên ghép 2 tính từ</td><td>Tách phần đổi → đặt contract → giữ và uỷ quyền (inject)</td></tr>
+        <tr><td>SRP theo actor</td><td>Ai yêu cầu sửa đoạn code này, vì lý do của riêng họ?</td><td>≥2 actor độc lập (kế toán, kho, mua hàng, hạ tầng) cùng sửa 1 class</td><td>Tách theo actor; mỗi class một lý do thay đổi</td></tr>
+        <tr><td>OCP + Strategy/Factory</td><td>Thêm biến thể mới có phải mở lại file cũ đã test?</td><td><code>if/switch</code> theo loại/nhà cung cấp, lặp ở nhiều nơi</td><td>Interface + nhiều implementation, Factory/registry chọn, lắp ở composition root (<code>*.module.ts</code>)</td></tr>
+        <tr><td>LSP + hợp đồng</td><td>Thay cha bằng con, caller còn đúng mà không biết kiểu thật?</td><td>Con đòi nhiều hơn, hứa ít hơn, ném lỗi mới, phá bất biến; caller phải <code>instanceof</code></td><td>Hợp đồng rõ (vào / ra / lỗi / bất biến), bộ test chung cho mọi implementation</td></tr>
+        <tr><td>ISP + role interface</td><td>Client này gọi những method nào trong interface nó nhận?</td><td>Stub <code>throw 'not supported'</code>; test phải mock cả interface to</td><td>Bảng client × method, role interface nhỏ theo client; một class thoả nhiều role</td></tr>
+        <tr><td>DIP + ai sở hữu port</td><td>File nghiệp vụ có nhắc tên công nghệ? Port nằm ở package nào, từ vựng của ai?</td><td>Service import ORM/SDK; chữ ký port có <code>EntityManager</code>, mã lỗi DB; port/token nằm trong infra</td><td>Port trong domain/application, adapter trong infrastructure, composition root nối</td></tr>
+        <tr><td>DI / IoC</td><td>Ai gọi constructor của dependency? Ai nắm luồng chạy?</td><td><code>new X()</code> trong service; inject class cụ thể (có DI, không có DIP)</td><td>Constructor injection; Nest container + token, <code>useClass</code> / <code>useExisting</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><p><b>Nhớ:</b> DIP, DI, IoC là ba thứ khác nhau. Có DI mà không có DIP: <code>constructor(repo: MySqlOrderRepo)</code>. Có IoC mà không có DI: template method, route handler.</p></div>
+
+  <div>
+    <h2>Các nguyên lý nối với nhau</h2>
+  </div>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart TD
+  A["Object = state + behavior (D2)"] --> B["Encapsulation: giữ invariant (D2)"]
+  B --> C["Tell, Don't Ask: luật ở lại trong object (D2)"]
+  C --> D["Abstraction: caller chỉ thấy contract (D2)"]
+  D --> E["Composition over Inheritance (D3)"]
+  E --> F["SRP theo actor (D4)"]
+  F --> G["OCP: Strategy / Factory (D4)"]
+  D --> H["LSP: con giữ hợp đồng cha (D5)"]
+  H --> I["ISP: role interface theo client (D5)"]
+  I --> J["DIP: domain sở hữu port (D5)"]
+  G --> J
+  J --> K["DI / IoC: composition root lắp ráp (D5)"]
+</pre>
+  </div>
+  <p class="lead">Nhánh trái (Composition → SRP → OCP) trả lời "chia code thành những mảnh nào". Nhánh phải (LSP → ISP → DIP) trả lời "các mảnh nói chuyện với nhau qua hợp đồng nào, ai sở hữu hợp đồng". Hai nhánh gặp nhau ở DI/IoC, nơi lắp ráp.</p>
+</section>
+
+<!-- ===================== PHẦN 2 ===================== -->
+<section class="part" id="p2">
+  <div>
+    <div class="eyebrow">Phần 2 · đã chọn purchased-request</div>
+    <h1>Chọn module làm ví dụ</h1>
+  </div>
+
+  <div class="note warn"><p><b>Hai điều chỉnh so với đề bài.</b> (1) Đường dẫn thật là <code>erp/backend/src/modules</code>, có 34 module. (2) ERP dùng <b>TypeORM + <code>DataSource</code></b> (SQL), không dùng Mongo model. Mọi service truy cập DB qua <code>this.datasource.getRepository(...)</code>, không có <code>@InjectModel</code>. Phần 4 sẽ thiết kế adapter TypeORM thay cho Mongo.</p></div>
+
+  <div class="legend">
+    <span><b class="tag good">ĐÚNG</b> chỗ đang làm đúng</span>
+    <span><b class="tag smell">MÙI</b> dấu hiệu vi phạm</span>
+    <span><b class="tag learn">HỌC ĐƯỢC</b> nguyên lý minh hoạ rõ nhất</span>
+  </div>
+
+  <div class="cards">
+    <article class="card pick">
+      <header><h2>purchased-request</h2><span class="pill rec">Đã chọn</span></header>
+      <div class="stats">
+        <div class="stat"><b>2060</b><span>dòng service</span></div>
+        <div class="stat"><b>13</b><span>endpoint</span></div>
+        <div class="stat"><b>6</b><span>dependency ctor</span></div>
+      </div>
+      <ul class="ev">
+        <li><b class="tag smell">MÙI</b>Constructor nhận <code>Email</code>, <code>DataSource</code>, <code>I18nService</code>, <code>S3Service</code>, <code>RabbitService</code>, mail service: 4 loại hạ tầng trong 1 class (<span class="mono">purchased-request.service.ts:66-73</span>)</li>
+        <li><b class="tag smell">MÙI</b>Dựng file Excel ngay trong service, import thẳng <code>exceljs</code> (<span class="mono">:48</span>, <span class="mono">:152</span>, <span class="mono">:305</span>)</li>
+        <li><b class="tag smell">MÙI</b>Với sang module khác: import util của purchased-order (<span class="mono">:52-53</span>), tự tính lại phí ship PO (<span class="mono">:1414</span>)</li>
+        <li><b class="tag good">ĐÚNG</b>Luật chuyển trạng thái để dạng dữ liệu (<span class="mono">constants/status-transitions.ts</span>), có <code>validateStatusTransition</code> (<span class="mono">:1921</span>); mail duyệt đã tách 1 phần ra <span class="mono">purchased-request-approval-mail.service.ts</span></li>
+        <li><b class="tag learn">HỌC ĐƯỢC</b>SRP theo actor (mua hàng / người duyệt / báo cáo), Encapsulation qua state machine, DIP vì có 2 module ngoài gọi vào (<span class="mono">order-plan</span>, <span class="mono">nvl-alert</span>)</li>
+      </ul>
+      <p class="fit">Vừa sức đọc hết trong 1 buổi. Đủ actor để tách, không chìm trong nghiệp vụ lot/tồn kho.</p>
+    </article>
+
+    <article class="card">
+      <header><h2>purchased-order</h2><span class="pill alt">Đề xuất 2 · nâng cao</span></header>
+      <div class="stats">
+        <div class="stat"><b>3879</b><span>dòng service</span></div>
+        <div class="stat"><b>29</b><span>endpoint</span></div>
+        <div class="stat"><b>7</b><span>dependency ctor</span></div>
+      </div>
+      <ul class="ev">
+        <li><b class="tag smell">MÙI</b>Rẽ nhánh theo nhà cung cấp: <code>assertBoxesUsingBarCode</code> → <code>ViaSSA</code> / <code>ViaSanMar</code> (<span class="mono">purchased-order.service.ts:1579, 1624, 1719</span>), import thẳng <code>SanMarRequester</code> (<span class="mono">:50</span>)</li>
+        <li><b class="tag smell">MÙI</b>Một class gánh tạo PO, duyệt qua email, chi phí thực tế, báo cáo chênh lệch, xuất hoá đơn Excel (<span class="mono">:2510–3677</span>)</li>
+        <li><b class="tag smell">MÙI</b>Phụ thuộc ngược sang report và inventory (<span class="mono">:110, :112</span>)</li>
+        <li><b class="tag good">ĐÚNG</b>Đã có <code>ProviderAPIRequesterFactory</code> (<span class="mono">:49</span>) và validator riêng có test</li>
+        <li><b class="tag learn">HỌC ĐƯỢC</b>OCP + Strategy/Factory rõ nhất (thêm nhà cung cấp thứ 3), so sánh chỗ đã dùng Factory với chỗ chưa dùng</li>
+      </ul>
+      <p class="fit">Ví dụ OCP đẹp nhất, nhưng gấp đôi khối lượng. Hợp làm bài thứ hai.</p>
+    </article>
+
+    <article class="card">
+      <header><h2>inventory / imports</h2><span class="pill hard">Đề xuất 3 · nặng</span></header>
+      <div class="stats">
+        <div class="stat"><b>4793</b><span>dòng service</span></div>
+        <div class="stat"><b>26</b><span>endpoint</span></div>
+        <div class="stat"><b>6</b><span>dependency ctor</span></div>
+      </div>
+      <ul class="ev">
+        <li><b class="tag smell">MÙI</b>Phụ thuộc vòng với purchased-order, phải dùng <code>forwardRef</code> (<span class="mono">imports.service.ts:123</span>)</li>
+        <li><b class="tag smell">MÙI</b>Luật lot / tái nhập dày đặc trong private method (<span class="mono">:2219–2627</span>), biến thể Lab tách bằng method song song (<span class="mono">:3241</span> và <span class="mono">:3513</span>)</li>
+        <li><b class="tag good">ĐÚNG</b>Có <code>AuditService</code> và <code>Lock</code> tách riêng; <code>btp-lot-allocator</code> có test 177 dòng</li>
+        <li><b class="tag learn">HỌC ĐƯỢC</b>DIP để cắt vòng phụ thuộc, value object cho Lot / Quantity</li>
+      </ul>
+      <p class="fit">Nghiệp vụ khó nhất (lot, tái nhập, BTP). Dễ sa vào chi tiết thay vì luyện nguyên lý.</p>
+    </article>
+  </div>
+
+  <div class="note"><p><b>Khuyến nghị:</b> làm <b>purchased-request</b> trước. Nó đủ nhỏ để vẽ khung đầy đủ mà vẫn có đủ 4 actor, có chỗ làm đúng để đối chiếu, và có client bên ngoài để luyện DIP. Sau đó dùng purchased-order làm bài OCP. Trả lời trong chat tên module bạn chọn.</p></div>
+</section>
+
+<!-- ===================== PHẦN 3, 4, QA ===================== -->
+<section class="part" id="p3">
+  <div><div class="eyebrow">Phần 3 · xong</div><h1>Hiện trạng purchased-request</h1></div>
+  <p class="abbr">Viết tắt: <code>S</code> = purchased-request.service.ts · <code>C</code> = controller · <code>P</code> = processors/status-updater.processor.ts · <code>M</code> = module.ts. Gốc: <span class="mono">erp/backend/src/modules/purchased-request/</span></p>
+  <nav class="toc" aria-label="Mục Phần 3">
+    <a href="#s31">3.1 Nghiệp vụ</a><a href="#s32">3.2 Actor</a><a href="#s33">3.3 Phụ thuộc</a><a href="#s34">3.4 Vi phạm</a><a href="#s35">3.5 Làm đúng</a>
+  </nav>
+
+  <div class="sub" id="s31">
+    <h2>3.1 Nghiệp vụ</h2>
+    <p>YCMH (Yêu cầu mua hàng) là phiếu một bộ phận gửi lên để xin mua nguyên vật liệu (NVL). Mỗi phiếu có nhiều dòng item, mỗi item là một NVL kèm số lượng. Phòng mua hàng lập đơn mua (PO) dựa trên các phiếu đã duyệt. Khi kho nhập hàng đủ, item và phiếu tự hoàn thành.</p>
+    <p class="abbr">Vòng đời trạng thái, áp cho cả phiếu và item (<span class="mono">constants/status-transitions.ts:7-18</span>):</p>
+    <div class="diagram">
+<pre class="mermaid">
+stateDiagram-v2
+  [*] --> DRAFT
+  DRAFT --> PENDING: gửi duyệt
+  PENDING --> APPROVED: duyệt
+  PENDING --> REJECTED: từ chối
+  PENDING --> CANCELLED: huỷ
+  APPROVED --> COMPLETED: nhập đủ / ép hoàn thành
+  APPROVED --> CANCELLED: huỷ
+  REJECTED --> [*]
+  COMPLETED --> [*]
+  CANCELLED --> [*]
+</pre>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Luồng</th><th>Các bước nghiệp vụ</th><th>Điểm vào</th></tr></thead>
+        <tbody>
+          <tr><td>Lập / sửa YCMH</td><td>Kiểm tra field bắt buộc theo nhà máy (LAB cần product type; mọi nhà máy trừ Bình Minh cần thời gian sử dụng) → sinh mã <code>YCMH-MMYYYY-NN</code> → lưu phiếu + item (kiểm tra chuyển trạng thái item) → tính lại trạng thái phiếu → xuất Excel lên S3, lưu link → tuỳ chọn gửi email duyệt</td><td class="loc">C:39, C:51 → S:522</td></tr>
+          <tr><td>Nhập từ Excel</td><td>Đọc file, validate từng dòng → lỗi: dựng Excel đánh dấu lỗi, upload S3, trả link 24h → hợp lệ: nhóm theo mã, tạo phiếu DRAFT</td><td class="loc">C:58 → S:1816</td></tr>
+          <tr><td>Gửi duyệt hàng loạt</td><td>Phiếu tồn tại và đang DRAFT → bổ sung file Excel thiếu → gửi email kèm file → DRAFT → PENDING (cả item)</td><td class="loc">C:137 → S:1571</td></tr>
+          <tr><td>Duyệt / từ chối / huỷ</td><td>Kiểm tra chuyển trạng thái → đồng bộ trạng thái mọi item</td><td class="loc">C:131 → S:1532</td></tr>
+          <tr><td>Huỷ 1 item</td><td>Khoá → kiểm tra chuyển trạng thái → chặn nếu NVL đã trong PO Confirmed/Completed → xoá dòng PO Draft/Pending → tự huỷ PO rỗng → phân bổ lại phí ship PO → tính lại trạng thái phiếu</td><td class="loc">C:111 → S:1205</td></tr>
+          <tr><td>Ép hoàn thành item</td><td>Khoá → chỉ item APPROVED → chặn nếu còn PO đang xử lý dở → COMPLETED → tính lại trạng thái phiếu</td><td class="loc">C:121 → S:1353</td></tr>
+          <tr><td>Tra cứu</td><td>Danh sách; chi tiết kèm SL đã nhập, SL trong PO, PO liên quan, SL chưa nhận, tồn kho hôm nay; YCMH đã duyệt còn SL để lập PO + giá xác nhận gần nhất</td><td class="loc">S:643, S:1023, S:1088</td></tr>
+          <tr><td>Xuất Excel</td><td>1 phiếu hoặc toàn bộ theo bộ lọc</td><td class="loc">S:75, S:94</td></tr>
+          <tr><td>Tự hoàn thành</td><td>Nghe <code>ImportConfirmed</code>, <code>PurchasedOrderCompleted</code> → item có SL duyệt = SL trong PO = SL đã nhập thì COMPLETED → đóng phiếu khi hết item mở</td><td class="loc">P:27-43, P:154</td></tr>
+          <tr><td>Xoá phiếu</td><td>Chỉ phiếu DRAFT</td><td class="loc">C:45 → S:704</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub" id="s32">
+    <h2>3.2 Bản đồ trách nhiệm</h2>
+    <div class="verdict"><span class="big">8</span><p>actor cùng sửa một class 2060 dòng. Đây là god class theo đúng định nghĩa SRP của D4.</p></div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Actor</th><th>Lý do riêng để đổi code</th><th>Method đang gánh</th></tr></thead>
+        <tbody>
+          <tr><td>Bộ phận yêu cầu</td><td>Form phiếu, field bắt buộc, cách đánh mã</td><td><code>storage</code> S:522 · <code>createFromFile</code> S:1816 · <code>delete</code> S:704 · <code>generateCode</code> S:1551</td></tr>
+          <tr><td>Người duyệt</td><td>Quy trình duyệt, người nhận và nội dung email</td><td><code>changeStatus</code> S:1532 · <code>sendBulkApprovalEmail</code> S:1571 · <code>markRequestsAsPending</code> S:1631 · <code>sendApprove</code> S:1658 (chết) · ApprovalMailService</td></tr>
+          <tr><td>Mua hàng</td><td>Khi nào được huỷ/đóng item, SL còn lại để đặt</td><td><code>findWithPO</code> S:1088 · <code>cancelItem</code> S:1205 · <code>forceCompleteItem</code> S:1353 · <code>getInProgressPurchaseOrders</code> S:851 · <code>getLatestConfirmedUnitPrices</code> S:879</td></tr>
+          <tr><td>Kế toán chi phí PO</td><td>Công thức phân bổ phí ship, VAT, làm tròn</td><td>Phân bổ phí ship trong <code>cancelItem</code> S:1268-1328 · <code>recalculatePOItemShippingCosts</code> S:1414 (chết)</td></tr>
+          <tr><td>Kho</td><td>Cách tính SL đã nhập, tồn kho, chưa nhận</td><td><code>getRequestItemQuantities</code> S:726 · <code>getUnreceivedQuantities</code> S:920 · <code>getInventoryQuantities</code> S:995 · processor P:173-260</td></tr>
+          <tr><td>Báo cáo / xuất file</td><td>Cột, tiêu đề, định dạng Excel</td><td><code>exportToExcel*</code> S:75-520 · <code>generateErrorExcelAndUpload</code> S:1723</td></tr>
+          <tr><td>Vận hành đa nhà máy</td><td>Luật riêng LAB, Bình Minh, Toàn Cầu, DFWUS</td><td>S:525-552 · S:1817-1827 · S:1668-1676</td></tr>
+          <tr><td>Hạ tầng</td><td>S3, file tạm, email, khoá, ORM</td><td>S:131-150 · S:105 · S:1799-1810 · constructor S:66-73</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub" id="s33">
+    <h2>3.3 Sơ đồ phụ thuộc hiện tại</h2>
+    <p class="abbr">Mũi tên là chiều import / gọi. Nét đứt là dependency được inject nhưng không dùng thật.</p>
+    <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  subgraph clients["Client ngoài module"]
+    OP["order-plan / OrderPlanPurchaseService"]
+    NA["nvl-alert / NvlAlertPurchaseService"]
+  end
+  C["PurchasedRequestController"] --> S["PurchasedRequestService 2060 dòng"]
+  OP -->|"storage(dto as never)"| S
+  NA -->|"storage()"| S
+  S --> AM["ApprovalMailService"]
+  S --> AGG["StatusAggregator + VALID_STATUS_TRANSITIONS"]
+  S -->|"new"| FR["PurchasedRequestFileReader"]
+  S --> FW["FileWriterFactory"]
+  S --> XL["exceljs"]
+  S --> FS["fs file tạm"]
+  S --> S3["S3Service"]
+  S --> I18N["I18nService"]
+  S -.->|"không dùng"| RB["RabbitService"]
+  S -.->|"chỉ code chết"| EM["Email"]
+  S --> POU["purchased-order utils + dto"]
+  S --> DS["TypeORM DataSource"]
+  AM --> EM
+  AM --> DS
+  FR --> DS
+  DS --> T1[("purchased_request + items")]
+  DS --> T2[("purchased_orders + items: của PO")]
+  DS --> T3[("imports, import_details, daily_inventory_summary: của kho")]
+  DS --> T4[("providers, materials, accounts, config")]
+  EV(["Rabbit: ImportConfirmed, PurchasedOrderCompleted"]) --> P["StatusUpdater processor"]
+  P --> DS
+</pre>
+    </div>
+    <p>Mọi mũi tên đi từ nghiệp vụ ra hạ tầng. Service biết tên bảng của module khác, biết <code>exceljs</code>, biết ACL của S3. Phần 4 sẽ đảo các mũi tên này.</p>
+  </div>
+
+  <div class="sub" id="s34">
+    <h2>3.4 Bảng vi phạm</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Nguyên lý</th><th>Vị trí</th><th>Bằng chứng</th><th>Hậu quả</th></tr></thead>
+        <tbody>
+          <tr><td class="principle">SRP</td><td class="loc">S:63-2060<br>S:66-73</td><td>8 actor (mục 3.2), 6 dependency hạ tầng</td><td>Sửa cột Excel và sửa luật huỷ PO cùng đụng một file</td></tr>
+          <tr><td class="principle">Encapsulation: ranh giới aggregate</td><td class="loc">S:1239-1328</td><td>YCMH tự xoá dòng PO (S:1296), tự huỷ PO (S:1307), tự phân bổ phí ship PO (S:1320-1328)</td><td>Luật PO nằm ở module khác; PO đổi trạng thái không qua PO service, không sự kiện, không audit PO</td></tr>
+          <tr><td class="principle">Encapsulation / Tell, Don't Ask</td><td class="loc">entity :14-51<br>S:1265, S:1392<br>S:1544, S:1971-2038</td><td>Entity chỉ có <code>@Column</code>; service tự gán <code>item.status</code> ở nhiều chỗ</td><td>Anemic model, luật trạng thái rải ra service, processor, file reader</td></tr>
+          <tr><td class="principle">Một luật, nhiều bản</td><td class="loc">status-aggregator.ts:22<br>P:252<br>S:1921 vs S:1939</td><td>Luật tổng hợp viết 2 lần (processor ghi "Mirrors ..."); 2 hàm validate chỉ khác message</td><td>Đổi một nơi, nơi kia lệch, bug âm thầm</td></tr>
+          <tr><td class="principle">OCP</td><td class="loc">S:525-552<br>S:1817-1827<br>S:1668-1676</td><td><code>if (isLabApp)</code>, <code>if (!isBinhMinhApp)</code>, map tên nhà máy lặp 3 chỗ</td><td>Thêm nhà máy thứ 5 phải mở lại nhiều hàm đã test</td></tr>
+          <tr><td class="principle">DIP: dữ liệu module khác</td><td class="loc">S:740-741, S:756<br>S:805, S:891<br>S:932-973, S:1004</td><td>Raw SQL vào <code>import_details</code>, <code>imports</code>, <code>purchased_orders</code>, <code>providers</code>, <code>daily_inventory_summary</code></td><td>Đổi schema kho/PO làm vỡ YCMH lúc chạy, compiler không báo</td></tr>
+          <tr><td class="principle">DIP: hạ tầng</td><td class="loc">S:41, S:48<br>S:140-145, S:159<br>S:1727-1810</td><td>Import <code>typeorm</code>, <code>exceljs</code>, <code>fs</code>; tự đặt ACL, Content-Type, key S3</td><td>Không test được luật mà không dựng DB, S3, file system</td></tr>
+          <tr><td class="principle">DIP: lỗi framework</td><td class="loc">S:12, S:1252<br>S:1376, S:1928</td><td>Ném <code>BadRequestException</code> của NestJS, dịch i18n trong luật</td><td>Luật gắn với HTTP; processor không phải HTTP cũng nhận lỗi HTTP</td></tr>
+          <tr><td class="principle">Hợp đồng (D5)</td><td class="loc">S:713-716</td><td>Phiếu không phải DRAFT lại ném <code>NotFoundException</code></td><td>Client nhận 404 cho lỗi "không được xoá"</td></tr>
+          <tr><td class="principle">Hợp đồng (D5)</td><td class="loc">S:624-627<br>S:631-639</td><td>Mail fire-and-forget nhưng <code>.catch</code> lại <code>throw</code>; mọi lỗi khác gộp thành <code>SAVE_FAIL</code></td><td>Rejection không ai bắt; caller không phân biệt được lỗi</td></tr>
+          <tr><td class="principle">ISP</td><td class="loc">M:30<br>order-plan…:40<br>nvl-alert…:57, :103</td><td>Export cả service; 2 client chỉ dùng <code>storage()</code>, phải ép <code>dto as never</code></td><td>Client phụ thuộc 20+ method không dùng; hợp đồng là DTO HTTP</td></tr>
+          <tr><td class="principle">Encapsulation: đồng thời</td><td class="loc">S:1551-1569<br>order-plan…:32-33</td><td><code>generateCode</code> đọc mã cuối rồi +1, không khoá; client phải tự khoá</td><td>Invariant "mã duy nhất" không do chủ của nó giữ</td></tr>
+          <tr><td class="principle">DI</td><td class="loc">S:1824</td><td><code>new PurchasedRequestFileReader(this.datasource, …)</code>, reader tự query DB</td><td>Không thay reader khi test; DB rò sang tầng đọc file</td></tr>
+          <tr><td class="principle">Code chết, dependency nói dối</td><td class="loc">S:1658-1721<br>S:1414-1530<br>S:71 + S:1903-1913<br>S:67</td><td><code>sendApprove</code> và bản private <code>recalculatePOItemShippingCosts</code> không ai gọi; <code>rabbit</code> chỉ trong code comment; <code>mailer</code> chỉ code chết dùng</td><td>Constructor khai 6 dependency, thật cần 4; khoảng 180 dòng nhiễu</td></tr>
+          <tr><td class="principle">Ranh giới transaction</td><td class="loc">S:557-621</td><td>Lưu phiếu ở transaction 1, upload S3 trong transaction 2</td><td>Có thể có phiếu không có file; gọi mạng khi giữ transaction</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub" id="s35">
+    <h2>3.5 Những chỗ đang làm đúng</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Nguyên lý</th><th>Vị trí</th><th>Vì sao đúng</th></tr></thead>
+        <tbody>
+          <tr><td>OCP: luật dạng dữ liệu</td><td class="loc">status-transitions.ts:7-18</td><td>Thêm/bớt bước chuyển chỉ sửa bảng, không sửa <code>if</code></td></tr>
+          <tr><td>Pure function + test</td><td class="loc">status-aggregator.ts:22 + spec</td><td>Luật tổng hợp không phụ thuộc DB, test nhanh</td></tr>
+          <tr><td>SRP bước đầu</td><td class="loc">approval-mail.service.ts:25</td><td>Đã tách gửi mail duyệt khỏi service chính</td></tr>
+          <tr><td>Đảo phụ thuộc bằng sự kiện</td><td class="loc">P:27-43</td><td>Kho và PO không gọi YCMH; YCMH nghe sự kiện của họ</td></tr>
+          <tr><td>Cross-cutting tách riêng</td><td class="loc">C:33, C:56, C:109<br>S:1200, S:1348</td><td><code>@Audit</code> và <code>@Lock</code> là decorator, không lẫn vào luật</td></tr>
+          <tr><td>Controller mỏng</td><td class="loc">C:36-140</td><td>Chỉ nhận request và chuyển tiếp</td></tr>
+          <tr><td>Factory cho writer</td><td class="loc">S:33, S:160</td><td>Đổi định dạng file không sửa caller. Chưa nhất quán: S:1727 vẫn dùng <code>exceljs</code> thô</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="note"><p>Soát xong Phần 3 thì nói "tiếp" để sang Phần 4: thiết kế lại theo Hexagonal, chỉ khung.</p></div>
+</section>
+<section class="part" id="hexb">
+  <div><div class="eyebrow">Khái niệm, chưa cần framework · mới</div><h1>Hexagonal cơ bản</h1></div>
+  <nav class="toc" aria-label="Mục Hexagonal cơ bản"><a href="#b1">1 Ý tưởng</a><a href="#b2">2 Domain gồm gì</a><a href="#b3">3 Use case, port, adapter</a><a href="#b4">4 Adapter</a><a href="#b5">5 Use case ứng với gì</a><a href="#b6">6 Nhiều module</a><a href="#b7">7 Flow chạy vs phụ thuộc</a><a href="#b8">8 DIP áp chỗ nào</a><a href="#b9">9 Tự kiểm tra</a></nav>
+<div class="note"><p>File này chỉ nói <b>ý tưởng</b>, không nói framework. Cách làm cụ thể trong NestJS để ở <a href="#hex">05-hexagonal-trong-nestjs.md</a>. Ví dụ dùng chuỗi nghiệp vụ thật: <b>YCMH → PO → PN (phiếu nhập) → PX (phiếu xuất) → Tồn kho</b>.</p></div>
+<div class="sub" id="b1"><h2>1. Ý tưởng trong một hình</h2>
+<p>Hình dung cái laptop. Laptop <b>tự quy định</b> cổng USB-C: hình dạng, điện áp, chân nào làm gì. Sạc của hãng nào cũng được, miễn là làm đúng chuẩn cổng đó. Laptop không cần biết sạc do ai làm.</p>
+<ul class="list"><li>Laptop là <b>lõi</b> (nghiệp vụ).</li><li>Cổng USB-C là <b>port</b>: hợp đồng do lõi đặt ra.</li><li>Cục sạc, ổ cứng, màn hình là <b>adapter</b>: thứ bên ngoài làm cho khớp với cổng.</li></ul>
+<p>Hexagonal (Alistair Cockburn, 2005) áp đúng ý đó vào phần mềm: <b>nghiệp vụ ở giữa, công nghệ ở rìa, hai bên nói chuyện qua port do nghiệp vụ định nghĩa.</b> Hình lục giác chỉ để vẽ cho đủ chỗ cắm nhiều thứ, số cạnh không có ý nghĩa.</p>
+<div class="diagram"><pre class="mermaid">
+flowchart LR
+  subgraph IN["Adapter VÀO (driving): thế giới gọi lõi"]
+    A1["REST API"]
+    A2["Upload file Excel"]
+    A3["Cron job"]
+    A4["Nghe sự kiện từ module khác"]
+    A5["Unit test"]
+  end
+  subgraph CORE["LÕI"]
+    PI["Use case: lõi làm được gì"]
+    APP["Application: điều phối từng kịch bản"]
+    DOM["Domain: luật nghiệp vụ"]
+    PO[["Port: interface lõi cần từ bên ngoài"]]
+  end
+  subgraph OUT["Adapter RA (driven): lõi gọi thế giới"]
+    B1["Postgres"]
+    B2["S3"]
+    B3["Email"]
+    B4["RabbitMQ"]
+    B5["Module khác"]
+    B6["Fake in-memory khi test"]
+  end
+  A1 --&gt; PI
+  A2 --&gt; PI
+  A3 --&gt; PI
+  A4 --&gt; PI
+  A5 --&gt; PI
+  PI --&gt; APP
+  APP --&gt; DOM
+  APP --&gt; PO
+  B1 -.-&gt;|implements| PO
+  B2 -.-&gt;|implements| PO
+  B3 -.-&gt;|implements| PO
+  B4 -.-&gt;|implements| PO
+  B5 -.-&gt;|implements| PO
+  B6 -.-&gt;|implements| PO
+</pre></div>
+<p>Mũi tên liền là "gọi". Mũi tên đứt là "cài đặt theo hợp đồng". Để ý: <b>cả hai phía adapter đều chỉ vào lõi</b>, lõi không chỉ ra ai cả.</p>
+<p>Lợi ích, nói bằng ví dụ thật:</p>
+<div class="scroll"><table><thead><tr><th>Muốn</th><th>Không có Hexagonal</th><th>Có Hexagonal</th></tr></thead><tbody><tr><td>Đổi S3 sang Google Cloud Storage</td><td>Sửa mọi service có <code>s3.putObject</code></td><td>Viết thêm 1 adapter, đổi 1 dòng lắp ráp</td></tr><tr><td>Test luật "không huỷ được item khi PO đã chốt"</td><td>Dựng Postgres, seed bảng PO</td><td>Đưa fake trả về "có 1 PO đã chốt", chạy trong vài mili giây</td></tr><tr><td>Cho phép tạo YCMH từ file Excel, ngoài API</td><td>Copy logic từ service API sang</td><td>Thêm 1 adapter vào gọi đúng use case cũ</td></tr></tbody></table></div>
+</div>
+<div class="sub" id="b2"><h2>2. Domain: bên trong có những gì</h2>
+<p>Domain là phần <b>trả lời câu hỏi nghiệp vụ</b> mà không cần biết dữ liệu nằm ở đâu hay ai gọi. Thường có các thành phần sau (cái "model, event, error" bạn từng thấy nằm trong danh sách này):</p>
+<div class="scroll"><table><thead><tr><th>Thành phần</th><th>Là gì</th><th>Dấu hiệu nhận ra</th><th>Ví dụ trong chuỗi YCMH → Tồn kho</th></tr></thead><tbody><tr><td><b>Entity</b></td><td>Đối tượng có <b>danh tính</b>, sống lâu, trạng thái đổi theo thời gian</td><td>Hai cái cùng dữ liệu vẫn là hai cái khác nhau vì khác ID</td><td>Phiếu nhập <code>PN-0012</code>; đổi số lượng vẫn là phiếu đó</td></tr><tr><td><b>Value Object</b></td><td>Giá trị <b>không có danh tính</b>, so sánh bằng nội dung, bất biến</td><td>Đổi nội dung = tạo cái mới</td><td><code>Quantity(10, "cái")</code>, <code>Money(1_200_000, "VND")</code>, <code>LotNumber</code>, mã <code>YCMH-102026-07</code></td></tr><tr><td><b>Aggregate</b> (+ root)</td><td>Một cụm entity + value object <b>cùng giữ một bộ luật</b>; bên ngoài chỉ được đụng qua <b>root</b></td><td>Luật nói về cả nhóm: "tổng số dòng…", "chỉ khi mọi dòng…"</td><td><code>PurchaseOrder</code> (root) + các dòng PO; không ai sửa dòng PO mà không qua PO</td></tr><tr><td><b>Domain Event</b></td><td>Sự việc <b>đã xảy ra</b> mà người khác có thể quan tâm; đặt tên thì quá khứ</td><td>"Khi X xong thì bên Y cần biết"</td><td><code>ImportReceiptConfirmed</code>, <code>PurchaseOrderCompleted</code>, <code>StockDecreased</code></td></tr><tr><td><b>Domain Error</b></td><td>Vi phạm luật nghiệp vụ, đặt tên bằng ngôn ngữ nghiệp vụ</td><td>Người dùng đọc tên lỗi là hiểu</td><td><code>CannotCancelItemOfConfirmedOrder</code>, <code>InsufficientStock</code>, <code>LotAlreadyReimported</code></td></tr><tr><td><b>Domain Service</b></td><td>Luật <b>không thuộc về một entity nào</b></td><td>Cần nhìn nhiều object cùng lúc</td><td>Phân bổ phí ship cho các dòng PO; tính trạng thái phiếu từ trạng thái các item</td></tr><tr><td><b>Policy / Strategy</b></td><td>Luật <b>có nhiều biến thể</b></td><td><code>if (nhà máy == ...)</code> lặp nhiều nơi</td><td>Field bắt buộc khác nhau giữa LAB và Bình Minh; FIFO hay FEFO khi chọn lot xuất</td></tr><tr><td><b>Factory</b></td><td>Cách <b>tạo</b> aggregate khi việc tạo phức tạp</td><td>Constructor có quá nhiều bước kiểm</td><td>Tạo PO từ nhiều YCMH đã duyệt</td></tr><tr><td><b>Repository (interface)</b></td><td>Hợp đồng "lấy / lưu aggregate", nói bằng từ vựng nghiệp vụ</td><td><code>get(id)</code>, <code>save(order)</code>, không có SQL</td><td><code>PurchaseOrderRepository</code></td></tr></tbody></table></div>
+<p><b>"Model" có hai nghĩa, đừng nhầm.</b></p>
+<ul class="list"><li><b>Domain model</b> là entity, value object và aggregate ở trên. Chúng có method mang luật, ví dụ <code>order.confirm()</code>.</li><li><b>Persistence model</b> là class ánh xạ bảng (TypeORM entity, Mongoose schema). Nó chỉ có field và nằm ở adapter.</li></ul>
+<p>Trong ERP hiện tại hai thứ này là một (<code>PurchasedRequest</code> chỉ có <code>@Column</code>, xem <a href="#p3">03</a>). Vì vậy luật mới rơi ra service.</p>
+<p><b>Ví dụ nhỏ (TypeScript thuần, không framework):</b></p>
+<pre class="code">// Value object: bất biến, tự kiểm luật của chính nó
+class Quantity {
+  private constructor(readonly value: number, readonly unit: string) {}
+  static of(value: number, unit: string): Quantity { /* value &gt;= 0, không thì ném InvalidQuantity */ }
+  minus(other: Quantity): Quantity { /* cùng đơn vị; trả Quantity MỚI */ }
+}
+
+// Domain event: một sự việc đã xảy ra
+class ImportReceiptConfirmed {
+  constructor(readonly receiptId: string, readonly lines: { materialId: number; qty: Quantity }[], readonly at: Date) {}
+}
+
+// Domain error: vi phạm luật, tên theo nghiệp vụ
+class ReceiptAlreadyConfirmed extends Error {}
+
+// Aggregate root: giữ luật, ghi nhận event, KHÔNG lưu DB, KHÔNG gửi Rabbit
+class ImportReceipt {
+  private events: object[] = [];
+  confirm(now: Date): void {
+    // nếu đã CONFIRMED → ném ReceiptAlreadyConfirmed
+    // đổi trạng thái → this.events.push(new ImportReceiptConfirmed(...))
+  }
+  pullEvents(): object[] { /* trả và xoá danh sách event */ }
+}</pre>
+<p>Aggregate chỉ <b>ghi nhận</b> event, còn ai gửi event đi là việc của application. Domain cũng không gọi <code>new Date()</code> mà nhận <code>now</code> từ ngoài, để test được.</p>
+<p><b>Domain KHÔNG chứa:</b> SQL, tên bảng, HTTP status, JSON của API, chuỗi i18n, cột file Excel, gọi mạng, đọc config, framework DI.</p>
+</div>
+<div class="sub" id="b3"><h2>3. Application: use case và port</h2>
+<h3>3.1 Use case làm gì</h3>
+<p>Use case (application service) là <b>kịch bản của một ý định</b>: "xác nhận phiếu nhập", "huỷ một dòng YCMH". Nó gần như luôn theo cùng một nhịp:</p>
+<ol class="list"><li>Nhận <b>command</b> (dữ liệu vào, đã ở dạng nghiệp vụ, không phải request HTTP).</li><li><b>Lấy</b> aggregate qua port (repository).</li><li><b>Bảo</b> aggregate làm việc (<code>receipt.confirm(now)</code>). Luật nằm ở đây, trong domain.</li><li><b>Lưu</b> lại qua port.</li><li><b>Phát</b> event / gọi bên ngoài qua port.</li><li>Trả <b>kết quả</b> (cũng ở dạng nghiệp vụ).</li></ol>
+<p>Use case <b>không</b> chứa <code>if</code> nghiệp vụ. Nếu thấy <code>if (status === 'CONFIRMED') throw...</code> trong use case, luật đó đang nằm sai chỗ và nên chuyển vào aggregate (Tell, Don't Ask ở D2).</p>
+<h3>3.2 Port, Adapter, và khi nào bỏ qua Port</h3>
+<p><b>Port là interface, Adapter là class cài đặt interface đó.</b> Đúng vậy:</p>
+<ul class="list"><li><b>Port</b> là interface do lõi viết, bằng từ vựng nghiệp vụ.</li><li><b>Adapter</b> là class <code>implements</code> port bằng một công nghệ cụ thể. Một port có thể có nhiều adapter: một cái cho chạy thật, một cái cho test.</li></ul>
+<pre class="code">// Port: lõi đặt ra, không nhắc tên công nghệ
+interface DocumentStorage {
+  publishRequestDocument(requestId: number, file: GeneratedFile): Promise&lt;string&gt;;
+}
+
+// Adapter chạy thật
+class S3DocumentStorage implements DocumentStorage { /* gọi S3 SDK */ }
+
+// Adapter cho test
+class InMemoryDocumentStorage implements DocumentStorage { /* lưu vào một Map */ }
+
+// Use case chỉ biết port
+class PublishRequestDocument {
+  constructor(private readonly storage: DocumentStorage) {}
+}</pre>
+<p>Chú thích nhỏ: controller, cron, consumer cũng được gọi là "adapter" vì chúng đứng ở rìa và dịch thế giới ngoài vào lõi. Nhưng chúng <b>không implement</b> gì cả, chỉ <b>gọi</b> use case (mục 4).</p>
+<p><b>Nghiệp vụ nhỏ không cần Port thì dùng thẳng Adapter được không?</b> Được. Use case hoặc service nhận thẳng class cụ thể, không có interface:</p>
+<pre class="code">class RenameMaterialGroup {
+  constructor(private readonly groups: TypeOrmMaterialGroupRepository) {} // class cụ thể, không có port
+}</pre>
+<ul class="list"><li><b>Được:</b> ít file hơn, đọc một mạch là hiểu.</li><li><b>Mất:</b> muốn test thì phải dựng DB hoặc mock cả class; lõi biết tên công nghệ.</li></ul>
+<p>Có một điều nên giữ kể cả khi bỏ port: <b>gom công nghệ vào đúng một class</b>. Mọi câu SQL của việc đó nằm trong <code>TypeOrmMaterialGroupRepository</code>, không rải trong service. Đến khi cần port, việc thêm chỉ là: tạo interface từ chữ ký các method đang có, thêm <code>implements</code>, đổi kiểu tham số constructor. Vài phút là xong, không phải refactor lớn.</p>
+<div class="scroll"><table><thead><tr><th>Tình huống</th><th>Có cần port?</th><th>Vì sao</th></tr></thead><tbody><tr><td>CRUD danh mục một bảng, không có luật (đơn vị tính, nhóm NVL)</td><td>Không. Thường cũng không cần use case: controller → service → repository</td><td>Không có luật nào để bảo vệ hay test riêng</td></tr><tr><td>Đọc để hiển thị, xuất Excel (query)</td><td>Thường không</td><td>Đọc thẳng SQL là đủ</td></tr><tr><td>Lưu aggregate có luật (YCMH, PO, PN, PX)</td><td>Có</td><td>Muốn test luật mà không cần DB</td></tr><tr><td>Gọi dịch vụ ngoài: S3, email, API nhà cung cấp</td><td>Có</td><td>Chậm, tốn tiền, không chạy được trong unit test, hay đổi nhà cung cấp</td></tr><tr><td>Gọi sang module khác (PN hỏi PO)</td><td>Có</td><td>Team khác, nhịp thay đổi khác; port là chỗ dịch sang từ vựng của mình</td></tr><tr><td>Thư viện ổn định (<code>BigNumber</code>, <code>lodash</code>, xử lý ngày)</td><td>Không</td><td>Không phải adapter, không có biến thể</td></tr></tbody></table></div>
+<p><b>Dấu hiệu nên thêm port</b> cho chỗ đang dùng thẳng class:</p>
+<ul class="list"><li>Viết test cho một luật đơn giản mà phải dựng DB hoặc mock lằng nhằng.</li><li>Xuất hiện implementation thứ hai.</li><li>Chỗ đó bắt đầu gọi sang hệ thống hoặc module khác.</li></ul>
+<h3>3.3 Command và Query</h3>
+<p>Tách <b>ghi</b> (command) với <b>đọc</b> (query) theo ý CQS:</p>
+<ul class="list"><li><b>Command</b> đổi trạng thái, đi qua aggregate để giữ luật. Ví dụ: tạo PN, xác nhận PN, huỷ PX.</li><li><b>Query</b> chỉ đọc để hiển thị, <b>được phép</b> đọc thẳng SQL / view, join nhiều bảng, không cần dựng aggregate. Ví dụ: danh sách PN, chi tiết PO kèm SL đã nhập, xuất Excel.</li></ul>
+<p>Nhờ vậy màn hình danh sách nặng join không làm aggregate phình ra.</p>
+</div>
+<div class="sub" id="b4"><h2>4. Adapter: vào và ra</h2>
+<div class="scroll"><table><thead><tr><th>Adapter gọi vào lõi (không implement gì)</th><th>Việc của nó</th></tr></thead><tbody><tr><td>REST controller</td><td>HTTP request → command → gọi use case → kết quả → HTTP response, đổi domain error → mã lỗi HTTP</td></tr><tr><td>Upload / import file</td><td>Đọc file → nhiều command → gọi <b>cùng</b> use case với API</td></tr><tr><td>Cron job</td><td>Đến giờ → gọi use case (vd đối soát chi phí PO thiếu)</td></tr><tr><td>Consumer sự kiện</td><td>Message từ module khác → command → gọi use case (vd PN xác nhận → tồn kho tăng)</td></tr><tr><td>Unit test</td><td>Gọi use case trực tiếp với fake port</td></tr></tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Adapter cài đặt port (<code>implements</code>)</th><th>Cài đặt port nào</th></tr></thead><tbody><tr><td>Postgres / TypeORM repository</td><td><code>ImportReceiptRepository</code></td></tr><tr><td>SQL read model</td><td>Query danh sách, chi tiết</td></tr><tr><td>S3 / GCS</td><td><code>DocumentStorage</code></td></tr><tr><td>Excel / CSV writer</td><td><code>SpreadsheetExporter</code></td></tr><tr><td>Email / Telegram</td><td><code>ApprovalNotifier</code></td></tr><tr><td>RabbitMQ publisher</td><td><code>EventPublisher</code></td></tr><tr><td>HTTP client nhà cung cấp (SanMar, SSA)</td><td><code>SupplierCatalog</code></td></tr><tr><td>Gateway sang module khác</td><td><code>PurchaseOrderGateway</code>, <code>StockLedgerGateway</code></td></tr></tbody></table></div>
+<p>Adapter <b>chỉ dịch</b>: dịch từ thế giới ngoài vào ngôn ngữ của lõi và ngược lại. Adapter không quyết định nghiệp vụ.</p>
+</div>
+<div class="sub" id="b5"><h2>5. Use case ứng với API hay ứng với flow?</h2>
+<p><b>Ứng với một ý định nghiệp vụ</b> (một việc người dùng muốn làm), không phải với một bảng hay một endpoint.</p>
+<div class="scroll"><table><thead><tr><th>Quy tắc</th><th>Ví dụ</th></tr></thead><tbody><tr><td>Một endpoint ghi thường = một use case</td><td><code>POST /imports/:id/confirm</code> → <code>ConfirmImportReceipt</code></td></tr><tr><td>Một use case có thể được <b>nhiều adapter</b> gọi</td><td><code>CreatePurchaseRequest</code> được gọi từ API, từ module order-plan, từ module nvl-alert</td></tr><tr><td>Một endpoint "sửa chung chung" thường đang giấu <b>nhiều</b> ý định, nên tách</td><td><code>PUT /orders/:id/status</code> với status = confirmed / cancelled / completed → <code>ConfirmOrder</code>, <code>CancelOrder</code>, <code>CompleteOrder</code> (mỗi cái luật khác)</td></tr><tr><td>Các endpoint đọc gom vào một <b>query service</b></td><td>List, detail, export của PN → <code>ImportReceiptQueries</code></td></tr><tr><td>Flow dài nhiều bước qua nhiều module <b>không</b> là một use case khổng lồ</td><td>YCMH → PO → PN → PX là <b>chuỗi</b> use case nối bằng event, mỗi module một đoạn (mục 6)</td></tr><tr><td>CRUD danh mục đơn giản (đơn vị tính, nhóm NVL)</td><td>Không cần hexagon. Controller → repository là đủ (YAGNI). Hexagon dành cho nơi có luật</td></tr></tbody></table></div>
+<p>Ví dụ module <b>Phiếu nhập (PN)</b>:</p>
+<div class="scroll"><table><thead><tr><th>Ý định</th><th>Loại</th><th>Tên</th></tr></thead><tbody><tr><td>Tạo PN nháp (từ PO hoặc tay)</td><td>command</td><td><code>DraftImportReceipt</code></td></tr><tr><td>Sửa dòng PN nháp</td><td>command</td><td><code>ReviseImportReceipt</code></td></tr><tr><td>Xác nhận PN (cộng tồn, phát event)</td><td>command</td><td><code>ConfirmImportReceipt</code></td></tr><tr><td>Tái nhập từ phiếu xuất</td><td>command</td><td><code>ReimportFromExport</code></td></tr><tr><td>Huỷ / khôi phục PN</td><td>command</td><td><code>CancelImportReceipt</code>, <code>RestoreImportReceipt</code></td></tr><tr><td>Nhập PN từ file</td><td>command</td><td><code>ImportReceiptsFromSheet</code> (bên trong gọi lại <code>DraftImportReceipt</code>)</td></tr><tr><td>Danh sách, chi tiết, xuất Excel</td><td>query</td><td><code>ImportReceiptQueries</code>, <code>ExportImportReceiptSheet</code></td></tr></tbody></table></div>
+</div>
+<div class="sub" id="b6"><h2>6. Nhiều module trong cùng hệ thống: YCMH → PO → PN → PX → Tồn kho</h2>
+<h3>6.1 Mỗi module là một lục giác riêng</h3>
+<p>Mỗi khâu là một <b>bounded context</b>: có team chủ quản riêng, từ vựng riêng, dữ liệu riêng, và <b>bên trong</b> có domain / application / adapter riêng.</p>
+<div class="scroll"><table><thead><tr><th>Module</th><th>Team / actor chính</th><th>Aggregate</th><th>Dữ liệu <b>chỉ mình được ghi</b></th><th>Phát event</th><th>Cần từ module khác</th></tr></thead><tbody><tr><td>YCMH</td><td>Bộ phận yêu cầu, người duyệt</td><td><code>PurchaseRequest</code></td><td>phiếu YCMH + dòng</td><td><code>PurchaseRequestApproved</code></td><td>Biết dòng nào đã vào PO, đã nhận đủ (nghe event)</td></tr><tr><td>PO</td><td>Mua hàng</td><td><code>PurchaseOrder</code></td><td>PO + dòng, phí ship</td><td><code>PurchaseOrderConfirmed</code>, <code>PurchaseOrderCompleted</code></td><td>SL YCMH còn được đặt (<b>hỏi</b> YCMH)</td></tr><tr><td>PN</td><td>Kho</td><td><code>ImportReceipt</code></td><td>phiếu nhập + dòng + lot</td><td><code>ImportReceiptConfirmed</code></td><td>Dòng PO còn phải nhận (<b>hỏi</b> PO)</td></tr><tr><td>PX</td><td>Kho, sản xuất</td><td><code>ExportSlip</code></td><td>phiếu xuất + dòng</td><td><code>ExportSlipConfirmed</code></td><td>Tồn khả dụng theo lot (<b>hỏi</b> Tồn kho)</td></tr><tr><td>Tồn kho</td><td>Kho, kế toán</td><td><code>StockLedger</code> (sổ kho theo NVL / lot)</td><td>sổ kho, tồn theo ngày</td><td><code>StockChanged</code></td><td>Nghe PN, PX để ghi sổ</td></tr></tbody></table></div>
+<h3>6.2 Hai cách các module nói chuyện</h3>
+<div class="scroll"><table><thead><tr><th>Cách</th><th>Khi nào</th><th>Ví dụ</th><th>Trong lục giác</th></tr></thead><tbody><tr><td><b>Gọi đồng bộ</b> (hỏi và chờ trả lời)</td><td>Cần câu trả lời <b>ngay</b> để quyết định</td><td>PX hỏi "lot L1 còn đủ 50 cái không?" trước khi xác nhận</td><td>Bên hỏi: port <code>StockLedgerGateway</code> + adapter gọi sang Tồn kho. Bên được hỏi: mở query công khai <code>StockQueries</code></td></tr><tr><td><b>Sự kiện bất đồng bộ</b> (báo rồi thôi)</td><td>Bên kia chỉ cần <b>biết</b> chuyện đã xảy ra; chậm vài giây không sao</td><td>PN xác nhận → Tồn kho ghi sổ tăng, PO cập nhật SL đã nhận, YCMH tự hoàn thành</td><td>Bên phát: port <code>EventPublisher</code>. Bên nghe: consumer → use case của mình</td></tr></tbody></table></div>
+<div class="diagram"><pre class="mermaid">
+flowchart LR
+  YCMH["YCMH"]
+  PO["PO"]
+  PN["PN"]
+  PX["PX"]
+  INV["Tồn kho"]
+  PO --&gt;|"hỏi: SL còn được đặt"| YCMH
+  PN --&gt;|"hỏi: dòng PO còn phải nhận"| PO
+  PX --&gt;|"hỏi: tồn khả dụng theo lot"| INV
+  PN -.-&gt;|"event: ImportReceiptConfirmed"| INV
+  PN -.-&gt;|"event: ImportReceiptConfirmed"| PO
+  PN -.-&gt;|"event: ImportReceiptConfirmed"| YCMH
+  PO -.-&gt;|"event: PurchaseOrderCompleted"| YCMH
+  PX -.-&gt;|"event: ExportSlipConfirmed"| INV
+</pre></div>
+<p>Nét liền là gọi đồng bộ, mũi tên chỉ về <b>bên bị hỏi</b>. Nét đứt là event, mũi tên chỉ về <b>bên nghe</b>.</p>
+<p><b>Bốn luật giữ cho các module không dính chùm:</b></p>
+<ol class="list"><li><b>Không đọc, không ghi bảng của module khác.</b> Chỉ đi qua cửa công khai (use case / query mà module đó mở ra) hoặc event.</li><li><b>Phụ thuộc đồng bộ một chiều, không vòng.</b> Khâu sau hỏi khâu trước (PN hỏi PO, PO hỏi YCMH), khâu trước muốn biết khâu sau thì <b>nghe event</b>. Có vòng (A gọi B, B gọi A) là dấu hiệu ranh giới sai.</li><li><b>Mỗi bên dịch sang từ vựng của mình</b> (anti-corruption layer). Adapter <code>PurchaseOrderGateway</code> trong PN đổi "dòng PO" của bên PO thành "dòng cần nhận" của PN, nên PN không bị đổi theo mỗi khi PO đổi model.</li><li><b>Event mang đủ thông tin cần thiết và tên thì quá khứ.</b> <code>ImportReceiptConfirmed { receiptId, lines[{ materialId, lot, qty, poLineId }] }</code> là đủ, bên nghe không phải gọi ngược để hỏi thêm.</li></ol>
+<h3>6.3 Đối chiếu ERP hiện tại</h3>
+<div class="scroll"><table><thead><tr><th>Điểm</th><th>Hiện trạng</th><th>Đúng / chưa</th></tr></thead><tbody><tr><td>Event giữa các khâu</td><td>Đã có <code>ImportConfirmed</code> (<code>inventory/services/imports.service.ts:1845</code>), <code>ExportConfirmed</code> (<code>inventory/services/exports.service.ts:1190</code>), <code>PurchasedOrderCompleted</code> (<code>purchased-order/purchased-order.service.ts:1120</code>); YCMH nghe 2 event (<code>purchased-request/processors/status-updater.processor.ts:27-43</code>)</td><td><b>Đúng hướng</b></td></tr><tr><td>Ranh giới module</td><td>PN, PX và tồn kho cùng nằm trong module <code>inventory</code></td><td>Một module gánh 3 bounded context</td></tr><tr><td>Đọc / ghi bảng chéo</td><td>PO đọc bảng YCMH (<code>purchased-order.service.ts:283</code>, <code>:817</code>); YCMH ghi bảng PO (xem <a href="#p3">03</a>)</td><td>Vi phạm luật 1</td></tr><tr><td>Vòng phụ thuộc</td><td>PN inject <code>PurchasedOrderService</code> qua <code>forwardRef</code> (<code>imports.service.ts:123-124</code>); trong file đó không thấy chỗ nào gọi tới</td><td>Vi phạm luật 2, và có thể xoá ngay</td></tr></tbody></table></div>
+<h3>6.4 CRUD và export template chung cho mọi team</h3>
+<p>Mỗi module đều có CRUD và xuất Excel. Phần <b>giống nhau</b> là kỹ thuật, phần <b>khác nhau</b> là nghiệp vụ:</p>
+<div class="scroll"><table><thead><tr><th>Phần</th><th>Đặt ở đâu</th><th>Ví dụ</th></tr></thead><tbody><tr><td>Động cơ ghi Excel/CSV, phân trang, upload file, audit, auth</td><td><b>Shared kernel kỹ thuật</b> (dùng chung, không chứa luật)</td><td><code>FileWriterFactory</code>, <code>AuditInterceptor</code>, <code>S3Service</code> đang có trong ERP</td></tr><tr><td>Cột nào, tiêu đề gì, dữ liệu lấy từ đâu</td><td>Adapter export <b>của từng module</b></td><td><code>ExcelRequestSheets</code> của YCMH; PN có <code>ExcelImportReceiptSheets</code> riêng</td></tr><tr><td>Luật nghiệp vụ</td><td>Domain <b>của từng module</b>, không bao giờ ở shared</td><td>Luật tái nhập theo lot chỉ ở PN</td></tr></tbody></table></div>
+<pre class="code tree">modules/
+├── purchase-request/      domain/ application/ adapters/   public-api
+├── purchase-order/        domain/ application/ adapters/   public-api
+├── import-receipt/        domain/ application/ adapters/   public-api
+├── export-slip/           domain/ application/ adapters/   public-api
+└── stock-ledger/          domain/ application/ adapters/   public-api
+shared/                    # kỹ thuật dùng chung: file writer, storage, auth, audit, event bus</pre>
+</div>
+<div class="sub" id="b7"><h2>7. Một API thông thường: flow chạy và flow phụ thuộc</h2>
+<p>Ví dụ <code>POST /imports/12/confirm</code>: kho xác nhận phiếu nhập.</p>
+<h3>7.1 Flow chạy (lúc runtime, ai gọi ai, theo thời gian)</h3>
+<div class="diagram"><pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant U as Người dùng kho
+  participant API as Adapter vào: REST
+  participant UC as Use case: ConfirmImportReceipt
+  participant REPO as Port: ImportReceiptRepository
+  participant DB as Adapter ra: Postgres
+  participant AGG as Domain: ImportReceipt
+  participant PUB as Port: EventPublisher
+  participant MQ as Adapter ra: RabbitMQ
+  participant INV as Module Tồn kho (adapter vào: consumer)
+  U-&gt;&gt;API: POST /imports/12/confirm
+  API-&gt;&gt;UC: execute({ receiptId: 12, by: user })
+  UC-&gt;&gt;REPO: get(12)
+  REPO-&gt;&gt;DB: SELECT phiếu + dòng
+  DB--&gt;&gt;UC: ImportReceipt
+  UC-&gt;&gt;AGG: confirm(now)
+  Note over AGG: kiểm luật, đổi trạng thái, ghi nhận event
+  UC-&gt;&gt;REPO: save(receipt)
+  REPO-&gt;&gt;DB: UPDATE (transaction)
+  UC-&gt;&gt;PUB: publish(receipt.pullEvents())
+  PUB-&gt;&gt;MQ: import.confirmed
+  UC--&gt;&gt;API: kết quả
+  API--&gt;&gt;U: 200 OK
+  MQ-)INV: import.confirmed (vài ms sau, không chặn người dùng)
+  Note over INV: RecordStockIn: ghi sổ tăng tồn theo lot
+</pre></div>
+<h3>7.2 Flow phụ thuộc (lúc viết code, file nào import file nào)</h3>
+<div class="diagram"><pre class="mermaid">
+flowchart LR
+  API["REST adapter"] --&gt; UC["ConfirmImportReceipt"]
+  UC --&gt; AGG["ImportReceipt (domain)"]
+  UC --&gt; REPO[["ImportReceiptRepository (port)"]]
+  UC --&gt; PUB[["EventPublisher (port)"]]
+  DB["Postgres adapter"] --&gt; REPO
+  MQ["RabbitMQ adapter"] --&gt; PUB
+  DB --&gt; AGG
+</pre></div>
+<p>So hai hình. Lúc chạy, use case <b>gọi tới</b> Postgres (qua port). Lúc viết code, use case <b>không import</b> Postgres; ngược lại, Postgres adapter import port. Chỉ ở hai mũi tên <code>DB → REPO</code> và <code>MQ → PUB</code>, chiều import ngược với chiều gọi. Đó là toàn bộ "đảo ngược phụ thuộc".</p>
+<h3>7.3 Với API CRUD + export</h3>
+<p><code>GET /imports/export?from=...</code> là luồng <b>query</b>, nên ngắn hơn: adapter REST → <code>ExportImportReceiptSheet</code> → port <code>ImportReceiptReadModel</code> (adapter SQL đọc thẳng, join thoải mái) → port <code>SpreadsheetExporter</code> (adapter dùng <code>FileWriterFactory</code> chung) → trả file. Luồng này không dựng aggregate và không phát event.</p>
+</div>
+<div class="sub" id="b8"><h2>8. DIP chỉ áp cho một số mũi tên</h2>
+<p><b>Đúng.</b> Chỉ đảo mũi tên đi <b>từ chính sách (nghiệp vụ) ra chi tiết dễ thay đổi</b>. Mũi tên vốn đã chỉ vào trong thì giữ nguyên.</p>
+<div class="scroll"><table><thead><tr><th>Mũi tên</th><th>Hướng tự nhiên</th><th>Cần DIP?</th><th>Vì sao</th></tr></thead><tbody><tr><td>REST adapter → use case</td><td>Vào trong</td><td>Không</td><td>Đã đúng chiều, gọi thẳng class use case</td></tr><tr><td>Consumer → use case</td><td>Vào trong</td><td>Không</td><td>Như trên</td></tr><tr><td>Use case → aggregate, value object</td><td>Vào trong</td><td>Không</td><td>Cùng lõi, gọi thẳng class</td></tr><tr><td>Entity → value object</td><td>Trong lõi</td><td>Không</td><td>Cùng lõi</td></tr><tr><td>Use case → DB, S3, email, Rabbit</td><td><b>Ra ngoài</b></td><td><b>Có</b></td><td>Hạ tầng hay đổi, khó test; lõi định nghĩa port, adapter cài đặt</td></tr><tr><td>Use case → module khác</td><td><b>Ra ngoài</b></td><td><b>Có</b></td><td>Module khác có team và nhịp thay đổi riêng; port + adapter (dịch từ vựng)</td></tr><tr><td>Domain → thư viện ổn định (<code>BigNumber</code>, <code>lodash</code>, <code>Date</code>)</td><td>Ra ngoài</td><td>Không</td><td>Không có biến thể, hiếm khi đổi. Bọc nó là trừu tượng hoá thừa (D5 "rủi ro lạm dụng")</td></tr><tr><td>Adapter → port</td><td>Vào trong</td><td>Đây chính là <b>kết quả</b> của DIP |</td></tr><tr><td>Nơi lắp ráp → mọi thứ</td><td>—</td><td>Không áp dụng</td><td>Lắp ráp được phép biết mọi thứ</td></tr></tbody></table></div>
+<p><b>Một câu để tự hỏi trước khi tạo port:</b> <i>"Mình có cần thay cái này bằng thứ khác, hoặc bằng fake khi test, không?"</i> Có thì đảo. Không thì gọi thẳng.</p>
+<p>Trong bộ khung capstone có <b>14 port</b> cho những thứ lõi gọi ra: lưu phiếu, cấp mã, transaction, đọc hiển thị, PO (3 role), kho (2), Excel (3), S3, email. Thêm <b>1 interface</b> <code>PurchaseRequestCreator</code> để module khác gọi vào tạo phiếu. Consumer Rabbit chỉ gọi vào use case nên không cần port. Mọi mũi tên khác đi thẳng.</p>
+</div>
+<div class="sub" id="b9"><h2>9. Tự kiểm tra</h2>
+<ol class="list"><li><code>Quantity</code> và <code>ImportReceipt</code>, cái nào là entity, cái nào là value object? Vì sao?</li><li>Luật "không xác nhận PX khi tồn lot không đủ" nằm ở PX hay Tồn kho? PX lấy số tồn bằng cách nào?</li><li>Use case <code>ConfirmImportReceipt</code> có <code>if (receipt.status === 'CONFIRMED') throw ...</code>. Sai ở đâu, chuyển đi đâu?</li><li>Màn hình "Nhóm NVL" chỉ thêm / sửa tên / xoá một bảng. Có cần port không? Khi nào thì nên thêm?</li><li>PN muốn PO cập nhật "SL đã nhận". Gọi thẳng <code>PurchaseOrderService.updateReceived()</code> hay phát event? Vì sao?</li></ol>
+<details>
+<summary>Đáp án gợi ý</summary>
+<ol class="list"><li><code>ImportReceipt</code> là entity vì có danh tính (<code>PN-0012</code>) và sống qua nhiều trạng thái. <code>Quantity</code> là value object: hai <code>Quantity(10, "cái")</code> là một, không có ID, đổi giá trị thì tạo cái mới.</li><li>Số tồn thuộc <b>Tồn kho</b> (nguồn sự thật). Luật "không xuất quá tồn" được kiểm ở PX, dựa trên số liệu hỏi đồng bộ từ Tồn kho qua port <code>StockLedgerGateway</code>. Tồn kho vẫn tự kiểm lại khi ghi sổ, vì nó mới là chủ dữ liệu.</li><li>Luật trạng thái lọt ra use case (Ask thay vì Tell). Chuyển vào <code>ImportReceipt.confirm()</code>; use case chỉ gọi <code>receipt.confirm(now)</code>.</li><li>Không cần. Controller → service → repository dùng thẳng class là đủ, miễn là SQL gom trong một class repository. Nên thêm port khi nhóm NVL bắt đầu có luật cần test riêng (vd "không xoá nhóm đang có NVL"), khi có implementation thứ hai, hoặc khi phải gọi sang module khác.</li><li>Phát event <code>ImportReceiptConfirmed</code> cho PO nghe. PN là khâu sau, gọi ngược PO để <b>ra lệnh</b> sẽ tạo vòng phụ thuộc (đúng cái <code>forwardRef</code> đang có), và PN không cần chờ PO trả lời mới xong việc.</li></ol>
+</details>
+</div>
+</section>
+<section class="part" id="hex">
+  <div><div class="eyebrow">Áp vào NestJS · chờ bạn soát</div><h1>Hexagonal trong NestJS</h1></div>
+  <nav class="toc" aria-label="Mục Hexagonal trong NestJS"><a href="#h1">1 Hexagonal là gì</a><a href="#h2">2 Ánh xạ sang NestJS</a><a href="#h3">3 Trách nhiệm thư mục</a><a href="#h4">4 Luồng request</a></nav>
+<div class="note"><p>Đọc sau <a href="#hexb">04-hexagonal-co-ban.md</a> (khái niệm) và trước <a href="#p4">06-thiet-ke-lai.md</a>. Tên file trong các bảng là file của thiết kế đích ở 06.</p></div>
+<div class="sub" id="h1"><h2>1. Hexagonal là gì</h2>
+<p><b>Hexagonal Architecture</b> (Alistair Cockburn, 2005), còn gọi <b>Ports &amp; Adapters</b>:</p>
+<ul class="list"><li><b>Lõi</b> ở giữa chứa nghiệp vụ: luật YCMH, quy trình duyệt, huỷ item. Lõi không biết HTTP, Postgres, S3, email hay RabbitMQ tồn tại.</li><li><b>Port</b> là interface do <b>lõi tự định nghĩa</b>, viết bằng từ vựng nghiệp vụ. Ví dụ <code>DocumentStorage.publishRequestDocument(requestId, file)</code>, không phải <code>putObject(bucket, key, ACL)</code>.</li><li><b>Adapter</b> là class đứng ngoài, nối một công nghệ cụ thể vào port. Ví dụ <code>S3DocumentStorage implements DocumentStorage</code>.</li></ul>
+<p>Có hai loại adapter:</p>
+<div class="scroll"><table><thead><tr><th>Loại</th><th>Ai gọi ai</th><th>Ví dụ trong khung</th><th>Có cần port không</th></tr></thead><tbody><tr><td><b>Driving</b> (phía vào, primary)</td><td>Thế giới ngoài gọi <b>vào</b> lõi</td><td>Controller HTTP, consumer RabbitMQ, cron</td><td>Không bắt buộc: adapter gọi thẳng use case. Lõi không phụ thuộc vào nó nên không cần đảo</td></tr><tr><td><b>Driven</b> (phía ra, secondary)</td><td>Lõi gọi <b>ra</b> thế giới ngoài</td><td>Repository TypeORM, S3, email, gọi module PO</td><td><b>Có</b>: lõi gọi qua interface, adapter implements. Đây là chỗ DIP đảo mũi tên</td></tr></tbody></table></div>
+<p><b>Dependency Rule</b> (Clean Architecture): mũi tên <code>import</code> chỉ được đi <b>vào trong</b>. Vòng ngoài biết vòng trong; vòng trong không biết vòng ngoài.</p>
+<p>Nối với D5:</p>
+<div class="scroll"><table><thead><tr><th>D5</th><th>Trong Hexagonal</th></tr></thead><tbody><tr><td><b>DIP</b>: ai sở hữu interface?</td><td>Lõi sở hữu port; adapter phụ thuộc port, không ngược lại</td></tr><tr><td><b>DI</b>: ai gọi constructor?</td><td>NestJS container tạo adapter và truyền vào constructor của use case</td></tr><tr><td><b>IoC</b>: ai nắm luồng?</td><td>NestJS nhận request rồi gọi controller của bạn; RabbitMQ module gọi <code>process()</code></td></tr><tr><td><b>ISP</b>: client dùng method nào?</td><td>Port tách theo use case dùng nó (3 role cho PO, 2 role cho Excel)</td></tr></tbody></table></div>
+<h3>Lúc chạy vs lúc viết code: chỗ DIP đảo mũi tên</h3>
+<div class="diagram"><pre class="mermaid">
+flowchart LR
+  subgraph RUN["Lúc chạy: ai GỌI ai"]
+    direction LR
+    R1["Controller"] --&gt; R2["CreatePurchaseRequest"] --&gt; R3["DocumentStorage (port)"] --&gt; R4["S3DocumentStorage"] --&gt; R5[("S3")]
+  end
+  subgraph CODE["Lúc viết code: ai IMPORT ai"]
+    direction LR
+    C1["Controller"] --&gt; C2["CreatePurchaseRequest"] --&gt; C3["DocumentStorage (port)"]
+    C4["S3DocumentStorage"] --&gt; C3
+  end
+</pre></div>
+<p>Lúc chạy, luồng gọi đi từ ngoài vào trong rồi lại ra ngoài (tới S3). Trong mã nguồn, <code>S3DocumentStorage</code> import port chứ use case không import S3. Đó là "đảo phụ thuộc".</p>
+</div>
+<div class="sub" id="h2"><h2>2. Ánh xạ khái niệm sang NestJS</h2>
+<div class="scroll"><table><thead><tr><th>Hexagonal</th><th>Trong NestJS</th><th>File trong khung</th></tr></thead><tbody><tr><td>Lõi domain</td><td>Class TypeScript thuần, <b>không decorator</b></td><td><code>domain/purchase-request.ts</code></td></tr><tr><td>Use case</td><td>Class <code>@Injectable()</code>, mỗi class một luồng</td><td><code>application/use-cases/cancel-request-item.ts</code></td></tr><tr><td>Port</td><td><code>interface</code> + <b>token</b> <code>Symbol(...)</code> đặt cạnh nhau</td><td><code>application/ports/request-documents.ts</code></td></tr><tr><td>Driven adapter</td><td>Class <code>@Injectable() implements Port</code></td><td><code>infrastructure/storage/s3-document-storage.ts</code></td></tr><tr><td>Driving adapter</td><td><code>@Controller</code>, <code>@Processor</code> (Rabbit), <code>@Cron</code></td><td><code>presentation/purchased-request.controller.ts</code>, <code>infrastructure/messaging/fulfilment-events.consumer.ts</code></td></tr><tr><td>Nối port → adapter</td><td>Provider <code>{ provide: TOKEN, useClass / useExisting / useFactory }</code></td><td><code>purchased-request.module.ts</code></td></tr><tr><td>Tiêm vào</td><td><code>@Inject(TOKEN)</code> trong constructor</td><td>mọi use case</td></tr><tr><td>Đổi lỗi nghiệp vụ sang HTTP</td><td><code>ExceptionFilter</code> + <code>@UseFilters</code></td><td><code>presentation/domain-error.filter.ts</code></td></tr><tr><td>Cửa cho module khác</td><td>Chỉ <code>exports</code> token của port công khai</td><td><code>application/public-api.ts</code></td></tr></tbody></table></div>
+<p><b>Vì sao cần token?</b> <code>interface</code> của TypeScript bị xoá khi biên dịch, lúc chạy không còn gì để NestJS tra cứu. Nên phải có một giá trị thật (<code>Symbol</code>) làm khoá, và <code>@Inject(TOKEN)</code> nói "đưa tôi thứ gắn với khoá này".</p>
+<p><b>Vì sao token đặt cạnh port, không đặt ở infrastructure?</b> Ai sở hữu hợp đồng thì sở hữu khoá. Nếu token nằm trong infrastructure thì use case phải import infrastructure để lấy token: mũi tên lại chỉ ra ngoài (dấu hiệu vi phạm DIP ở D5).</p>
+<p><b>Ba cách nối trong module:</b></p>
+<div class="scroll"><table><thead><tr><th>Cách</th><th>Dùng khi</th><th>Ví dụ</th></tr></thead><tbody><tr><td><code>useClass</code></td><td>Một port, một adapter</td><td><code>PURCHASE_REQUEST_REPOSITORY → TypeOrmPurchaseRequestRepository</code></td></tr><tr><td><code>useExisting</code></td><td>Một class thoả nhiều port, muốn <b>một</b> instance</td><td>3 token PO cùng trỏ <code>PurchaseOrderModuleLinks</code></td></tr><tr><td><code>useFactory</code></td><td>Chọn implementation lúc khởi động theo cấu hình</td><td><code>REQUIRED_FIELDS_POLICY</code> theo <code>AppName</code> (<code>provider</code>)</td></tr></tbody></table></div>
+<p><b>Đánh đổi có chủ ý:</b> application vẫn dùng <code>@Injectable</code> / <code>@Inject</code> của <code>@nestjs/common</code>, tức là biết framework DI. Cách thuần hơn là bỏ decorator và đăng ký use case bằng <code>useFactory</code> trong module, nhưng sẽ dài hơn và lạ với team. Khung chọn cách thực dụng. Riêng <b>domain thì không import gì bên ngoài</b>; trong dự án thật nên có lint chặn điều đó (vd ESLint <code>no-restricted-imports</code> hoặc dependency-cruiser).</p>
+</div>
+<div class="sub" id="h3"><h2>3. Trách nhiệm từng thư mục</h2>
+<div class="scroll"><table><thead><tr><th>Thư mục</th><th>Chứa gì</th><th>Được import</th><th>Không được import</th><th>Đổi khi nào</th><th>Test thế nào</th></tr></thead><tbody><tr><td><code>domain/</code></td><td>Aggregate, entity, value object, luật (domain service), lỗi nghiệp vụ, port lưu trữ aggregate</td><td>Chỉ <code>domain/</code></td><td>NestJS, TypeORM, S3, i18n, DTO, <code>application/</code></td><td>Luật nghiệp vụ đổi (người duyệt, bộ phận yêu cầu, nhà máy)</td><td>Unit test thuần, không mock gì</td></tr><tr><td><code>application/</code></td><td>Use case (một luồng), query, port ra ngoài, API công khai</td><td><code>domain/</code>, <code>@nestjs/common</code></td><td><code>infrastructure/</code>, <code>presentation/</code>, TypeORM</td><td>Quy trình đổi (thêm bước, đổi thứ tự, thêm lệnh)</td><td>Unit test với fake port (object in-memory)</td></tr><tr><td><code>infrastructure/</code></td><td>Adapter: TypeORM, SQL đọc, S3, Excel, email, consumer Rabbit, gọi module khác; mapper bảng ⇄ aggregate</td><td>Mọi lớp trừ <code>presentation/</code>, mọi thư viện</td><td><code>presentation/</code></td><td>Công nghệ đổi (S3 → GCS, đổi schema, đổi thư viện Excel)</td><td>Integration test với DB / S3 thật hoặc container</td></tr><tr><td><code>presentation/</code></td><td>Controller, DTO HTTP, đổi DTO → lệnh, exception filter</td><td><code>application/</code>, <code>domain/</code> (kiểu, lỗi)</td><td><code>infrastructure/</code></td><td>Hợp đồng API đổi (route, JSON, mã lỗi)</td><td>Test controller / e2e</td></tr><tr><td><code>*.module.ts</code></td><td>Composition root: nối token với adapter</td><td>Tất cả</td><td>—</td><td>Đổi cách lắp</td><td>Boot test (module khởi động được)</td></tr></tbody></table></div>
+<p><b>Sơ đồ phụ thuộc giữa các lớp</b> (mũi tên = được phép import):</p>
+<div class="diagram"><pre class="mermaid">
+flowchart TB
+  ROOT["purchased-request.module.ts (composition root)"]
+  PRES["presentation: Controller, DTO, Filter"]
+  INF["infrastructure: TypeORM, S3, Excel, Mail, Rabbit"]
+  APP["application: use case, query, port ra ngoài"]
+  DOM["domain: aggregate, value object, luật, repository port"]
+  ROOT --&gt; PRES
+  ROOT --&gt; INF
+  ROOT --&gt; APP
+  PRES --&gt; APP
+  PRES --&gt; DOM
+  INF --&gt; APP
+  INF --&gt; DOM
+  APP --&gt; DOM
+</pre></div>
+<p>Không có mũi tên nào đi từ <code>domain</code> ra, cũng không có mũi tên giữa <code>presentation</code> và <code>infrastructure</code>. Trong dự án thật, dùng lint (ESLint <code>no-restricted-imports</code>, dependency-cruiser) để máy kiểm tra thay mắt người.</p>
+</div>
+<div class="sub" id="h4"><h2>4. Luồng một request đi qua NestJS</h2>
+<h3>4.1 Vòng đời request trong ERP (code thật)</h3>
+<p>NestJS chạy theo thứ tự cố định: <b>Middleware → Guard → Interceptor (trước) → Pipe → Handler → Interceptor (sau) → Exception filter (nếu lỗi)</b>. Đây là những gì ERP đăng ký ở mỗi tầng (đường dẫn tính từ <code>erp/backend/src/</code>):</p>
+<div class="scroll"><table><thead><tr><th>#</th><th>Tầng</th><th>ERP đăng ký gì</th><th>Ở đâu</th><th>Làm gì với request YCMH</th></tr></thead><tbody><tr><td>1</td><td>Express</td><td><code>compression</code>, <code>json</code> 5mb, <code>urlencoded</code></td><td><code>main.ts:40-42</code></td><td>Giải nén, parse body</td></tr><tr><td>2</td><td>Global prefix</td><td><code>/api</code></td><td><code>main.ts:44</code></td><td>URL thật là <code>/api/purchased-requests/...</code></td></tr><tr><td>3</td><td>Middleware</td><td><code>I18nMiddleware</code>, <code>RequestContextMiddleware</code>, <code>LoggingMiddleware</code></td><td><code>app.module.ts:413-424</code></td><td>Chọn ngôn ngữ, mở <code>HandlerContext</code> (múi giờ, user), ghi log</td></tr><tr><td>4</td><td>Router</td><td>Khớp method + path với decorator <code>@Get/@Put...</code></td><td>controller</td><td>Thứ tự khai báo quan trọng: <code>with-po</code>, <code>export</code> phải đứng trước <code>:id</code> (<code>C:78</code>, <code>C:98</code> trước <code>C:104</code>)</td></tr><tr><td>5</td><td>Guard</td><td><code>AuthGuard</code> toàn cục (<code>APP_GUARD</code>)</td><td><code>app.module.ts:406-409</code>, <code>modules/auth/auth.guards.ts:12</code></td><td>Xác thực, gắn <code>req.user</code>; sai thì dừng ở đây (401)</td></tr><tr><td>6</td><td>Interceptor trước</td><td><code>ClassSerializerInterceptor</code> (global), <code>AuditInterceptor</code> (<code>APP_INTERCEPTOR</code>), rồi <code>@UseInterceptors</code> của route</td><td><code>main.ts:84</code>, <code>modules/audit/audit.module.ts:13</code>, <code>C:110</code></td><td>Đọc metadata <code>@Audit</code>; <code>AppNameRestrictionInterceptor</code> chặn nhà máy không phải LAB/Bình Minh; <code>FileInterceptor</code> nhận file upload</td></tr><tr><td>7</td><td>Pipe</td><td><code>I18nValidationPipe</code> (global), <code>ParseIntPipe</code>, <code>@ExcelFile</code></td><td><code>main.ts:52-58</code>, <code>C:113-114</code>, <code>C:59</code></td><td>Validate DTO, đổi <code>:id</code> thành số, kiểm tra file Excel</td></tr><tr><td>8</td><td><b>Handler</b></td><td>Method của controller</td><td><code>C:116</code></td><td>Gọi xuống nghiệp vụ</td></tr><tr><td>9</td><td>Interceptor sau</td><td>Theo thứ tự ngược</td><td>như 6</td><td><code>ResponseInterceptor</code> bọc JSON chuẩn, Audit lưu log, serializer bỏ field <code>@Exclude</code></td></tr><tr><td>10</td><td>Exception filter</td><td><code>HttpExceptionFilter</code> toàn cục (+ <code>DomainErrorFilter</code> của route trong thiết kế mới)</td><td><code>main.ts:61-82</code></td><td>Đổi lỗi thành JSON lỗi; thiết kế mới: lỗi domain → 400/404/409</td></tr></tbody></table></div>
+<h3>4.2 Ví dụ: huỷ một item YCMH</h3>
+<p><code>PUT /api/purchased-requests/12/items/34/cancel</code></p>
+<p><b>Hiện tại:</b> <code>C:111-117</code> → <code>PurchasedRequestService.cancelItem</code> (<code>S:1205</code>) → <code>@Lock</code> → một transaction TypeORM tự query và ghi cả bảng YCMH lẫn bảng PO (<code>S:1206-1340</code>). Đọc một hàm 135 dòng là thấy hết, nhưng cũng phải hiểu hết cùng lúc.</p>
+<p><b>Thiết kế mới:</b></p>
+<div class="diagram"><pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant FE as Client
+  participant NEST as Middleware + AuthGuard + Interceptor + Pipe
+  participant C as PurchasedRequestController
+  participant UC as CancelRequestItem
+  participant REPO as PurchaseRequestRepository (port)
+  participant AGG as PurchaseRequest (aggregate)
+  participant LINKS as LockedOrdersLookup / OrderLineRelease (port)
+  participant PO as Module PO (API công khai)
+  FE-&gt;&gt;NEST: PUT /api/purchased-requests/12/items/34/cancel
+  NEST-&gt;&gt;C: cancel(12, 34) sau khi xác thực, kiểm tra nhà máy, ParseIntPipe
+  C-&gt;&gt;UC: execute(12, 34)
+  Note over UC: @Lock + tx.run(...)
+  UC-&gt;&gt;REPO: get(12)
+  REPO--&gt;&gt;UC: PurchaseRequest
+  UC-&gt;&gt;AGG: materialOf(34)
+  UC-&gt;&gt;LINKS: lockedOrdersFor(12, material)
+  LINKS-&gt;&gt;PO: ordersHoldingMaterial(12, material, locked)
+  PO--&gt;&gt;LINKS: danh sách PO đã chốt
+  UC-&gt;&gt;AGG: cancelItem(34, lockedOrders)
+  Note over AGG: kiểm luật, đổi trạng thái item, tính lại trạng thái phiếu
+  AGG--&gt;&gt;UC: materialReleased
+  UC-&gt;&gt;REPO: save(request)
+  UC-&gt;&gt;LINKS: releaseMaterial(12, material)
+  LINKS-&gt;&gt;PO: releaseMaterial (PO tự xoá dòng, huỷ PO rỗng, phân bổ phí ship)
+  UC--&gt;&gt;C: xong
+  C--&gt;&gt;NEST: kết quả
+  NEST--&gt;&gt;FE: 200, ResponseInterceptor bọc JSON, Audit lưu log
+</pre></div>
+<p>Nếu PO đã chốt, <code>AGG</code> ném <code>ItemLockedByConfirmedOrderError</code>. Lỗi đi ngược lên, <code>DomainErrorFilter</code> đổi thành <b>409</b> kèm message đã dịch.</p>
+<h3>4.3 Công thức đọc code trong khung mới</h3>
+<div class="scroll"><table><thead><tr><th>Bạn muốn biết</th><th>Mở đâu</th><th>Phím tắt VSCode</th></tr></thead><tbody><tr><td>Route này làm gì</td><td>Controller: decorator <code>@Put(...)</code> → tên use case trong thân hàm</td><td>Cmd+Shift+O (tìm symbol trong file)</td></tr><tr><td>Cái gì chạy trước handler</td><td>Decorator trên method và class (<code>@Audit</code>, <code>@UseInterceptors</code>) + bảng 4.1</td><td>—</td></tr><tr><td>Luồng nghiệp vụ</td><td>Use case: constructor = danh sách thứ nó cần; <code>execute</code> = các bước "gọi tới →"</td><td>Cmd+click tên use case</td></tr><tr><td>Port này ai cài đặt</td><td>Module: dòng <code>provide: TOKEN</code></td><td>Cmd+F12 (Go to Implementations) trên interface</td></tr><tr><td>Luật cụ thể</td><td>Method của aggregate, <code>StatusTransitions</code>, <code>RequiredFieldsPolicy</code></td><td>Cmd+click</td></tr><tr><td>Lỗi thành mã HTTP nào</td><td><code>kind</code> của lớp lỗi trong <code>domain/errors.ts</code> → <code>DomainErrorFilter</code></td><td>Cmd+click tên lỗi</td></tr><tr><td>SQL thật nằm đâu</td><td><code>infrastructure/persistence/*</code></td><td>Cmd+P gõ <code>sql-</code></td></tr></tbody></table></div>
+</div>
+</section>
+<section class="part" id="p4">
+  <div><div class="eyebrow">Phần 4 · chờ bạn soát</div><h1>Thiết kế lại purchased-request: chỉ khung</h1></div>
+  <nav class="toc" aria-label="Mục Thiết kế lại purchased-request: chỉ khung"><a href="#s41">4.1 Thư mục</a><a href="#s42">4.2 Domain</a><a href="#s43">4.3 Application</a><a href="#s44">4.4 Adapter</a><a href="#s45">4.5 Presentation</a><a href="#s46">4.6 Composition root</a><a href="#s47">4.7 Trước / sau</a><a href="#s48">4.8 Ánh xạ</a><a href="#s49">4.9 Quyết định</a><a href="#s410">4.10 Strangler Fig</a></nav>
+<div class="note"><p>Hexagonal (Ports &amp; Adapters) kiểu NestJS; khái niệm ở <a href="#hexb">04-hexagonal-co-ban.md</a>, cách áp vào NestJS ở <a href="#hex">05-hexagonal-trong-nestjs.md</a>. Mỗi dòng ở mục 4.2–4.6 là <b>một file trong thiết kế đích</b>, kèm trách nhiệm của nó. Hành vi nghiệp vụ giữ nguyên so với hiện tại.</p><p>Bộ khung code (49 file <code>.ts</code>) đã được viết và kiểm bằng <code>tsc --strict</code> cùng một script kiểm Dependency Rule, rồi được xoá sau khi học xong. Phần viết code sẽ làm ở các buổi lab.</p></div>
+<div class="sub" id="s41"><h2>4.1 Cây thư mục đích</h2>
+<p>Các mục 4.2–4.6 liệt kê từng file trong cây này.</p>
+<pre class="code tree">purchased-request/
+├── domain/                                  # không import NestJS, TypeORM, S3, exceljs
+│   ├── purchase-request.ts                  # aggregate root
+│   ├── purchase-request-item.ts             # entity con trong aggregate
+│   ├── purchase-request-code.ts             # value object YCMH-MMYYYY-NN
+│   ├── request-status.ts                    # enum + StatusTransitions (thay constants/status-transitions.ts)
+│   ├── status-aggregation.ts                # domain service thuần (thay utils/status-aggregator.ts)
+│   ├── required-fields-policy.ts            # Strategy theo nhà máy + 3 implementation
+│   ├── errors.ts                            # lỗi nghiệp vụ, không phải HttpException
+│   └── ports/
+│       ├── purchase-request.repository.ts   # port + token
+│       └── purchase-request-codes.ts        # port + token
+├── application/
+│   ├── ports/
+│   │   ├── purchase-order-links.ts          # 3 role interface + token (ISP)
+│   │   ├── fulfilment-progress.ts
+│   │   ├── stock-figures.ts
+│   │   ├── purchase-request-read-model.ts
+│   │   ├── request-documents.ts             # RequestSheetRenderer, ImportErrorReport, DocumentStorage, RequestSheetParser
+│   │   ├── approval-notifier.ts
+│   │   └── transaction-runner.ts
+│   ├── use-cases/
+│   │   ├── create-purchase-request.ts       # cũng là PurchaseRequestCreator cho module khác
+│   │   ├── revise-purchase-request.ts
+│   │   ├── import-purchase-requests.ts
+│   │   ├── delete-draft-purchase-request.ts
+│   │   ├── change-purchase-request-status.ts
+│   │   ├── send-for-approval.ts
+│   │   ├── cancel-request-item.ts
+│   │   ├── force-complete-request-item.ts
+│   │   ├── complete-fulfilled-items.ts
+│   │   └── publish-request-document.ts      # dùng chung bởi 3 use case
+│   ├── queries/
+│   │   ├── purchase-request-queries.ts
+│   │   └── export-purchase-request-sheet.ts
+│   ├── errors.ts
+│   └── public-api.ts                        # PurchaseRequestCreator + token: thứ DUY NHẤT module export
+├── infrastructure/
+│   ├── persistence/                         # TypeORM: repo, mapper, mã, transaction, read model, fulfilment SQL
+│   ├── purchase-order/                      # adapter gọi API công khai của module PO
+│   ├── inventory/                           # adapter số liệu tồn kho
+│   ├── excel/                               # renderer + parser
+│   ├── storage/                             # S3
+│   ├── mail/                                # email-templates
+│   ├── messaging/                           # Rabbit consumer (inbound adapter)
+│   └── required-fields-policy.provider.ts   # chọn Strategy theo AppName
+├── presentation/
+│   ├── purchased-request.controller.ts
+│   ├── dto/                                 # DTO HTTP + toCommand()
+│   └── domain-error.filter.ts               # lỗi nghiệp vụ → HTTP 400/404/409 + i18n
+└── purchased-request.module.ts              # composition root</pre>
+</div>
+<div class="sub" id="s42"><h2>4.2 Domain</h2>
+<h3>Value object và luật trạng thái</h3>
+<ul class="list"><li><code>domain/request-status.ts</code> — Actor: người duyệt (quy trình duyệt). MỘT nguồn duy nhất cho bảng chuyển trạng thái, dùng cho cả phiếu và item.</li><li><code>domain/status-aggregation.ts</code> — Actor: người duyệt. Domain service thuần: suy trạng thái phiếu từ trạng thái item (6 luật hiện có).</li><li><code>domain/purchase-request-code.ts</code> — Actor: bộ phận yêu cầu (quy ước đánh mã). Value object bất biến.</li></ul>
+<h3>Strategy theo nhà máy</h3>
+<ul class="list"><li><code>domain/required-fields-policy.ts</code> — Actor: vận hành đa nhà máy. Thay các nhánh if (isLabApp) / if (!isBinhMinhApp) ở S:525-552 và S:1817-1827.</li></ul>
+<h3>Aggregate</h3>
+<ul class="list"><li><code>domain/purchase-request-item.ts</code> — Entity con, chỉ được sửa qua PurchaseRequest (không có repository riêng).</li><li><code>domain/purchase-request.ts</code> — Actor: bộ phận yêu cầu + người duyệt (cùng sở hữu vòng đời MỘT phiếu). Giữ mọi invariant về trạng thái.</li></ul>
+<h3>Lỗi nghiệp vụ</h3>
+<ul class="list"><li><code>domain/errors.ts</code> — Lỗi theo ngôn ngữ nghiệp vụ. Việc đổi sang HTTP 400/404/409 và dịch i18n là của presentation (DomainErrorFilter).</li></ul>
+<h3>Port do domain sở hữu</h3>
+<ul class="list"><li><code>domain/ports/purchase-request.repository.ts</code> — Actor: hạ tầng hiện thực, nhưng hợp đồng viết bằng từ vựng aggregate. Không có EntityManager, QueryBuilder.</li><li><code>domain/ports/purchase-request-codes.ts</code> — Invariant "mã duy nhất" do chính module giữ (sửa vấn đề S:1551 + order-plan phải tự khoá).</li></ul>
+</div>
+<div class="sub" id="s43"><h2>4.3 Application</h2>
+<h3>Port do application sở hữu</h3>
+<ul class="list"><li><code>application/ports/purchase-order-links.ts</code> — YCMH sở hữu, viết bằng từ vựng YCMH. ISP: 3 role nhỏ vì 2 use case khác nhau dùng 2 tập method khác nhau.</li><li><code>application/ports/fulfilment-progress.ts</code> — Actor: kho. Thay SQL trong processor (P:117-215, P:288-297).</li><li><code>application/ports/stock-figures.ts</code> — Actor: kho. Thay S:920-1021.</li><li><code>application/ports/purchase-request-read-model.ts</code> — Actor: người xem / báo cáo. Phía đọc (CQRS-lite): trả view phẳng, không trả aggregate.</li><li><code>application/ports/request-documents.ts</code> — Actor: báo cáo (định dạng file) + hạ tầng (nơi lưu). Từ vựng: "phát hành", "chia sẻ tạm", không có ACL, bucket, putObject.</li><li><code>application/ports/approval-notifier.ts</code> — Actor: người duyệt (ai nhận, nội dung). Thay ApprovalMailService + sendApprove chết.</li><li><code>application/ports/transaction-runner.ts</code> — Port để use case khai báo ranh giới transaction mà không biết TypeORM.</li><li><code>application/errors.ts</code></li></ul>
+<h3>API công khai cho module khác</h3>
+<ul class="list"><li><code>application/public-api.ts</code> — ISP: order-plan và nvl-alert chỉ cần TẠO phiếu. Đây là thứ duy nhất module export (thay exports: [PurchasedRequestService] ở M:30).</li></ul>
+<h3>Use case (mỗi class phục vụ một actor, một luồng)</h3>
+<ul class="list"><li><code>application/use-cases/publish-request-document.ts</code> — Actor: báo cáo. Dùng chung bởi Create, Revise, SendForApproval (3 nơi → đủ rule of three để tách).</li><li><code>application/use-cases/create-purchase-request.ts</code> — Actor: bộ phận yêu cầu (và module order-plan, nvl-alert)</li><li><code>application/use-cases/revise-purchase-request.ts</code> — Actor: bộ phận yêu cầu</li><li><code>application/use-cases/import-purchase-requests.ts</code> — Actor: bộ phận yêu cầu</li><li><code>application/use-cases/delete-draft-purchase-request.ts</code> — Actor: bộ phận yêu cầu</li><li><code>application/use-cases/change-purchase-request-status.ts</code> — Actor: người duyệt</li><li><code>application/use-cases/send-for-approval.ts</code> — Actor: người duyệt</li><li><code>application/use-cases/cancel-request-item.ts</code> — Actor: mua hàng</li><li><code>application/use-cases/force-complete-request-item.ts</code> — Actor: mua hàng</li><li><code>application/use-cases/complete-fulfilled-items.ts</code> — Actor: kho (sự kiện nhập kho / PO hoàn thành)</li></ul>
+<h3>Query</h3>
+<ul class="list"><li><code>application/queries/purchase-request-queries.ts</code> — Actor: người xem (mọi vai trò)</li><li><code>application/queries/export-purchase-request-sheet.ts</code> — Actor: báo cáo</li></ul>
+</div>
+<div class="sub" id="s44"><h2>4.4 Infrastructure (adapter): chỉ tên, implements, dùng gì</h2>
+<ul class="list"><li><code>infrastructure/excel/excel-request-sheet-parser.ts</code> — Bọc PurchasedRequestFileReader hiện có; được inject thay vì <code>new</code> trong service (S:1824).</li><li><code>infrastructure/excel/excel-request-sheets.ts</code> — Actor: báo cáo. MỘT class thoả 2 role (RequestSheetRenderer, ImportErrorReport). Gom cả file lỗi về FileWriterFactory.</li><li><code>infrastructure/inventory/inventory-stock-figures.ts</code> — Actor: kho. Hiện tại là SQL (S:920-1021); sau này đổi sang API module inventory mà use case không biết.</li><li><code>infrastructure/mail/email-approval-notifier.ts</code> — Actor: người duyệt. Thay PurchasedRequestApprovalMailService và sendApprove chết (S:1658).</li><li><code>infrastructure/messaging/fulfilment-events.consumer.ts</code> — Driving adapter (phía VÀO), giống controller nhưng nguồn là RabbitMQ. Chỉ dịch message rồi gọi use case.</li><li><code>infrastructure/persistence/purchase-request.mapper.ts</code> — Actor: hạ tầng. Dịch qua lại giữa entity TypeORM (bảng) và aggregate domain. Domain không biết bảng trông thế nào.</li><li><code>infrastructure/persistence/sql-fulfilment-progress.ts</code> — Actor: kho. SQL hiện có của processor (P:117-215, P:288-297), tách khỏi phần quyết định.</li><li><code>infrastructure/persistence/sql-purchase-request-read-model.ts</code> — Phía đọc: chứa nguyên SQL hiện có, trả view phẳng. Được phép join bảng của module khác vì chỉ ĐỌC để hiển thị.</li><li><code>infrastructure/persistence/typeorm-purchase-request-codes.ts</code> — Hiện thực PurchaseRequestCodes. Khoá theo tháng rồi mới đọc mã cuối: khoá chuyển từ order-plan về đây.</li><li><code>infrastructure/persistence/typeorm-purchase-request.repository.ts</code> — Driven adapter: hiện thực port PurchaseRequestRepository (domain) bằng TypeORM.</li><li><code>infrastructure/persistence/typeorm-transaction-runner.ts</code> — Hiện thực TransactionRunner bằng TypeORM. Giữ EntityManager của transaction trong AsyncLocalStorage</li><li><code>infrastructure/purchase-order/purchase-order-module-links.ts</code> — Driven adapter: MỘT class thoả 3 role interface (ISP). Nói chuyện với module PO qua API công khai của PO,</li><li><code>infrastructure/required-fields-policy.provider.ts</code> — Chọn Strategy theo nhà máy MỘT lần lúc khởi động (OCP: nhà máy mới = 1 class + 1 nhánh ở đây).</li><li><code>infrastructure/storage/s3-document-storage.ts</code> — Driven adapter: chỉ ở đây mới biết bucket key, ACL, Content-Type, presigned URL.</li></ul>
+</div>
+<div class="sub" id="s45"><h2>4.5 Presentation</h2>
+<ul class="list"><li><code>presentation/domain-error.filter.ts</code> — Đổi lỗi nghiệp vụ sang HTTP. Chỉ ở đây mới biết mã 400/404/409 và key i18n.</li><li><code>presentation/dto/purchase-request.dto.ts</code> — DTO HTTP: hình dạng JSON client gửi lên. Validate bằng class-validator (lược bỏ decorator trong khung).</li><li><code>presentation/dto/to-command.ts</code> — Dịch DTO HTTP → lệnh nghiệp vụ. Ranh giới: phía trong không thấy DTO.</li><li><code>presentation/purchased-request.controller.ts</code> — Driving adapter HTTP. Giữ nguyên route và interceptor hiện có (C:33-140). Mỗi handler: DTO → lệnh → đúng 1 use case/query.</li></ul>
+</div>
+<div class="sub" id="s46"><h2>4.6 Composition root</h2>
+<ul class="list"><li><code>purchased-request.module.ts</code> — Composition root: nơi DUY NHẤT biết port nào nối với adapter nào. Đổi hạ tầng = sửa file này, không sửa use case.</li></ul>
+</div>
+<div class="sub" id="s47"><h2>4.7 Sơ đồ phụ thuộc: TRƯỚC và SAU</h2>
+<div class="compare"><div><h3>Trước (rút gọn từ 3.3):</h3><div class="diagram"><pre class="mermaid">
+flowchart LR
+  C["Controller"] --&gt; S["PurchasedRequestService"]
+  OP["order-plan"] --&gt; S
+  NA["nvl-alert"] --&gt; S
+  S --&gt; DS["TypeORM DataSource"]
+  S --&gt; S3["S3Service"]
+  S --&gt; XL["exceljs + fs"]
+  S --&gt; EM["Email"]
+  S --&gt; POU["purchased-order utils"]
+  DS --&gt; POT[("bảng PO")]
+  DS --&gt; INV[("bảng kho")]
+  P["Rabbit processor"] --&gt; DS
+</pre></div></div><div><h3>Sau</h3><div class="diagram"><pre class="mermaid">
+flowchart LR
+  subgraph PRES["presentation"]
+    CTRL["Controller"]
+    FIL["DomainErrorFilter"]
+  end
+  subgraph APP["application"]
+    UC["9 use case + 2 query"]
+    AP[["port: OrderLinks x3, FulfilmentProgress, StockFigures, ReadModel, Renderer, ErrorReport, Parser, DocumentStorage, ApprovalNotifier, TransactionRunner"]]
+    API[["PurchaseRequestCreator"]]
+  end
+  subgraph DOM["domain"]
+    AGG["PurchaseRequest + Item"]
+    RULE["StatusTransitions, StatusAggregation, RequiredFieldsPolicy"]
+    DP[["port: Repository, Codes"]]
+  end
+  subgraph INF["infrastructure"]
+    TORM["TypeOrm repo, codes, tx, read model"]
+    POA["PurchaseOrderModuleLinks"]
+    INVA["InventoryStockFigures"]
+    XLS["ExcelRequestSheets, Parser"]
+    S3A["S3DocumentStorage"]
+    MAIL["EmailApprovalNotifier"]
+    CONS["FulfilmentEventsConsumer"]
+  end
+  OP["order-plan"] --&gt; API
+  NA["nvl-alert"] --&gt; API
+  CTRL --&gt; UC
+  CONS --&gt; UC
+  UC --&gt; AGG
+  UC --&gt; AP
+  UC --&gt; DP
+  UC -.-&gt;|implements| API
+  AGG --&gt; RULE
+  TORM -.-&gt;|implements| DP
+  TORM -.-&gt;|implements| AP
+  POA -.-&gt;|implements| AP
+  INVA -.-&gt;|implements| AP
+  XLS -.-&gt;|implements| AP
+  S3A -.-&gt;|implements| AP
+  MAIL -.-&gt;|implements| AP
+  POA --&gt; POM["module PO: API công khai"]
+</pre></div></div></div>
+<p><b>Mũi tên bị đảo:</b></p>
+<div class="scroll"><table><thead><tr><th>Trước</th><th>Sau</th><th>Nguyên lý</th></tr></thead><tbody><tr><td>Service → <code>DataSource</code> (S:68)</td><td><code>TypeOrmPurchaseRequestRepository</code> → port <code>PurchaseRequestRepository</code> (domain)</td><td>DIP</td></tr><tr><td>Service → <code>S3Service</code> (S:70)</td><td><code>S3DocumentStorage</code> → port <code>DocumentStorage</code> (application)</td><td>DIP</td></tr><tr><td>Service → <code>exceljs</code>, <code>fs</code> (S:46-48)</td><td><code>ExcelRequestSheets</code> → port <code>RequestSheetRenderer</code>, <code>ImportErrorReport</code></td><td>DIP + ISP</td></tr><tr><td>Service → bảng PO + util PO (S:53, S:1209-1328)</td><td><code>PurchaseOrderModuleLinks</code> → 3 role port; luật PO về module PO</td><td>DIP + Encapsulation aggregate</td></tr><tr><td>Service → bảng kho (S:920-1021)</td><td><code>InventoryStockFigures</code> → port <code>StockFigures</code></td><td>DIP</td></tr><tr><td>order-plan, nvl-alert → <b>cả</b> service (M:30)</td><td>order-plan, nvl-alert → <code>PurchaseRequestCreator</code>; use case implements</td><td>ISP + DIP</td></tr><tr><td>Processor → <code>DataSource</code> (P:154)</td><td>Consumer → use case → port <code>FulfilmentProgress</code></td><td>DIP + SRP</td></tr><tr><td>Luật → <code>BadRequestException</code>, i18n (S:12, S:1928)</td><td>Luật → lỗi domain; filter → HTTP</td><td>DIP</td></tr></tbody></table></div>
+</div>
+<div class="sub" id="s48"><h2>4.8 Bảng ánh xạ: method cũ → nơi mới</h2>
+<div class="scroll"><table><thead><tr><th>Method cũ</th><th>Nơi mới</th></tr></thead><tbody><tr><td><code>storage</code> S:522 (tạo)</td><td><code>CreatePurchaseRequest.create</code> + <code>PurchaseRequest.draft</code> + <code>RequiredFieldsPolicy.check</code></td></tr><tr><td><code>storage</code> S:522 (sửa)</td><td><code>RevisePurchaseRequest.execute</code> + <code>PurchaseRequest.revise</code></td></tr><tr><td><code>generateCode</code> S:1551</td><td><code>PurchaseRequestCodes.next</code> (adapter có khoá) + <code>PurchaseRequestCode.of</code></td></tr><tr><td><code>exportToExcelToS3</code> S:131</td><td><code>PublishRequestDocument.forRequest</code> → <code>RequestSheetRenderer</code> + <code>DocumentStorage.publishRequestDocument</code></td></tr><tr><td><code>exportToExcel</code> S:75, <code>exportToExcelToFile</code> S:111, <code>exportToExcelGetWriter</code> S:152</td><td><code>ExportPurchaseRequestSheet.one</code> + <code>ExcelRequestSheets.renderRequest</code></td></tr><tr><td><code>exportAllToExcel</code> S:94, <code>exportAllToExcelToFile</code> S:305</td><td><code>ExportPurchaseRequestSheet.all</code> + <code>ExcelRequestSheets.renderList</code></td></tr><tr><td><code>clearExportFile</code> S:105</td><td>bỏ: renderer trả nội dung trong bộ nhớ, hoặc adapter tự dọn file tạm</td></tr><tr><td><code>find</code> S:643, <code>createQueryBuilder</code> S:659</td><td><code>PurchaseRequestQueries.list</code> → <code>SqlPurchaseRequestReadModel.list</code></td></tr><tr><td><code>findById</code> S:1023, <code>getRequestItemQuantities</code> S:726, <code>getRelatedPurchaseOrders</code> S:782</td><td><code>PurchaseRequestQueries.detail</code> → <code>SqlPurchaseRequestReadModel.detail</code></td></tr><tr><td><code>getUnreceivedQuantities</code> S:920, <code>getInventoryQuantities</code> S:995</td><td><code>StockFigures.awaitingReceipt</code>, <code>StockFigures.onHandToday</code></td></tr><tr><td><code>findWithPO</code> S:1088, <code>getLatestConfirmedUnitPrices</code> S:879</td><td><code>PurchaseRequestQueries.approvedForOrdering</code> → read model</td></tr><tr><td><code>delete</code> S:704</td><td><code>DeleteDraftPurchaseRequest</code> + <code>PurchaseRequest.assertDeletable</code></td></tr><tr><td><code>changeStatus</code> S:1532</td><td><code>ChangePurchaseRequestStatus</code> + <code>PurchaseRequest.changeStatus</code></td></tr><tr><td><code>autoSyncItemStatusTransition</code> S:1971</td><td><code>PurchaseRequest.cascadeToItems</code> (private)</td></tr><tr><td><code>validateStatusTransition</code> S:1921, <code>validateItemStatusTransition</code> S:1939</td><td><code>StatusTransitions.assertCanMove</code> (gộp 1)</td></tr><tr><td><code>tryAggregateStatus</code> S:2044 + processor <code>completeRequestIfEligible</code> P:257</td><td><code>PurchaseRequest.recomputeStatus</code> → <code>StatusAggregation.fromItems</code> (gộp 1)</td></tr><tr><td><code>sendBulkApprovalEmail</code> S:1571</td><td><code>SendForApproval.execute</code></td></tr><tr><td><code>markRequestsAsPending</code> S:1631</td><td><code>PurchaseRequest.submitForApproval</code></td></tr><tr><td><code>PurchasedRequestApprovalMailService.send</code></td><td><code>EmailApprovalNotifier.requestApproval</code></td></tr><tr><td><code>sendApprove</code> S:1658</td><td><b>xoá</b> (code chết)</td></tr><tr><td><code>cancelItem</code> S:1205 (phần YCMH)</td><td><code>CancelRequestItem</code> + <code>PurchaseRequest.cancelItem</code></td></tr><tr><td><code>cancelItem</code> S:1239-1328 (phần PO)</td><td><code>OrderLineRelease.releaseMaterial</code> → module PO</td></tr><tr><td><code>recalculatePOItemShippingCosts</code> S:1414</td><td><b>xoá</b> (code chết; bản đang dùng chuyển hẳn vào module PO)</td></tr><tr><td><code>forceCompleteItem</code> S:1353, <code>getInProgressPurchaseOrders</code> S:851</td><td><code>ForceCompleteRequestItem</code> + <code>OpenOrdersLookup</code> + <code>PurchaseRequest.forceCompleteItem</code></td></tr><tr><td><code>createFromFile</code> S:1816</td><td><code>ImportPurchaseRequests</code> + <code>RequestSheetParser</code></td></tr><tr><td><code>generateErrorExcelAndUpload</code> S:1723</td><td><code>ImportErrorReport.render</code> + <code>DocumentStorage.shareTemporarily</code></td></tr><tr><td>Nhánh LAB / Bình Minh S:525-552, S:1817-1827</td><td><code>RequiredFieldsPolicy</code> (3 implementation)</td></tr><tr><td><code>factoryNameMap</code> S:1668-1676</td><td><code>EmailApprovalNotifier</code> (cấu hình)</td></tr><tr><td>Processor <code>process</code> P:53 và các hàm SQL P:117-215, P:288-297</td><td><code>FulfilmentEventsConsumer</code> → <code>CompleteFulfilledItems</code> → <code>SqlFulfilmentProgress</code></td></tr><tr><td><code>shouldCompleteItem</code> P:242</td><td><code>PurchaseRequestItem.isFulfilledBy</code></td></tr><tr><td>ctor <code>rabbit</code> S:71, <code>mailer</code> S:67</td><td><b>xoá</b> (không dùng)</td></tr></tbody></table></div>
+</div>
+<div class="sub" id="s49"><h2>4.9 Quyết định tách, và chỗ cố ý KHÔNG tách</h2>
+<div class="scroll"><table><thead><tr><th>Quyết định</th><th>Nguyên lý dẫn tới</th></tr></thead><tbody><tr><td>9 use case theo luồng, gom theo actor</td><td>SRP: đổi luật huỷ item (mua hàng) không đụng gửi duyệt (người duyệt)</td></tr><tr><td>Aggregate <code>PurchaseRequest</code> có method, item chỉ sửa qua aggregate</td><td>Encapsulation + Tell, Don't Ask: không còn <code>item.status = ...</code> ở ngoài</td></tr><tr><td><code>cancelItem(itemId, lockedOrders)</code> nhận dữ liệu PO làm tham số</td><td>Domain giữ luật "không huỷ khi PO đã chốt" mà không phải gọi I/O</td></tr><tr><td>Luật PO (xoá dòng, huỷ PO rỗng, phân bổ phí ship) trả về module PO</td><td>Encapsulation ở mức aggregate: mỗi aggregate tự giữ invariant của nó</td></tr><tr><td><code>StatusTransitions</code> + <code>StatusAggregation</code> là nguồn duy nhất</td><td>Một luật một chỗ (bỏ 2 hàm validate trùng và bản "Mirrors")</td></tr><tr><td><code>RequiredFieldsPolicy</code> Strategy, chọn ở composition root</td><td>OCP: nhà máy thứ 5 = thêm 1 class + 1 dòng trong factory</td></tr><tr><td>3 role interface cho PO, 2 cho Excel; một class thoả nhiều role qua <code>useExisting</code></td><td>ISP: tách theo client, không theo implementation</td></tr><tr><td><code>PurchaseRequestCreator</code> là thứ duy nhất được export</td><td>ISP + DIP: client ngoài phụ thuộc lệnh nghiệp vụ, không phụ thuộc DTO HTTP</td></tr><tr><td>Mọi port đặt trong domain/application, token đặt cạnh port</td><td>DIP: phía nghiệp vụ sở hữu hợp đồng</td></tr><tr><td>Lỗi domain có <code>kind</code>, filter đổi sang HTTP</td><td>DIP + hợp đồng (D5): 409 cho "không phải DRAFT", không phải 404</td></tr><tr><td><code>PurchaseRequestCodes</code> giữ khoá cấp mã</td><td>Encapsulation: invariant "mã duy nhất" do chủ của nó giữ</td></tr><tr><td>Upload file ngoài transaction</td><td>Hợp đồng rõ: phiếu lưu xong mới phát hành file; lỗi file không rollback phiếu</td></tr></tbody></table></div>
+<p><b>Cố ý KHÔNG tách (YAGNI / rule of three):</b></p>
+<div class="scroll"><table><thead><tr><th>Không làm</th><th>Vì sao</th></tr></thead><tbody><tr><td>Port cho thời gian (<code>moment</code>), <code>lodash</code>, <code>SafeCalculator</code></td><td>Không có biến thể, không phải hạ tầng. Đúng mục "rủi ro lạm dụng DIP" của D5</td></tr><tr><td>Repository riêng cho item</td><td>Item không có vòng đời ngoài phiếu</td></tr><tr><td>Base class <code>Repository&lt;T&gt;</code> chung</td><td>Chỉ có 1 aggregate trong module; generic sớm là trừu tượng hoá không bằng chứng</td></tr><tr><td>Interface cho từng use case</td><td>Controller là client duy nhất. Chỉ use case có client ngoài (<code>CreatePurchaseRequest</code>) mới có interface</td></tr><tr><td>Event bus / outbox cho việc gỡ dòng PO</td><td>Một consumer, cùng một database: gọi đồng bộ trong cùng transaction là đủ. Chỉ đổi khi PO tách thành service riêng</td></tr><tr><td>Tách read model theo từng màn hình</td><td>3 query cùng actor, cùng đổi khi đổi màn hình YCMH</td></tr><tr><td>Strategy cho định dạng file (Excel / CSV / PDF)</td><td>Chỉ có Excel. Port <code>RequestSheetRenderer</code> tồn tại vì DIP (test, hạ tầng), không phải vì OCP</td></tr><tr><td>Đổi luật nghiệp vụ (vd cho phép huỷ khi PO Confirmed)</td><td>Refactor không đổi hành vi; đổi luật là việc khác, ticket khác</td></tr></tbody></table></div>
+</div>
+<div class="sub" id="s410"><h2>4.10 Kế hoạch chuyển đổi kiểu Strangler Fig</h2>
+<p>Mỗi bước là một PR độc lập, deploy được, hành vi không đổi, rủi ro thấp trước.</p>
+<div class="scroll"><table><thead><tr><th>Bước</th><th>Làm gì</th><th>Vì sao an toàn</th><th>Kiểm tra</th></tr></thead><tbody><tr><td><b>0. Dọn</b></td><td>Xoá <code>sendApprove</code> S:1658, bản private <code>recalculatePOItemShippingCosts</code> S:1414, dependency <code>rabbit</code>, <code>mailer</code> và đoạn comment S:1903-1913</td><td>Chỉ xoá code không ai gọi</td><td>Build xanh, spec hiện có xanh, grep không còn tham chiếu</td></tr><tr><td><b>1. Lưới an toàn</b></td><td>Viết characterization test cho <code>changeStatus</code>, <code>cancelItem</code>, <code>forceCompleteItem</code>, <code>tryAggregateStatus</code> và processor (DB test hoặc mock DataSource)</td><td>Chưa đổi code sản phẩm</td><td>Test chụp đúng hành vi hiện tại, kể cả chỗ lạ (404 khi không phải DRAFT)</td></tr><tr><td><b>2. Gom luật trạng thái</b></td><td>Tạo <code>domain/request-status.ts</code> + <code>status-aggregation.ts</code>; service và processor gọi chung, bỏ bản trùng</td><td>Hàm thuần, phủ bởi test bước 1</td><td>Test bước 1 xanh; spec aggregator chạy trên file mới</td></tr><tr><td><b>3. Cửa cho module khác</b></td><td>Thêm <code>PurchaseRequestCreator</code> + <code>CreatePurchaseRequestCommand</code>; adapter tạm gọi <code>storage()</code> cũ; chuyển order-plan, nvl-alert sang token; dời khoá cấp mã vào <code>PurchaseRequestCodes</code>; đổi <code>exports</code> của module</td><td>Branch by abstraction: bên trong vẫn là code cũ</td><td>Hết <code>dto as never</code>; tạo YCMH từ order-plan và nvl-alert chạy như cũ</td></tr><tr><td><b>4. Đẩy hạ tầng ra rìa</b></td><td>Tạo <code>DocumentStorage</code>, <code>RequestSheetRenderer</code>, <code>ImportErrorReport</code>, <code>ApprovalNotifier</code> + adapter; service cũ gọi qua port</td><td>Mỗi adapter bọc đúng code đang chạy</td><td>So file Excel xuất ra trước/sau giống nhau; email test gửi được</td></tr><tr><td><b>5. Trả luật về PO</b></td><td>Module PO thêm API <code>releaseMaterial</code>; <code>cancelItem</code> gọi qua <code>OrderLineRelease</code> trong cùng transaction</td><td>Rủi ro cao nhất (tiền: phân bổ phí ship) nên làm sau cùng, có test bước 1</td><td>So phí ship phân bổ trước/sau trên dữ liệu thật đã ẩn danh</td></tr></tbody></table></div>
+<p>Sau bước 5: chuyển từng endpoint sang use case mới (aggregate + repository) theo thứ tự đọc → ghi đơn giản → ghi phức tạp, mỗi endpoint một PR; khi không còn ai gọi <code>PurchasedRequestService</code> thì xoá class đó.</p>
+</div>
+</section>
+<section class="part" id="qa">
+  <div><div class="eyebrow">Cuối cùng</div><h1>Câu hỏi system design</h1></div>
+  <div class="placeholder">Chưa làm. 3–5 câu hỏi dựa trên module đã chọn.</div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  const links = [...document.querySelectorAll('nav.tabs a')];
+  const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+  const mark = id => links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting) mark(e.target.id); });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => s && io.observe(s));
+  }
+  function openTarget(hash) {
+    const el = hash && document.getElementById(hash.slice(1));
+    if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView({ block: 'start' }); }
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#f-"]');
+    if (a) { e.preventDefault(); openTarget(a.getAttribute('href')); }
+  });
+  if (location.hash) openTarget(location.hash);
+  const tg = document.getElementById('toggle-code');
+  if (tg) tg.addEventListener('click', () => {
+    const open = tg.dataset.open !== '1';
+    document.querySelectorAll('#code details.code').forEach(d => { d.open = open; });
+    tg.dataset.open = open ? '1' : '0';
+    tg.textContent = open ? 'Đóng tất cả code' : 'Mở tất cả code';
+  });
+})();
+</script>
