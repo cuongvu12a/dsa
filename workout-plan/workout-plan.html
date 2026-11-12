@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Recomp Plan</title>
+<style>
+  :root {
+    --bg: #f2efe8; --panel: #fbfaf6; --panel-2: #f5f2eb; --ink: #1a1815; --ink-2: #3b3732;
+    --muted: #6d665c; --line: #e0dacd; --line-2: #cfc7b7;
+    --body: #e8e3d9; --body-stroke: #d2cbbd; --m: #d8d1c4; --m-stroke: #b1a897;
+    --p: #e4572e; --p-ink: #c2431f; --s: #f3b79f; --p-soft: #fbe6dc;
+    --easy: #17784a; --hard: #b3261e; --same: #6d665c;
+    --flash: #fde3d6; --shadow: 0 18px 50px rgba(26,24,21,.16);
+    --f-display: "Avenir Next Condensed", "DIN Condensed", "Bahnschrift", "Roboto Condensed", "Arial Narrow", system-ui, sans-serif;
+    --f-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --f-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11100e; --panel: #1a1916; --panel-2: #211f1b; --ink: #f1ece3; --ink-2: #d4cec3;
+      --muted: #9e968a; --line: #2f2c27; --line-2: #45413a;
+      --body: #23211d; --body-stroke: #36332d; --m: #3a3630; --m-stroke: #544e45;
+      --p: #ff6a3d; --p-ink: #e2532a; --s: #7f3d27; --p-soft: #3a2018;
+      --easy: #5fd39a; --hard: #ff8a7a; --same: #9e968a;
+      --flash: #4a2516; --shadow: 0 18px 50px rgba(0,0,0,.55);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); -webkit-font-smoothing: antialiased; }
+  button { font: inherit; color: inherit; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- Header ---------- */
+  .hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 18px 28px; flex-wrap: wrap;
+    padding: 28px 0 18px; border-bottom: 2px solid var(--ink); }
+  .eyebrow { font: 700 11px/1.2 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  h1 { margin: 8px 0 4px; font: 800 clamp(34px, 6vw, 58px)/.92 var(--f-display); text-transform: uppercase; letter-spacing: -.005em; }
+  h1 .dot { color: var(--p); }
+  .hero .sub { color: var(--muted); font-size: 14px; }
+  .rot { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .rot-steps { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .rot-steps .st { font: 700 13px/1 var(--f-display); text-transform: uppercase; letter-spacing: .05em;
+    padding: 7px 10px; border: 1.5px solid var(--ink); border-radius: 5px; }
+  .rot-steps .ar { color: var(--muted); font-size: 13px; }
+  .rot-steps .st.fb { border-style: dashed; color: var(--muted); border-color: var(--muted); }
+  .facts { display: flex; gap: 6px 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+  .facts span::before { content: "■"; color: var(--p); font-size: 8px; margin-right: 6px; vertical-align: 2px; }
+
+  /* ---------- Layout ---------- */
+  .layout { display: grid; grid-template-columns: minmax(300px, 400px) minmax(0, 1fr); gap: 28px; padding: 22px 0 56px; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; gap: 20px; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+
+  /* ---------- Body model ---------- */
+  .bodycol { position: sticky; top: 16px; padding: 16px; }
+  @media (max-width: 900px) { .bodycol { position: static; } }
+  .figures { display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    background-image: radial-gradient(var(--line) 1px, transparent 1px); background-size: 14px 14px; border-radius: 8px; padding: 8px 4px 4px; }
+  .figure { text-align: center; }
+  .figure svg { width: 100%; height: auto; max-height: 440px; display: block; margin: 0 auto; }
+  @media (max-width: 900px) { .figure svg { max-height: 330px; } }
+  .figure .cap { font: 700 11px var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 2px 0 4px; }
+  .sil { fill: var(--body); stroke: var(--body-stroke); stroke-width: .8; }
+  .mg { cursor: pointer; }
+  .mg path { fill: var(--m); stroke: var(--m-stroke); stroke-width: .6; transition: fill .14s ease; }
+  .mg.hl-s path { fill: var(--s); }
+  .mg.hl-p path { fill: var(--p); }
+  .mg.unused { display: none; }
+  .deco { fill: none; stroke: var(--m-stroke); stroke-width: .6; pointer-events: none; }
+  .key { display: flex; gap: 14px; font-size: 12px; color: var(--muted); margin: 10px 2px 0; flex-wrap: wrap; }
+  .key span { display: inline-flex; align-items: center; gap: 6px; }
+  .key i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+
+  /* Legend + weekly volume */
+  .vol-head { display: flex; justify-content: space-between; align-items: baseline; margin: 16px 2px 6px; gap: 8px; }
+  .vol-head .eyebrow { color: var(--ink-2); }
+  .vol-head small { color: var(--muted); font-size: 11.5px; text-align: right; }
+  .legend { list-style: none; margin: 0; padding: 0; }
+  .legend li { display: grid; grid-template-columns: 12px minmax(0, 1.25fr) minmax(60px, 1fr) 46px; align-items: center; gap: 8px;
+    padding: 4px 6px; border-radius: 6px; cursor: pointer; font-size: 12.5px; }
+  .legend li.unused { display: none; }
+  .legend .sw { width: 11px; height: 11px; border-radius: 3px; background: var(--m); border: 1px solid var(--m-stroke); }
+  .legend .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .legend .nm i { font-style: normal; color: var(--muted); }
+  .legend .bar { height: 6px; background: var(--panel-2); border-radius: 3px; display: flex; overflow: hidden; }
+  .legend .bar b { background: var(--ink-2); display: block; }
+  .legend .bar em { background: var(--line-2); display: block; }
+  .legend .n { font: 600 11.5px var(--f-mono); text-align: right; color: var(--ink-2); }
+  .legend .n small { color: var(--muted); font-weight: 400; }
+  .legend li.hl-p { background: var(--p-soft); }
+  .legend li.hl-p .sw { background: var(--p); border-color: var(--p); }
+  .legend li.hl-s .sw { background: var(--s); border-color: var(--s); }
+  .legend li.hl-p .bar b { background: var(--p); }
+
+  /* ---------- Tabs ---------- */
+  .tabs { display: flex; border: 1.5px solid var(--ink); border-radius: 9px; overflow-x: auto; scrollbar-width: none; }
+  .tab { flex: 1 0 auto; padding: 9px 14px; background: transparent; border: 0; border-right: 1.5px solid var(--ink); cursor: pointer; text-align: center; }
+  .tab:last-child { border-right: 0; }
+  .tab b { display: block; font: 800 15px/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .05em; }
+  .tab small { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .tab:hover { background: var(--panel-2); }
+  .tab[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+  .tab[aria-selected="true"] small { color: inherit; opacity: .7; }
+  .tab:focus-visible, .card:focus-visible, .opt:focus-visible, .btn:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
+
+  /* ---------- Session ---------- */
+  .sess-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin: 20px 0 6px; flex-wrap: wrap; }
+  .sess-head h2 { margin: 0; font: 800 30px/1 var(--f-display); text-transform: uppercase; letter-spacing: .01em; }
+  .sess-head h2 span { font: 500 14px var(--f-body); color: var(--muted); text-transform: none; letter-spacing: 0; margin-left: 6px; }
+  .btn { background: transparent; border: 1.5px solid var(--line-2); border-radius: 6px; padding: 6px 10px; font-size: 12.5px; cursor: pointer; color: var(--ink-2); }
+  .btn:hover { border-color: var(--ink); color: var(--ink); }
+  .priority { margin: 8px 0 4px; }
+  .priority .eyebrow { margin-bottom: 6px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 12.5px; border: 1.5px solid var(--ink); border-radius: 999px; padding: 2px 10px; font-weight: 600; }
+  .pill i { font-style: normal; font-weight: 400; color: var(--muted); }
+  .hint { font-size: 12.5px; color: var(--muted); margin: 12px 0 0; }
+
+  .block { margin-top: 18px; }
+  .block-label { display: flex; align-items: center; gap: 10px; font: 700 11px var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+  .block-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .block.ss .cards { border-left: 3px solid var(--ink); padding-left: 10px; }
+  .cards { display: grid; gap: 8px; }
+  .card { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: stretch; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 10px; cursor: pointer; transition: border-color .15s, box-shadow .15s, opacity .15s; }
+  .card:hover { border-color: var(--line-2); }
+  .card.active { border-color: var(--p); box-shadow: 0 0 0 1.5px var(--p); }
+  .card.flash { animation: flash 1.1s ease-out; }
+  @keyframes flash { from { background: var(--flash); } to { background: var(--panel); } }
+  .code { font: 800 22px/1 var(--f-display); color: var(--muted); text-align: center; padding-top: 16px; border-right: 1px dashed var(--line); }
+  .card.active .code { color: var(--p); }
+  .cbody { padding: 12px 14px; min-width: 0; }
+  .row1 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 3px; }
+  .role { font: 700 10.5px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; }
+  .role.Main { background: var(--ink); color: var(--bg); }
+  .role.Accessory { border: 1px solid var(--line-2); color: var(--muted); }
+  .swapped { font-size: 11.5px; color: var(--p-ink); font-weight: 600; }
+  .ex-en { margin: 0; font-size: 17px; line-height: 1.25; font-weight: 700; }
+  .ex-vi { font-size: 13px; color: var(--muted); }
+  .dose { display: flex; gap: 4px 10px; flex-wrap: wrap; align-items: baseline; margin-top: 7px; }
+  .dose .num { font: 600 13px var(--f-mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 5px; padding: 2px 7px; white-space: nowrap; }
+  .dose .cue { font-size: 13px; color: var(--ink-2); }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+  .chip { font-size: 11.5px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--p); white-space: nowrap; }
+  .chip.p { background: var(--p-ink); border-color: var(--p-ink); color: #fff; }
+  .chip.s { color: var(--ink-2); }
+  .chip i { font-style: normal; opacity: .78; }
+  .swap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0 14px;
+    border-left: 1px dashed var(--line); color: var(--muted); font-size: 11px; text-align: center; min-width: 64px; }
+  .swap .ic { font-size: 20px; line-height: 1; color: var(--ink-2); }
+  .card:hover .swap .ic, .card.active .swap .ic { color: var(--p); }
+  @media (max-width: 520px) {
+    .card { grid-template-columns: 40px minmax(0, 1fr); }
+    .code { font-size: 18px; }
+    .swap { grid-column: 1 / -1; flex-direction: row; border-left: 0; border-top: 1px dashed var(--line); padding: 6px; }
+  }
+  .cards.filtering .card { opacity: .32; }
+  .cards.filtering .card.match, .cards.filtering .card.match-s { opacity: 1; }
+  .cards.filtering .card.match { border-color: var(--p); box-shadow: 0 0 0 1.5px var(--p); }
+  .cards.filtering .card.match-s { border-color: var(--s); border-style: dashed; }
+  .notes { margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+  .notes p { margin: 4px 0; }
+
+  /* ---------- Alternatives drawer ---------- */
+  .drawer { position: fixed; top: 0; right: 0; z-index: 30; height: 100%; width: min(410px, 100vw); display: flex; flex-direction: column;
+    background: var(--panel); border-left: 2px solid var(--ink); box-shadow: var(--shadow);
+    transform: translateX(105%); transition: transform .24s cubic-bezier(.2,.8,.2,1); visibility: hidden; }
+  .drawer.open { transform: none; visibility: visible; }
+  @media (min-width: 1180px) {
+    body { transition: padding-right .24s cubic-bezier(.2,.8,.2,1); }
+    body.drawer-open { padding-right: 410px; }
+  }
+  @media (max-width: 640px) {
+    .opt { grid-template-columns: 26px minmax(0, 1fr); }
+    .opt .tags { grid-column: 2; flex-direction: row; flex-wrap: wrap; align-items: center; }
+  }
+  @media (max-width: 640px) {
+    .drawer { top: auto; bottom: 0; height: auto; max-height: 80vh; width: 100%; border-left: 0; border-top: 2px solid var(--ink);
+      border-radius: 16px 16px 0 0; transform: translateY(105%); }
+  }
+  @media (prefers-reduced-motion: reduce) { .drawer, .card { transition: none; } .card.flash { animation: none; } }
+  .dh { display: flex; justify-content: space-between; gap: 10px; padding: 18px 18px 12px; border-bottom: 1px solid var(--line); }
+  .dh h3 { margin: 6px 0 2px; font: 800 22px/1.05 var(--f-display); text-transform: uppercase; }
+  .dh .dsub { font-size: 12.5px; color: var(--muted); }
+  .x { flex: none; width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid var(--line-2); background: transparent; cursor: pointer; font-size: 18px; line-height: 1; }
+  .x:hover { border-color: var(--ink); }
+  .dnote { margin: 0; padding: 10px 18px; font-size: 12px; color: var(--muted); background: var(--panel-2); border-bottom: 1px solid var(--line); }
+  .dlist { list-style: none; margin: 0; padding: 12px 14px 18px; overflow-y: auto; flex: 1; }
+  .opt { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: start; width: 100%; text-align: left;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; margin-bottom: 8px; cursor: pointer; }
+  .opt:hover { border-color: var(--ink); }
+  .opt.current { border-color: var(--p); background: var(--p-soft); cursor: default; }
+  .opt .rk { font: 800 20px/1 var(--f-display); color: var(--muted); padding-top: 2px; }
+  .opt.current .rk { color: var(--p); }
+  .opt .on { font-weight: 700; font-size: 14.5px; line-height: 1.3; }
+  .opt .ov { display: block; font-size: 12.5px; color: var(--muted); }
+  .opt .om { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .opt .om span { font-size: 10.5px; border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 7px; color: var(--ink-2); }
+  .opt .om span.p { border-color: var(--p-ink); color: var(--p-ink); }
+  .tags { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .tag { font: 700 10.5px/1 var(--f-body); letter-spacing: .06em; text-transform: uppercase; padding: 4px 6px; border-radius: 4px; white-space: nowrap; }
+  .tag.Easier { color: var(--easy); border: 1px solid currentColor; }
+  .tag.Harder { color: var(--hard); border: 1px solid currentColor; }
+  .tag.Similar { color: var(--same); border: 1px solid currentColor; }
+  .tag.cur { background: var(--p); color: #fff; }
+  .tag.def { color: var(--muted); border: 1px dashed var(--line-2); }
+  .title-row { display: flex; align-items: center; gap: 6px 10px; flex-wrap: wrap; }
+  .acts { display: inline-flex; gap: 6px; }
+  .cp, .yt { display: inline-flex; align-items: center; gap: 4px; font: 600 11.5px/1 var(--f-body); padding: 5px 8px; border-radius: 6px;
+    border: 1px solid var(--line-2); background: var(--panel); color: var(--ink-2); cursor: pointer; text-decoration: none; white-space: nowrap; }
+  .cp:hover, .yt:hover { border-color: var(--ink); color: var(--ink); }
+  .cp.ok { border-color: var(--easy); color: var(--easy); }
+  .yt .tri { color: #e62117; font-size: 10px; }
+  .opt .acts { margin-top: 8px; }
+  .err { padding: 40px 16px; max-width: 640px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Bodyweight · 1 dumbbell · pull-up bar</div>
+      <h1 id="title">Home Recomp<span class="dot">.</span></h1>
+      <div class="sub" id="subtitle"></div>
+    </div>
+    <div class="rot">
+      <div class="rot-steps" id="rotation"></div>
+      <div class="facts" id="facts"></div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel bodycol" aria-label="Muscle body model">
+      <div class="figures">
+        <div class="figure"><svg id="svg-front" viewBox="0 0 200 440" role="img" aria-label="Front view"></svg><div class="cap">Front · Mặt trước</div></div>
+        <div class="figure"><svg id="svg-back" viewBox="0 0 200 440" role="img" aria-label="Back view"></svg><div class="cap">Back · Mặt sau</div></div>
+      </div>
+      <div class="key">
+        <span><i style="background:var(--p)"></i>Primary · Chính</span>
+        <span><i style="background:var(--s)"></i>Secondary · Phụ</span>
+      </div>
+      <div class="vol-head">
+        <span class="eyebrow">Muscles · Nhóm cơ</span>
+        <small>Weekly sets: direct <b>+</b> indirect<br>Hiệp/tuần (1 vòng 4 buổi)</small>
+      </div>
+      <ul class="legend" id="legend"></ul>
+    </section>
+
+    <section aria-label="Exercise panel">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div id="session"></div>
+      <div class="notes" id="notes"></div>
+    </section>
+  </main>
+</div>
+
+<aside class="drawer" id="drawer" role="dialog" aria-modal="false" aria-labelledby="dTitle">
+  <div class="dh">
+    <div>
+      <div class="eyebrow">Alternatives · Bài thay thế</div>
+      <h3 id="dTitle"></h3>
+      <div class="dsub" id="dSub"></div>
+    </div>
+    <button class="x" id="dClose" aria-label="Close">×</button>
+  </div>
+  <p class="dnote">Ranked by hypertrophy effectiveness (#1 = best). Choose one to swap it into today's plan. · Xếp theo hiệu quả tăng cơ — chọn một bài để thay vào buổi tập.</p>
+  <ol class="dlist" id="dList"></ol>
+</aside>
+
+<script src="exercises.js"></script>
+<script>
+/* =====================================================================
+   Data lives in exercises.js (window.WORKOUT_DATA). Body geometry below:
+   left-side shapes (x < 100) are mirrored automatically.
+   ===================================================================== */
+const SILHOUETTE = [
+  "M100,62 L84,62 C76,66 70,68 64,70 C54,72 48,82 47,98 L49,104 L61,106 C64,140 66,180 67,212 L66,232 L100,236 Z",
+  "M47,98 C43,120 44,145 47,158 C44,180 46,205 49,228 C49,240 51,252 56,254 C62,254 64,246 64,236 C67,210 68,184 67,160 C68,140 67,120 61,106 Z",
+  "M66,230 C63,270 66,305 72,334 C68,362 71,392 75,418 C72,424 70,430 74,434 L94,434 C95,428 93,422 92,418 C95,392 96,364 93,338 C99,305 99,270 98.5,236 Z"
+];
+const BODY = {
+  front: [
+    { m: "traps",      d: "M91,54 C88,60 80,64 70,69 L90,70 Z" },
+    { m: "obliques",   d: "M66,110 C70,118 80,118 87,118 C85,145 85,175 87,200 L74,206 C72,180 70,140 66,110 Z" },
+    { m: "abs",        d: "M99.5,117 L88,117 C86,140 86,175 88,200 Q94,206 99.5,207 Z" },
+    { m: "chest",      d: "M79,76 L98.5,75 L98.5,110 C90,115 77,114 65,106 C64,94 69,83 79,76 Z" },
+    { m: "sideDelts",  d: "M64,70 C53,72 47,82 47,98 L53,101 C53,88 57,78 68,73 Z" },
+    { m: "frontDelts", d: "M68,73 C57,78 53,88 53,101 L62,104 C63,92 68,82 79,76 Z" },
+    { m: "biceps",     d: "M53,106 C49,120 49,138 52,152 L64,152 C66,138 66,120 62,107 Z" },
+    { m: "forearms",   d: "M49,160 C45,182 47,205 50,226 L62,226 C66,205 67,182 65,160 Z" },
+    { m: "quads",      d: "M68,236 C64,262 66,300 74,330 L93,330 C97,300 98,265 96,240 Z" },
+    { m: "calves",     d: "M84,346 C80,365 81,390 85,410 L91,410 C94,390 94,365 92,346 Z" }
+  ],
+  frontDeco: "M100,118 L100,205 M88,140 L112,140 M87,162 L113,162 M87,184 L113,184",
+  back: [
+    { m: "lats",       d: "M82,80 C86,90 88,104 88,114 L100,128 L100,150 L92,178 C80,172 70,150 66,124 C64,108 68,92 74,84 Z" },
+    { m: "obliques",   d: "M66,124 C70,150 80,172 92,178 C88,186 85,198 84,214 L68,212 C67,180 66,150 66,124 Z" },
+    { m: "lowerBack",  d: "M100,150 L100,214 L84,214 C85,196 88,186 93,176 Z" },
+    { m: "midBack",    d: "M84,78 L100,72 L100,126 L88,114 C88,100 86,88 84,78 Z" },
+    { m: "traps",      d: "M92,52 C88,60 78,66 66,70 L84,78 L100,72 L100,52 Z" },
+    { m: "sideDelts",  d: "M62,70 C51,73 46,84 47,99 L51,100 C51,87 56,77 66,72 Z" },
+    { m: "rearDelts",  d: "M66,72 C56,77 51,87 51,100 L61,103 C62,92 70,82 82,78 Z" },
+    { m: "triceps",    d: "M51,104 C46,120 47,140 51,156 L64,155 C66,138 64,120 61,106 Z" },
+    { m: "forearms",   d: "M49,160 C45,182 47,205 50,226 L62,226 C66,205 67,182 65,160 Z" },
+    { m: "glutes",     d: "M68,214 C64,232 66,256 80,264 C90,268 98,262 99,250 L99,216 Z" },
+    { m: "hamstrings", d: "M70,268 C68,292 72,316 78,334 L95,334 C97,312 97,290 97,270 C90,272 80,272 70,268 Z" },
+    { m: "calves",     d: "M74,344 C69,362 71,386 79,408 L90,408 C96,386 96,362 93,344 C86,348 80,348 74,344 Z" }
+  ],
+  backDeco: "M100,52 L100,214"
+};
+
+(function () {
+  const D = window.WORKOUT_DATA;
+  if (!D) {
+    document.body.innerHTML = '<div class="err"><h2>Không tải được exercises.js</h2><p>Hãy để file <b>exercises.js</b> cùng thư mục với file HTML này rồi mở lại. · Keep exercises.js in the same folder as this HTML file.</p></div>';
+    return;
+  }
+  const NS = "http://www.w3.org/2000/svg", MIRROR = "matrix(-1 0 0 1 200 0)";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const M = D.muscles, EX = D.exercises;
+
+  // ---- data sanity (warnings only) ----
+  D.sessions.forEach(s => s.items.forEach((it, i) => {
+    const pool = D.pools[it.pool];
+    if (!pool) console.warn(`[${s.id} #${i}] unknown pool "${it.pool}"`);
+    else { if (!pool.includes(it.pick)) console.warn(`[${s.id} #${i}] pick "${it.pick}" not in pool "${it.pool}"`);
+      pool.forEach(id => { if (!EX[id]) console.warn(`pool "${it.pool}": unknown exercise "${id}"`); }); }
+  }));
+
+  // ---- persistence (per-browser convenience; safe if storage is blocked) ----
+  const store = {
+    get(k, f) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; } catch (e) { return f; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  const PICKS = "workoutPlan.picks.v1", TAB = "workoutPlan.tab.v1";
+  let picks = store.get(PICKS, {});
+  const sessById = id => D.sessions.find(s => s.id === id);
+  let cur = sessById(store.get(TAB, "")) ? store.get(TAB, "") : D.sessions[0].id;
+
+  const poolOf = it => (D.pools[it.pool] || [it.pick]).filter(id => EX[id]);
+  function pickOf(sid, i) {
+    const it = sessById(sid).items[i], p = picks[sid + ":" + i];
+    return p && poolOf(it).includes(p) ? p : it.pick;
+  }
+  const doseOf = (it, ex) => `${it.sets} × ${ex.hold || it.reps}`;
+  const cueOf = (it, ex) => ex.cue || it.cue || "";
+
+  // ---- UI state ----
+  let openIdx = null, hoverEx = null, hoverMuscle = null, pinMuscle = null;
+
+  // ---- header ----
+  $("#subtitle").textContent = D.meta.subtitleVi || "";
+  $("#rotation").innerHTML = D.meta.rotation.map(id => `<span class="st">${esc(sessById(id).en)}</span>`).join('<span class="ar">→</span>')
+    + '<span class="ar">↻</span>' + (D.meta.fallback ? `<span class="st fb" title="When only one session fits in 3–4 days">${esc(sessById(D.meta.fallback).en)} = fallback</span>` : "");
+  $("#facts").innerHTML = (D.meta.facts || []).map(f => `<span>${esc(f)}</span>`).join("");
+  $("#notes").innerHTML = (D.meta.notes || []).map(n => `<p>${esc(n)}</p>`).join("");
+
+  // ---- body figures ----
+  function el(tag, attrs) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  function drawFigure(svg, view) {
+    const sil = el("g", { class: "sil" });
+    sil.appendChild(el("ellipse", { cx: 100, cy: 30, rx: 17, ry: 21 }));
+    sil.appendChild(el("rect", { x: 91, y: 46, width: 18, height: 18, rx: 3 }));
+    SILHOUETTE.forEach(d => { sil.appendChild(el("path", { d })); sil.appendChild(el("path", { d, transform: MIRROR })); });
+    svg.appendChild(sil);
+    const groups = {};
+    BODY[view].forEach(({ m, d }) => {
+      if (!M[m]) return;
+      let g = groups[m];
+      if (!g) {
+        g = groups[m] = el("g", { id: view + "-" + m, class: "mg", "data-muscle": m });
+        const t = el("title", {}); t.textContent = M[m].en + " · " + M[m].vi; g.appendChild(t);
+      }
+      g.appendChild(el("path", { d })); g.appendChild(el("path", { d, transform: MIRROR }));
+      svg.appendChild(g);
+    });
+    svg.appendChild(el("path", { class: "deco", d: BODY[view + "Deco"] }));
+  }
+  drawFigure($("#svg-front"), "front");
+  drawFigure($("#svg-back"), "back");
+
+  // ---- legend + weekly volume (recomputed after swaps) ----
+  function renderLegend() {
+    const vol = {}; Object.keys(M).forEach(m => vol[m] = { p: 0, s: 0 });
+    const used = new Set();
+    D.sessions.forEach(s => s.items.forEach((it, i) => {
+      const ex = EX[pickOf(s.id, i)];
+      ex.primary.concat(ex.secondary).forEach(m => used.add(m));
+      if (!D.meta.rotation.includes(s.id)) return;
+      ex.primary.forEach(m => vol[m] && (vol[m].p += it.sets));
+      ex.secondary.forEach(m => vol[m] && (vol[m].s += it.sets));
+    }));
+    const max = Math.max(1, ...Object.values(vol).map(v => v.p + v.s));
+    $("#legend").innerHTML = Object.keys(M).map(m => {
+      const v = vol[m];
+      return `<li data-muscle="${m}" class="${used.has(m) ? "" : "unused"}" tabindex="0">
+        <span class="sw"></span><span class="nm">${esc(M[m].en)} <i>· ${esc(M[m].vi)}</i></span>
+        <span class="bar"><b style="width:${v.p / max * 100}%"></b><em style="width:${v.s / max * 100}%"></em></span>
+        <span class="n">${v.p}<small>+${v.s}</small></span></li>`;
+    }).join("");
+    $$(".mg").forEach(g => g.classList.toggle("unused", !used.has(g.dataset.muscle)));
+  }
+
+  // ---- tabs ----
+  function renderTabs() {
+    $("#tabs").innerHTML = D.sessions.map(s =>
+      `<button class="tab" role="tab" data-id="${s.id}" aria-selected="${s.id === cur}"><b>${esc(s.en)}</b><small>${esc(s.vi)}</small></button>`).join("");
+  }
+
+  const searchName = n => n.replace(/\s*\([^)]*\)/g, "").trim();
+  const acts = name => { const q = searchName(name);
+    return `<span class="acts"><button type="button" class="cp" data-copy="${esc(q)}" title="Copy “${esc(q)}”">⧉ Copy</button>`
+      + `<a class="yt" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q + " tutorial")}" target="_blank" rel="noopener" title="Search YouTube"><span class="tri">▶</span> YouTube</a></span>`; };
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch (e) {
+      const ta = document.createElement("textarea"); ta.value = t; ta.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand("copy"); } catch (_) {}
+      ta.remove(); return ok; }
+  }
+  const chip = (m, k) => M[m] ? `<span class="chip ${k}">${esc(M[m].en)} <i>· ${esc(M[m].vi)}</i></span>` : "";
+
+  // ---- session ----
+  function renderSession(flashIdx) {
+    const s = sessById(cur);
+    const swappedAny = s.items.some((it, i) => pickOf(cur, i) !== it.pick);
+    const blocks = [];
+    s.items.forEach((it, i) => {
+      const L = it.ss ? it.ss[0] : null, last = blocks[blocks.length - 1];
+      if (L && last && last.L === L) last.idx.push(i); else blocks.push({ L, idx: [i] });
+    });
+    const card = i => {
+      const it = s.items[i], id = pickOf(cur, i), ex = EX[id], swapped = id !== it.pick;
+      const n = poolOf(it).length - 1;
+      return `<article class="card${i === flashIdx ? " flash" : ""}" data-i="${i}" tabindex="0" role="button" aria-haspopup="dialog"
+          aria-label="${esc(ex.en)} — show alternatives">
+        <div class="code">${esc(it.ss || i + 1)}</div>
+        <div class="cbody">
+          <div class="row1"><span class="role ${it.role}">${esc(it.role)}</span>${swapped ? `<span class="swapped">⇄ Swapped · Đã đổi (default: ${esc(EX[it.pick].en)})</span>` : ""}</div>
+          <div class="title-row"><h3 class="ex-en">${esc(ex.en)}</h3>${acts(ex.en)}</div>
+          <div class="ex-vi">${esc(ex.vi)}</div>
+          <div class="dose"><span class="num">${esc(doseOf(it, ex))}</span><span class="cue">${esc(cueOf(it, ex))}</span></div>
+          <div class="chips">${ex.primary.map(m => chip(m, "p")).join("")}${ex.secondary.map(m => chip(m, "s")).join("")}</div>
+        </div>
+        <div class="swap" aria-hidden="true"><span class="ic">⇄</span><span>${n} alt</span></div>
+      </article>`;
+    };
+    const pr = s.priority.filter(m => M[m]);
+    $("#session").innerHTML = `
+      <div class="sess-head">
+        <h2>${esc(s.en)}<span>${esc(s.vi)} · ${esc(s.time || "")} · ${s.items.length} exercises</span></h2>
+        ${swappedAny ? '<button class="btn" id="resetSess">↺ Reset swaps · Khôi phục mặc định</button>' : ""}
+      </div>
+      <div class="priority">
+        <div class="eyebrow">Priority muscles today · Nhóm cơ ưu tiên hôm nay</div>
+        <div class="pills">${pr.map(m => `<span class="pill">${esc(M[m].en)} <i>· ${esc(M[m].vi)}</i></span>`).join("")}</div>
+      </div>
+      <p class="hint">${canHover ? "Hover a card to see muscles · Click to choose an alternative" : "Tap a card to see muscles and alternatives"} · ${canHover ? "Rê chuột để xem cơ · Bấm để chọn bài thay thế" : "Chạm vào thẻ để xem cơ và bài thay thế"}</p>
+      <div id="cards">${blocks.map(b => {
+        const isSS = b.idx.length > 1;
+        return `<div class="block${isSS ? " ss" : ""}">
+          <div class="block-label">${isSS ? `Superset ${esc(b.L)} · ${b.idx.map(i => esc(s.items[i].ss)).join(" ↔ ")}` : `${esc(b.L || "")} · Straight sets · Tập riêng`}</div>
+          <div class="cards">${b.idx.map(card).join("")}</div></div>`;
+      }).join("")}</div>`;
+    const r = $("#resetSess");
+    if (r) r.addEventListener("click", e => {
+      e.stopPropagation();
+      s.items.forEach((_, i) => delete picks[cur + ":" + i]);
+      store.set(PICKS, picks); closeDrawer(); renderSession(); renderLegend(); refresh();
+    });
+  }
+
+  // ---- drawer ----
+  const drawer = $("#drawer");
+  function openDrawer(i) {
+    openIdx = i;
+    const s = sessById(cur), it = s.items[i], curId = pickOf(cur, i), curEx = EX[curId];
+    $("#dTitle").textContent = curEx.en;
+    $("#dSub").textContent = `${s.en} · ${it.ss || i + 1} · ${it.role} · ${doseOf(it, curEx)}`;
+    $("#dList").innerHTML = poolOf(it).map((id, rank) => {
+      const ex = EX[id], isCur = id === curId;
+      const rel = ex.level < curEx.level ? "Easier" : ex.level > curEx.level ? "Harder" : "Similar";
+      const relVi = { Easier: "Dễ hơn", Harder: "Khó hơn", Similar: "Tương đương" }[rel];
+      return `<li><div class="opt${isCur ? " current" : ""}" data-id="${id}" role="button" tabindex="0" ${isCur ? 'aria-current="true"' : ""}>
+        <span class="rk">${rank + 1}</span>
+        <span><span class="on">${esc(ex.en)}</span><span class="ov">${esc(ex.vi)}</span>
+          <span class="om">${ex.primary.map(m => `<span class="p">${esc(M[m].en)}</span>`).join("")}${ex.secondary.map(m => `<span>${esc(M[m].en)}</span>`).join("")}</span>${acts(ex.en)}</span>
+        <span class="tags">${isCur ? '<span class="tag cur">Current · Đang tập</span>' : `<span class="tag ${rel}">${rel} · ${relVi}</span>`}
+          ${id === it.pick ? '<span class="tag def">Default · Mặc định</span>' : ""}</span>
+      </div></li>`;
+    }).join("");
+    drawer.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+    document.body.classList.add("drawer-open");
+    refresh();
+  }
+  function closeDrawer() {
+    if (openIdx === null) return;
+    const i = openIdx; openIdx = null;
+    drawer.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); document.body.classList.remove("drawer-open");
+    refresh();
+    const c = $(`.card[data-i="${i}"]`); if (c && drawer.contains(document.activeElement)) c.focus();
+  }
+  function choose(id) {
+    const i = openIdx, it = sessById(cur).items[i], key = cur + ":" + i;
+    if (id === it.pick) delete picks[key]; else picks[key] = id;
+    store.set(PICKS, picks);
+    openIdx = null; drawer.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); document.body.classList.remove("drawer-open");
+    hoverEx = null;
+    renderSession(i); renderLegend(); refresh();
+  }
+
+  // ---- highlighting (single source of truth) ----
+  function mark(m, cls) { $$(`[data-muscle="${m}"]`).forEach(e => e.classList.add(cls)); }
+  function refresh() {
+    $$(".hl-p, .hl-s").forEach(e => e.classList.remove("hl-p", "hl-s"));
+    $$(".card.active, .card.match, .card.match-s").forEach(c => c.classList.remove("active", "match", "match-s"));
+    const cards = $("#cards"); cards.classList.remove("filtering");
+    if (openIdx !== null) { const c = $(`.card[data-i="${openIdx}"]`); if (c) c.classList.add("active"); }
+    const m = hoverMuscle || pinMuscle;
+    if (m) {
+      mark(m, "hl-p");
+      cards.classList.add("filtering");
+      $$(".card", cards).forEach(c => {
+        const ex = EX[pickOf(cur, +c.dataset.i)];
+        if (ex.primary.includes(m)) c.classList.add("match");
+        else if (ex.secondary.includes(m)) c.classList.add("match-s");
+      });
+      return;
+    }
+    const id = hoverEx || (openIdx !== null ? pickOf(cur, openIdx) : null);
+    if (!id) return;
+    const ex = EX[id];
+    ex.secondary.forEach(x => mark(x, "hl-s"));
+    ex.primary.forEach(x => { $$(`[data-muscle="${x}"]`).forEach(e => e.classList.remove("hl-s")); mark(x, "hl-p"); });
+  }
+
+  // ---- events (delegated) ----
+  if (canHover) {
+    document.addEventListener("mouseover", e => {
+      const mEl = e.target.closest(".mg, #legend li");
+      const opt = e.target.closest(".opt");
+      const card = e.target.closest(".card");
+      const nm = mEl ? mEl.dataset.muscle : null;
+      const nx = opt ? opt.dataset.id : card ? pickOf(cur, +card.dataset.i) : null;
+      if (nm !== hoverMuscle || nx !== hoverEx) { hoverMuscle = nm; hoverEx = nx; refresh(); }
+    });
+    document.addEventListener("mouseleave", () => { hoverMuscle = hoverEx = null; refresh(); });
+  }
+
+  document.addEventListener("click", e => {
+    const tab = e.target.closest(".tab");
+    if (tab) {
+      cur = tab.dataset.id; store.set(TAB, cur);
+      openIdx = null; drawer.classList.remove("open"); document.body.classList.remove("drawer-open"); pinMuscle = null;
+      renderTabs(); renderSession(); refresh(); return;
+    }
+    const cp = e.target.closest(".cp");
+    if (cp) {
+      copyText(cp.dataset.copy).then(ok => {
+        if (!ok) { window.prompt("Copy tên bài (Ctrl/Cmd + C):", cp.dataset.copy); return; }
+        cp.textContent = "✓ Copied · Đã copy"; cp.classList.add("ok");
+        setTimeout(() => { cp.textContent = "⧉ Copy"; cp.classList.remove("ok"); }, 1500);
+      });
+      return;
+    }
+    if (e.target.closest(".yt")) return; // let the link open, don't toggle the drawer
+    if (e.target.closest("#dClose")) { closeDrawer(); return; }
+    const opt = e.target.closest(".opt");
+    if (opt) { if (!opt.classList.contains("current")) choose(opt.dataset.id); return; }
+    if (drawer.contains(e.target)) return;
+    const card = e.target.closest(".card");
+    if (card) {
+      pinMuscle = null;
+      const i = +card.dataset.i;
+      if (openIdx === i) closeDrawer(); else openDrawer(i);
+      return;
+    }
+    const mEl = e.target.closest(".mg, #legend li");
+    closeDrawer();
+    if (mEl && !canHover) { const m = mEl.dataset.muscle; pinMuscle = pinMuscle === m ? null : m; refresh(); return; }
+    if (pinMuscle) { pinMuscle = null; refresh(); }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { closeDrawer(); pinMuscle = null; refresh(); return; }
+    const card = e.target.closest && e.target.closest(".card");
+    if (card && e.target === card && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); card.click(); }
+    if (e.target.classList && e.target.classList.contains("opt") && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); e.target.click(); }
+    const li = e.target.closest && e.target.closest("#legend li");
+    if (li && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); pinMuscle = pinMuscle === li.dataset.muscle ? null : li.dataset.muscle; refresh(); }
+  });
+
+  renderTabs(); renderSession(); renderLegend(); refresh();
+})();
+</script>
+</body>
+</html>
