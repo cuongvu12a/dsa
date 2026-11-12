@@ -96,8 +96,9 @@
 
   /* ---------- Tabs ---------- */
   .tabs { display: flex; border: 1.5px solid var(--ink); border-radius: 9px; overflow-x: auto; scrollbar-width: none; }
-  .tab { flex: 1 0 auto; padding: 9px 14px; background: transparent; border: 0; border-right: 1.5px solid var(--ink); cursor: pointer; text-align: center; }
+  .tab { flex: 1 1 auto; padding: 9px 10px; background: transparent; border: 0; border-right: 1.5px solid var(--ink); cursor: pointer; text-align: center; }
   .tab:last-child { border-right: 0; }
+  @media (max-width: 1100px) { .tab { flex-shrink: 0; } }
   .tab b { display: block; font: 800 15px/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .05em; }
   .tab small { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
   .tab:hover { background: var(--panel-2); }
@@ -215,6 +216,39 @@
   .yt .tri { color: #e62117; font-size: 10px; }
   .opt .acts { margin-top: 8px; }
   .err { padding: 40px 16px; max-width: 640px; margin: 0 auto; }
+
+  /* ---------- Mobility tab ---------- */
+  .tab.yoga { border-left: 1.5px dashed var(--ink); }
+  .yintro { font-size: 13.5px; color: var(--ink-2); margin: 8px 0 0; }
+  .ytools { display: flex; gap: 10px 18px; flex-wrap: wrap; margin-top: 14px; align-items: flex-end; }
+  .seg { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; border-right: 1.5px solid var(--ink); background: transparent; padding: 7px 12px; cursor: pointer; text-align: left; }
+  .seg button:last-child { border-right: 0; }
+  .seg button b { display: block; font: 800 14px/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .04em; }
+  .seg button small { display: block; font-size: 11px; color: var(--muted); }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .seg button[aria-pressed="true"] small { color: inherit; opacity: .7; }
+  .seg button:focus-visible { outline: 2px solid var(--p); outline-offset: -3px; }
+  .ytools .eyebrow { margin-bottom: 5px; }
+  .ycard { display: grid; grid-template-columns: 52px minmax(0, 1fr); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  .ycard.s2 { border-color: var(--p); box-shadow: 0 0 0 1.5px var(--p); }
+  .ycard .code { padding-top: 16px; }
+  .ycard.s2 .code { color: var(--p); }
+  .star { font: 700 10.5px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; }
+  .star.s2 { background: var(--p); color: #fff; }
+  .star.s1 { border: 1px solid var(--p); color: var(--p-ink); }
+  .place { font-size: 11.5px; color: var(--muted); }
+  .ydose { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; margin-top: 8px; font-size: 13px; align-items: baseline; }
+  .ydose .k { font: 700 10.5px var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .ydose .cur { font: 600 13px var(--f-mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 5px; padding: 2px 7px; justify-self: start; }
+  .ydose .alt { color: var(--muted); }
+  .why { margin-top: 8px; font-size: 12.5px; color: var(--p-ink); border-left: 3px solid var(--p); padding-left: 8px; }
+  .ynote { margin-top: 22px; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .ynote section { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .ynote ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); }
+  .ynote li { margin: 3px 0; }
+  .ynote section.warn { border-color: var(--hard); }
+  .ynote section.warn .eyebrow { color: var(--hard); }
 </style>
 </head>
 <body>
@@ -270,6 +304,7 @@
 </aside>
 
 <script src="exercises.js"></script>
+<script src="yoga.js"></script>
 <script>
 /* =====================================================================
    Data lives in exercises.js (window.WORKOUT_DATA). Body geometry below:
@@ -340,7 +375,11 @@ const BODY = {
   const PICKS = "workoutPlan.picks.v1", TAB = "workoutPlan.tab.v1";
   let picks = store.get(PICKS, {});
   const sessById = id => D.sessions.find(s => s.id === id);
-  let cur = sessById(store.get(TAB, "")) ? store.get(TAB, "") : D.sessions[0].id;
+  const Y = window.YOGA_DATA || null, YOGA_ID = Y ? Y.id : null;
+  const YMODE = "workoutPlan.yogaMode.v1", YLEN = "workoutPlan.yogaLen.v1";
+  let yMode = store.get(YMODE, "full"), yLen = store.get(YLEN, "short");
+  const savedTab = store.get(TAB, "");
+  let cur = sessById(savedTab) || (Y && savedTab === YOGA_ID) ? savedTab : D.sessions[0].id;
 
   const poolOf = it => (D.pools[it.pool] || [it.pick]).filter(id => EX[id]);
   function pickOf(sid, i) {
@@ -409,7 +448,53 @@ const BODY = {
   // ---- tabs ----
   function renderTabs() {
     $("#tabs").innerHTML = D.sessions.map(s =>
-      `<button class="tab" role="tab" data-id="${s.id}" aria-selected="${s.id === cur}"><b>${esc(s.en)}</b><small>${esc(s.vi)}</small></button>`).join("");
+      `<button class="tab" role="tab" data-id="${s.id}" aria-selected="${s.id === cur}"><b>${esc(s.en)}</b><small>${esc(s.vi)}</small></button>`).join("")
+      + (Y ? `<button class="tab yoga" role="tab" data-id="${Y.id}" aria-selected="${Y.id === cur}"><b>${esc(Y.en)}</b><small>${esc(Y.vi)}</small></button>` : "");
+    centerTab();
+  }
+  function centerTab() { // keep the selected tab visible when the tab bar scrolls (narrow screens)
+    const sel = $('.tab[aria-selected="true"]'), bar = $("#tabs");
+    if (sel) { const a = sel.getBoundingClientRect(), b = bar.getBoundingClientRect(); bar.scrollLeft += a.left - b.left - (b.width - a.width) / 2; }
+  }
+  window.addEventListener("load", centerTab);
+
+  // ---- mobility (yoga) tab: separate routine, no drawer, not counted in volume ----
+  function renderYoga() {
+    const mode = Y.modes.find(m => m.id === yMode) || Y.modes[Y.modes.length - 1];
+    const len = Y.lengths.find(l => l.id === yLen) || Y.lengths[0];
+    const other = Y.lengths.find(l => l !== len);
+    const poses = Y.poses.filter(p => p.star >= mode.min);
+    const seg = (list, sel, attr) => `<div class="seg">${list.map(o =>
+      `<button type="button" data-${attr}="${o.id}" aria-pressed="${o.id === sel.id}"><b>${esc(o.en)}</b><small>${esc(o.vi)}</small></button>`).join("")}</div>`;
+    const starTag = p => p.star === 2 ? '<span class="star s2">⭐⭐ Không bỏ</span>' : p.star === 1 ? '<span class="star s1">⭐ Tối thiểu</span>' : "";
+    const ul = a => `<ul>${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+    $("#session").innerHTML = `
+      <div class="sess-head"><h2>${esc(Y.en)}<span>${esc(Y.vi)} · ${poses.length} poses · ${esc(len.vi)}</span></h2></div>
+      <p class="yintro">${esc(Y.intro)}</p>
+      <div class="ytools">
+        <div><div class="eyebrow">Bao nhiêu bài</div>${seg(Y.modes, mode, "ymode")}</div>
+        <div><div class="eyebrow">Giữ bao lâu</div>${seg(Y.lengths, len, "ylen")}</div>
+      </div>
+      <div id="cards"><div class="block"><div class="block-label">Đúng thứ tự · sàn → đứng/ngồi</div><div class="cards">${poses.map(p => `
+        <article class="ycard s${p.star}">
+          <div class="code">${p.n}</div>
+          <div class="cbody">
+            <div class="row1">${starTag(p)}<span class="place">${esc(p.place)}</span></div>
+            <div class="title-row"><h3 class="ex-en">${esc(p.en)}</h3>${acts(p.en)}</div>
+            <div class="ex-vi">${esc(p.vi)} · ${esc(p.goal)}</div>
+            <div class="ydose">
+              <span class="k">${esc(len.en)}</span><span class="cur">${esc(p[len.id])}</span>
+              <span class="k">${esc(other.en)}</span><span class="alt">${esc(p[other.id])}</span>
+              <span class="k">Dễ hơn</span><span class="alt">${esc(p.easier)}</span>
+            </div>
+            ${p.why ? `<div class="why">${esc(p.why)}</div>` : ""}
+          </div>
+        </article>`).join("")}</div></div></div>
+      <div class="ynote">
+        <section><div class="eyebrow">Quy tắc nhanh</div>${ul(Y.rules.concat(Y.extras))}</section>
+        <section><div class="eyebrow">Trong giờ làm việc</div>${ul(Y.desk)}</section>
+        <section class="warn"><div class="eyebrow">An toàn</div>${ul(Y.safety)}</section>
+      </div>`;
   }
 
   const searchName = n => n.replace(/\s*\([^)]*\)/g, "").trim();
@@ -426,6 +511,7 @@ const BODY = {
 
   // ---- session ----
   function renderSession(flashIdx) {
+    if (Y && cur === YOGA_ID) { renderYoga(); return; }
     const s = sessById(cur);
     const swappedAny = s.items.some((it, i) => pickOf(cur, i) !== it.pick);
     const blocks = [];
@@ -558,6 +644,12 @@ const BODY = {
       cur = tab.dataset.id; store.set(TAB, cur);
       openIdx = null; drawer.classList.remove("open"); document.body.classList.remove("drawer-open"); pinMuscle = null;
       renderTabs(); renderSession(); refresh(); return;
+    }
+    const ym = e.target.closest("[data-ymode]"), yl = e.target.closest("[data-ylen]");
+    if (ym || yl) {
+      if (ym) { yMode = ym.dataset.ymode; store.set(YMODE, yMode); }
+      if (yl) { yLen = yl.dataset.ylen; store.set(YLEN, yLen); }
+      renderSession(); return;
     }
     const cp = e.target.closest(".cp");
     if (cp) {

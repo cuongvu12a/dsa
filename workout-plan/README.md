@@ -12,6 +12,8 @@ This file tells an agent what the project is, how the data is structured, which 
 | `exercises.js` | **All program data** (`window.WORKOUT_DATA`). Almost every change happens here. |
 | `history/` | Snapshots of `exercises.js` plus `HISTORY.md` (changelog in Vietnamese). The page never loads these files. |
 | `README.md` | This guide. |
+| `yoga-mobility.md` | Separate 8-pose yoga/mobility routine for posture (rounded upper back, forward head), in Vietnamese. Short/long modes; #5 and #6 are must-not-skip, #1+#3+#5+#6 is the 4-minute minimum. Independent of the strength plan — do not merge into `exercises.js` unless asked. |
+| `yoga.js` | Data for the **Mobility** tab (`window.YOGA_DATA`): same content as `yoga-mobility.md`, so keep the two in sync. Each pose has `star` (2 = must-not-skip, 1 = in the 4-pose minimum, 0 = normal), `short`, `long` and `easier`. Not counted in weekly volume, no alternatives drawer, not snapshotted in `history/`. |
 
 Why the data file is `.js` and not `.json`: browsers block `fetch()` on `file://`, so a JSON file would not load when the page is opened by double-click. `exercises.js` is a plain `<script src>` that assigns one JSON-shaped object, so keep it valid JSON-like (no functions, no computed values).
 
@@ -90,6 +92,7 @@ Rules the UI relies on:
 - **Hovering a muscle or legend row** highlights the cards that train it.
 - **Clicking a card** opens the ranked alternatives drawer on the right (a bottom sheet on mobile). Choosing an option swaps it into the slot. Clicking outside or pressing Esc closes the drawer.
 - **Swaps persist** in `localStorage` key `workoutPlan.picks.v1` as `{ "<sessionId>:<itemIndex>": exId }`. A saved pick is ignored if it is no longer in that slot's pool. Reordering items in a session therefore remaps or resets his swaps, so mention this when you reorder slots. The last tab is stored in `workoutPlan.tab.v1`.
+- **Mobility tab** (last tab, from `yoga.js`): toggles for 2 / 4 / 8 poses (filters by `star`) and Short / Long hold, stored in `workoutPlan.yogaMode.v1` and `workoutPlan.yogaLen.v1`. Cards have Copy/YouTube buttons but no drawer and no muscle highlighting. If `yoga.js` is missing the tab simply doesn't appear.
 - Body geometry (`SILHOUETTE`, `BODY`) lives in the HTML. Only left-side paths are defined, and they are mirrored at x = 200. Hidden regions are muscles that no current pick trains.
 
 ## How to change things
