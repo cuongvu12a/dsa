@@ -4,9 +4,11 @@
 > **Mục tiêu thực tế:** Qua vòng phỏng vấn **Mid Backend** một cách chắc chắn, có đủ System Design cơ bản để không bị hỏng ở vòng thiết kế. Senior nằm trong tầm với chỉ khi công ty đánh giá thoáng.
 > **Phạm vi:** Lấy Tier 1 và Tier 2 của Phase 1–3 trong [Roadmap.md](Roadmap.md), Phase 4 chỉ học ở mức khái niệm, **bỏ Phase 5**. Có bổ sung **HTTP/Auth, OS/Network cơ bản**. Roadmap gốc không có hai phần này nhưng phỏng vấn Junior/Mid gần như luôn hỏi.
 >
-> **Lịch:** Ngày 1 = Thứ Hai 19/10/2026 → Ngày 100 = Thứ Ba 26/01/2027. Nếu bạn bắt đầu vào ngày khác, chỉ cần dịch toàn bộ lịch theo.
+> **Lịch:** Ngày 1 = Thứ Hai 19/10/2026 → Ngày 100 = Thứ Ba 09/02/2027 (từ D8 lịch lệch +2 tuần, xem ghi chú bên dưới). Nếu bạn bắt đầu vào ngày khác, chỉ cần dịch toàn bộ lịch theo.
 >
-> 🔁 **Đã dời lịch +3 tuần ngày 21/10/2026** (lịch gốc: 28/09/2026 → 05/01/2027; thực tế bắt đầu trễ nên lấy đầu tuần 19/10 làm Ngày 1). Dời đúng bội số của 7 ngày nên các nhãn thứ (T2…CN) vẫn khớp. D96 không còn rơi vào ngày nghỉ lễ.
+> 🔁 **Đã dời lịch +3 tuần ngày 21/10/2026** (lịch gốc: 28/09/2026 → 05/01/2027; thực tế bắt đầu trễ nên lấy đầu tuần 19/10 làm Ngày 1). Dời đúng bội số của 7 ngày nên các nhãn thứ (T2…CN) vẫn khớp.
+>
+> 🔁 **Đã dời lịch +2 tuần ngày 09/11/2026, áp dụng từ D8 trở đi** (D8 thực học T2 09/11 thay vì 26/10). Tuần 1 (D1–D7) giữ ngày cũ vì đã qua; D6 + D7 học bù CN 15/11. Ngày 100 lùi từ 26/01 sang 09/02/2027, nên Tuần 14 và D99–D100 trùng Tết Nguyên Đán (chưa xử lý, cần chốt trước Tuần 13).
 >
 > 🔁 **Từ 26/10/2026: tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy (≤ 4h), Chủ Nhật là ngày trống để nghỉ hoặc học bù. Lịch ngày và số thứ tự D1–D100 giữ nguyên. Đã áp dụng cho cả 14 tuần. Bài DSA mới của Chủ Nhật cũ (ở các tuần 2, 3, 5, 6, 7, 9, 10) nay là tuỳ chọn. Danh sách DSA và Lab bị cắt để làm khi rảnh: [bu-tuy-chon.md](100-ngay/bu-tuy-chon.md).
 
@@ -25,42 +27,42 @@
 | D3 (T4, 21/10) | | Composition vs Inheritance | 🔶 | Lý thuyết xong; 4 bài tập và câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Còn: DSA 1 Two Sum (nếu chưa làm) |
 | D4 (T5, 22/10) | | SOLID: S, O | 🔶 | Lý thuyết + câu hỏi cuối bài xong. Còn: DSA 49 Group Anagrams (nếu chưa làm) |
 | D5 (T6, 23/10) | | SOLID: L, I, D | 🔶 | Lý thuyết, khung nhớ nhanh, 4 thẻ Anki xong; câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Còn: DSA 347 Top K (gửi để soát) |
-| D6 + D7 (T7, 24/10) | | Lab + Chốt tuần 1 | ⬜ | Gộp 1 buổi (3h55'). **Học bù CN 01/11** (ngày trống tuần 2) |
+| D6 + D7 (T7, 24/10) | | Lab + Chốt tuần 1 | ⬜ | Gộp 1 buổi (3h55'). **Học bù CN 15/11** (ngày trống tuần 2) |
 | CN (25/10) | | Ngày trống: nghỉ / học bù | — | |
 
-**Tuần 2 (26/10 – 01/11): chi tiết từng ngày**
+**Tuần 2 (09/11 – 15/11): chi tiết từng ngày**
 
 | Ngày | Hôm nay | Bài | Trạng thái | Ghi chú |
 |---|---|---|---|---|
-| D8 (T2, 26/10) | ◀ hôm nay | Coupling & Cohesion | ⬜ | |
-| D9 (T3, 27/10) | | Tổng quan Design Pattern + Singleton | ⬜ | |
-| D10 (T4, 28/10) | | Factory Method | ⬜ | |
-| D11 (T5, 29/10) | | Builder | ⬜ | |
-| D12 (T6, 30/10) | | Dependency Injection & IoC container | ⬜ | Nhắc lại DIP / DI / IoC của D5 #5 |
-| D13 + D14 (T7, 31/10) | | Lab + Chốt tuần 2 | ⬜ | |
-| CN (01/11) | | Ngày trống → **học bù D6 + D7 tuần 1** | — | |
+| D8 (T2, 09/11) | | Coupling & Cohesion | 🔶 | Lý thuyết #1-#8, khung nhớ nhanh, 5 thẻ Anki xong; bài tập H2, tự kiểm tra và câu hỏi cuối bài có đáp án mẫu (tự trả lời lại khi ôn). Còn: DSA 125 Valid Palindrome. Học xong 13/11 (trễ 4 ngày) |
+| D9 (T3, 10/11) | | Tổng quan Design Pattern + Singleton | ⬜ | |
+| D10 (T4, 11/11) | | Factory Method | ⬜ | |
+| D11 (T5, 12/11) | | Builder | ⬜ | |
+| D12 (T6, 13/11) | ◀ hôm nay | Dependency Injection & IoC container | ⬜ | Nhắc lại DIP / DI / IoC của D5 #5 |
+| D13 + D14 (T7, 14/11) | | Lab + Chốt tuần 2 | ⬜ | |
+| CN (15/11) | | Ngày trống → **học bù D6 + D7 tuần 1** | — | |
 
 **Các tuần còn lại**
 
 | Tuần | Ngày | Chủ đề | Trạng thái |
 |---|---|---|---|
 | 1 | 19/10 – 25/10 | Big-O, OOP, SOLID | 🔶 |
-| 2 | 26/10 – 01/11 | Two Pointers, Sliding Window, Creational Patterns | ⬜ |
-| 3 | 02/11 – 08/11 | Stack, Binary Search, Behavioral/Structural Patterns | ⬜ |
-| 4 | 09/11 – 15/11 | Linked List, HTTP, REST, Auth · **mốc hết Giai đoạn 1** | ⬜ |
-| 5 | 16/11 – 22/11 | Tree, SQL, Index | ⬜ |
-| 6 | 23/11 – 29/11 | Tree, Heap, EXPLAIN | ⬜ |
-| 7 | 30/11 – 06/12 | Graph, Transaction, Isolation | ⬜ |
-| 8 | 07/12 – 13/12 | Cache, Replication, Sharding, NoSQL · **mốc hết Giai đoạn 2** | ⬜ |
-| 9 | 14/12 – 20/12 | Intervals/Greedy, OS/Network, Scaling | ⬜ |
-| 10 | 21/12 – 27/12 | DP 1D, khung System Design, case study | ⬜ |
-| 11 | 28/12 – 03/01 | DP 2D, Trie, Message Queue, CAP (⚖️ D75 = 01/01 trùng nghỉ Tết Dương lịch: ngày rảnh, tận dụng làm buổi dài) | ⬜ |
-| 12 | 04/01 – 10/01 | Microservices, Resilience, Observability · **mốc hết Giai đoạn 3** | ⬜ |
-| 13 | 11/01 – 17/01 | Docker/K8s/CI-CD, câu chuyện cá nhân | ⬜ |
-| 14 | 18/01 – 24/01 | Tổng ôn & Mock | ⬜ |
-| D99–D100 | 25/01 – 26/01/2027 | Mock lần cuối, nộp CV | ⬜ |
+| 2 | 09/11 – 15/11 | Two Pointers, Sliding Window, Creational Patterns | ⬜ |
+| 3 | 16/11 – 22/11 | Stack, Binary Search, Behavioral/Structural Patterns | ⬜ |
+| 4 | 23/11 – 29/11 | Linked List, HTTP, REST, Auth · **mốc hết Giai đoạn 1** | ⬜ |
+| 5 | 30/11 – 06/12 | Tree, SQL, Index | ⬜ |
+| 6 | 07/12 – 13/12 | Tree, Heap, EXPLAIN | ⬜ |
+| 7 | 14/12 – 20/12 | Graph, Transaction, Isolation | ⬜ |
+| 8 | 21/12 – 27/12 | Cache, Replication, Sharding, NoSQL · **mốc hết Giai đoạn 2** | ⬜ |
+| 9 | 28/12 – 03/01 | Intervals/Greedy, OS/Network, Scaling (⚖️ D61 = 01/01 trùng nghỉ Tết Dương lịch: ngày rảnh, tận dụng làm buổi dài) | ⬜ |
+| 10 | 04/01 – 10/01 | DP 1D, khung System Design, case study | ⬜ |
+| 11 | 11/01 – 17/01 | DP 2D, Trie, Message Queue, CAP | ⬜ |
+| 12 | 18/01 – 24/01 | Microservices, Resilience, Observability · **mốc hết Giai đoạn 3** | ⬜ |
+| 13 | 25/01 – 31/01 | Docker/K8s/CI-CD, câu chuyện cá nhân | ⬜ |
+| 14 | 01/02 – 07/02 | Tổng ôn & Mock | ⬜ |
+| D99–D100 | 08/02 – 09/02/2027 | Mock lần cuối, nộp CV | ⬜ |
 
-**Mốc đối chiếu:** nếu cuối mỗi tuần bạn **chưa** chạm mốc ngày cuối của tuần đó trong bảng trên thì đang trễ. Tết Nguyên Đán 2027 (mùng 1 ≈ 06/02) rơi **sau** D100, nên lộ trình xong trước Tết.
+**Mốc đối chiếu:** nếu cuối mỗi tuần bạn **chưa** chạm mốc ngày cuối của tuần đó trong bảng trên thì đang trễ. ⚠️ Tết Nguyên Đán 2027 (mùng 1 ≈ Thứ Bảy 06/02) **trùng Tuần 14 và D99–D100** sau lần dời ngày 09/11/2026. Cần chốt cách xử lý trước Tuần 13 (xem ghi chú dời lịch ở đầu file).
 
 ---
 
@@ -245,7 +247,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 2 (26/10 – 01/11): Two Pointers, Sliding Window, Coupling/Cohesion, Creational Patterns
+## Tuần 2 (09/11 – 15/11): Two Pointers, Sliding Window, Coupling/Cohesion, Creational Patterns
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-02.md](100-ngay/tuan-02.md)
 
@@ -299,7 +301,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 3 (02/11 – 08/11): Stack, Binary Search, Behavioral/Structural Patterns, Repository
+## Tuần 3 (16/11 – 22/11): Stack, Binary Search, Behavioral/Structural Patterns, Repository
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-03.md](100-ngay/tuan-03.md)
 
@@ -353,7 +355,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 4 (09/11 – 15/11): Linked List, HTTP, REST API Design, Auth
+## Tuần 4 (23/11 – 29/11): Linked List, HTTP, REST API Design, Auth
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-04.md](100-ngay/tuan-04.md)
 
@@ -409,7 +411,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 # GIAI ĐOẠN 2 — DATABASE (Tuần 5–8)
 
-## Tuần 5 (16/11 – 22/11): Tree, SQL, Index
+## Tuần 5 (30/11 – 06/12): Tree, SQL, Index
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-05.md](100-ngay/tuan-05.md)
 
@@ -463,7 +465,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 6 (23/11 – 29/11): Tree, Heap, tối ưu Query (EXPLAIN)
+## Tuần 6 (07/12 – 13/12): Tree, Heap, tối ưu Query (EXPLAIN)
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-06.md](100-ngay/tuan-06.md)
 
@@ -517,7 +519,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 7 (30/11 – 06/12): Graph, Transaction, Isolation, Locking
+## Tuần 7 (14/12 – 20/12): Graph, Transaction, Isolation, Locking
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-07.md](100-ngay/tuan-07.md)
 
@@ -571,7 +573,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 8 (07/12 – 13/12): Backtracking, Cache, Replication, Sharding, NoSQL
+## Tuần 8 (21/12 – 27/12): Backtracking, Cache, Replication, Sharding, NoSQL
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-08.md](100-ngay/tuan-08.md)
 
@@ -627,7 +629,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 # GIAI ĐOẠN 3 — HỆ THỐNG & SYSTEM DESIGN (Tuần 9–12)
 
-## Tuần 9 (14/12 – 20/12): Intervals/Greedy, OS/Network, Scaling cơ bản
+## Tuần 9 (28/12 – 03/01): Intervals/Greedy, OS/Network, Scaling cơ bản
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-09.md](100-ngay/tuan-09.md)
 
@@ -679,7 +681,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 10 (21/12 – 27/12): DP 1D, khung System Design, các case study đầu tiên
+## Tuần 10 (04/01 – 10/01): DP 1D, khung System Design, các case study đầu tiên
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-10.md](100-ngay/tuan-10.md)
 
@@ -733,7 +735,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 11 (28/12 – 03/01): DP 2D, Trie, Message Queue, CAP
+## Tuần 11 (11/01 – 17/01): DP 2D, Trie, Message Queue, CAP
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-11.md](100-ngay/tuan-11.md)
 
@@ -787,7 +789,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 12 (04/01 – 10/01): Microservices, Resilience, Observability, case study
+## Tuần 12 (18/01 – 24/01): Microservices, Resilience, Observability, case study
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-12.md](100-ngay/tuan-12.md)
 
@@ -849,7 +851,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 # GIAI ĐOẠN 4 — DEVOPS CƠ BẢN, BEHAVIORAL, TỔNG DUỢT (Tuần 13–14 + D99–100)
 
-## Tuần 13 (11/01 – 17/01): Docker/K8s/CI-CD ở mức khái niệm + câu chuyện cá nhân
+## Tuần 13 (25/01 – 31/01): Docker/K8s/CI-CD ở mức khái niệm + câu chuyện cá nhân
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-13.md](100-ngay/tuan-13.md)
 
@@ -902,7 +904,7 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 
 ---
 
-## Tuần 14 (18/01 – 24/01): Tổng ôn & Mock
+## Tuần 14 (01/02 – 07/02): Tổng ôn & Mock
 
 📄 **Chi tiết từng ngày (mục kiến thức, Tier, từ khoá research, thẻ Anki):** [100-ngay/tuan-14.md](100-ngay/tuan-14.md)
 
@@ -916,11 +918,11 @@ Dùng ngôn ngữ và framework bạn đang làm hằng ngày.
 | D93 (T3) | Error List | **Ôn Giai đoạn 2:** trả lời lại chốt tuần 5–8 | 2h40' |
 | D94 (T4) | Error List | **Ôn Giai đoạn 3:** trả lời lại chốt tuần 9–12 | 2h40' |
 | D95 (T5) | 1 bài Medium mới, 45' | **Mock SD 45':** *"Thiết kế hệ thống thương mại điện tử: sản phẩm – giỏ hàng – đặt hàng – thanh toán"* | 2h25' |
-| D96 (T6 – 22/01) | — | **Mock đầy đủ:** 45' coding + 45' SD + 15' behavioral. Nhờ bạn bè hoặc tự quay video | 2h45' |
+| D96 (T6 – 05/02) | — | **Mock đầy đủ:** 45' coding + 45' SD + 15' behavioral. Nhờ bạn bè hoặc tự quay video | 2h45' |
 | D97 + D98 (T7) | Làm lại bài sai trong buổi mock | Xem lại video mock, liệt kê 3 điểm yếu và sửa + Ôn nhẹ Anki. Chuẩn bị 3–5 câu hỏi để hỏi ngược nhà tuyển dụng | 4h00' |
 | CN | — | Ngày trống: ưu tiên nghỉ trước D99 | — |
 
-## D99 – D100 (25/01 – 26/01/2027): Sẵn sàng
+## D99 – D100 (08/02 – 09/02/2027): Sẵn sàng
 
 📄 Chi tiết: [100-ngay/tuan-14.md](100-ngay/tuan-14.md)
 

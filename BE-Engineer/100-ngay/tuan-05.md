@@ -1,4 +1,4 @@
-# Tuần 5 (16/11 – 22/11): Tree, SQL, Index
+# Tuần 5 (30/11 – 06/12): Tree, SQL, Index
 
 ← [Tuần 4](tuan-04.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 6 →](tuan-06.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là **T7 (D34 + D35: Lab index + Chốt tuần, 4h00')**; b�
 
 ---
 
-## D29 (T2, 16/11): Ôn SQL
+## D29 (T2, 30/11): Ôn SQL
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -161,11 +161,11 @@ Nhóm: *cách diễn đạt truy vấn*. Trục chính của cuộc so sánh: **
 
 ---
 
-## D30 (T3, 17/11): Chuẩn hoá, phi chuẩn hoá, khoá & constraint
+## D30 (T3, 01/12): Chuẩn hoá, phi chuẩn hoá, khoá & constraint
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h04'**
 
-> Tối nay chỉ điền bảng *UUID vs Auto-increment*. Bảng *Chuẩn hoá vs Phi chuẩn hoá* **dời sang CN 22/11 (tuỳ chọn)**; phần "Chi tiết cần hiểu" bên dưới đã đủ để trả lời câu 2.
+> Tối nay chỉ điền bảng *UUID vs Auto-increment*. Bảng *Chuẩn hoá vs Phi chuẩn hoá* **dời sang CN 06/12 (tuỳ chọn)**; phần "Chi tiết cần hiểu" bên dưới đã đủ để trả lời câu 2.
 
 ### 🧩 DSA: [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
 
@@ -216,7 +216,7 @@ Nhóm: *cách diễn đạt truy vấn*. Trục chính của cuộc so sánh: **
 - **Constraint và race condition (mục 8):** code kiểm tra "email đã tồn tại chưa" rồi mới INSERT sẽ lọt khi hai request chạy đồng thời. Chỉ `UNIQUE` constraint ở DB mới chặn được chắc chắn. Tương tự `CHECK (stock >= 0)` là lưới an toàn cho bài toán tồn kho ở Tuần 7.
 - **UUID và B-Tree (mục 10):** UUIDv4 ngẫu nhiên nên mỗi lần INSERT rơi vào một vị trí bất kỳ trong index → nhiều page split, cache kém. Auto-increment và UUIDv7 (có tiền tố thời gian) luôn chèn vào cuối index. Postgres 13+ có sẵn `gen_random_uuid()` (v4), Postgres 18 có thêm `uuidv7()`. Câu này sẽ được hỏi lại ở Tuần 10 (Unique ID Generator).
 
-**🟡 Bảng so sánh T2: Chuẩn hoá vs Phi chuẩn hoá** *(điền ở CN 22/11, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Chuẩn hoá vs Phi chuẩn hoá** *(điền ở CN 06/12, tuỳ chọn)*
 
 Nhóm: *data storage/model*. Trục chính của cuộc so sánh: **toàn vẹn dữ liệu và chi phí ghi** vs **tốc độ đọc**.
 
@@ -298,7 +298,7 @@ Nhóm: *data storage/model: định danh bản ghi*. Trục chính của cuộc 
 
 ---
 
-## D31 (T4, 18/11): Index là gì, B-Tree hoạt động ra sao
+## D31 (T4, 02/12): Index là gì, B-Tree hoạt động ra sao
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -426,7 +426,7 @@ Nhóm: *cấu trúc index*. Trục chính của cuộc so sánh: **loại truy v
 
 ---
 
-## D32 (T5, 19/11): Composite index, thứ tự cột, covering index
+## D32 (T5, 03/12): Composite index, thứ tự cột, covering index
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -549,7 +549,7 @@ Nhóm: *chiến lược index*. Trục chính của cuộc so sánh: **tốc đ�
 
 ---
 
-## D33 (T6, 20/11): Cardinality, selectivity, khi nào index bị bỏ qua
+## D33 (T6, 04/12): Cardinality, selectivity, khi nào index bị bỏ qua
 
 **⏱ Ước tính:** Giờ làm 52' (DSA 40' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h17'**
 
@@ -676,7 +676,7 @@ Nhóm: *chiến lược index*. Trục chính của cuộc so sánh: **kích th�
 
 ---
 
-## D34 + D35 (T7, 21/11): Lab + Chốt tuần 5
+## D34 + D35 (T7, 05/12): Lab + Chốt tuần 5
 
 **⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h35' · Chốt tuần 40' · Anki/cheat sheet 15' · **Tổng 4h00'**
 
@@ -905,7 +905,7 @@ CREATE TABLE orders_noidx (LIKE orders INCLUDING IDENTITY);
 
 ---
 
-## CN (22/11): Ngày trống
+## CN (06/12): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

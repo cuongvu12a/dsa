@@ -1,4 +1,4 @@
-# Tuần 11 (28/12 – 03/01): DP 2D, Trie, Message Queue, CAP
+# Tuần 11 (11/01 – 17/01): DP 2D, Trie, Message Queue, CAP
 
 [← Tuần 10](tuan-10.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 12 →](tuan-12.md)
 
@@ -34,7 +34,7 @@ Ngày nặng nhất là **Thứ Bảy (D76 + D77, 4h00')**: Lab bắt buộc + C
 
 ---
 
-## D71 (T2, 28/12): Message Queue
+## D71 (T2, 11/01): Message Queue
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 85' (Học 45' + Bảng T2 10' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h30'**
 
@@ -155,7 +155,7 @@ Nhóm: *messaging/streaming*. Trục chính: **tính tức thời của kết qu
 
 ---
 
-## D72 (T3, 29/12): Delivery guarantees + consumer idempotent
+## D72 (T3, 12/01): Delivery guarantees + consumer idempotent
 
 **⏱ Ước tính:** Giờ làm 75' (DSA 55' + Anki 20') · Tối 80' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
@@ -249,7 +249,7 @@ Nhóm: *messaging/streaming*. Trục chính: **tính tức thời của kết qu
 
 ---
 
-## D73 (T4, 30/12): Kafka vs RabbitMQ vs SQS
+## D73 (T4, 13/01): Kafka vs RabbitMQ vs SQS
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
@@ -367,7 +367,7 @@ Nhóm: *messaging/streaming*. Trục chính: **guarantee vs throughput**. Extens
 
 ---
 
-## D74 (T5, 31/12): CAP và các mô hình nhất quán
+## D74 (T5, 14/01): CAP và các mô hình nhất quán
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 85' (Học 45' + Bảng T2 10' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h30'**
 
@@ -487,7 +487,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 ---
 
-## D75 (T6, 01/01): Case study Notification System
+## D75 (T6, 15/01): Case study Notification System
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 75' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h20'**
 
@@ -603,7 +603,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 ---
 
-## D76 + D77 (T7, 02/01): Lab + Chốt tuần 11
+## D76 + D77 (T7, 16/01): Lab + Chốt tuần 11
 
 **⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h30' (Bước 1 15' + Bước 2 30' + Bước 3 50' + Bước 4 35' + Bước 5a 20') · Chốt tuần 45' · Anki/cheat sheet 15' · **Tổng 4h00'**
 
@@ -665,7 +665,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 - Test crash: đặt breakpoint/`sleep` sau khi commit nhưng trước khi ack, kill consumer → khởi động lại → message được giao lại nhưng không sinh email thứ hai.
 - Test DLQ: đơn có email `poison` → sau 3 lần nằm trong DLQ, không có email nào.
 
-*5b. Mở rộng (tuỳ chọn, làm ở Chủ Nhật 03/01):*
+*5b. Mở rộng (tuỳ chọn, làm ở Chủ Nhật 17/01):*
 - Test retry: đơn có email `transient` → cuối cùng có đúng 1 email, log thấy 2 lần retry.
 - Chạy 2 instance consumer cùng lúc → mỗi message chỉ được một instance xử lý thành công.
 
@@ -736,7 +736,7 @@ Nhóm: *data storage/model*. Trục chính: **consistency vs availability khi c�
 
 ---
 
-## CN (03/01): Ngày trống
+## CN (17/01): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

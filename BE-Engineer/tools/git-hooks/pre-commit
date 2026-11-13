@@ -1,0 +1,12 @@
+#!/bin/sh
+# Build lại BE-Engineer/site/notes.html khi commit có đụng tới notes/*.md.
+# Chỉ cảnh báo nếu build lỗi, không chặn commit (site/ nằm trong .gitignore).
+if git diff --cached --name-only | grep -q '^BE-Engineer/notes/[^/]*\.md$'; then
+  root=$(git rev-parse --show-toplevel)
+  if python3 "$root/BE-Engineer/tools/build_site.py" >/dev/null; then
+    echo "pre-commit: đã build lại BE-Engineer/site/notes.html"
+  else
+    echo "pre-commit: CẢNH BÁO build_site.py lỗi, notes.html chưa được cập nhật" >&2
+  fi
+fi
+exit 0

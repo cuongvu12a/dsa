@@ -30,6 +30,7 @@ DAYS = {
     3: ("w01", "composition"),
     4: ("w01", "solid"),
     5: ("w01", "solid"),
+    8: ("w02", "coupling"),
 }
 
 CARD_START = [

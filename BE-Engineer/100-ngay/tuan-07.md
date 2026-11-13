@@ -1,4 +1,4 @@
-# Tuần 7 (30/11 – 06/12): Graph, Transaction, Isolation, Locking
+# Tuần 7 (14/12 – 20/12): Graph, Transaction, Isolation, Locking
 
 ← [Tuần 6](tuan-06.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 8 →](tuan-08.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là **T7 (D48 + D49: Lab overselling + Chốt tuần, 4h00')
 
 ---
 
-## D43 (T2, 30/11): ACID qua ví dụ chuyển tiền
+## D43 (T2, 14/12): ACID qua ví dụ chuyển tiền
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 45' + Bảng T2 DFS/BFS 10' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
@@ -156,7 +156,7 @@ Ngày nặng nhất là **T7 (D48 + D49: Lab overselling + Chốt tuần, 4h00')
 
 ---
 
-## D44 (T3, 01/12): Các lỗi đọc/ghi khi chạy đồng thời
+## D44 (T3, 15/12): Các lỗi đọc/ghi khi chạy đồng thời
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -248,11 +248,11 @@ Ngày nặng nhất là **T7 (D48 + D49: Lab overselling + Chốt tuần, 4h00')
 
 ---
 
-## D45 (T4, 02/12): Isolation levels
+## D45 (T4, 16/12): Isolation levels
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h10'**
 
-> ⏱ Bảng T2 *Read Committed vs Repeatable Read vs Serializable* (15') dời sang **CN 06/12 (tuỳ chọn)**; phần thực hành hai cửa sổ `psql` là *(tuỳ chọn)*, đã có ở Lab D48 Bước 4.
+> ⏱ Bảng T2 *Read Committed vs Repeatable Read vs Serializable* (15') dời sang **CN 20/12 (tuỳ chọn)**; phần thực hành hai cửa sổ `psql` là *(tuỳ chọn)*, đã có ở Lab D48 Bước 4.
 
 ### 🧩 DSA: [695. Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
 
@@ -296,7 +296,7 @@ Ngày nặng nhất là **T7 (D48 + D49: Lab overselling + Chốt tuần, 4h00')
   4. Phần lớn bài toán đã giải quyết được ở Read Committed bằng UPDATE nguyên tử, `FOR UPDATE` hoặc constraint.
 - **(Tuỳ chọn) Thực hành nhanh bằng hai cửa sổ `psql`:** mở session A và B, thử lại timeline non-repeatable read ở Read Committed, rồi thử lại ở Repeatable Read để thấy lần đọc thứ hai không đổi. Sau đó thử cùng UPDATE một dòng ở Repeatable Read để nhìn thấy lỗi serialization.
 
-**🟡 Bảng so sánh T2: Read Committed vs Repeatable Read vs Serializable (Postgres)** *(⏱ điền ở CN 06/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Read Committed vs Repeatable Read vs Serializable (Postgres)** *(⏱ điền ở CN 20/12, tuỳ chọn)*
 
 Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục chính của cuộc so sánh: **mức đúng đắn** vs **throughput và độ phức tạp ở tầng app**.
 
@@ -365,7 +365,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 ---
 
-## D46 (T5, 03/12): MVCC và WAL
+## D46 (T5, 17/12): MVCC và WAL
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -482,11 +482,11 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 ---
 
-## D47 (T6, 04/12): Locking: pessimistic vs optimistic, deadlock
+## D47 (T6, 18/12): Locking: pessimistic vs optimistic, deadlock
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 50' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
-> ⏱ Bảng T2 *Optimistic vs Pessimistic* (15') dời sang **CN 06/12 (tuỳ chọn)**, điền bằng số liệu retry thật từ Lab D48.
+> ⏱ Bảng T2 *Optimistic vs Pessimistic* (15') dời sang **CN 20/12 (tuỳ chọn)**, điền bằng số liệu retry thật từ Lab D48.
 
 ### 🧩 DSA: [417. Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
 
@@ -557,7 +557,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
   Sửa: luôn khoá/cập nhật các sản phẩm theo thứ tự `id` tăng dần. Khi đó T2 sẽ phải chờ ở dòng 1 trước khi kịp khoá dòng 2, không tạo được vòng tròn.
 - **Phát hiện deadlock trong thực tế (Chốt tuần câu 5):** log của Postgres ghi `ERROR: deadlock detected` kèm chi tiết hai câu lệnh; app nhận lỗi `40P01`; theo dõi số deadlock trong thống kê của database; khi đang bị chặn thì xem `pg_stat_activity` và `pg_blocking_pids()` (T3).
 
-**🟡 Bảng so sánh T2: Optimistic vs Pessimistic lock** *(⏱ điền ở CN 06/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Optimistic vs Pessimistic lock** *(⏱ điền ở CN 20/12, tuỳ chọn)*
 
 Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục chính của cuộc so sánh: **mức độ tranh chấp (tần suất xung đột)** vs **throughput / độ trễ**.
 
@@ -626,7 +626,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
 
 ---
 
-## D48 + D49 (T7, 05/12): Lab + Chốt tuần 7
+## D48 + D49 (T7, 19/12): Lab + Chốt tuần 7
 
 **⏱ Ước tính:** DSA 35' · Lab bắt buộc 2h40' · Chốt tuần 35' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
@@ -642,7 +642,7 @@ Nhóm: *mô hình kiểm soát đồng thời (concurrency control)*. Trục ch�
   2. **DFS 3 màu:** trắng (chưa thăm), xám (đang nằm trên đường đệ quy), đen (xong). Gặp lại node **xám** → có chu trình → O(V + E).
 - **Bẫy:** `[a, b]` nghĩa là muốn học `a` phải học `b` trước → cạnh `b → a`. Dùng một tập `visited` thông thường (2 màu) cho DFS sẽ báo chu trình sai.
 - **Liên hệ backend:** chạy migration / job có phụ thuộc, thứ tự build module, và phát hiện deadlock (chu trình trong đồ thị "ai chờ ai").
-- **🟡 Bảng so sánh T2: Kahn vs DFS** *(⏱ điền ở CN 06/12, tuỳ chọn)*. Nhóm: *thuật toán topological sort*. Trục chính: **dễ hiểu, không đệ quy** vs **gọn khi code**.
+- **🟡 Bảng so sánh T2: Kahn vs DFS** *(⏱ điền ở CN 20/12, tuỳ chọn)*. Nhóm: *thuật toán topological sort*. Trục chính: **dễ hiểu, không đệ quy** vs **gọn khi code**.
 
   | Tiêu chí | Kahn (BFS) | DFS 3 màu |
   |---|---|---|
@@ -813,7 +813,7 @@ Kèm theo:
 
 ---
 
-## CN (06/12): Ngày trống
+## CN (20/12): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

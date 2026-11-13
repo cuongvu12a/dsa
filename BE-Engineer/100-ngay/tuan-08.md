@@ -1,4 +1,4 @@
-# Tuần 8 (07/12 – 13/12): Backtracking, Cache, Replication, Sharding, NoSQL
+# Tuần 8 (21/12 – 27/12): Backtracking, Cache, Replication, Sharding, NoSQL
 
 ← [Tuần 7](tuan-07.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 9 →](tuan-09.md)
 
@@ -34,7 +34,7 @@ Ngày nặng nhất là **Thứ Bảy (D55 + D56)**: Lab cache-aside phần bắ
 
 ---
 
-## D50 (T2, 07/12): Redis & cache cơ bản
+## D50 (T2, 21/12): Redis & cache cơ bản
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 40' + Bảng T2 LRU/LFU 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -164,7 +164,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D51 (T3, 08/12): Chiến lược cache
+## D51 (T3, 22/12): Chiến lược cache
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 35' + Bảng T2 chiến lược cache 15' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -278,7 +278,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D52 (T4, 09/12): Sự cố cache + kiểu dữ liệu Redis
+## D52 (T4, 23/12): Sự cố cache + kiểu dữ liệu Redis
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 90' (Học 40' + Bảng T2 kiểu dữ liệu Redis 15' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
@@ -393,7 +393,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D53 (T5, 10/12): Replication
+## D53 (T5, 24/12): Replication
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 85' (Học 40' + Bảng T2 sync/async 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h25'**
 
@@ -508,11 +508,11 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D54 (T6, 11/12): Sharding + connection pooling
+## D54 (T6, 25/12): Sharding + connection pooling
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 50' + Anki 15') · Tối 85' (Học 40' + Bảng T2 sharding 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
-> ⏱ Bảng T2 *Pooling mode* (10') dời sang **Chủ Nhật 13/12 (tuỳ chọn)**.
+> ⏱ Bảng T2 *Pooling mode* (10') dời sang **Chủ Nhật 27/12 (tuỳ chọn)**.
 
 ### 🧩 DSA: [79. Word Search](https://leetcode.com/problems/word-search/)
 
@@ -577,7 +577,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 **Thẻ Anki T2:** *"Khi nào chọn range sharding thay vì hash sharding?"*
 
-**🟡 Bảng so sánh T2: Pooling mode** *(⏱ điền ở CN 13/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Pooling mode** *(⏱ điền ở CN 27/12, tuỳ chọn)*
 
 Nhóm: *quản lý connection*. Trục chính: **mức tái sử dụng connection** vs **tính năng session còn dùng được**.
 
@@ -645,7 +645,7 @@ Nhóm: *quản lý connection*. Trục chính: **mức tái sử dụng connecti
 
 ---
 
-## D55 + D56 (T7, 12/12): Lab + Chốt tuần 8 + Chốt Giai đoạn 2
+## D55 + D56 (T7, 26/12): Lab + Chốt tuần 8 + Chốt Giai đoạn 2
 
 **⏱ Ước tính:** DSA 20' · Lab bắt buộc 2h10' (Bước 1–5) · Chốt tuần câu 1–4 25' · Tự mock 45' · Tổng kết Giai đoạn 2 10' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
@@ -796,7 +796,7 @@ Tự kiểm tra: với mỗi dòng, bạn nói được trong 1 phút mà không
 
 ---
 
-## CN (13/12): Ngày trống
+## CN (27/12): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

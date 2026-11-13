@@ -1,4 +1,4 @@
-# Tuần 2 (26/10 – 01/11): Two Pointers, Sliding Window, Coupling/Cohesion, Creational Patterns
+# Tuần 2 (09/11 – 15/11): Two Pointers, Sliding Window, Coupling/Cohesion, Creational Patterns
 
 [← Tuần 1](tuan-01.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 3 →](tuan-03.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là D13 + D14 (4h00'): lab rút còn 2h20' để có chỗ c
 
 ---
 
-## D8 (T2, 26/10): Coupling & Cohesion
+## D8 (T2, 09/11): Coupling & Cohesion
 
 **⏱ Ước tính:** Giờ làm 37' (DSA 25' + Anki 12') · Tối 70' (Học 40' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 1h47'**
 
@@ -114,7 +114,7 @@ Ngày nặng nhất là D13 + D14 (4h00'): lab rút còn 2h20' để có chỗ c
 
 ---
 
-## D9 (T3, 27/10): Tổng quan Design Pattern + Singleton
+## D9 (T3, 10/11): Tổng quan Design Pattern + Singleton
 
 **⏱ Ước tính:** Giờ làm 67' (DSA 45' + Bảng T2 DSA 10' + Anki 12') · Tối 82' (Học 40' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 2h29'**
 
@@ -225,7 +225,7 @@ Nhóm: *quản lý vòng đời đối tượng*. Trục chính: **tiện truy c
 
 ---
 
-## D10 (T4, 28/10): Factory Method
+## D10 (T4, 11/11): Factory Method
 
 **⏱ Ước tính:** Giờ làm 67' (DSA 55' + Anki 12') · Tối 83' (Học 40' + Bảng T2 15' + Ghi chú/Anki 10' + Tự kiểm tra 18') · **Tổng 2h30'**
 
@@ -311,7 +311,7 @@ Nhóm: *creational pattern*. Trục chính: **độ linh hoạt khi mở rộng*
 
 ---
 
-## D11 (T5, 29/10): Builder
+## D11 (T5, 12/11): Builder
 
 **⏱ Ước tính:** Giờ làm 57' (DSA 45' + Anki 12') · Tối 88' (Học 35' + Bảng T2 25' + Ghi chú/Anki 10' + Tự kiểm tra 18') · **Tổng 2h25'**
 
@@ -409,7 +409,7 @@ Nhóm: *API khởi tạo đối tượng*. Trục chính: **khả năng kiểm s
 
 ---
 
-## D12 (T6, 30/10): Dependency Injection & IoC container
+## D12 (T6, 13/11): Dependency Injection & IoC container
 
 **⏱ Ước tính:** Giờ làm 37' (DSA 25' + Anki 12') · Tối 87' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 2h04'**
 
@@ -508,7 +508,7 @@ Nhóm: *kỹ thuật truyền phụ thuộc*. Trục chính: **tính bắt buộ
 
 ---
 
-## D13 + D14 (T7, 31/10): Lab + Chốt tuần 2
+## D13 + D14 (T7, 14/11): Lab + Chốt tuần 2
 
 **⏱ Ước tính:** DSA 40' · Lab 2h20' · Chốt tuần 45' · Anki/cheat sheet 15' · **Tổng 4h00'**
 
@@ -601,7 +601,7 @@ Nhóm: *kỹ thuật truyền phụ thuộc*. Trục chính: **tính bắt buộ
 
 ---
 
-## CN (01/11): Ngày trống
+## CN (15/11): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

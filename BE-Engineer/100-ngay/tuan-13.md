@@ -1,4 +1,4 @@
-# Tuần 13 (11/01 – 17/01): Docker/K8s/CI-CD ở mức khái niệm + câu chuyện cá nhân
+# Tuần 13 (25/01 – 31/01): Docker/K8s/CI-CD ở mức khái niệm + câu chuyện cá nhân
 
 ← [Tuần 12](tuan-12.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 14 →](tuan-14.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là **Thứ Bảy (D90 + D91, 4h00')**, chạm trần 4h. Ba
 
 ---
 
-## D85 (T2, 11/01): Docker
+## D85 (T2, 25/01): Docker
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 75' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h20'**
 
@@ -139,7 +139,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`. Điền xong m�
 
 ---
 
-## D86 (T3, 12/01): Kubernetes ở mức khái niệm
+## D86 (T3, 26/01): Kubernetes ở mức khái niệm
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 85' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h30'**
 
@@ -278,7 +278,7 @@ Nhóm: *Sharding/Scaling strategy*. Trục chính: **scale ngang (thêm Pod)** v
 
 ---
 
-## D87 (T4, 13/01): CI/CD, chiến lược deploy, migration DB không downtime
+## D87 (T4, 27/01): CI/CD, chiến lược deploy, migration DB không downtime
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 55' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h35'**
 
@@ -408,11 +408,11 @@ Nhóm: *Deployment/Infra strategy*. Trục chính của cuộc so sánh: **rủi
 
 ---
 
-## D88 (T5, 14/01): Behavioral – viết 5 câu chuyện STAR
+## D88 (T5, 28/01): Behavioral – viết 5 câu chuyện STAR
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 60' + Ghi chú/Anki 10' + Tự kiểm tra 20') · **Tổng 2h35'**
 
-> ⚖️ Viết 5 phiếu (~12'/phiếu) đã chiếm 60'. Tối nay chỉ ghi âm + chấm rubric **2 chuyện mạnh nhất** (Tự kiểm tra 20'). 3 chuyện còn lại ghi âm và chấm ở Chủ Nhật 17/01 (tuỳ chọn) hoặc Tuần 14. Nếu còn giờ làm sau DSA, gạch trước chất liệu (ticket, số liệu) cho các phiếu.
+> ⚖️ Viết 5 phiếu (~12'/phiếu) đã chiếm 60'. Tối nay chỉ ghi âm + chấm rubric **2 chuyện mạnh nhất** (Tự kiểm tra 20'). 3 chuyện còn lại ghi âm và chấm ở Chủ Nhật 31/01 (tuỳ chọn) hoặc Tuần 14. Nếu còn giờ làm sau DSA, gạch trước chất liệu (ticket, số liệu) cho các phiếu.
 
 ### 🧩 DSA: [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 
@@ -550,11 +550,11 @@ Dùng được cho các câu hỏi behavioral: (#... trong danh sách bên dư�
 
 ---
 
-## D89 (T6, 15/01): Giới thiệu bản thân 2 phút + trình bày dự án + viết lại CV
+## D89 (T6, 29/01): Giới thiệu bản thân 2 phút + trình bày dự án + viết lại CV
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 55' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h35'**
 
-> ⚖️ Học 55' = viết bài giới thiệu 15' + khung trình bày dự án 20' + viết lại CV 20'. CV chỉ cần sửa **3–5 bullet mạnh nhất** tối nay; phần còn lại làm nốt ở Chủ Nhật 17/01 (tuỳ chọn) nếu thiếu giờ.
+> ⚖️ Học 55' = viết bài giới thiệu 15' + khung trình bày dự án 20' + viết lại CV 20'. CV chỉ cần sửa **3–5 bullet mạnh nhất** tối nay; phần còn lại làm nốt ở Chủ Nhật 31/01 (tuỳ chọn) nếu thiếu giờ.
 
 ### 🧩 DSA: [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
 
@@ -653,7 +653,7 @@ Dùng được cho các câu hỏi behavioral: (#... trong danh sách bên dư�
 
 ---
 
-## D90 + D91 (T7, 16/01): Mock coding + Lab + Chốt tuần 13
+## D90 + D91 (T7, 30/01): Mock coding + Lab + Chốt tuần 13
 
 **⏱ Ước tính:** Mock coding 60' · Lab 2h05' (Bước 1 50' + Bước 2 50' + Bước 3 25') · Chốt tuần 45' · Anki 10' · **Tổng 4h00'**
 
@@ -838,7 +838,7 @@ flowchart LR
 
 ---
 
-## CN (17/01): Ngày trống
+## CN (31/01): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

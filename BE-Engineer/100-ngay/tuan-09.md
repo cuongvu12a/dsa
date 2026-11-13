@@ -1,4 +1,4 @@
-# Tuần 9 (14/12 – 20/12): Intervals/Greedy, OS/Network, Scaling cơ bản
+# Tuần 9 (28/12 – 03/01): Intervals/Greedy, OS/Network, Scaling cơ bản
 
 ← [Tuần 8](tuan-08.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 10 →](tuan-10.md)
 
@@ -34,11 +34,11 @@ Ngày nặng nhất là **Thứ Bảy (D62 + D63)**: Lab 2 instance sau Nginx (p
 
 ---
 
-## D57 (T2, 14/12): Process, Thread, Concurrency
+## D57 (T2, 28/12): Process, Thread, Concurrency
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *Mô hình concurrency* (15') dời sang **CN 20/12, tuỳ chọn**. Tối nay vẫn học mục 7 đủ để trả lời câu hỏi cuối bài số 3.
+> ⏱ Bảng T2 *Mô hình concurrency* (15') dời sang **CN 03/01, tuỳ chọn**. Tối nay vẫn học mục 7 đủ để trả lời câu hỏi cuối bài số 3.
 
 ### 🧩 DSA: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
 
@@ -82,7 +82,7 @@ Ngày nặng nhất là **Thứ Bảy (D62 + D63)**: Lab 2 instance sau Nginx (p
   - Bài overselling (Tuần 7) chính là một race condition ở tầng DB.
 - **Điểm quan trọng khi chạy nhiều instance (chuẩn bị cho D60–D62):** mutex trong bộ nhớ của app chỉ có tác dụng **trong một process**. Chạy 2 instance sau load balancer thì lock trong RAM vô dụng. Phải dùng lock ở nơi dùng chung: DB (`FOR UPDATE`, unique constraint) hoặc Redis.
 
-**🟡 Bảng so sánh T2: Mô hình concurrency** *(⏱ điền ở CN 20/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Mô hình concurrency** *(⏱ điền ở CN 03/01, tuỳ chọn)*
 
 Nhóm: *compute / concurrency model*. Trục chính: **hiệu quả với tải I/O nhiều kết nối** vs **dễ lập trình và an toàn khi có việc CPU nặng**.
 
@@ -153,11 +153,11 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D58 (T3, 15/12): TCP/UDP, DNS, TLS
+## D58 (T3, 29/12): TCP/UDP, DNS, TLS
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *TCP vs UDP* (10') dời sang **CN 20/12, tuỳ chọn**.
+> ⏱ Bảng T2 *TCP vs UDP* (10') dời sang **CN 03/01, tuỳ chọn**.
 
 ### 🧩 DSA: [57. Insert Interval](https://leetcode.com/problems/insert-interval/)
 
@@ -207,7 +207,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
   - Kích thước và thời điểm của traffic.
   - Lỗ hổng ở ứng dụng (SQL injection, XSS), server bị chiếm quyền, hoặc máy người dùng bị cài certificate giả.
 
-**🟡 Bảng so sánh T2: TCP vs UDP** *(⏱ điền ở CN 20/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: TCP vs UDP** *(⏱ điền ở CN 03/01, tuỳ chọn)*
 
 Nhóm: *Protocol (tầng transport)*. Trục chính: **độ tin cậy** vs **độ trễ**.
 
@@ -277,7 +277,7 @@ Research rồi tự điền vào `notes/tradeoff-cheatsheet.md`:
 
 ---
 
-## D59 (T4, 16/12): "Gõ URL vào trình duyệt"
+## D59 (T4, 30/12): "Gõ URL vào trình duyệt"
 
 **⏱ Ước tính:** Giờ làm 60' (DSA 45' + Anki 15') · Tối 80' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
@@ -372,11 +372,11 @@ Hôm nay không học kiến thức mới. Bạn **ghép** kiến thức từ Tu
 
 ---
 
-## D60 (T5, 17/12): Scaling & Load balancer
+## D60 (T5, 31/12): Scaling & Load balancer
 
 **⏱ Ước tính:** Giờ làm 55' (DSA 40' + Anki 15') · Tối 85' (Học 30' + Bảng T2 L4/L7 + nơi lưu session 20' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *Scale dọc vs ngang* dời sang **CN 20/12, tuỳ chọn**; bảng *Thuật toán load balancing* làm ở phần mở rộng của Lab D62 (cùng lúc thử `least_conn`), cũng ở Chủ Nhật (tuỳ chọn). Tối nay vẫn đọc phần chi tiết của mục 7 để trả lời câu hỏi cuối bài số 3.
+> ⏱ Bảng T2 *Scale dọc vs ngang* dời sang **CN 03/01, tuỳ chọn**; bảng *Thuật toán load balancing* làm ở phần mở rộng của Lab D62 (cùng lúc thử `least_conn`), cũng ở Chủ Nhật (tuỳ chọn). Tối nay vẫn đọc phần chi tiết của mục 7 để trả lời câu hỏi cuối bài số 3.
 
 ### 🧩 DSA: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 
@@ -424,7 +424,7 @@ Hôm nay không học kiến thức mới. Bạn **ghép** kiến thức từ Tu
   - *Least connections:* gửi tới server đang có ít kết nối nhất. Hợp khi thời gian xử lý request chênh nhau nhiều (có request 10ms, có request 5s), hoặc kết nối lâu (WebSocket).
   - *IP hash / consistent hashing:* cùng client (hoặc cùng key) luôn vào cùng server. Hợp khi server giữ cache theo key. Consistent hashing học kỹ ở D61.
 
-**🟡 Bảng so sánh T2: Scale dọc vs Scale ngang** *(⏱ điền ở CN 20/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Scale dọc vs Scale ngang** *(⏱ điền ở CN 03/01, tuỳ chọn)*
 
 Nhóm: *Sharding/Scaling strategy*. Trục chính: **đơn giản** vs **khả năng tăng trưởng và chịu lỗi**.
 
@@ -465,7 +465,7 @@ Nhóm: *Protocol / định tuyến traffic*. Trục chính: **hiệu năng** vs 
 | Ext: Hiệu năng / overhead | | |
 | Ext: TLS termination và tính năng HTTP (retry, rewrite, nén) | | |
 
-**🟡 Bảng so sánh T2: Thuật toán load balancing** *(⏱ điền ở Lab mở rộng, CN 20/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Thuật toán load balancing** *(⏱ điền ở Lab mở rộng, CN 03/01, tuỳ chọn)*
 
 Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn giản, không cần trạng thái** vs **thích ứng với tải thực tế / giữ affinity**.
 
@@ -535,11 +535,13 @@ Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn 
 
 ---
 
-## D61 (T6, 18/12): Consistent hashing, CDN, reverse proxy, API Gateway
+## D61 (T6, 01/01): Consistent hashing, CDN, reverse proxy, API Gateway
+
+> ⚖️ 01/01 là ngày nghỉ Tết Dương lịch: ngày rảnh, tận dụng làm buổi dài.
 
 **⏱ Ước tính:** Giờ làm 55' (DSA 40' + Anki 15') · Tối 85' (Học 40' + Bảng T2 reverse proxy/LB/API Gateway 10' + Ghi chú/Anki 15' + Tự kiểm tra 20') · **Tổng 2h20'**
 
-> ⏱ Bảng T2 *CDN push vs pull* là *(tuỳ chọn)*: ít được hỏi, làm ở Chủ Nhật 20/12 nếu còn sức.
+> ⏱ Bảng T2 *CDN push vs pull* là *(tuỳ chọn)*: ít được hỏi, làm ở Chủ Nhật 03/01 nếu còn sức.
 
 ### 🧩 DSA: [55. Jump Game](https://leetcode.com/problems/jump-game/)
 
@@ -588,7 +590,7 @@ Nhóm: *Sharding/Scaling strategy (phân phối tải)*. Trục chính: **đơn 
   - *API Gateway:* điểm vào cho **nhiều** service (thường là microservices), lo các việc xuyên suốt (cross-cutting): xác thực, rate limit, định tuyến theo path tới từng service, gom/biến đổi request, log, metric.
   - Ba thứ này chồng lấn nhau. Nginx có thể đóng cả ba vai ở quy mô nhỏ. Điều cần nói được là **vai trò**, không phải tên sản phẩm.
 
-**🟡 Bảng so sánh T2: CDN push vs pull** *(tuỳ chọn, ⏱ CN 20/12 nếu còn sức)*
+**🟡 Bảng so sánh T2: CDN push vs pull** *(tuỳ chọn, ⏱ CN 03/01 nếu còn sức)*
 
 Nhóm: *deployment / infra strategy (phân phối nội dung)*. Trục chính: **kiểm soát** vs **công vận hành**.
 
@@ -673,7 +675,7 @@ Nhóm: *infra / điểm vào của traffic*. Trục chính: **mỏng và nhanh**
 
 ---
 
-## D62 + D63 (T7, 19/12): Lab + Chốt tuần 9
+## D62 + D63 (T7, 02/01): Lab + Chốt tuần 9
 
 **⏱ Ước tính:** DSA 25' · Lab bắt buộc 2h40' · Chốt tuần 45' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
@@ -865,7 +867,7 @@ server {
 
 ---
 
-## CN (20/12): Ngày trống
+## CN (03/01): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

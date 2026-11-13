@@ -1,4 +1,4 @@
-# Tuần 14 (18/01 – 24/01) + D99–D100 (25/01 – 26/01/2027): Tổng ôn, Mock, Sẵn sàng
+# Tuần 14 (01/02 – 07/02) + D99–D100 (08/02 – 09/02/2027): Tổng ôn, Mock, Sẵn sàng
 
 ← [Tuần 13](tuan-13.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md)
 
@@ -20,7 +20,7 @@
 | D93 (T3) Ôn chốt tuần 5–8 | 70' | 90' | 2h40' |
 | D94 (T4) Ôn chốt tuần 9–12 | 70' | 90' | 2h40' |
 | D95 (T5) Mock SD e-commerce | 65' | 80' | 2h25' |
-| D96 (T6, 22/01) Mock đầy đủ | — | 2h45' | 2h45' |
+| D96 (T6, 05/02) Mock đầy đủ | — | 2h45' | 2h45' |
 | D97 + D98 (T7) Xem video mock + sửa + ôn nhẹ + câu hỏi ngược | — | 4h00' | 4h00' |
 | CN | — | Ngày trống: nghỉ hoặc học bù | — |
 | **Tổng tuần 14** | | | **17h10'** |
@@ -66,11 +66,11 @@ Mỗi tối có 4 tuần × 5 câu = **20 câu**. Nếu mỗi câu điểm thấ
 | **Đọc lại** (Học) | 10' | Chỉ đọc lại **2 câu điểm thấp nhất** (~5'/câu), rồi trả lời lại ngay |
 
 - **Thứ tự làm:** mở `notes/weak-spots.md` và danh sách ⚠️ trước. Làm **trước** các câu từng có ⚠️ hoặc từng chưa đạt ở chốt tuần gốc, sau đó mới tới các câu khác. Hết 65' mà còn câu chưa làm → câu nào ở chốt tuần gốc đã đạt 2 điểm và thẻ Anki đang ổn thì chỉ nói **một câu tóm tắt** (30 giây) rồi chấm.
-- Câu 0–1 điểm còn lại (ngoài 2 câu đã đọc lại): bước 2 "đọc lại tối đa 15'" dời sang **phần giờ làm còn dư** của hôm sau (sau bài DSA) hoặc Chủ Nhật 24/01 (tuỳ chọn). Lần trả lời lại thứ hai vẫn ở buổi Thứ Bảy (D97 + D98).
+- Câu 0–1 điểm còn lại (ngoài 2 câu đã đọc lại): bước 2 "đọc lại tối đa 15'" dời sang **phần giờ làm còn dư** của hôm sau (sau bài DSA) hoặc Chủ Nhật 07/02 (tuỳ chọn). Lần trả lời lại thứ hai vẫn ở buổi Thứ Bảy (D97 + D98).
 
 ---
 
-## D92 (T2, 18/01): Ôn Giai đoạn 1 – chốt tuần 1–4
+## D92 (T2, 01/02): Ôn Giai đoạn 1 – chốt tuần 1–4
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 50' + Anki 20') · Tối 90' (Học 10' + Ghi chú/Anki 15' + Tự kiểm tra 65') · **Tổng 2h40'**
 
@@ -104,7 +104,7 @@ Thời lượng gợi ý: theo bảng "⚖️ Ngân sách thời gian" ở đầ
 
 ---
 
-## D93 (T3, 19/01): Ôn Giai đoạn 2 – chốt tuần 5–8
+## D93 (T3, 02/02): Ôn Giai đoạn 2 – chốt tuần 5–8
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 50' + Anki 20') · Tối 90' (Học 10' + Ghi chú/Anki 15' + Tự kiểm tra 65') · **Tổng 2h40'**
 
@@ -134,7 +134,7 @@ Thời lượng: theo bảng "⚖️ Ngân sách thời gian" ở đầu file. T
 
 ---
 
-## D94 (T4, 20/01): Ôn Giai đoạn 3 – chốt tuần 9–12
+## D94 (T4, 03/02): Ôn Giai đoạn 3 – chốt tuần 9–12
 
 **⏱ Ước tính:** Giờ làm 70' (DSA 50' + Anki 20') · Tối 90' (Học 10' + Ghi chú/Anki 15' + Tự kiểm tra 65') · **Tổng 2h40'**
 
@@ -155,7 +155,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 | 11 | [tuan-11.md](tuan-11.md) | DP 2D, Trie, Message Queue, CAP | (1) vì sao exactly-once khó, thực tế giải thế nào · (2) Kafka hay RabbitMQ cho 2 tình huống · (3) CAP trong 2' · (4) ⏱ Notification System 25' → rút gọn 5' (khung + sơ đồ) · (5) Big-O tìm theo tiền tố trên Trie | Luồng event có consumer idempotent + DLQ |
 | 12 | [tuan-12.md](tuan-12.md) | Microservices, Resilience, Observability | (1) ⏱ SD flash sale 45' → tối nay chỉ nói 1' 4 điểm đi sâu (khoá tồn kho, queue, rate limit, idempotency); bản đầy đủ tính bằng mock D95 · (2) Saga + Outbox · (3) Circuit Breaker · (4) SLI / SLO / SLA · (5) trade-off microservices | — |
 
-- **Chốt tuần 13:** tối nay **không** làm (đã chạm trần 90'). Câu 1–3 và câu 5 (commit → production, Pod/Deployment/Service, Canary vs Blue-Green, trình bày dự án 5') dời sang Chủ Nhật 24/01 (tuỳ chọn, 10'). Câu 4 (STAR) được luyện trong phần behavioral của mock D96.
+- **Chốt tuần 13:** tối nay **không** làm (đã chạm trần 90'). Câu 1–3 và câu 5 (commit → production, Pod/Deployment/Service, Canary vs Blue-Green, trình bày dự án 5') dời sang Chủ Nhật 07/02 (tuỳ chọn, 10'). Câu 4 (STAR) được luyện trong phần behavioral của mock D96.
 
 **Kết quả hôm nay**
 
@@ -168,7 +168,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D95 (T5, 21/01): Mock System Design – thương mại điện tử
+## D95 (T5, 04/02): Mock System Design – thương mại điện tử
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 80' (Học 20' + Ghi chú/Anki 15' + Tự kiểm tra 45') · **Tổng 2h25'**
 
@@ -209,7 +209,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D96 (T6, 22/01): Mock đầy đủ – 45' coding + 45' SD + 15' behavioral
+## D96 (T6, 05/02): Mock đầy đủ – 45' coding + 45' SD + 15' behavioral
 
 **⏱ Ước tính:** Chuẩn bị 15' · Mock + feedback 2h10' · Anki 20' · **Tổng 2h45'**
 
@@ -271,7 +271,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## D97 + D98 (T7, 23/01): Xem lại video mock, sửa 3 điểm yếu + Ôn nhẹ + câu hỏi hỏi ngược
+## D97 + D98 (T7, 06/02): Xem lại video mock, sửa 3 điểm yếu + Ôn nhẹ + câu hỏi hỏi ngược
 
 **⏱ Ước tính:** DSA 25' · Xem video 60' + chọn điểm yếu 15' · Sửa 1h15' · Ôn nhẹ 30' · Câu hỏi hỏi ngược 30' · Checklist 5' · **Tổng 4h00'**
 
@@ -354,7 +354,7 @@ Giai đoạn này có nhiều câu SD dài. Đừng làm trọn bài nào; bài 
 
 ---
 
-## CN (24/01): Ngày trống
+## CN (07/02): Ngày trống
 
 Không xếp bài mới. Hôm sau là D99 (mock lần cuối), nên **ưu tiên nghỉ**. Chọn một trong hai:
 
@@ -367,11 +367,11 @@ Không xếp bài mới. Hôm sau là D99 (mock lần cuối), nên **ưu tiên 
 
 ---
 
-## D99 – D100 (T2 25/01 – T3 26/01/2027): Sẵn sàng
+## D99 – D100 (T2 08/02 – T3 09/02/2027): Sẵn sàng
 
 **Việc theo lộ trình tổng:** Mock lần cuối (1 coding + 1 SD) và nộp CV vào các công ty ưu tiên.
 
-### D99 (T2, 25/01): Mock lần cuối
+### D99 (T2, 08/02): Mock lần cuối
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 65' (Mock SD 45' + So điểm/ghi chú 20') · **Tổng 2h10'**
 
@@ -382,7 +382,7 @@ Không xếp bài mới. Hôm sau là D99 (mock lần cuối), nên **ưu tiên 
   - Kiểm lại điểm yếu #1 và #2 của D97: đã sửa được chưa?
 - **Nếu điểm vẫn dưới ngưỡng:** vẫn nộp CV theo kế hoạch. Phỏng vấn thật ở các công ty ít ưu tiên chính là buổi luyện tốt nhất; tiếp tục luyện song song trong lúc chờ lịch.
 
-### D100 (T3, 26/01): Nộp CV vào các công ty ưu tiên
+### D100 (T3, 09/02): Nộp CV vào các công ty ưu tiên
 
 **⏱ Ước tính:** Giờ làm 20' (Anki 20') · Tối 90' (Checklist CV/GitHub/LinkedIn 45' + Nộp CV + nhắn referral 30' + Bảng theo dõi ứng tuyển 15') · **Tổng 1h50'**
 

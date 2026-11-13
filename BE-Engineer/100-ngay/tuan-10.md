@@ -1,4 +1,4 @@
-# Tuần 10 (21/12 – 27/12): DP 1D, khung System Design, các case study đầu tiên
+# Tuần 10 (04/01 – 10/01): DP 1D, khung System Design, các case study đầu tiên
 
 [← Tuần 9](tuan-09.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 11 →](tuan-11.md)
 
@@ -34,7 +34,7 @@ Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài D
 
 ---
 
-## D64 (T2, 21/12): Khung phỏng vấn System Design 5 bước
+## D64 (T2, 04/01): Khung phỏng vấn System Design 5 bước
 
 **⏱ Ước tính:** Giờ làm 50' (DSA 30' + Anki 20') · Tối 75' (Học 45' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h05'**
 
@@ -153,7 +153,7 @@ Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài D
 
 ---
 
-## D65 (T3, 22/12): Ước lượng nhanh (back-of-the-envelope)
+## D65 (T3, 05/01): Ước lượng nhanh (back-of-the-envelope)
 
 **⏱ Ước tính:** Giờ làm 50' (DSA 30' + Anki 20') · Tối 80' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h10'**
 
@@ -273,7 +273,7 @@ Ngày nặng nhất trong tuần làm việc là **D68** (Coin Change là bài D
 
 ---
 
-## D66 (T4, 23/12): Case study URL Shortener
+## D66 (T4, 06/01): Case study URL Shortener
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 40' + Bảng T2 20' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
@@ -415,11 +415,11 @@ Nhóm: *protocol/API design*. Trục chính: **giảm tải (caching behavior)**
 
 ---
 
-## D67 (T5, 24/12): Case study Rate Limiter
+## D67 (T5, 07/01): Case study Rate Limiter
 
 **⏱ Ước tính:** Giờ làm 65' (DSA 45' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h35'**
 
-> Tối nay chỉ điền bảng *5 thuật toán rate limiting*. Bảng *vị trí đặt rate limiter* **dời sang Chủ Nhật 27/12 (tuỳ chọn)** (10'), sau khi đã tự đặt middleware ở Lab nên điền sẽ dễ hơn. *Khung tự giải 45'* dùng để luyện cho câu 1 Chốt tuần (Thứ Bảy, D69 + D70).
+> Tối nay chỉ điền bảng *5 thuật toán rate limiting*. Bảng *vị trí đặt rate limiter* **dời sang Chủ Nhật 10/01 (tuỳ chọn)** (10'), sau khi đã tự đặt middleware ở Lab nên điền sẽ dễ hơn. *Khung tự giải 45'* dùng để luyện cho câu 1 Chốt tuần (Thứ Bảy, D69 + D70).
 
 ### 🧩 DSA: [213. House Robber II](https://leetcode.com/problems/house-robber-ii/)
 
@@ -471,7 +471,7 @@ Nhóm: *thuật toán kiểm soát lưu lượng (traffic shaping)*, nhóm khác
 | Ext: Độ chính xác tại biên cửa sổ | | | | | |
 | Ext: Bộ nhớ mỗi key | | | | | |
 
-**🟡 Bảng so sánh T2: vị trí đặt rate limiter** *(điền ở CN 27/12, tuỳ chọn)*
+**🟡 Bảng so sánh T2: vị trí đặt rate limiter** *(điền ở CN 10/01, tuỳ chọn)*
 
 Nhóm: *deployment/infra strategy*. Trục chính: **mức độ kiểm soát** vs **độ phức tạp vận hành**.
 
@@ -562,7 +562,7 @@ Nhóm: *deployment/infra strategy*. Trục chính: **mức độ kiểm soát** 
 
 ---
 
-## D68 (T6, 25/12): Case study Unique ID Generator
+## D68 (T6, 08/01): Case study Unique ID Generator
 
 **⏱ Ước tính:** Giờ làm 75' (DSA 55' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h45'**
 
@@ -688,7 +688,7 @@ Nhóm: *sinh định danh phân tán*, nhóm khác. Trục chính tự xác đ�
 
 ---
 
-## D69 + D70 (T7, 26/12): Lab + Chốt tuần 10
+## D69 + D70 (T7, 09/01): Lab + Chốt tuần 10
 
 **⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h30' (Bước 1 60' + Bước 2 bắt buộc 1h30') · Chốt tuần 50' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
@@ -829,7 +829,7 @@ Làm bằng ngôn ngữ/framework bạn đang dùng. Redis đã có sẵn trong 
 
 ---
 
-## CN (27/12): Ngày trống
+## CN (10/01): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

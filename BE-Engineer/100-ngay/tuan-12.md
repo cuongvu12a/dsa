@@ -1,4 +1,4 @@
-# Tuần 12 (04/01 – 10/01): Microservices, Resilience, Observability, case study
+# Tuần 12 (18/01 – 24/01): Microservices, Resilience, Observability, case study
 
 [← Tuần 11](tuan-11.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 13 →](tuan-13.md)
 
@@ -36,7 +36,7 @@ Buổi tối nặng nhất là **D80** (Saga + Outbox, bản gốc có 2 bảng 
 
 ---
 
-## D78 (T2, 04/01): Monolith vs Microservices, database-per-service
+## D78 (T2, 18/01): Monolith vs Microservices, database-per-service
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 85' (Học 45' + Bảng T2 10' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h10'**
 
@@ -144,7 +144,7 @@ Nhóm: *kiến trúc hệ thống (architecture style)*, nhóm khác, gần vớ
 
 ---
 
-## D79 (T3, 05/01): Resilience
+## D79 (T3, 19/01): Resilience
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 80' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h05'**
 
@@ -244,7 +244,7 @@ Nhóm: *kiến trúc hệ thống (architecture style)*, nhóm khác, gần vớ
 
 ---
 
-## D80 (T4, 06/01): 2PC vs Saga, Outbox pattern
+## D80 (T4, 20/01): 2PC vs Saga, Outbox pattern
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 90' (Học 45' + Bảng T2 15' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h15'**
 
@@ -382,7 +382,7 @@ Nhóm: *distributed transaction pattern (cách điều phối)*. Trục chính: 
 
 ---
 
-## D81 (T5, 07/01): Observability, SLI / SLO / SLA
+## D81 (T5, 21/01): Observability, SLI / SLO / SLA
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 85' (Học 55' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h10'**
 
@@ -506,7 +506,7 @@ Nhóm: *distributed transaction pattern (cách điều phối)*. Trục chính: 
 
 ---
 
-## D82 (T6, 08/01): Case study News Feed
+## D82 (T6, 22/01): Case study News Feed
 
 **⏱ Ước tính:** Giờ làm 45' (DSA 25' + Anki 20') · Tối 85' (Học 45' + Bảng T2 10' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h10'**
 
@@ -622,7 +622,7 @@ Nhóm: *phân phối dữ liệu (đọc vs ghi)*, nhóm khác. Trục chính t�
 
 ---
 
-## D83 + D84 (T7, 09/01): Mock coding + Case Chat System + Chốt tuần 12 + Chốt Giai đoạn 3
+## D83 + D84 (T7, 23/01): Mock coding + Case Chat System + Chốt tuần 12 + Chốt Giai đoạn 3
 
 **⏱ Ước tính:** Mock coding 65' (60' + tự chấm 5') · Chat 1h30' (tự giải 45' + đọc ch.12 30' + ghi `sd-chat.md` + câu hỏi cuối bài 15') · Chốt tuần 65' (Flash Sale 45' + câu 2–5 20') · Tổng kết GĐ3 + Anki 20' · **Tổng 4h00'**
 
@@ -872,7 +872,7 @@ Nói to hoặc viết ra, không nhìn tài liệu. Cần đạt ≥ 4/5.
 
 ---
 
-## CN (10/01): Ngày trống
+## CN (24/01): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

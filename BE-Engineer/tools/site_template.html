@@ -1,0 +1,424 @@
+<title>Sổ tay Backend 100 ngày</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: sổ tay học — cột trái là mục lục các ngày (D1, D2…), cột phải là trang đọc ~70 ký tự; điện thoại thì mục lục thành ngăn kéo */
+:root {
+  --bg: #f4f6f5;
+  --paper: #ffffff;
+  --ink: #1d2725;
+  --muted: #5d6b68;
+  --line: #d8dfdd;
+  --accent: #17675f;
+  --accent-soft: #e2f0ed;
+  --code-bg: #eef2f1;
+  --quote-bg: #f1f6ee;
+  --quote-line: #6d9a4e;
+  --mark: #fff0b3;
+  --hl-kw: #8a3ea5;
+  --hl-str: #2b7a3d;
+  --hl-num: #a35a00;
+  --hl-com: #7c8a87;
+  --hl-title: #1f5fa8;
+  --hl-type: #a3366b;
+  --font-ui: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --side-w: 17.5rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111716; --paper: #172020; --ink: #e2e9e7; --muted: #9aaaa6; --line: #2a3634;
+    --accent: #5cc2b4; --accent-soft: #1d3330; --code-bg: #1f2a29; --quote-bg: #1c2a1f; --quote-line: #8cc06a;
+    --mark: #5a4a12; --hl-kw: #d39af0; --hl-str: #8fd49c; --hl-num: #f0b26a; --hl-com: #7f918d;
+    --hl-title: #8dbcf5; --hl-type: #f08fbd; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111716; --paper: #172020; --ink: #e2e9e7; --muted: #9aaaa6; --line: #2a3634;
+  --accent: #5cc2b4; --accent-soft: #1d3330; --code-bg: #1f2a29; --quote-bg: #1c2a1f; --quote-line: #8cc06a;
+  --mark: #5a4a12; --hl-kw: #d39af0; --hl-str: #8fd49c; --hl-num: #f0b26a; --hl-com: #7f918d;
+  --hl-title: #8dbcf5; --hl-type: #f08fbd; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: calc(4rem + env(safe-area-inset-top, 0px)); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-read); font-size: 17px; line-height: 1.65; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.shell { display: grid; grid-template-columns: var(--side-w) minmax(0, 1fr); min-height: 100vh; }
+
+/* ---------- sidebar ---------- */
+.side {
+  position: sticky; top: env(safe-area-inset-top, 0px); height: calc(100vh - env(safe-area-inset-top, 0px));
+  overflow-y: auto; background: var(--paper); border-right: 1px solid var(--line);
+  font-family: var(--font-ui); font-size: 14px; line-height: 1.45;
+  padding-block: 1.25rem 2rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.brand { display: flex; flex-direction: column; gap: .15rem; }
+.brand b { font-size: 1.05rem; letter-spacing: -.01em; }
+.brand span { color: var(--muted); font-size: 12.5px; }
+.search { position: relative; }
+.search input {
+  width: 100%; font: inherit; padding: .55rem .7rem; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+}
+.doclist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.doclist > li > a {
+  display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: .4rem; align-items: baseline;
+  padding: .45rem .55rem; border-radius: 7px; text-decoration: none; color: var(--ink);
+}
+.doclist > li > a:hover { background: var(--bg); }
+.doclist > li > a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.daytag { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+a[aria-current="page"] .daytag { color: var(--accent); }
+.toc { list-style: none; margin: .2rem 0 .5rem 3.05rem; padding: 0 0 0 .6rem; border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: 1px; }
+.toc a { display: block; padding: .2rem .3rem; color: var(--muted); text-decoration: none; font-size: 13px; border-radius: 5px; }
+.toc a:hover { color: var(--ink); background: var(--bg); }
+.toc a.on { color: var(--accent); font-weight: 600; }
+.results { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.results a { display: block; padding: .5rem .55rem; border-radius: 7px; text-decoration: none; color: var(--ink); border: 1px solid var(--line); }
+.results a:hover { border-color: var(--accent); }
+.results small { display: block; color: var(--muted); font-size: 12px; }
+.results .snip { display: block; color: var(--muted); font-size: 12.5px; margin-top: .15rem; }
+.results mark, .doc mark { background: var(--mark); color: inherit; border-radius: 2px; }
+.empty { color: var(--muted); font-size: 13px; }
+.side-foot { margin-top: auto; color: var(--muted); font-size: 12px; display: flex; flex-direction: column; gap: .5rem; }
+.theme { display: flex; gap: 4px; }
+.theme button {
+  flex: 1; font: inherit; font-size: 12px; padding: .35rem; border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--paper); color: var(--muted);
+}
+.theme button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+/* ---------- top bar (phone) ---------- */
+.topbar { display: none; }
+
+/* ---------- document ---------- */
+.main { min-width: 0; padding-block: 2.5rem 6rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.doc { max-width: 46rem; margin: 0 auto; min-width: 0; }
+.doc h1, .doc h2, .doc h3, .doc h4 { font-family: var(--font-ui); line-height: 1.3; text-wrap: balance; letter-spacing: -.012em; }
+.doc h1 { font-size: 2rem; margin: 0 0 .5rem; }
+.doc h2 { font-size: 1.45rem; margin: 3rem 0 .8rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.doc h3 { font-size: 1.12rem; margin: 2rem 0 .6rem; }
+.doc h4 { font-size: 1rem; margin: 1.5rem 0 .5rem; }
+.doc h1 + p, .doc h1 + blockquote { margin-top: .4rem; }
+.doc p, .doc ul, .doc ol { margin: .7rem 0; }
+.doc li { margin: .25rem 0; }
+.doc li > ul, .doc li > ol { margin: .25rem 0; }
+.doc hr { border: 0; border-top: 1px dashed var(--line); margin: 2.5rem 0; }
+.doc strong { font-weight: 600; }
+.doc blockquote {
+  margin: 1rem 0; padding: .7rem 1rem; background: var(--quote-bg); border-left: 3px solid var(--quote-line);
+  border-radius: 0 8px 8px 0;
+}
+.doc blockquote p { margin: .3rem 0; }
+.doc :not(pre) > code {
+  font-family: var(--font-mono); font-size: .84em; background: var(--code-bg); padding: .1em .35em; border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+.codebox { position: relative; margin: 1rem 0; border: 1px solid var(--line); border-radius: 9px; background: var(--code-bg); }
+.codebox .bar {
+  display: flex; justify-content: space-between; align-items: center; gap: .5rem;
+  font-family: var(--font-ui); font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em;
+  padding: .35rem .5rem .35rem .8rem; border-bottom: 1px solid var(--line);
+}
+.codebox .bar button {
+  font: inherit; letter-spacing: .04em; text-transform: none; font-size: 12px; cursor: pointer;
+  padding: .2rem .55rem; border-radius: 5px; border: 1px solid var(--line); background: var(--paper); color: var(--muted);
+}
+.codebox pre { margin: 0; padding: .85rem 1rem; overflow-x: auto; }
+.codebox code { font-family: var(--font-mono); font-size: 13.5px; line-height: 1.6; background: none; padding: 0; }
+.tablewrap { overflow-x: auto; margin: 1rem 0; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
+.doc table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.5; }
+.doc th, .doc td { padding: .5rem .75rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.doc th { font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; background: var(--bg); }
+.doc tr:last-child td { border-bottom: 0; }
+.doc details { margin: 1rem 0; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
+.doc details > summary {
+  cursor: pointer; padding: .6rem .9rem; font-family: var(--font-ui); font-size: 14.5px; font-weight: 600; color: var(--accent);
+  list-style-position: inside;
+}
+.doc details[open] > summary { border-bottom: 1px solid var(--line); }
+.doc details > :not(summary) { margin-left: .9rem; margin-right: .9rem; }
+.doc details > :last-child { margin-bottom: .9rem; }
+.doc img { max-width: 100%; }
+.doc .anchor { margin-left: .4rem; color: var(--line); text-decoration: none; font-weight: 400; opacity: 0; }
+.doc h2:hover .anchor, .doc h3:hover .anchor { opacity: 1; color: var(--muted); }
+.docmeta { font-family: var(--font-ui); font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-bottom: 1.5rem; }
+.docnav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 4rem; font-family: var(--font-ui); font-size: 14px; }
+.docnav a { text-decoration: none; padding: .7rem .9rem; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); max-width: 48%; }
+.docnav a:hover { border-color: var(--accent); }
+.docnav small { display: block; color: var(--muted); font-size: 12px; }
+.ext::after { content: " ↗"; font-size: .8em; }
+
+/* highlight.js tokens */
+.hljs-keyword, .hljs-built_in, .hljs-literal, .hljs-meta .hljs-keyword { color: var(--hl-kw); }
+.hljs-string, .hljs-regexp, .hljs-template-tag, .hljs-template-variable { color: var(--hl-str); }
+.hljs-number, .hljs-symbol { color: var(--hl-num); }
+.hljs-comment, .hljs-quote { color: var(--hl-com); font-style: italic; }
+.hljs-title, .hljs-title.function_, .hljs-section { color: var(--hl-title); }
+.hljs-type, .hljs-title.class_, .hljs-meta, .hljs-decorator, .hljs-attr { color: var(--hl-type); }
+
+@media (max-width: 860px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .topbar {
+    display: flex; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; align-items: center; gap: .6rem;
+    background: var(--paper); border-bottom: 1px solid var(--line); font-family: var(--font-ui); font-size: 14px;
+    padding-block: .55rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .topbar button {
+    font: inherit; padding: .35rem .7rem; border-radius: 7px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer;
+  }
+  .topbar .cur { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+  .side {
+    position: fixed; z-index: 25; top: 0; bottom: 0; left: 0; width: min(85vw, 20rem); height: auto;
+    padding-top: calc(1.25rem + env(safe-area-inset-top, 0px)); padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-105%); transition: transform .2s ease; box-shadow: 0 0 40px rgb(0 0 0 / .25);
+  }
+  .side.open { transform: none; }
+  .main { padding-block: 1.5rem 4rem; }
+  body { font-size: 16px; }
+  .doc h1 { font-size: 1.6rem; }
+  .doc h2 { font-size: 1.3rem; }
+}
+@media (prefers-reduced-motion: reduce) { .side { transition: none; } html { scroll-behavior: auto; } }
+</style>
+
+<div class="topbar">
+  <button type="button" id="menu-btn" aria-controls="side" aria-expanded="false">Mục lục</button>
+  <span class="cur" id="cur-title"></span>
+</div>
+<div class="shell">
+  <nav class="side" id="side" aria-label="Danh sách bài">
+    <div class="brand"><b>Sổ tay Backend 100 ngày</b><span id="build-info"></span></div>
+    <div class="search">
+      <label for="q" class="empty" style="display:block;margin-bottom:.3rem">Tìm trong mọi bài</label>
+      <input id="q" type="search" placeholder="vd: Law of Demeter, forwardRef, LSP" autocomplete="off">
+    </div>
+    <ul class="results" id="results" hidden></ul>
+    <ul class="doclist" id="doclist"></ul>
+    <div class="side-foot">
+      <div class="theme" role="group" aria-label="Giao diện">
+        <button type="button" id="th-system" data-t="">Hệ thống</button>
+        <button type="button" id="th-light" data-t="light">Sáng</button>
+        <button type="button" id="th-dark" data-t="dark">Tối</button>
+      </div>
+      <span>Nguồn: <code>BE-Engineer/notes/*.md</code>. File này sinh tự động bằng <code>tools/build_site.py</code>, đừng sửa tay.</span>
+    </div>
+  </nav>
+  <main class="main"><article class="doc" id="doc"></article></main>
+</div>
+
+<script type="application/json" id="notes-data">/*__DATA__*/</script>
+<script>/*__MARKED__*/</script>
+<script>/*__HLJS__*/</script>
+<script>
+(function () {
+  const DATA = JSON.parse(document.getElementById('notes-data').textContent);
+  const DOCS = DATA.docs;
+  const byFile = Object.fromEntries(DOCS.map(d => [d.file, d]));
+  const byId = Object.fromEntries(DOCS.map(d => [d.id, d]));
+  const $ = id => document.getElementById(id);
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} },
+  };
+
+  // GitHub-style heading slug, so links written for GitHub (#4-dấu-hiệu-coupling-chặt) keep working
+  function slug(text) {
+    return text.trim().toLowerCase().replace(/[^\p{L}\p{M}\p{N}\s_-]/gu, '').replace(/\s/g, '-');
+  }
+  function plain(md) {
+    return md.replace(/`([^`]*)`/g, '$1').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_]{1,2}([^*_]+)[*_]{1,2}/g, '$1');
+  }
+  function esc(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+  // ---- theme ----
+  function applyTheme(t) {
+    if (t) document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme');
+    document.querySelectorAll('.theme button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === (t || ''))));
+  }
+  document.querySelectorAll('.theme button').forEach(b => b.addEventListener('click', () => { applyTheme(b.dataset.t); store.set('theme', b.dataset.t || null); }));
+  applyTheme(store.get('theme') || '');
+
+  $('build-info').textContent = DOCS.length + ' bài · cập nhật ' + DATA.built;
+
+  // ---- sidebar ----
+  function renderList(currentId, headings) {
+    $('doclist').innerHTML = DOCS.map(d => {
+      const cur = d.id === currentId;
+      let toc = '';
+      if (cur && headings.length) {
+        toc = '<ul class="toc">' + headings.map(h => `<li><a href="#${d.id}" data-anchor="${esc(h.id)}">${esc(h.text)}</a></li>`).join('') + '</ul>';
+      }
+      return `<li><a href="#${d.id}" ${cur ? 'aria-current="page"' : ''}><span class="daytag">${esc(d.tag)}</span><span>${esc(d.title)}</span></a>${toc}</li>`;
+    }).join('');
+  }
+
+  // ---- render one doc ----
+  let observer = null;
+  function render(id, anchor) {
+    const d = byId[id] || DOCS[0];
+    const el = $('doc');
+    el.innerHTML = marked.parse(d.md, { gfm: true });
+
+    // heading ids (GitHub rules, with -1, -2 for duplicates)
+    const seen = {};
+    const heads = [];
+    el.querySelectorAll('h1,h2,h3,h4').forEach(h => {
+      let s = slug(h.textContent);
+      if (seen[s] != null) { seen[s] += 1; s = s + '-' + seen[s]; } else seen[s] = 0;
+      h.id = s;
+      if (h.tagName === 'H2') heads.push({ id: s, text: h.textContent });
+      if (h.tagName === 'H2' || h.tagName === 'H3') {
+        const a = document.createElement('a'); a.className = 'anchor'; a.href = '#' + d.id; a.dataset.anchor = s; a.textContent = '#';
+        a.setAttribute('aria-label', 'Liên kết tới mục này'); h.appendChild(a);
+      }
+    });
+
+    // meta line under the title
+    const h1 = el.querySelector('h1');
+    const meta = document.createElement('div'); meta.className = 'docmeta';
+    meta.innerHTML = `<span>${esc(d.file)}</span><span>${d.words.toLocaleString('vi-VN')} từ · ~${Math.max(1, Math.round(d.words / 200))} phút đọc</span><span>sửa lần cuối ${esc(d.modified)}</span>`;
+    if (h1) h1.after(meta); else el.prepend(meta);
+
+    // tables scroll inside their own box
+    el.querySelectorAll('table').forEach(t => { const w = document.createElement('div'); w.className = 'tablewrap'; t.replaceWith(w); w.appendChild(t); });
+
+    // code blocks: highlight + language label + copy
+    el.querySelectorAll('pre > code').forEach(code => {
+      const pre = code.parentElement;
+      const lang = (code.className.match(/language-(\w+)/) || [])[1] || '';
+      if (window.hljs && lang && hljs.getLanguage(lang)) hljs.highlightElement(code);
+      const box = document.createElement('div'); box.className = 'codebox';
+      const bar = document.createElement('div'); bar.className = 'bar';
+      const label = { ts: 'TypeScript', typescript: 'TypeScript', py: 'Python', python: 'Python', js: 'JavaScript', bash: 'Shell', sh: 'Shell', sql: 'SQL', json: 'JSON' }[lang] || lang || 'text';
+      const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = 'Copy';
+      btn.addEventListener('click', () => {
+        const done = () => { btn.textContent = 'Đã copy'; setTimeout(() => { btn.textContent = 'Copy'; }, 1400); };
+        const fallback = () => { const r = document.createRange(); r.selectNodeContents(code); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Đã chọn, nhấn ⌘C'; };
+        try { navigator.clipboard.writeText(code.textContent).then(done, fallback); } catch (e) { fallback(); }
+      });
+      bar.append(Object.assign(document.createElement('span'), { textContent: label }), btn);
+      pre.replaceWith(box); box.append(bar, pre);
+    });
+
+    // links: other notes -> switch doc; files outside notes -> GitHub; external -> new tab
+    el.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (a.classList.contains('anchor')) return;
+      if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noopener'; return; }
+      if (href.startsWith('#')) { a.dataset.anchor = decodeURIComponent(href.slice(1)); a.setAttribute('href', '#' + d.id); return; }
+      const [path, frag] = href.split('#');
+      const target = byFile[path.replace(/^\.\//, '')];
+      if (target) { a.setAttribute('href', '#' + target.id); if (frag) a.dataset.anchor = decodeURIComponent(frag); return; }
+      if (DATA.repoBase && /\.(md|py|svg|html)$/.test(path)) {
+        const parts = (DATA.notesDir + '/' + path).split('/'); const out = [];
+        parts.forEach(p => { if (p === '..') out.pop(); else if (p && p !== '.') out.push(p); });
+        a.href = DATA.repoBase + out.join('/') + (frag ? '#' + frag : ''); a.target = '_blank'; a.rel = 'noopener'; a.classList.add('ext');
+      }
+    });
+
+    // prev / next
+    const i = DOCS.indexOf(d);
+    const nav = document.createElement('nav'); nav.className = 'docnav'; nav.setAttribute('aria-label', 'Bài trước, bài sau');
+    const prev = DOCS[i - 1], next = DOCS[i + 1];
+    nav.innerHTML = (prev ? `<a href="#${prev.id}"><small>← Bài trước</small>${esc(prev.title)}</a>` : '<span></span>') +
+                    (next ? `<a href="#${next.id}" style="text-align:right"><small>Bài sau →</small>${esc(next.title)}</a>` : '<span></span>');
+    el.appendChild(nav);
+
+    renderList(d.id, heads);
+    $('cur-title').textContent = d.tag + ' · ' + d.title;
+    document.title = d.title + ' · Sổ tay Backend 100 ngày';
+    store.set('last', d.id);
+
+    // highlight current h2 in the sidebar TOC
+    if (observer) observer.disconnect();
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          document.querySelectorAll('.toc a').forEach(a => a.classList.toggle('on', a.dataset.anchor === e.target.id));
+        });
+      }, { rootMargin: '0px 0px -75% 0px' });
+      el.querySelectorAll('h2').forEach(h => observer.observe(h));
+    }
+
+    if (anchor) jump(anchor); else window.scrollTo(0, 0);
+  }
+
+  function jump(anchor) {
+    const t = document.getElementById(anchor) || document.getElementById(slug(anchor));
+    if (t) { t.scrollIntoView(); if (t.tagName === 'DETAILS') t.open = true; }
+  }
+
+  // ---- routing: hash holds only the doc id (ASCII), section jumps stay in the page ----
+  let pendingAnchor = null;
+  function current() { return location.hash.slice(1); }
+  function go(id, anchor) {
+    closeSide();
+    if (id === current() && byId[id]) { if (anchor) jump(anchor); else window.scrollTo(0, 0); return; }
+    pendingAnchor = anchor || null;
+    location.hash = id;
+  }
+  window.addEventListener('hashchange', () => { const a = pendingAnchor; pendingAnchor = null; render(current(), a); });
+  document.addEventListener('click', ev => {
+    const a = ev.target.closest('a[href^="#"]');
+    if (!a) return;
+    ev.preventDefault();
+    go(a.getAttribute('href').slice(1), a.dataset.anchor);
+  });
+
+  // ---- search across all docs, by section ----
+  const sections = [];
+  DOCS.forEach(d => {
+    let head = d.title, anchor = null; const buf = [];
+    const flush = () => { if (buf.length) sections.push({ doc: d, head, anchor, text: buf.join('\n') }); buf.length = 0; };
+    let inCode = false;
+    d.md.split('\n').forEach(line => {
+      if (/^```/.test(line)) inCode = !inCode;
+      const m = !inCode && line.match(/^(#{2,3})\s+(.*)$/);
+      if (m) { flush(); head = plain(m[2]); anchor = slug(head); }
+      buf.push(line);
+    });
+    flush();
+  });
+  function search(q) {
+    const res = $('results');
+    if (q.trim().length < 2) { res.hidden = true; $('doclist').hidden = false; return; }
+    const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    const hits = [];
+    for (const s of sections) {
+      const low = s.text.toLowerCase();
+      if (!terms.every(t => low.includes(t))) continue;
+      const score = terms.reduce((n, t) => n + (s.head.toLowerCase().includes(t) ? 5 : 0) + low.split(t).length - 1, 0);
+      const at = low.indexOf(terms[0]);
+      const raw = plain(s.text.slice(Math.max(0, at - 50), at + 110)).replace(/\s+/g, ' ');
+      hits.push({ s, score, snip: raw });
+    }
+    hits.sort((a, b) => b.score - a.score);
+    const mark = str => { let h = esc(str); terms.forEach(t => { h = h.replace(new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>'); }); return h; };
+    res.innerHTML = hits.length ? hits.slice(0, 30).map(h =>
+      `<li><a href="#${h.s.doc.id}" ${h.s.anchor ? `data-anchor="${esc(h.s.anchor)}"` : ''}><small>${esc(h.s.doc.tag)} · ${esc(h.s.doc.title)}</small>${mark(h.s.head)}<span class="snip">…${mark(h.snip)}…</span></a></li>`
+    ).join('') : '<li class="empty">Không thấy mục nào khớp.</li>';
+    res.hidden = false; $('doclist').hidden = true;
+  }
+  $('q').addEventListener('input', e => search(e.target.value));
+
+  // ---- phone drawer ----
+  function closeSide() { $('side').classList.remove('open'); $('menu-btn').setAttribute('aria-expanded', 'false'); }
+  $('menu-btn').addEventListener('click', () => {
+    const open = !$('side').classList.contains('open');
+    $('side').classList.toggle('open', open); $('menu-btn').setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSide(); });
+
+  const start = byId[current()] ? current() : (byId[store.get('last')] ? store.get('last') : DOCS[0].id);
+  if (current() !== start) history.replaceState(null, '', '#' + start);
+  render(start, null);
+})();
+</script>

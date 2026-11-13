@@ -1,4 +1,4 @@
-# Tuần 4 (09/11 – 15/11): Linked List, HTTP, REST API Design, Auth
+# Tuần 4 (23/11 – 29/11): Linked List, HTTP, REST API Design, Auth
 
 [← Tuần 3](tuan-03.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 5 →](tuan-05.md)
 
@@ -28,11 +28,11 @@
 
 > 🔁 **Từ 26/10/2026, mỗi tuần học 6 buổi.** Lab và Chốt tuần gộp vào Thứ Bảy; Chủ Nhật để trống: nghỉ, hoặc học bù buổi bị lỡ trong tuần. Phần bị cắt khi gộp chuyển sang Chủ Nhật dưới dạng **tuỳ chọn**. Lịch ngày và số thứ tự D1–D100 giữ nguyên.
 
-Ngày nặng nhất là **D27 + D28 (4h00', chạm trần Thứ Bảy)**: lab bắt buộc rút còn 2h25' để có chỗ cho Chốt tuần và Tổng kết Giai đoạn 1. Để các buổi tối không vượt 90', tuần này đã dời bảng T2 *Versioning* (D24) và *Cookie vs localStorage* (D25) sang Chủ Nhật 15/11 (ngày trống, tuỳ chọn), chuyển bảng *Argon2id vs bcrypt…* thành tuỳ chọn, và gộp bảng *JOIN vs batch `IN`* (D26) vào bảng giống hệt ở D39 Tuần 6.
+Ngày nặng nhất là **D27 + D28 (4h00', chạm trần Thứ Bảy)**: lab bắt buộc rút còn 2h25' để có chỗ cho Chốt tuần và Tổng kết Giai đoạn 1. Để các buổi tối không vượt 90', tuần này đã dời bảng T2 *Versioning* (D24) và *Cookie vs localStorage* (D25) sang Chủ Nhật 29/11 (ngày trống, tuỳ chọn), chuyển bảng *Argon2id vs bcrypt…* thành tuỳ chọn, và gộp bảng *JOIN vs batch `IN`* (D26) vào bảng giống hệt ở D39 Tuần 6.
 
 ---
 
-## D22 (T2, 09/11): HTTP
+## D22 (T2, 23/11): HTTP
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 85' (Học 50' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h07'**
 
@@ -176,7 +176,7 @@ Nhóm: *protocol*. Trục chính: **hiệu năng trên một kết nối** vs **
 
 ---
 
-## D23 (T3, 10/11): Thiết kế REST & Pagination
+## D23 (T3, 24/11): Thiết kế REST & Pagination
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 75' (Học 40' + Bảng T2 10' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 1h57'**
 
@@ -286,11 +286,11 @@ Nhóm: *protocol/API design*. Trục chính: **tiện cho người dùng (nhảy
 
 ---
 
-## D24 (T4, 11/11): Idempotency & Versioning
+## D24 (T4, 25/11): Idempotency & Versioning
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h04'**
 
-> Tối nay chỉ điền bảng *DB vs Redis cho idempotency key*. Bảng *Versioning URL vs Header vs Query* **dời sang CN 15/11 (ngày trống, tuỳ chọn)** để buổi tối không vượt 90'.
+> Tối nay chỉ điền bảng *DB vs Redis cho idempotency key*. Bảng *Versioning URL vs Header vs Query* **dời sang CN 29/11 (ngày trống, tuỳ chọn)** để buổi tối không vượt 90'.
 
 ### 🧩 DSA: [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 
@@ -353,7 +353,7 @@ Nhóm: *data storage*. Trục chính: **tính đúng đắn (cùng transaction v
 | Ext: Dọn key hết hạn | | |
 | Ext: Rủi ro mất key khi hạ tầng gặp sự cố | | |
 
-**🟡 Bảng so sánh T2: Versioning qua URL vs Header vs Query param** *(điền ở CN 15/11, tuỳ chọn; tối nay chỉ cần đọc phần "Versioning" ở trên)*
+**🟡 Bảng so sánh T2: Versioning qua URL vs Header vs Query param** *(điền ở CN 29/11, tuỳ chọn; tối nay chỉ cần đọc phần "Versioning" ở trên)*
 
 Nhóm: *protocol/API design*. Trục chính: **dễ thấy, dễ dùng** vs **URL "sạch", đúng tinh thần REST**.
 
@@ -425,11 +425,11 @@ Nhóm: *protocol/API design*. Trục chính: **dễ thấy, dễ dùng** vs **UR
 
 ---
 
-## D25 (T5, 12/11): Auth
+## D25 (T5, 26/11): Auth
 
 **⏱ Ước tính:** Giờ làm 57' (DSA 45' + Anki 12') · Tối 87' (Học 50' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h24'**
 
-> Đây là bài dày nhất tuần. Tối nay chỉ điền bảng *Session vs JWT*. Bảng *Cookie HttpOnly vs localStorage* **dời sang CN 15/11 (ngày trống, tuỳ chọn)**; bảng *Argon2id vs bcrypt vs scrypt vs PBKDF2* và mục 5 (HS256 vs RS256) là **(tuỳ chọn)**, làm ở CN 15/11 nếu còn giờ.
+> Đây là bài dày nhất tuần. Tối nay chỉ điền bảng *Session vs JWT*. Bảng *Cookie HttpOnly vs localStorage* **dời sang CN 29/11 (ngày trống, tuỳ chọn)**; bảng *Argon2id vs bcrypt vs scrypt vs PBKDF2* và mục 5 (HS256 vs RS256) là **(tuỳ chọn)**, làm ở CN 29/11 nếu còn giờ.
 
 ### 🧩 DSA: [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 
@@ -485,7 +485,7 @@ Nhóm: *quản lý trạng thái xác thực*. Trục chính: **kiểm soát t�
 | Ext: Chi phí mỗi request (tra store hay chỉ verify chữ ký) | | |
 | Ext: Kích thước dữ liệu gửi mỗi request | | |
 
-**🟡 Bảng so sánh T2: Lưu token ở cookie HttpOnly vs localStorage** *(điền ở CN 15/11, tuỳ chọn)*
+**🟡 Bảng so sánh T2: Lưu token ở cookie HttpOnly vs localStorage** *(điền ở CN 29/11, tuỳ chọn)*
 
 Nhóm: *bảo mật phía client*. Trục chính: **rủi ro XSS** vs **rủi ro CSRF**.
 
@@ -497,7 +497,7 @@ Nhóm: *bảo mật phía client*. Trục chính: **rủi ro XSS** vs **rủi ro
 | Ext: JavaScript đọc được không (XSS)? | | |
 | Ext: Trình duyệt tự gửi kèm không (CSRF)? | | |
 
-**🟡 Bảng so sánh T2: Argon2id vs bcrypt vs scrypt vs PBKDF2** *(tuỳ chọn – điền nhanh ở CN 15/11 nếu còn giờ, theo OWASP Password Storage Cheat Sheet, 10'. Tối thiểu cần nhớ: OWASP ưu tiên Argon2id, bcrypt vẫn chấp nhận được)*
+**🟡 Bảng so sánh T2: Argon2id vs bcrypt vs scrypt vs PBKDF2** *(tuỳ chọn – điền nhanh ở CN 29/11 nếu còn giờ, theo OWASP Password Storage Cheat Sheet, 10'. Tối thiểu cần nhớ: OWASP ưu tiên Argon2id, bcrypt vẫn chấp nhận được)*
 
 Nhóm: *thuật toán băm mật khẩu*. Trục chính: **khả năng chống GPU/ASIC** vs **mức hỗ trợ / yêu cầu tuân thủ**.
 
@@ -567,7 +567,7 @@ Nhóm: *thuật toán băm mật khẩu*. Trục chính: **khả năng chống G
 
 ---
 
-## D26 (T6, 13/11): REST vs gRPC vs GraphQL + N+1 problem
+## D26 (T6, 27/11): REST vs gRPC vs GraphQL + N+1 problem
 
 **⏱ Ước tính:** Giờ làm 62' (DSA 50' + Anki 12') · Tối 85' (Học 45' + Bảng T2 15' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h27'**
 
@@ -696,7 +696,7 @@ Nhóm: *data access*. Trục chính: **số round-trip** vs **lượng dữ li�
 
 ---
 
-## D27 + D28 (T7, 14/11): Lab – Dự án + Chốt tuần 4 + Chốt Giai đoạn 1
+## D27 + D28 (T7, 28/11): Lab – Dự án + Chốt tuần 4 + Chốt Giai đoạn 1
 
 **⏱ Ước tính:** DSA 40' · Lab bắt buộc 2h25' · Chốt tuần câu 1–4 30' · Tổng kết GĐ1 15' · Anki/cheat sheet 10' · **Tổng 4h00'**
 
@@ -843,7 +843,7 @@ idempotency_keys(
 - [ ] `JWT_SECRET` đọc từ biến môi trường.
 - [ ] Không có câu SQL nào ghép chuỗi từ input (mọi giá trị đi qua placeholder); tham số sort (nếu có) đi qua whitelist.
 
-**Bước 7: Tài liệu (30') – tuỳ chọn, làm ở CN 15/11, ~25'**
+**Bước 7: Tài liệu (30') – tuỳ chọn, làm ở CN 29/11, ~25'**
 - `project/mini-order-service/README.md`: cách chạy, danh sách endpoint, ví dụ request.
 - `notes/api-design.md`: ghi lại các quyết định và **lý do** (vì sao chọn cursor, vì sao `404` thay vì `403` cho đơn của người khác, vì sao idempotency key ghi cùng transaction, chọn `400` hay `422` cho lỗi validate). Đây là nguyên liệu để kể khi phỏng vấn.
 
@@ -938,7 +938,7 @@ idempotency_keys(
 
 ---
 
-## CN (15/11): Ngày trống
+## CN (29/11): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

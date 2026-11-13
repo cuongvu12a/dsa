@@ -1,4 +1,4 @@
-# Tuần 6 (23/11 – 29/11): Tree, Heap, tối ưu Query (EXPLAIN)
+# Tuần 6 (07/12 – 13/12): Tree, Heap, tối ưu Query (EXPLAIN)
 
 ← [Tuần 5](tuan-05.md) · [Về lộ trình tổng](../Roadmap_100_ngay.md) · [Tuần 7 →](tuan-07.md)
 
@@ -32,7 +32,7 @@ Ngày nặng nhất là **T7 (D41 + D42: Lab tối ưu API + Chốt tuần, 4h00
 
 ---
 
-## D36 (T2, 23/11): EXPLAIN / EXPLAIN ANALYZE
+## D36 (T2, 07/12): EXPLAIN / EXPLAIN ANALYZE
 
 **⏱ Ước tính:** Giờ làm 57' (DSA 45' + Anki 12') · Tối 80' (Học 50' + Ghi chú/Anki 15' + Tự kiểm tra 15') · **Tổng 2h17'**
 
@@ -151,7 +151,7 @@ Ngày nặng nhất là **T7 (D41 + D42: Lab tối ưu API + Chốt tuần, 4h00
 
 ---
 
-## D37 (T3, 24/11): Seq Scan / Index Scan / Index Only Scan / Bitmap Scan
+## D37 (T3, 08/12): Seq Scan / Index Scan / Index Only Scan / Bitmap Scan
 
 **⏱ Ước tính:** Giờ làm 52' (DSA 40' + Anki 12') · Tối 85' (Học 45' + Bảng T2 15' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h17'**
 
@@ -267,7 +267,7 @@ Nhóm: *phương thức truy cập dữ liệu*. Trục chính của cuộc so s
 
 ---
 
-## D38 (T4, 25/11): Nested Loop / Hash Join / Merge Join
+## D38 (T4, 09/12): Nested Loop / Hash Join / Merge Join
 
 **⏱ Ước tính:** Giờ làm 47' (DSA 35' + Anki 12') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h09'**
 
@@ -390,7 +390,7 @@ Nhóm: *thuật toán join*. Trục chính của cuộc so sánh: **kích thư�
 
 ---
 
-## D39 (T5, 26/11): N+1 trong ORM, slow query log, keyset pagination
+## D39 (T5, 10/12): N+1 trong ORM, slow query log, keyset pagination
 
 **⏱ Ước tính:** Giờ làm 42' (DSA 30' + Anki 12') · Tối 77' (Học 40' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 1h59'**
 
@@ -527,7 +527,7 @@ Nhóm: *chiến lược tải dữ liệu liên quan (data loading)*. Trục ch�
 
 ---
 
-## D40 (T6, 27/11): Checklist "API chậm"
+## D40 (T6, 11/12): Checklist "API chậm"
 
 **⏱ Ước tính:** Giờ làm 77' (DSA 45' + Anki 12' + Bài tập `pg_stat_statements` ở công ty 20') · Tối 82' (Học 45' + Bảng T2 12' + Ghi chú/Anki 10' + Tự kiểm tra 15') · **Tổng 2h39'**
 
@@ -541,7 +541,7 @@ Nhóm: *chiến lược tải dữ liệu liên quan (data loading)*. Trục ch�
   2. Max-heap kích thước k → O(n log k) thời gian, O(k) bộ nhớ.
   3. Quickselect → O(n) trung bình, O(n²) xấu nhất.
 - **Lưu ý:** so sánh bằng `x² + y²`, không cần căn bậc hai (vừa chậm vừa sai số số thực).
-- **🟡 Bảng so sánh T2: Heap vs Sort vs Quickselect cho Top-K** *(điền ở T7 28/11, cùng câu 5 chốt tuần)*. Nhóm: *thuật toán chọn Top-K*. Trục chính: **tốc độ** vs **bộ nhớ và khả năng xử lý stream**.
+- **🟡 Bảng so sánh T2: Heap vs Sort vs Quickselect cho Top-K** *(điền ở T7 12/12, cùng câu 5 chốt tuần)*. Nhóm: *thuật toán chọn Top-K*. Trục chính: **tốc độ** vs **bộ nhớ và khả năng xử lý stream**.
 
   | Tiêu chí | Sort | Heap kích thước k | Quickselect |
   |---|---|---|---|
@@ -661,7 +661,7 @@ Nhóm: *chiến lược tăng hiệu năng đọc*. Trục chính của cuộc s
 
 ---
 
-## D41 + D42 (T7, 28/11): Lab + Chốt tuần 6
+## D41 + D42 (T7, 12/12): Lab + Chốt tuần 6
 
 **⏱ Ước tính:** DSA 30' · Lab bắt buộc 2h40' · Chốt tuần 40' (gồm bảng T2 Top-K) · Anki/cheat sheet 10' · **Tổng 4h00'**
 
@@ -828,7 +828,7 @@ ANALYZE;
 
 ---
 
-## CN (29/11): Ngày trống
+## CN (13/12): Ngày trống
 
 Không xếp bài mới. Chọn một trong hai:
 

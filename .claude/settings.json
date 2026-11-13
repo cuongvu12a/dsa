@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/BE-Engineer/tools/hook_build_site.py\"",
+            "timeout": 60,
+            "statusMessage": "Đang build lại trang note..."
+          }
+        ]
+      }
+    ]
+  }
+}
