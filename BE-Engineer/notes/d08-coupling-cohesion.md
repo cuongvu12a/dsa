@@ -5,6 +5,7 @@
 > Ghi chú ôn tập. Câu tiếng Anh đơn giản 🇬🇧 để luyện đọc, kèm giải thích 🇻🇳. Code dùng Python; khác biệt của **TypeScript/JavaScript** nằm trong khối 🟦 cuối mỗi mục (đã kiểm chứng bằng cách chạy thật, không ghi theo trí nhớ).
 > Nhãn: 🔴 T1 = nhớ và dạy lại được · 🟡 T2 = hiểu, nhớ tiêu chí chọn · 🟢 T3 = biết để tra khi cần
 > Mục #1 đến #6 là 🔴 T1; mục #7 là 🟢 T3.
+> 📌 = **lưu ý cần xem lại**: câu hỏi đã từng thắc mắc sau khi học, ghi ở [mục 11](#11-hỏi-đáp-mở-rộng-chia-module-ngăn-port-và-adapter).
 
 ---
 
@@ -20,6 +21,7 @@
 8. [Khung nhớ nhanh](#8-khung-nhớ-nhanh)
 9. [Thẻ Anki T1 kèm đáp án](#9-thẻ-anki-t1-kèm-đáp-án) · 🔴 T1
 10. [Câu hỏi cuối bài (đáp án mẫu)](#10-câu-hỏi-cuối-bài)
+11. 📌 [Hỏi đáp mở rộng: chia module, ngăn, port và adapter](#11-hỏi-đáp-mở-rộng-chia-module-ngăn-port-và-adapter) (ôn lại sau khi học)
 
 ---
 
@@ -259,6 +261,8 @@ Bốn method dùng bốn nhóm field không giao nhau, mỗi method do một act
 **5.** *Both got worse. Cohesion is about reasons to change, not class size: one reason ("discount policy") is now spread over four places. The four classes share knowledge of the rule and must change together, which is shotgun surgery. Fix: merge into one `DiscountPolicy.apply(order)`, and split later only along axes that change independently.*
 
 </details>
+
+> 📌 **Xem lại:** chia theo actor thấy "bất định" thì dựng trụ cột thế nào? Có phải gom hết vào một class mỗi module? Xem [11.1](#111-trụ-cột-ít-gãy-module-trước-ngăn-sau-actor-cuối-cùng) và [11.2](#112-mỗi-ngăn-chia-theo-trục-nào).
 
 ---
 
@@ -526,6 +530,8 @@ Mỗi dòng trong bảng ánh xạ sang bản sửa như sau:
 
 - Ở mức hệ thống, các smell này có tên khác: **DB chung** (tệ nhất), **chuỗi gọi đồng bộ** A→B→C, **service vòng** (A gọi B, B gọi lại A), tức là *distributed monolith*.
 - Khi review PR, nhìn 3 thứ trước tiên: **import chéo giữa các module**, **field nội bộ của module khác bị đọc trực tiếp**, **số lượng mock trong test**. Ba thứ này lộ ra coupling nhanh hơn đọc logic.
+
+> 📌 **Xem lại:** adapter `OrderMailNotifier` vẫn phụ thuộc `MailService`, vậy có phải chỉ dời coupling đi chỗ khác? Xem [11.3](#113-port--adapter-có-phải-chỉ-dời-coupling-đi-chỗ-khác).
 
 ---
 
@@ -913,3 +919,227 @@ Code tự lấy instance qua `getInstance()` hoặc biến global, nên chữ k�
 **5.** ([#2](#2-cohesion-các-phần-bên-trong-cùng-một-mục-đích), [#3](#3-high-cohesion-low-coupling-và-solid)) Cohesion của mỗi class tăng (từ coincidental lên functional), ứng với **SRP**. Coupling **không tự giảm**: nếu `OrderService` tự `new PriceFormatter()`, `new EmailSender()`, `new PhoneValidator()` thì nó vẫn biết 3 class cụ thể và test vẫn phải dựng SMTP. Cải thiện: `OrderService` phụ thuộc vào port nó sở hữu (`OrderNotifier.orderPlaced(order)` thay cho `EmailSender`), nhận qua constructor (**DIP + DI**). Hàm thuần như `formatPrice` không cần interface. *Splitting improves cohesion; it is the injected, owned abstractions that reduce coupling.*
 
 </details>
+
+---
+
+## 11. Hỏi đáp mở rộng: chia module, ngăn, port và adapter
+
+> 📌 Ghi lại các câu đã thắc mắc **sau khi học xong D8** (13-14/11/2026), lấy module `purchased-request` trong [capstone ERP](capstone-oop-solid-erp/README.md) làm ví dụ. Khi ôn: đọc câu hỏi, tự trả lời bằng lời của mình, rồi mới đọc phần dưới.
+
+**Ý gốc cần nhớ:** coupling và cohesion là **thước đo**, SOLID là **bộ công cụ** để đạt thước đo đó. Cả hai thước đo phục vụ cùng một mục tiêu: *khi có thay đổi, số chỗ phải sửa ít và các chỗ đó dễ đoán.*
+
+### 11.1 Trụ cột ít gãy: module trước, ngăn sau, actor cuối cùng
+
+**Câu hỏi:** chia theo actor thấy "bất định": diễn đạt kiểu này thì method X thuộc nhóm A, diễn đạt kiểu khác thì X lại thuộc nhóm B. Còn nếu chia theo dữ liệu và invariant thì mọi thứ của `PurchasedRequest` liên quan đến nhau, vậy là gom hết vào một class như code cũ?
+
+**Trả lời:** không gom hết. Chỗ vướng là **gộp hai câu hỏi ở hai tầng khác nhau thành một**:
+
+| Tầng | Câu hỏi | Kết quả |
+|---|---|---|
+| **Ngoài: module** | *Dữ liệu này của ai? Invariant này ai giữ?* | Method thuộc module PR hay module PO |
+| **Trong: ngăn** | *Đoạn code này là **loại việc** gì?* | Thuộc 1 trong 4 ngăn (bảng dưới) |
+| **Trong ngăn use case** | *Actor nào kích hoạt luồng này?* | Use case nào, thư mục nào |
+
+Code cũ đặt **đúng** ranh giới module (`purchased-request` tách khỏi `purchased-order`). Cái sai là bên trong module không có cấu trúc gì: một class 2060 dòng, 8 actor.
+
+**4 ngăn bên trong một module:**
+
+| Ngăn | Loại việc | Ví dụ trong `purchased-request` |
+|---|---|---|
+| **Aggregate** (domain) | **Giữ luật bất biến** | `PurchaseRequest.changeStatus()`, `.cancelItem()`, tính trạng thái phiếu từ item |
+| **Use case** | **Một luồng ghi** do một actor kích hoạt: load aggregate, gọi method, save, gọi port | `CreatePurchaseRequest`, `SendForApproval`, `CancelRequestItem` |
+| **Query** | **Đọc** dữ liệu cho màn hình, báo cáo | danh sách, chi tiết, xuất Excel |
+| **Adapter** | **Nói chuyện với bên ngoài** | TypeORM repo, S3, `exceljs`, email, RabbitMQ consumer, controller |
+
+> 📌 **"Invariant" không có nghĩa là "mọi code đụng tới PurchaseRequest".** Invariant chỉ là phần *luật phải luôn đúng*, và phần đó **nhỏ**. Xuất Excel, gửi mail, upload S3 cũng *đọc* dữ liệu PR nhưng **không giữ luật nào**: đó là việc của actor khác (báo cáo, người duyệt, hạ tầng). Class cũ trộn "giữ luật" với "mọi thứ đọc PR", nên mới phình ra 2060 dòng.
+
+Hình dung như một phòng ban:
+- Phòng Mua hàng là **module**.
+- **Quy chế** mà ai trong phòng cũng phải theo là **aggregate**.
+- **Mỗi nhân viên làm một đầu việc** là **use case**.
+- **Người chạy giấy tờ ra ngoài** (bưu điện, ngân hàng) là **adapter**.
+
+Không ai nhét cả phòng vào một người. Nhưng cũng không tách quy chế ra mỗi nhân viên giữ một mảnh.
+
+**Vì sao cách chia này ít gãy:**
+
+1. **Phần đắt được quyết bằng thứ khách quan.** Ranh giới module dựa vào *năng lực nghiệp vụ* của công ty (mua hàng, kho, kế toán: hiếm khi đổi). Aggregate dựa vào *những gì phải đúng cùng nhau trong một transaction*. Cả hai đều không lắc lư theo cách diễn đạt.
+2. **Câu hỏi "actor nào" chỉ xuất hiện ở ngăn use case**, nơi xếp nhầm rất **rẻ**: mỗi use case là một file nhỏ, xếp nhầm thì đổi tên hoặc dời file trong cùng module, không ai bên ngoài biết.
+3. **Bên trong module được giấu sau một API công khai nhỏ.** Capstone chỉ export `PurchaseRequestCreator`, nên chia lại bên trong thế nào thì `order-plan` và `nvl-alert` cũng không biết. "Ít gãy" đến từ việc **giấu** cách chia, không phải từ việc chia đúng ngay lần đầu.
+
+**Khi phân vân method X thuộc A hay B, dùng câu hỏi kiểm chứng được, đừng dùng câu chữ:**
+
+| Câu hỏi | Kiểm chứng bằng |
+|---|---|
+| X **sửa dữ liệu của ai**, giữ **invariant của ai**? | bảng hoặc aggregate mà X ghi vào |
+| Đổi luật trong X thì **ai mở ticket, ai ký duyệt**? | hỏi PO / BA, lịch sử Jira |
+| X hay **đổi cùng với** file nào? | `git log`: file nào hay nằm chung commit |
+
+Ví dụ đã làm trong capstone: phân bổ phí ship khi huỷ item, nghe vừa giống việc mua hàng vừa giống việc kế toán. Chốt bằng **dữ liệu**: nó sửa dòng PO và giữ invariant của PO, nên trả về **module PO** ([06, mục 4.9](capstone-oop-solid-erp/06-thiet-ke-lai.md)).
+
+Phân vân mãi không chốt được thường là một trong hai trường hợp:
+- **X chứa 2 quyết định của 2 bên.** Tách X ra. Ví dụ `cancelItem(itemId, lockedOrders)`: luật "không huỷ khi PO đã chốt" thuộc phiếu, còn việc lấy danh sách PO đã chốt thuộc PO.
+- **Một từ mang 2 nghĩa ở 2 ngữ cảnh.** Ví dụ "Order" của PLF, của FFM, của nhà máy là ba thứ khác nhau. Khi đó tách **model** (mỗi ngữ cảnh một `Order` riêng), không cãi nhau chuyện X thuộc nhóm nào.
+
+**Phép thử máy móc khi không chắc bên trong module nên chia thế nào: bảng method × dependency** (cùng cách với bảng `PaymentHelper` ở [#2](#2-cohesion-các-phần-bên-trong-cùng-một-mục-đích)):
+
+| Method (code cũ) | DataSource | S3 + exceljs | Email | Rabbit |
+|---|---|---|---|---|
+| `storage`, `changeStatus`, `cancelItem` | ✅ | | | |
+| `exportToExcel*`, `generateErrorExcelAndUpload` | ✅ (đọc) | ✅ | | |
+| `sendBulkApprovalEmail` | ✅ | ✅ (đính kèm) | ✅ | |
+| processor tự hoàn thành | ✅ | | | ✅ |
+
+Các cụm method **dùng chung một nhóm dependency** chính là các ngăn tự hiện ra. Bảng này lấy từ code thật nên không phụ thuộc vào cách diễn đạt. Kết quả gần trùng với bảng ánh xạ ở [06, mục 4.8](capstone-oop-solid-erp/06-thiet-ke-lai.md).
+
+**Khi nào một module chỉ cần một class:** module nhỏ (vài trăm dòng), một actor, constructor 1-2 dependency, bảng method × dependency không tách ra cụm nào. Khi đó một class là đúng, tách thêm là YAGNI. Chỉ tách khi bảng bắt đầu ra cụm rõ ràng, hoặc khi test phải mock nhiều thứ mà mỗi test chỉ dùng một ít.
+
+> 📌 **Phản xạ:**
+> 1. *"Dữ liệu của ai?"* → chọn **module**.
+> 2. *"Loại việc gì: giữ luật, chạy luồng ghi, đọc, hay nói chuyện với bên ngoài?"* → chọn **ngăn**.
+> 3. *"Actor nào?"* → chia **use case** (và query). Xếp sai thì dời file là xong.
+>
+> *Ranh giới càng đắt để dời (module, DB, API công khai) thì càng phải nghĩ kỹ. Ranh giới rẻ (class bên trong module) thì chọn tạm, có bằng chứng thì sửa.*
+
+### 11.2 Mỗi ngăn chia theo trục nào
+
+**Câu hỏi:** chỉ use case mới chia theo actor à? Ngăn adapter và ngăn query thì gom hết vào một class, hay chia thế nào?
+
+**Trả lời:** không gom hết. **Mỗi ngăn có một trục chia riêng**, và actor chỉ là trục **chính** ở use case:
+
+| Ngăn | Trục chia chính | Có theo actor không? | Gộp chung một class khi | Tách riêng khi |
+|---|---|---|---|---|
+| **Aggregate** | Ranh giới **invariant / transaction** | ❌ Không. Luật không thuộc riêng actor nào, mọi actor đều phải theo | Dữ liệu phải nhất quán cùng lúc (phiếu + item) | Phần dữ liệu có vòng đời riêng, không cần nhất quán ngay với phần kia |
+| **Use case** | **Actor + một luồng ghi** | ✅ **Trục chính** | Không gộp: mỗi luồng một class, gom theo actor bằng thư mục | Luôn tách theo luồng |
+| **Query** | **Người đọc / màn hình** | 🟡 Có, nhưng lỏng: người đọc chính là actor | Các màn hình **cùng người đọc, cùng đổi khi UI đổi** | **Người đọc khác**, nhịp đổi khác |
+| **Adapter** | **Hệ thống bên ngoài × port** | 🟡 Không phải trục chính (xem lưu ý bên dưới) | **Cùng một hệ bên ngoài, cùng nhịp đổi**: một class có thể thoả nhiều port | **Hệ bên ngoài khác**, hoặc cùng hệ nhưng **nội dung** do actor khác nhau quyết |
+
+**Ví dụ trong capstone** ([06, mục 4.3-4.4](capstone-oop-solid-erp/06-thiet-ke-lai.md)):
+
+- **Query:**
+  - 3 query (danh sách, chi tiết, YCMH còn SL để lập PO) gom **một class** `purchase-request-queries.ts`, vì cùng người xem, cùng đổi khi màn hình YCMH đổi.
+  - Xuất Excel tách **riêng** `export-purchase-request-sheet.ts`, vì người đọc là bộ phận báo cáo, đổi theo cột và định dạng file chứ không theo màn hình.
+- **Adapter:**
+  - Mỗi hệ bên ngoài một nhóm: `persistence/`, `storage/` (S3), `excel/`, `mail/`, `messaging/`, `purchase-order/`.
+  - **Một class thoả nhiều port** khi cùng hệ bên ngoài: `excel-request-sheets.ts` thoả 2 role (`RequestSheetRenderer`, `ImportErrorReport`); `purchase-order-module-links.ts` thoả 3 role. Nest nối bằng `useExisting`. Đây là ISP: **port** tách theo client, còn **class cài đặt** gom theo hệ bên ngoài.
+  - Read model `sql-purchase-request-read-model.ts` là adapter của ngăn query, **được phép join bảng của module khác** vì chỉ đọc để hiển thị, không ghi, không giữ luật.
+
+> 📌 **Vì sao capstone vẫn ghi "Actor: báo cáo / kho / người duyệt" cạnh adapter?** Vì một adapter có **hai lý do thay đổi**:
+> - **Cơ chế** (đổi thư viện `exceljs`, đổi S3 sang GCS, đổi SMTP sang SES): do **hạ tầng** quyết.
+> - **Nội dung** (thêm cột Excel, đổi nội dung mail duyệt): do **actor nghiệp vụ** quyết.
+>
+> Nhãn actor trong capstone ghi lý do thứ hai. Quy tắc: **gom adapter theo hệ bên ngoài**, nhưng nếu hai phần nội dung trong cùng một adapter do **hai actor khác nhau** quyết (ví dụ mail duyệt của người duyệt và mail báo hàng về của kho), thì tách thành hai adapter, hoặc tách phần template khỏi phần gửi.
+
+**Cây thư mục rút gọn:**
+
+```
+purchased-request/
+  domain/              # aggregate, value object, lỗi nghiệp vụ, port do domain sở hữu
+  application/
+    use-cases/         # mỗi file một luồng ghi, tên theo việc của actor
+    queries/           # gom theo người đọc / màn hình
+    ports.ts           # port do application sở hữu (mail, file, PO...)
+    public-api.ts      # thứ DUY NHẤT module khác được dùng
+  infrastructure/      # adapter, gom theo hệ bên ngoài: persistence/, storage/, excel/, mail/, messaging/
+  presentation/        # controller, DTO, filter lỗi → HTTP (cũng là adapter, phía vào)
+  purchased-request.module.ts   # composition root: nơi duy nhất nối port ↔ adapter
+```
+
+> 📌 **Phản xạ:** *Aggregate theo **luật**. Use case theo **actor + luồng**. Query theo **người đọc**. Adapter theo **hệ bên ngoài**, và chỉ tách thêm khi nội dung bên trong do nhiều actor quyết.*
+
+#### 📌 Adapter là gì: cả module khác lẫn hạ tầng?
+
+**Đúng.** Adapter là mọi thứ đứng **giữa lõi của module** (domain + application) **và bất cứ thứ gì nằm ngoài lõi**. Với lõi `orders`, `MailService`, S3, MySQL hay module `payments` đều là "bên ngoài" như nhau: lõi chỉ biết port do nó sở hữu, không biết phía sau là hạ tầng hay một module khác.
+
+Adapter có **hai chiều**:
+
+- **Phía vào (driving):** bên ngoài gọi vào module, ví dụ controller HTTP, RabbitMQ consumer, cron job. Việc của nó: dịch input thành lệnh nghiệp vụ, rồi gọi **đúng một** use case hoặc query.
+- **Phía ra (driven):** module gọi ra ngoài, ví dụ repository, S3, mail, module khác. Việc của nó: cài đặt một port, dịch qua lại giữa hai ngôn ngữ.
+
+**Trong ngăn adapter, chia theo 3 bước:**
+
+1. **Theo chiều:** phía vào nằm ở `presentation/` (HTTP) hoặc `infrastructure/messaging/`. Phía ra nằm ở `infrastructure/`.
+2. **Theo hệ bên ngoài:** mỗi hệ một thư mục (`persistence/`, `storage/`, `mail/`, `purchase-order/`...).
+3. **Trong một hệ:** mặc định **một class cho một port**. Gộp nhiều port vào một class khi chúng **cùng hệ bên ngoài, cùng nhịp đổi** (Nest nối bằng `useExisting`). Tách ra khi nội dung do nhiều actor khác nhau quyết.
+
+**Mỗi loại "bên ngoài" có luật riêng:**
+
+| Loại bên ngoài | Ví dụ trong capstone | Adapter gọi qua | Luật riêng |
+|---|---|---|---|
+| **DB của chính module** | `typeorm-purchase-request.repository.ts` + `purchase-request.mapper.ts` | ORM | Chỉ module chủ được **ghi**. Mapper dịch bảng ↔ aggregate, nên domain không biết bảng trông thế nào |
+| **Hạ tầng** (S3, mail, queue, file) | `s3-document-storage.ts`, `email-approval-notifier.ts` | SDK | Bọc lỗi SDK thành lỗi trong hợp đồng (không để `S3ServiceException` lọt lên). Chỉ ở đây mới biết bucket, ACL, presigned URL |
+| **Module khác trong cùng app** | `purchase-order-module-links.ts` | **API công khai** của module đó. **Không** gọi repository hay đọc bảng của họ | Là **anti-corruption layer**: dịch model của họ sang model của mình. Khi module kia tách thành microservice, **chỉ adapter đổi** (gọi hàm → gọi HTTP), lõi không biết. `inventory-stock-figures.ts` là trường hợp **tạm**: hiện vẫn đọc SQL bảng kho (chỉ đọc), nhưng nhờ nằm sau port nên sau này đổi sang API của module inventory thì use case không biết |
+| **Dịch vụ bên thứ ba** (Stripe, SanMar, nhà vận chuyển) | `ProviderAPIRequesterFactory` / `SanMarRequester` ở purchased-order | HTTP / SDK | Lo timeout, retry, đổi mã lỗi của họ sang lỗi của mình, idempotency key |
+| **Phía vào** | `purchased-request.controller.ts`, `fulfilment-events.consumer.ts` | (bên ngoài gọi vào) | Chỉ dịch DTO hoặc message thành lệnh, **không có luật nghiệp vụ**. Đổi lỗi domain sang HTTP ở filter |
+
+> ⚠️ **Ngoại lệ có chủ đích:** read model của ngăn query (`sql-purchase-request-read-model.ts`) được **join bảng của module khác**, vì chỉ đọc để hiển thị. Đây là đánh đổi: nhanh và đơn giản bây giờ, đổi lại khi tách DB thì read model đó phải viết lại. Ghi rõ đánh đổi này trong code. **Ghi** vào bảng của module khác thì không bao giờ được.
+
+#### 📌 Query có chia theo actor như use case không?
+
+**Có, nhưng lỏng hơn nhiều.** "Actor" của query là **người đọc** (màn hình, báo cáo, API cho module khác). Lỏng hơn vì query **không có luật, không đổi dữ liệu**, nên chia sai cũng gần như không có rủi ro.
+
+| | Use case (ghi) | Query (đọc) |
+|---|---|---|
+| Đơn vị | **Một luồng một class** (`CancelRequestItem`) | **Một nhóm màn hình một class**, nhiều method (`PurchaseRequestQueries.list()`, `.detail()`) |
+| Đi qua aggregate không? | Có: load → gọi method giữ luật → save | **Không cần**: đọc thẳng bằng SQL ra view phẳng (CQRS mức nhẹ) |
+| Chia theo | Actor + luồng | Người đọc + màn hình |
+| Gộp khi | Không gộp | Cùng người đọc, cùng đổi khi màn hình đổi |
+| Tách khi | Luôn tách theo luồng | Khác người đọc; khác nhịp đổi; khác quyền xem; khác nhu cầu hiệu năng (báo cáo nặng thì tách read model riêng, có thể đọc từ replica) |
+
+Ví dụ capstone: `purchase-request-queries.ts` gom 3 query của **người xem YCMH**. `export-purchase-request-sheet.ts` tách riêng cho **bộ phận báo cáo**, vì nó đổi theo cột và định dạng file chứ không theo màn hình.
+
+> 📌 **Phản xạ:** *Ghi thì chia **chặt** theo actor + luồng (vì có luật). Đọc thì chia **lỏng** theo người đọc (vì không có luật). Adapter thì chia theo **chiều → hệ bên ngoài → port**, và với module khác thì **chỉ đi qua API công khai** của nó.*
+
+### 11.3 Port + adapter: có phải chỉ dời coupling đi chỗ khác?
+
+**Câu hỏi:** `Order` thay vì phụ thuộc thẳng `MailService` thì phụ thuộc `OrderNotifier` (interface ít đổi). Nhưng class cài đặt `OrderMailNotifier` vẫn phụ thuộc `MailService`, `MailService` đổi thì nó cũng phải đổi. Vậy ý ở đây là tách logic: `Order` phụ thuộc thứ cố định, còn class giao tiếp với bên ngoài chấp nhận coupling nhiều hơn?
+
+**Trả lời:** đúng như vậy. **Coupling không mất đi. Nó được dời ra rìa và gom về một chỗ**, và đó chính là mục đích. Coupling không thể bằng 0 ([#1](#1-coupling-một-module-biết-bao-nhiêu-về-module-khác)), nên câu hỏi đúng không phải "làm sao hết coupling" mà là "**coupling nên nằm ở đâu**".
+
+```
+Trước:  OrderService ─┐
+        RefundService ─┼──► MailService (transporter, SMTP...)
+        InvoiceService ┘      N service × biết chi tiết mail
+
+Sau:    OrderService ──► OrderNotifier (port, orders sở hữu)
+                              ▲ implements
+                         OrderMailNotifier ──► MailService
+                         (adapter: chỉ dịch, không có luật nghiệp vụ)
+```
+
+**Lợi ích 1: chọn được chỗ chịu thay đổi.**
+
+| | Không có port | Có port |
+|---|---|---|
+| File phải sửa khi `MailService` đổi | Mọi service gọi `mail.transporter.sendMail` | **Chỉ** adapter |
+| Loại code bị đụng | Code **nghiệp vụ** (rủi ro cao, nhiều test) | Code **dịch thuần** (không có luật) |
+| Test cần chạy lại | Unit test của cả N service | 1 integration test của adapter |
+
+N use case nói chuyện với M nhà cung cấp: đi thẳng thì tới **N × M** đường phụ thuộc, qua port chỉ còn **N + M**.
+
+**Lợi ích 2: coupling của adapter là coupling có chủ đích.** Adapter chỉ làm một việc: **dịch** ngôn ngữ nghiệp vụ (`orderPlaced(order)`) sang ngôn ngữ hạ tầng (`sendMail({ to, html })`). Lý do thay đổi duy nhất của nó là "thế giới bên ngoài đổi", nên cohesion của nó cao dù coupling cao. Coupling cao ở **đúng một chỗ, có tên, có test riêng** thì không đáng ngại. Coupling rải rác khắp code nghiệp vụ mới đáng ngại. Đây là *Dependency Rule* của hexagonal ([capstone 04](capstone-oop-solid-erp/04-hexagonal-co-ban.md)): mũi tên chỉ vào lõi, lõi không biết gì về rìa.
+
+**Bảng "đổi gì thì sửa ở đâu"** (đọc bảng này là đủ để không phải hỏi lại):
+
+| Thay đổi | Port có che được không? | Phải sửa ở đâu |
+|---|---|---|
+| `MailService` đổi API (đổi tên method, đổi tham số) | ✅ | Chỉ `OrderMailNotifier` |
+| Đổi nhà cung cấp mail (SMTP sang SES) | ✅ | Thêm adapter mới hoặc sửa adapter cũ, cộng một dòng ở composition root (`*.module.ts`) |
+| Thêm kênh mới (SMS, push) | ✅ | Thêm adapter mới (OCP). `OrderService` **không đổi** |
+| Đổi template, nội dung mail | ✅ | Adapter, hoặc phần template của adapter |
+| **Nghiệp vụ** muốn mail có thêm mã tracking (port chưa truyền thông tin đó) | ❌ | `OrderNotifier` đổi chữ ký, **cả domain lẫn adapter cùng sửa**. Đây là thay đổi nghiệp vụ chính đáng, phải sửa là đúng |
+
+> 📌 Port **không** hứa "không bao giờ phải sửa". Nó hứa: **"hạ tầng đổi thì code nghiệp vụ không phải sửa."** "Interface ổn định" luôn phải hỏi tiếp: *ổn định so với loại thay đổi nào?*
+
+**Các câu hay hỏi tiếp:**
+
+- **"`MailService` đã là một service rồi, sao không gọi thẳng?"** Vì `MailService` nói ngôn ngữ **mail** (`to`, `subject`, `html`), còn `OrderService` cần ngôn ngữ **đơn hàng** ("đơn đã đặt"). Việc dịch giữa hai ngôn ngữ đằng nào cũng phải có. Câu hỏi chỉ là đặt việc dịch ở đâu: trong code nghiệp vụ (xấu) hay trong adapter (tốt).
+- **"Port đặt ở đâu, adapter đặt ở đâu?"**
+  - **Port luôn nằm ở phía nghiệp vụ** (`orders/application/ports.ts`), viết bằng từ của orders. Đây là DIP. Lưu ý điểm hay nhầm: **tách** interface ra (ISP) chưa đủ, **phía cấp cao phải sở hữu** nó.
+  - **Adapter nằm ở phía biết cả hai ngôn ngữ**: thường là `orders/infrastructure/`, và adapter đó gọi API công khai của module notifications. Composition root (`orders.module.ts`) là nơi duy nhất nối port với adapter.
+- **"Lấy gì đảm bảo chỉ adapter import `MailService`?"** Dùng lint rule kiểm Dependency Rule (`dependency-cruiser`, `eslint-plugin-boundaries`), ví dụ cấm `domain/` và `application/` import từ `infrastructure/` hay từ module khác. Capstone từng có script kiểm việc này.
+- **"Test thế nào?"** Domain và use case test bằng **fake** của port (nhanh, không cần hạ tầng). Adapter test bằng **integration test** với hệ thật hoặc container. Nếu có nhiều adapter cho cùng một port, viết **một bộ test chung** chạy lên mọi adapter (cách kiểm LSP ở [D5 #1](d05-solid-l-i-d.md#1-lsp-lớp-con-thay-được-lớp-cha-và-hợp-đồng)).
+- **"Cái giá là gì?"** Thêm một file, thêm một tầng gián tiếp. Debug phải nhảy qua port mới tới adapter.
+- **"Khi nào không cần port?"** Khi `MailService` là service nội bộ ổn định, **chỉ một chỗ gọi**, và test không cần thay nó bằng fake: gọi thẳng là đủ. Thêm port khi xuất hiện chỗ gọi thứ hai, nhà cung cấp thứ hai, hoặc khi test bắt đầu đau. Bảng "cố ý KHÔNG tách" của [capstone 06, mục 4.9](capstone-oop-solid-erp/06-thiet-ke-lai.md) (không làm port cho `moment`, `lodash`) là đúng tinh thần này.
+
+> 📌 **Phản xạ:** *Đừng hỏi "làm sao để hết coupling?". Hỏi "**coupling này nên nằm ở đâu, để khi bên ngoài đổi, chỉ một chỗ nhỏ, không chứa luật nghiệp vụ, phải sửa?**". Câu trả lời thường là: trong một adapter ở rìa, nối bằng composition root.*

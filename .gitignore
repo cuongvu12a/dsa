@@ -2,3 +2,4 @@ __pycache__/
 .venv/
 node_modules/
 BE-Engineer/site/
+BE-Engineer/html/
