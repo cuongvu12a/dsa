@@ -6,6 +6,22 @@ Các file trong `history/` không được trang web tải — chỉ để lưu 
 
 ---
 
+## v3 — 2026-11-13 · Inverted Row cho Upper B
+File: `2026-11-13_v3_inverted-row.js` (= bản đang dùng lúc lưu)
+
+| Buổi | Thay đổi |
+|---|---|
+| Upper B | B1: One-Arm Wide-Elbow Dumbbell Row 3 × 10–15/bên → **Wide-Grip Inverted Row** 3 × 8–15 (khuỷu mở ~60°, kéo về dưới ngực, siết 2s, hạ 3s) |
+
+Lý do: tạ đơn nhẹ nên kéo tạ một tay khó đủ tải; Inverted Row kéo ~50–70% trọng lượng cơ thể, chỉnh độ khó bằng góc người.
+Cần bàn chắc hoặc xà chỉnh được độ cao. Tay rộng để giữ vai trò lưng giữa + vai sau (không trùng Chin-Up ở A1).
+
+Danh sách thay thế slot B1 thêm 2 bài ở đầu: Feet-Elevated Inverted Row (khó hơn) và Wide-Grip Inverted Row. Bài tạ cũ vẫn chọn lại được.
+
+**Hiệp trực tiếp/tuần:** không đổi — bài mới cùng nhóm cơ chính/phụ và cùng 3 hiệp.
+
+---
+
 ## v2 — 2026-11-11 · Bản tổng hợp 10 chuyên gia
 File: `2026-11-11_v2_consensus-10-coaches.js` (= bản đang dùng lúc lưu)
 

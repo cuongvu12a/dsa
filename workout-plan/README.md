@@ -26,7 +26,7 @@ Why the data file is `.js` and not `.json`: browsers block `fetch()` on `file://
 - Progression is mainly via tempo and isometrics: slow eccentrics, then pauses, then 1½ reps, then a harder variation, at 0–2 RIR (reps in reserve).
 - Schedule is a rotation, not fixed weekdays: **Upper A → Lower A → Upper B → Lower B → repeat**, about 4 sessions per 7–8 days. **Full-Body** is a fallback when only one session fits in 3–4 days. It is excluded from weekly volume.
 
-## Current program (v2, 2026-11-11)
+## Current program (v3, 2026-11-13)
 
 Both upper days share one template: vertical pull + horizontal push + horizontal pull + vertical push + delts + arms. They differ in exercise choice and emphasis. Arms go last on upper days. Abs and direct forearm work go on lower days.
 
@@ -34,7 +34,7 @@ Both upper days share one template: vertical pull + horizontal push + horizontal
 |---|---|---|
 | Upper A | Chest | A1 Pull-Up 4×4–8 / A2 Feet-Elevated Push-Up 4×8–15 · B1 One-Arm DB Row 3×8–12 / B2 Pike Push-Up 3×6–10 · C Seated Lateral Raise 4×12–20 · D1 Supinated Curl 3×8–12 / D2 DB Overhead Triceps Ext 3×10–15 |
 | Lower A | Quads | A Bulgarian Split Squat 4×8–12 · B1 Heel-Elevated Goblet Squat 3×10–15 / B2 Single-Leg Calf Raise 3×10–20 · C1 Eccentric Nordic 3×3–6 / C2 Hanging Knee Raise 3×8–15 · D1 Wrist Curl 2×15–20 / D2 Reverse Wrist Curl 2×15–20 |
-| Upper B | Back + shoulders | A1 Chin-Up 4×5–10 / A2 Feet-Elevated Pike Push-Up 4×6–10 · B1 Wide-Elbow Row 3×10–15 / B2 Deficit Push-Up 4×8–15 · C1 Lean-Away Lateral Raise 4×12–20 / C2 Rear Delt Fly 3×12–20 · D Hammer Curl 3×8–12 |
+| Upper B | Back + shoulders | A1 Chin-Up 4×5–10 / A2 Feet-Elevated Pike Push-Up 4×6–10 · B1 Wide-Grip Inverted Row 3×8–15 (table or low bar; was the one-arm wide-elbow DB row until v3) / B2 Deficit Push-Up 4×8–15 · C1 Lean-Away Lateral Raise 4×12–20 / C2 Rear Delt Fly 3×12–20 · D Hammer Curl 3×8–12 |
 | Lower B | Hip hinge | A Single-Leg DB RDL 4×8–12 · B1 Deficit Reverse Lunge 3×8–12 / B2 Towel Sliding Leg Curl 3×6–12 · C1 Seated Lateral Raise 3×12–20 / C2 Bent-Knee Calf Raise 3×12–20 · D1 Side Plank Hip Dips 3×8–12 / D2 DB Reverse Curl 3×10–15 |
 
 Weekly **direct** sets (rotation only; indirect sets in parentheses): chest 8 (+7), front delts 11, side delts 11, rear delts 6, upper traps 0 (+21), lats 11, mid back 6 (+11), biceps 14 (pull-ups count as primary), triceps 10, forearms 10, abs 3 (+22), obliques 3, lower back 0 (+4), glutes 11, quads 10, hamstrings 10, calves 6.
@@ -56,6 +56,7 @@ These are already agreed with the owner. Don't reverse them without asking.
 
   The first three are still selectable as alternatives in their pools. **Hip thrust and shrug are not in any slot's pool**, so add a pool entry if he wants them back.
 - Known trade-offs he accepted: lower back has no direct work (he can swap Lower B's main lift to DB Romanian Deadlift), and upper traps get indirect work only. He picks easier variations himself (for example Split Squat or plain Push-Up) from the alternatives drawer.
+- He trains for general strength and is **not trying hard to follow the plan to the letter**: he picks easier or harder variants on the day and does 3 or 4 sets depending on how his shoulders feel. Treat the plan as a menu, give simple "when to move up" criteria, and don't push strict adherence. Shoulders are a weak point (little prior shoulder work); as of 2026-11-13 he uses Kneeling Pike Push-Up instead of Pike after mild elbow discomfort.
 
 ## Data schema (`window.WORKOUT_DATA`)
 
